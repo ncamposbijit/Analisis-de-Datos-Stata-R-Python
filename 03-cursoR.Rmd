@@ -1,88 +1,80 @@
-# Análisis de datos con R
+# Data Analysis with R
 
-## Introducción a R y RStudio
+## Introduction to R and RStudio
 
-### ¿Por qué utilizar R como lenguaje de programación?
+### Why use R as a programming language?
 
--  **Código abierto:** Licencia no tiene costo.
+-  **Open source:** The license is free.
 
--  **Versátil:** análisis estadístico y econométrico + tareas de
-    programación útiles (ej. web - scraping).
+-  **Versatile:** statistical and econometric analysis + useful programming tasks (e.g., web scraping).
 
--  **Flexible y reproducible:** garantiza reproducibilidad, es flexible
-    ante cambios y detección de errores. 
+-  **Flexible and reproducible:** ensures reproducibility, is flexible to changes and error detection. 
     
--  **Demandado:** Lenguajes de programación de código abierto son solicitados cada vez más en el mercado laboral.
+-  **In demand:** Open-source programming languages are increasingly requested in the labor market.
 
-### Términos clave y recurrentes a lo largo del curso
+### Key and recurring terms throughout the course
 
--   **RStudio:** Interfaz Gráfica para el usuario. Esta diseñada para un
-    uso más sencillo de R.
--   **Objetos:** Cualquier cosa que guardes en R. Por ejemplo: bases de
-    datos, variables, listas de nombres, gráficos.
--   **Funciones:** Una operación producida por un código tal que acepta
-    insumos y retorna productos.
--   **Paquetes:** Es un conjunto de funciones agrupadas según su objetivo. 
--   **Scripts/Códigos:** Documento que contiene todos los comandos
-    utilizados en un proceso de análisis de datos.
+-   **RStudio:** Graphical User Interface. It is designed to make using R easier.
+-   **Objects:** Anything you store in R. For example: datasets, variables, lists of names, plots.
+-   **Functions:** An operation produced by code that accepts inputs and returns outputs.
+-   **Packages:** A set of functions grouped according to their purpose. 
+-   **Scripts/Code:** Document that contains all commands used in a data analysis process.
 
-### Recursos de Aprendizaje
+### Learning Resources
 
 ::: {style="text-align: justify"}
--   Hojas de resumen: material disponible con un resumen de los
-    principales comandos/paquetes/funciones para distintos temas.
-    Disponibles en: <https://www.rstudio.com/resources/cheatsheets/>
+-   Cheat sheets: material available with a summary of the main commands/packages/functions for different topics.
+    Available at: <https://www.rstudio.com/resources/cheatsheets/>
 :::
 
--   Foros y sitios web:
+-   Forums and websites:
     -   [Stackoverflow](https://stackoverflow.com/questions/tagged/r)
     -   [Medium](https://preettheman.medium.com/awesome-tricks-every-r-coder-should-know-c4220cd2cfbc)
-    -   [El Blog de RStudio](https://posit.co/)
--   Libros:
+    -   [The RStudio Blog](https://posit.co/)
+-   Books:
     -   [R for Data Science](https://r4ds.had.co.nz/)
-    -   [Recursos sobre R en
-        español.](https://posit.co/resources/videos/)
+    -   [Resources about R in Spanish.](https://posit.co/resources/videos/)
     -   [Bookdown](https://bookdown.org/)
 - 
 
-### Interfaz RStudio
+### RStudio Interface
 
-#### Cuatro secciones en Rstudio
+#### Four sections in RStudio
 
-Las fundamentales son: *Scripts, Console, 
+The fundamental ones are: *Scripts, Console, 
 Environment/Files/Help*.
 
-- **Scripts:** Donde desarrollaremos los códigos. Es un cuarderno. 
-- **Console:** Donde veremos los resultados.
-- **Environment:** Donde veremos los datos y la información que vamos generando.
-- **Files:** Donde veremos los archivos asociados a nuestros proyectos.
-- **Help:** Donde desarrollaremos los códigos. Es un cuarderno. 
+- **Scripts:** Where we will develop the code. It is a notebook. 
+- **Console:** Where we will see the results.
+- **Environment:** Where we will see the data and the information we are generating.
+- **Files:** Where we will see the files associated with our projects.
+- **Help:** Where we will develop the code. It is a notebook. 
 
-Para personalizar RStudio hay que ir a: **Tools -\> Global Options**.
-Allí pueden cambiar el color del ambiente, tipo de letra, orden. La
-idea es utilizar RStudio de la forma mas intuitiva posible. 
+To customize RStudio go to: **Tools -> Global Options**.
+There you can change the environment color, font type, layout order. The
+idea is to use RStudio in the most intuitive way possible. 
 
-#### Escribir comentarios
+#### Writing comments
 
-Es muy importante escribir comentarios a lo largo de los códigos. Tambíen es importante saber escribir **buenos** comentarios. Una buena guía que habla un poco de eso y de muchas cosas más es: [Code and Data for the Social Sciences: A Practitioner's Guide](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf).
+It is very important to write comments throughout your code. It is also important to know how to write **good** comments. A very good guide that discusses this and many other things is: [Code and Data for the Social Sciences: A Practitioner's Guide](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf).
 
 
-`(#)` para escribir comentarios en el script. Si quiero marcar varias
-lineas como comentario: `ctrl + shift + c`
+`(#)` to write comments in the script. If I want to mark multiple
+lines as comments: `ctrl + shift + c`
 
-#### Índices
+#### Indices
 
-Es importante escribir índices para documentar sus códigos. Para
-observarlo debo escribir: `ctrl + shift + o`
+It is important to write indices to document your code. To
+see it I must type: `ctrl + shift + o`
 
-Los títulos pueden estar jerarquizados:
+Titles can be hierarchical:
 
 ```{r message=FALSE}
-# El mas importante
-## Este es un poco menos importante
-### Este es un poco menos importante que el anterior
-#### El menos importante
-```
+# The most important
+## This is a bit less important
+### This is a bit less important than the previous one
+#### The least important
+````
 
 Es importante actualizarlo constantemente para no perder funcionalidad.
 

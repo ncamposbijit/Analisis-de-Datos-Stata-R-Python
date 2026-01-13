@@ -478,3 +478,15 @@ proceso
 primer-archivo-en-r-markdown
 directorio-de-trabajo
 componentes-de-r-markdown
+data-analysis-with-r
+introduction-to-r-and-rstudio
+why-use-r-as-a-programming-language
+key-and-recurring-terms-throughout-the-course
+learning-resources
+rstudio-interface
+four-sections-in-rstudio
+writing-comments
+indices
+this-is-a-bit-less-important
+this-is-a-bit-less-important-than-the-previous-one
+the-least-important
