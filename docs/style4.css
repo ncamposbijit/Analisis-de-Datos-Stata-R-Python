@@ -41,5 +41,59 @@ p {
   margin-bottom: 15px;  
 }
 
+/* ===========================
+   Modern bs4_book styling
+   =========================== */
+
+/* Better reading width */
+main .page-content, .page-content {
+  max-width: 950px;
+}
+
+/* Typography */
+body {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  margin-top: 1.2em;
+  margin-bottom: 0.6em;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Code blocks */
+pre code {
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+/* Inline code */
+code {
+  padding: 0.12em 0.28em;
+  border-radius: 4px;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid #1f4e79;
+  padding-left: 1rem;
+  margin-left: 0;
+  opacity: 0.95;
+}
+
+/* Tables: cleaner look */
+table {
+  font-size: 0.95em;
+}
+
 
 

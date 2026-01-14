@@ -75,125 +75,118 @@ Titles can be hierarchical:
 #### The least important
 ```
 
-Es importante actualizarlo constantemente para no perder funcionalidad.
+It is important to update it constantly to avoid losing functionality.
 
-### Instalación de paquetes y ayuda
+### Package installation and help
 
-Los paquetes son basicamente conjuntos de funciones. Los paquetes se
-instalan una vez, pero se llaman siempre que se vayan a utilizar.
+Packages are basically collections of functions. Packages are installed once, but they are called every time they are used.
 
-#### Librerías
+#### Libraries
 
-Esto se puede hacer de dos maneras:
+This can be done in two ways:
 
-1.  Desde la pestaña *packages* en la esquina inferior derecha.
+1.  From the *Packages* tab in the bottom-right corner.
 
-2.  Con comandos
+2.  Using commands
+
 
 ```{r message = FALSE, warning = FALSE, results="hide"}
 install.packages("dplyr")
 ```
 
-Varios paquetes a la vez:
+Many packages at the same time: 
 
 ```{r, eval=FALSE}
 install.packages(c("dplyr","ggplot2","rio"))
 ```
 
-Error común:
+Common error: 
 ```{r, eval=FALSE}
 install.packages("dplyr", "ggplot2")
 ```
 
-Por lo general es bueno instalarlas desde el inicio del trabajo dado que
-comúnmente usamos las mismas librerías al realizar análisis de datos.
-Con esta función le decimos a R que instale el paquete si este no está
-instalado (algo típico cuando cambiamos de computador):
+In general, it is a good idea to install them at the beginning of your work, since we commonly use the same libraries when doing data analysis. With this function, we tell R to install the package if it is not installed (something typical when we switch computers):
 
 ```{r, eval=FALSE}
 if(!require(dplyr)) {install.packages("dplyr")}
 ```
 
-Cargar librerías:
+Load libraries: 
 
 ```{r, eval=FALSE}
 library(dplyr)
 ```
 
-Si queremos ver que hay dentro de cada paquete:
+If we want to see what is inside each package:
 
 ```{r, eval=FALSE}
 ls("package:dplyr", all = TRUE) #ls = list objects
 ```
 
-**Importante**: el paquete debe ser instalado una vez, pero cargado cada
-vez que se utilice. Muchas veces hay actualizaciones. Para revisar e
-instalarlas.
+**Important**: the package must be installed once, but loaded every time it is used. There are often updates. To check and install them:
+
 
 ```{r, eval=FALSE}
 update.packages()
 ```
 
-Alternativamente puedo conectar paquete con función utilizando `::`. Si
-hago esto no es necesario llamar a la librería para utilizar esa función
-en particular. No obstante, lo recomendable es cargar todas las
-librerías de los paquetes que voy a utilizar al inicio.
+Alternatively, I can link a package to a function using `::`. If I do this, it is not necessary to load the library in order to use that specific function. However, the recommended practice is to load all the libraries of the packages I will use at the beginning.
 
-#### Función de ayuda
+#### Help function 
 
-Sobre una función en particular:
+About a specific function: 
 
 ```{r, eval=FALSE}
 help(mean) 
 ?mean 
-mean #pulsar la tecla F1 
+mean 
 sd
 ```
 
-Sobre un paquete en particular:
+About a specific package: 
 
 ```{r, eval=FALSE}
 help("dplyr") 
 library(help="dplyr")
 ```
 
-#### *Shortcuts* útiles
+#### Useful *Shortcuts*
 
--   `Esc`: interrumpir el comando actual
--   `Ctrl + s`: guardar
--   `tab`: autocompletar
--   `Ctrl + Enter`: ejecutar línea
--   `Ctrl + Shift + C`: comentar
+-   `Esc`: interrupt the current command
+-   `Ctrl + s`: save
+-   `tab`: autocomplete
+-   `Ctrl + Enter`: run line
+-   `Ctrl + Shift + C`: comment/uncomment
 -   `<-`: Alt + - / option + -
--   `%>%`: ctrl + shift + m (*pipe*)
--   `Ctrl + l`: limpiar
--   `Ctrl + alt + b`: ejecutar todo hasta aquí (flechas en la consola me
-    permiten ver los últimos comandos utilizados).
--   `Shift + lineas`: seleccionar varias lineas
--   `Ctrl + f`: buscar/remplazar
--   `Ctrl + "flecha arriba" en la consola`: ver comandos utilizados.
+-   `%>%`: Ctrl + Shift + M (*pipe*)
+-   `Ctrl + l`: clear console
+-   `Ctrl + Alt + b`: run everything up to here (the arrow keys in the console allow you to view the most recent commands used)
+-   `Shift + lines`: select multiple lines
+-   `Ctrl + f`: find/replace
+-   `Ctrl + Up Arrow` (in the console): view previously used commands
 
-#### Limpiar *"environment"* en R
 
-Eliminar todos los objetos:
+#### Clear the R *environment*
+
+Remove all objects:
 
 ```{r}
 rm(list=ls())
 ```
 
-Eliminar sólo un objeto:
+Remove only one object 
 
 ```{r}
 rm(data1)
 ```
 
-Si quiero limpiar la consola tengo que apretar `Ctrl + L`.
+If I want to clear the console, I need to press `Ctrl + L`.
 
-#### Identificar el paquete de una función
+#### Identify the package of a function
 
-Hay ocasiones en que queremos saber de que paquete es una función
-determinada. Para ello, revisar:
+Sometimes we want to know which package a given function belongs to. For that, check:
 <https://sebastiansauer.github.io/finds_funs/>
+`
 
 #### Error común
 
@@ -207,6 +200,72 @@ Noten que en la consola aparece un signo `+`. En estos casos RStudio se
 detiene porque probablemente se les olvido un `)` o bien un `#`. En
 estos casos hay que corregir el error para ejecutar nuevamente y luego
 apretar `esc` en la consola para seguir ejecutando los comandos.
+
+
+### R Markdown
+
+-   Herramienta para crear informes que sean automáticos, reproducibles
+    y con datos que se puedan actualizar en el tiempo.
+-   Se pueden generar informes en formato word, pdf, html.
+-   R markdown (Rmd) es básicamente una intersección entre texto
+    narrativo y código que genera visualizaciones y estimaciones con el
+    fin de analizar datos.
+-   Rmd puede generar: texto plano, segmentos de co ́digo, gr ́aficos,
+    tablas, tableros interactivos.
+-   R markdown es especialmente útil:
+    -   **Informes rutinarios:** Por ejemplo, informe semanal sobre un
+        conjunto de análisis que se actualiza en el tiempo.
+    -   **Informes de análisis para un subconjunto de datos:** Por
+        ejemplo, informes por país de una base de datos que contiene
+        información de distintos países.
+
+#### Conceptos Básicos
+
+-   **Markdown** es el lenguaje que permite escribir documentos en texto
+    plano. Los archivos escritos en Markdown tienen la extensión `.md`.
+-   **R Markdown** es la variación especifica para R. Permite escribir
+    texto plano con Markdown y adjuntar código proveniente de R. Los
+    archivos escritos en R Markdown tienen la extensión `.Rmd`.
+-   **knirt:** Paquete de R. Sirve para leer los segmentos de código que
+    queremos introducir en los reportes.
+-   **Pandoc:** Sirve para convertir el output en un archivo con formato
+    word/pdf/html. Es un software que viene instalado automáticamente en
+    R.
+
+#### Proceso
+
+![Fuente: <https://rmarkdown.rstudio.com/authoring> quick
+tour.html](01figuras/C8.1.png)
+
+#### Primer archivo en R Markdown
+
+![](01figuras/C8.2.png) ![](01figuras/C8.3.png)
+
+-   Opciones para elegir el tipo de documento y si quiero confeccionar
+    un documento/presentación/un tablero u otros tipos de archivo más
+    detallados.
+-   Opciones para cambiar título y autor(a).
+
+#### Directorio de trabajo
+
+-   El directorio de trabajo de un archivo `.Rmd` será donde esta
+    guardado el archivo con esa extensión.
+-   De este modo, R buscará los archivos en la carpeta en donde este
+    guardado el archivo `.Rmd`.
+-   Para este ejercicio simplemente dejaremos los datos que utilizaremos
+    junto al archivo.
+
+#### Componentes de R Markdown
+
+![](01figuras/C8.4.png)
+
+-   YAML: fijar título, fecha y tipo de output.
+-   Markdown text: introducir texto.
+-   Code Chunk: cargar paquetes, datos, visualizaciones.
+
+![](01figuras/C8.5.png)
+
+
 
 ### Manipulación de objetos
 
@@ -1818,3 +1877,997 @@ tipo de objeto del resultado.
 ```{r}
 vapply(cities, nchar, numeric(1))
 ```
+
+## Manipulación de bases de datos (Parte II)
+
+Ya sabemos cargar datos. Ahora vamos a hacer el primer proceso para
+analizar cualquier base de datos.
+
+### Funciones clave
+
+`Tidyverse` es una colección de paquetes de R. `Tidyverse` contiene
+múltiples paquetes que iremos utilizando. Incluye: `dplyr`, `ggplot2`,
+`tidyr`, `stringr`, `tibble`, `purrr`, `magrittr` y `forcats`. Una
+paquete clave es `dplyr` que contiene muchas funciones para trabajar con
+bases de datos.
+
+Instalamos tidyverse:
+
+```{r}
+install.packages("tidyverse")
+library(tidyverse)
+library(pacman)
+p_load(tidyverse)
+```
+
+### Operador piping
+
+Piping `%>%`: `crtrl + shift + m`. Paquete asociado: `magrittr`
+
+```{r}
+p_load(magrittr)
+```
+
+1.  Operador que permite encadenar las funciones para realizar de manera
+    sencilla transformaciones complejas en las bases de datos.
+2.  Lo que dice es pasar el elemento que esta a su izquierda como un
+    argumento de la función que tiene a la derecha.
+3.  Coloca el énfasis en las acciones. Pasa un output intermedio de una
+    función a la siguiente.
+4.  `magrittr` es el paquete que permite ocupar `piping`. `piping` se
+    utiliza mucho con las librerias de `tidyverse` y `dplyr` enfocadas
+    en análisis de datos.
+5.  Excelente cuando existe una secuencia de acciones/operaciones que
+    queremos realizar.
+
+```{r}
+data(iris)
+
+# Ejemplo 1: usar pipe como encadenador 
+head(iris, n = 4)
+
+# Con piping
+iris %>% head(n = 4)
+
+# Ejemplo 2: obtener número total de observaciones y un promedio. 
+summarize(mtcars, 
+           media = mean(disp))
+
+mtcars %>% summarize(promedio = mean(disp))
+
+# Con piping 
+mtcars %>%
+  filter(mpg > 20) %>% 
+  summarise(promedio = mean(disp))
+
+promedio_mpg_20 <- mtcars %>%
+                   filter(mpg > 20) %>% 
+                   summarise(promedio = mean(disp))
+promedio_mpg_20 
+```
+
+### Proceso de análisis de datos (Parte I): cargar, inspeccionar y limpiar
+
+Preámbulo:
+
+```{r}
+# Limpiar
+rm(list = ls())
+
+# Cargamos paquetes que vamos a utilizar
+library(pacman)
+p_load(
+  rio,        # Importar/Exportar datos 
+  here,       # Determinar las rutas de mi carpeta 
+  tidyverse,  # Analisis de datos y visualización
+  magrittr,   # Para utilizar operador %>%  
+  janitor     # Para análisis de datos
+)
+
+# Importamos datos
+datos <- import(here("datos", "Data.xlsx"), which = "hoja1") 
+```
+
+Inspeccionar:
+
+```{r}
+# Visión general 
+datos 
+view(datos)
+
+# Para una inspección detallada 
+p_load(skimr)
+skim(datos)
+str(datos)
+
+# Mirar algunas filas, columnas, etc.
+
+head(datos)     # muestra las 6 primeras filas 
+tail(datos)     # últimas 6 filas 
+head(datos, 11) # podemos pedir m?s de 6 
+tail(datos, 3)  # o menos de 6
+
+# Mirar nombre variables/columnas
+names(datos)
+datos %>% names()
+
+# `names()` también puede ser 
+names(datos) <- c("YEAR", "GDP", "GROSS_EXPORTS", 
+                  "GROSS_IMPORTS", "NET_EXPORTS" )
+names(datos)
+
+# Mirar filas 
+row.names(datos)
+row.names(mtcars)
+
+# Mirar la cantidad de variables de la base de datos
+length(datos) # columnas o variables
+dim(datos) 
+ncol(datos) 
+nrow(datos)
+
+# ¿Qué tipo de objeto es? 
+class(datos)
+
+# También podemos inspeccionar elementos específicos
+datos<- import(here("datos", "Data.xlsx"), which = "hoja1") 
+
+# Si queremos ver la columna de GDP
+datos$gdp
+datos[2]
+datos[,2]
+
+# Para llamarlos solo por su nombre recordar ocupar `attach()`
+attach(datos)
+gdp
+detach(datos)
+
+# Si queremos un objeto dentro de una variable 
+datos$gdp[7]
+datos[7,2]      #[fila, columna]
+datos[7,"gdp"]
+
+# Si queremos seleccionar parte de la columna 
+datos$gdp[5:10]
+
+# o bien (solo por `attach()`)
+attach(datos)
+gdp[1:2]
+
+# o bien 
+datos[1:2,2] # mostrar las filas 1:2, de la columna 2
+
+# `table()` me permite hacer una tabla sencilla de frecuencias
+table(datos$year)
+attach(datos)
+table(year)
+detach(datos)
+```
+
+::: {.alert .alert-block .alert-warning}
+<b>Ejercicio 2.4.1:</b> Utilizando el operador pipping, mostrar las
+últimas 2 filas de las primeras 11 filas.
+:::
+
+Limpiar:
+
+```{r}
+names(datos) <- c("YEAR", "GDP", "GROSS_EXPORTS", 
+                  "GROSS_IMPORTS", "NET_EXPORTS" )
+names(datos)
+
+# La función `clean_names()` del paquete `janitor` estandariza nombres: 
+
+datos_nuevos <- clean_names(datos)
+names(datos)
+names(datos_nuevos)
+```
+
+Renombrar variables:
+
+```{r}
+rm(list = ls())
+
+datos<- import(here("datos", "Data.xlsx"), which = "hoja1") 
+
+# Función para renombrar variables. Sintaxis: rename(nuevonombre = viejonombre)
+
+# Escribamos esto, pero con `piping`
+datos_renombrados <- datos %>% 
+                     rename(tiempo = year, 
+                     pib = gdp, 
+                     exportaciones = gross_exports)
+names(datos_renombrados)
+rm(datos_renombrados)
+```
+
+Seleccionar variables o columnas:
+
+```{r}
+rm(list= ls())
+datos<- import(here("datos", "Data.xlsx"), which = "hoja1") 
+
+# select() de `dplyr` permite seleccionar variables
+datos_select <- datos %>% 
+                select(year, gdp)  
+
+datos_select1 <- datos %>% 
+  select(c(1:4))
+
+datos_select1 <- datos %>% 
+  select(c(1:ncol(datos)-1))  
+
+# También puedo seleccionar en base a un criterio (Sólo sirve para string)
+datos_select2 <- datos %>% 
+  select(year, contains("Gross"))
+
+# Con `select` también se puede renombrar 
+datos_select_renombrados <- datos %>% 
+                            select(tiempo = year, 
+                                    pib = gdp)
+
+# Una opción es ocupar select con `everything()` para ordeanar mis columnas. 
+datos_select_ordenados <- datos %>% 
+                        select(gdp, year, everything()) 
+```
+
+Remover columnas:
+
+```{r}
+# La idea aqui es decir: todas se quedan, menos las que pongo aquí. 
+datos_select_remover <- datos %>% 
+                      select(-c(gdp, year)) 
+```
+
+Mirar si hay duplicados. En ocasiones es importante revisar si hay
+duplicados. El paquete `dplyr` contiene `distinct()`. Esta función
+examina cada fila y reduce los datos solo a las que sean valores
+diferentes:
+
+```{r}
+datos1 <- datos %>% distinct()
+
+# ¿Cuantos duplicados?
+nrow(datos)
+nrow(datos1)
+
+dif <- nrow(datos) - nrow(datos1) 
+dif
+
+```
+
+### Proceso de análisis de datos (Parte II): cargar, inspeccionar y limpiar
+
+Cargar:
+
+```{r}
+# Limpiamos consola
+rm(list = ls())
+
+# Cargamos paquetes que vamos a utilizar
+pacman::p_load(
+  rio,        # importar/exportar datos. 
+  here,       # escribir rutas de las carpetas.  
+  janitor,    # limpiar datos y tablas.
+  tidyverse,  # Manejo de bases de datos y visualización. 
+  magrittr,    # Permite utilizar operador %>% (piping). 
+  skimr,       # Inspeccionar datos
+  inspectdf,   # Inspeccionar datos
+  gapminder    # Base de datos con información de países. 
+)
+data("gapminder")
+gapminder %>% view()
+
+# Cargamos datos que vienen incluidos en R. 
+data(starwars) 
+starwars 
+```
+
+Inspeccionar datos:
+
+```{r}
+#  Inspect_cat() retorna una base de datos que resume características de un data.frame.
+inspeccion <- inspect_cat(starwars)
+inspeccion
+class(inspeccion)
+
+# Las columnas son: 
+
+# col_names: nombre de cada columna
+# cnt: número de valores únicos por nivel
+# common: el nivel más común
+# common_pcnt: el porcentaje de ocurrencia del nivel más común.
+# levels: una lista de dataframes (tibbles) cada uno con tablas de frecuencia para todos los niveles. 
+
+# Notar que una de las columnas de un data frame pueden ser listas: 
+inspeccion[1,5]
+inspeccion[2,5]
+inspeccion[3,5]
+inspeccion[4,5]
+inspeccion[5,5]
+
+# Ahora, si quiero ver el contenido, debo utilizar doble paréntesis cuadrado
+inspeccion[1,5]      # Con el nombre
+inspeccion[[1,5]]    # El contenido
+inspeccion[[5]]      # El contenido de todas las filas, en este caso, listas
+inspeccion[[5]][[1]]
+inspeccion[[5]][[2]]
+
+# Una forma más simple de mirar esta información es:
+inspeccion$levels$eye_color
+inspeccion[[5]][[1]]
+
+# Otra cosa interesante de este paquete es la función `show_plot()`
+starwars %>% inspect_cat() %>% show_plot()
+
+# Esta función permite ver las categorías de cada variable categórica. Noten que las zonas en gris son los NA. 
+```
+
+Limpiar bases de datos (continuación):
+
+```{r}
+rm(list= ls())
+
+datos<- import(here("datos", "Data.xlsx"), which = "hoja1") 
+```
+
+-   Seleccionar columnas:
+
+```{r}
+# Vimos que `select()` es parte importante. `select()` puede ser utilizado con varias funciones adicionales: 
+
+# 1. everything () - todas las otras columnas no mencionadas.
+datos_everything <- datos %>% 
+  select (year, gdp, everything()) 
+
+# 2. last_col () - la última columna.
+datos_last_col <- datos %>% 
+  select(year, last_col())
+
+# 3. where () - aplicar una función a todas las columnas y 
+#               selecciona solo las que cumple esta condición 
+#               (es decir, cuando es verdadera). 
+datos_where <- datos %>% 
+  select(where(is.logical))
+
+# 4. contains () - columns containing a character string
+datos_contains <- datos %>% 
+  select(contains("exports"))
+
+# 5. starts_with () - selecciona la variable si se tiene un prefijo determinado
+datos_starts_with <- datos %>% 
+                     select(starts_with("gross_")) 
+
+# 6. ends_with () - selecciona la variable si se tiene un sufijo determinado
+datos_ends_with <- datos %>% 
+  select(ends_with("_imports")) 
+
+# 7. matches () - aplicar una expresión regular 
+datos_matches <- datos %>% 
+  select(matches("gross|gdp"))
+
+# 8. any_of () - la selecciona si la columna existe pero NO retorna error 
+#                si no la encuentra. 
+datos_any_of  <-  datos %>% 
+  select(any_of(c("year", "gdp", "cualquiercosa")))
+```
+
+-   Manipulación de NAs: Con vectores. Los NA son parte importante de la
+    limpieza de los datos. Recordemos que la función `is.na()` nos
+    permite identificarlos.
+
+```{r}
+x <- c(1,2,NA,NA,5)
+malos <- is.na(x)  
+malos
+class(malos)
+
+# Si queremos eliminar los NA es cosa de colocar un vector sobre otro
+x[!malos]
+x[!is.na(x)]
+
+x <- x[!malos]
+x
+```
+
+-   Manipulación de NAs: con `complete cases()`
+
+```{r}
+# Miremos un caso más práctico con iris
+summary(iris)
+skim(iris)
+data("iris")
+
+# Generar NA en la base de datos (después veremos esto en detalle ahora concéntrense solo en los NA)
+iris$Sepal.Length<-ifelse(iris$Sepal.Length<5, NA,iris$Sepal.Length)
+
+# Dos opciones: 
+
+  # (i) como antes
+  malos <- is.na(iris$Sepal.Length)
+  iris2 <- iris[!malos,] 
+  iris2
+
+  # (ii) utilizando `complete.cases()`
+  completos <- complete.cases(iris$Sepal.Length)
+  head(completos, 100) 
+
+  # Creamos una base nueva solo con casos completos. 
+  iris3 <- iris[completos,] 
+  head(iris3)  
+  summary(iris3) 
+```
+
+## Manipulación de bases de datos (Parte III)
+
+### Crear Variables
+
+#### Crear variables binarias
+
+Ahora vamos a ver como crear variables dicótomas o binarias. Estas
+variables son muy importantes para hacer análisis de datos. Vamos a
+utilizar la función `ifelse()`.
+
+```{r}
+rm(list= ls())
+data <- import(here("datos", "Data.xlsx"), which = "hoja1") 
+
+# Asignar valor 1 si estamos en democracia, 0 caso contrario
+data <- data %>% mutate(demo = ifelse(year>=1990,1,0))
+table(data$demo)
+
+# Tabla 1: ¿Cual fue el pib promedio en democracia y en dictadura?
+tabla1 <- data %>% group_by(demo) %>% 
+                   summarize(promediopib = mean(gdp, na.rm = TRUE)) 
+tabla1 
+
+# Asignar valor 1 si estamos en democracia y el pib es mayor a su media
+data <- data %>%  mutate(avance = ifelse(demo == 1 & gdp > mean(gdp),
+                                         1,0))
+mean(data$gdp)
+
+# Asignar valor 1 si estamos en democracia y si dentro de esos periodos
+# las exportaciones netas son mayores a la mediana de las importaciones 
+data$expo <-ifelse(data$demo==1, ifelse(data$gross_exports>
+                                          median(data$gross_imports),1,0),0)
+table(data$expo)
+```
+
+::: {.alert .alert-block .alert-warning}
+<b>Ejercicio 2.5.1:</b> Escriba lo anterior utilizando mutate.
+:::
+
+Respuesta:
+
+```{r}
+data <- data %>% mutate(expo = ifelse(demo==1, 
+                                      ifelse(gross_exports>
+                                          median(gross_imports),1,0),0))
+```
+
+#### Crear variables categóricas
+
+También podemos crear variables categóricas utilizando `ifelse()`. De
+manera muy sencilla podemos generar variables según ciertas condiciones:
+
+```{r}
+# De manera muy sencilla podemos generar variables según ciertas condiciones  
+data$tipo<-ifelse(data$year<1980 & data$year>1959,1,
+                  ifelse(data$year<2000 & data$year>1979,2,
+                         ifelse(data$year<2010 & data$year>1999,3,4)
+                  )
+)
+table(data$tipo)  
+
+#  Nota: no es recomendable utilizar o escribir tantos `ifelse()` juntos.
+# Es mejor utilizar `case_when()` que veremos un más adelante. 
+```
+
+### Factores
+
+R puede codificar automáticamente una variable categorica (factor) con
+un número entero. Sirven para hacer estadisticas o estimar regresiones.
+Los factores, pueden ser ordenados o no ordenados, se utilizan para
+representar variables que se agrupan en categorías.
+
+Veamos un ejemplo:
+
+```{r}
+x <- rep(c("Ford","BMW","Peugeot"),10)
+x
+
+class(x)
+
+# `factor()`
+factor_nominal <- factor(x)
+factor_nominal
+class(factor_nominal)
+levels(factor_nominal) #para analizar que niveles tiene el objeto
+table(factor_nominal)  # resume la cantidad de observaciones por nivel
+```
+
+### Funciones útiles para transformar bases de datos
+
+`across()`: Algunas veces queremos aplicar una función a múltiples
+variables, para ello vamos a utilizar la función `across()` y
+especificar la función con `fns`. Por ejemplo:
+
+```{r}
+datos2 <- data %>% 
+          mutate(across(cols = everything(), fns = as.numeric))
+
+# Aquí `across()`, que es una función de "dplyr", permite ser utilizada con `mutate()`, `select()`, `filter()`, `summarise()`, etc. 
+datos3 <- data %>% 
+  mutate(across(.cols = contains("gross"), .fns = as.numeric))
+```
+
+`cumsum()`: Suma acumulada
+
+```{r}
+# Para hacer operaciones acumuladas
+sum(c(2,4,15,10))     # Retorna la suma del vector
+cumsum(c(2,4,15,10))  # Retorna la suma acumulada del vector
+
+# Puedo utilizarla con mutate ()
+datos_acumulados <- data %>% 
+  arrange(year) %>% 
+  count(gdp) %>% 
+  mutate(gdp_acumulado = cumsum(n))
+datos_acumulados
+```
+
+Recodificar variables: A continuación se presentan algunos escenarios en
+los que es necesario recodificar (cambiar) los valores:
+
+1.  Editar un valor específico (por ejemplo, una fecha con un año o
+    formato incorrecto)
+2.  Para conciliar valores que no se escriben igual
+3.  Crear una nueva columna de valores categóricas
+4.  Crear una nueva columna de categorías numéricas (por ejemplo,
+    categorías de edad)
+
+`recode ()`: Cambiar valores
+
+```{r}
+rm(list= ls())
+data <- import(here("datos", "Data.xlsx"), which = "hoja1") 
+data <- data %>% mutate(demo = ifelse(year>=1990,1,0))
+
+# Seguimos con data 
+names(data)
+
+# Creamos una nueva variable 
+datos <- data %>% mutate(regimen = ifelse(demo == 1, "Democracia", "Dictadura"))
+datos 
+
+# Recodificamos (cambiar nombres)
+datos <- datos %>% 
+         mutate(regimen = recode(regimen, "Democracia" = "Demo", 
+                          "Dictadura" = "Dict"))
+datos 
+
+# Notar que es vieja variable por nueva variable
+```
+
+`replace()`: Reemplazar valores
+
+```{r}
+datos <- datos %>%  mutate(avance = ifelse(demo == 1 & gdp > mean(gdp),
+                                           1,0))
+
+# Similar sintaxis a la de recode
+datos <- datos %>% 
+         mutate(regimen = replace(regimen, avance == 0, "No cambio en el pib"))
+
+# Sintaxis
+# mutate(columna a cambiar = replace(columna a cambiar, 
+#                                      criterio para las filas, 
+#                                      nuevo valor)).
+
+# Un equivalente a `replace()` es utilizar []. 
+datos$regimen[datos$avance == 0] <- "No cambio en el pib"
+```
+
+`replace_na()`: Para cambiar los valores perdidos (NA) por un valor
+específico, como "Missing", utilice la función `dplyr` `replace_na()`
+dentro de `mutate()`:
+
+```{r}
+datos_ficticios <- data.frame(var1 = c(seq(1,10), NA),
+                              var2 = c(rep(NA,11)))
+datos_ficticios
+
+datos_ficticios1 <- datos_ficticios %>% 
+                    mutate(var1 = replace_na(var1, 0))
+datos_ficticios1
+```
+
+::: {.alert .alert-block .alert-danger}
+<b>Recordatorio:</b> Esta función cambia los missing values solo por
+valores de la misma clase de la variable/columna, por lo tanto, si
+trabajamos con valores de clase numérica los reemplazos deben ser
+también numéricos.
+:::
+
+`case_when()`: una función de `dplyr`. Es útil para asignar múltiples
+valores. Sirve si se necesita recodificar muchos grupos:
+
+```{r}
+rm(list = ls())
+
+datosedad <- data.frame(edad = c(2,3,4,1,500,2330,8,10,12), 
+                        unidad = c("años","años", "años", NA, "meses", "meses", 
+                                   "años", "años", "semanas"))
+datosedad
+
+# Imaginemos que queremos tener una medida comparable de edad, para ello
+# podemos utilizar `case_when()`. 
+datos_case_when <-  datosedad %>% 
+  mutate(edad_años = case_when(
+    unidad == "años"  ~ edad, 
+    unidad == "meses" ~ edad/12, 
+    unidad == "semanas" ~ edad/52, 
+    is.na(unidad) ~ edad))
+
+datos_case_when
+```
+
+### Cambio de formato de los datos
+
+#### De ancho a largo
+
+En en siguiente ejemplo, los datos están guardaos en "wide" para las
+columnas que tienen el número de casos de malaria por tramos de edad.
+Para un trabajo de análisis de datos es importante transformar los datos
+a "long".
+
+```{r}
+rm(list = ls())
+count_data <- import(here("datos","malaria_facility_count_data.rds"))
+head(count_data)
+```
+
+`pivot_longer()`: función del paquete `tidyr`. Paquete incluido en
+`tidyverse()`. Transforma los datos de wide a long.
+
+```{r}
+df_long <- count_data %>% 
+  pivot_longer(
+    cols = c("malaria_rdt_0-4", 
+             "malaria_rdt_5-14", 
+             "malaria_rdt_15", 
+             "malaria_tot")
+  )
+
+df_long 
+
+# Una mejor opción es con la función starts_with(): 
+count_data %>% 
+  pivot_longer(
+    cols = starts_with("malaria_")
+  )
+
+# Para agregar nombres a las nuevas variable creadas
+df_long1 <- count_data %>% 
+  pivot_longer(
+    cols = starts_with("malaria_"),
+    names_to = "grupo_edad",
+    values_to = "casos_malaria"
+  )
+
+df_long1
+```
+
+#### De largo a ancho
+
+`pivot_wider()`: Transforma los datos de long a wide. Útil si quiero
+hacer una tabla mas amigable para el o la lectora.
+
+```{r}
+rm(list = ls())
+linelist <- import(here("datos","linelist_cleaned.rds"))
+
+ df_wide <- linelist %>%
+   count(age_cat, gender)
+ df_wide
+
+# En un mejor formato
+ table_wide <- df_wide %>%
+  pivot_wider(
+     id_cols = age_cat,
+     names_from = gender,
+     values_from = n
+   )
+
+ table_wide
+```
+
+Otra opción para hacer esto mismo es `gather()` y `spread()`:
+
+```{r}
+rm(list = ls())
+datos <- import(here("datos","Cuadro_1.xls"), skip = 1) 
+
+# Cargamos datos que estan en formato ancho y los preparamos un poco...
+datos <- datos[-c(1:2)]  
+colnames(datos) <- c(1960:2018)
+colnames(datos)
+
+# 1. Como vemos, los años estan en las columnas, y queremos pasar a long data, 
+# de forma tal que los años esten en una columna y el pib en otra 
+# 2. La funciom "gather()" transforma los datos de formato ancho (wide) a 
+# formato largo (long)
+
+# De ancho a largo: utilizando la función gather()
+# La primera es la variable "clave" y la segunda es la del valor
+data_long <- datos %>% 
+  gather(año, pib, 1:59)
+data_long
+
+# De largo a ancho: utilizando la función spread()
+data_wide <- data_long %>% 
+  spread(año,pib)
+data_wide
+```
+
+### Juntar bases de datos
+
+#### Pegar hacia el lado (por columnas)
+
+En el siguiente ejemplo, tenemos datos de hospitales.
+
+```{r}
+rm(list = ls())
+hosp_info <- import(here("datos","hosp_info_final.xlsx"))
+linelist_mini <- import(here("datos","linelist_mini_final.xlsx"))
+```
+
+Sintaxis: Imaginemos que tenemos dos bases de datos "df1", "df2". df1
+tienen una columna llamada "ID". df2 tiene una columna que se llama
+identificador.
+
+```{r}
+# Caso 1: nombres de identificadores distintos.
+data_junta <- join(df1,
+                   df2,
+                   by = c("ID" = "identificador"))
+
+# Caso 2: imaginemos ambas bases de datos (df1, df2) tienen un
+#         identificador llamado "ID"
+
+data_junta <- join(df1,
+                        df2,
+                        by = "ID")
+
+# Caso 3: imaginemos queremos pegar bases de datos considerando más
+#         de un identificador.
+data_junta <- join(df1, df2, by = c("nombre" = "primernombre",
+                                         "apellido" = "primerapellido",
+                                         "Edad" = "edad"))
+```
+
+**Left y Right join:**
+
+```{r}
+# Left join: la primera base de datos que aparece es la referencia.
+# Right join: la segunda base de datos que aparece es la referencia.
+
+# Left_join
+left_join_ex1 <- left_join(linelist_mini,
+                           hosp_info,
+                           by = c("hospital" = "hosp_name"))
+
+
+right_join_ex1 <- right_join(hosp_info,
+                             linelist_mini,
+                             by = c("hosp_name" = "hospital"))
+
+# Ambos son equivalentes. 
+right_join_ex2 <- right_join(linelist_mini,
+                             hosp_info,
+                             by = c("hospital" = "hosp_name"))
+
+left_join_ex2 <- linelist_mini %>%
+  left_join(hosp_info,
+            by = c("hospital" = "hosp_name"))
+
+# Notas:
+
+# 1. Todas las filas/observaciones de la base de datos de referencia
+#    se mantienen.
+# 2. Si hay más de un match, se duplican las observaciones.
+# 3. Los identificadores se combinan. Según el nombre
+#     de la columna de la base de datos de referencia.
+# 4. Cuando no hay un "match" las columnas se llenan con un NA
+#     para las observaciones de la base de referencia.
+# 5. No "match" por la base que no es de referencia se borran.
+```
+
+**Full Join:** El más inclusivo de los "joins". Retorna todas las
+observaciones/filas:
+
+```{r}
+full_join_ex3 <- full_join(linelist_mini,
+                           hosp_info,
+                           by = c("hospital" = "hosp_name"))
+
+full_join_ex3 <- linelist_mini %>%
+  full_join(hosp_info,
+            by = c("hospital" = "hosp_name"))
+```
+
+**Inner join:** El más restrictivo de los "join". Retorna solo las filas
+que hicieron match entre ambas bases de datos.
+
+```{r}
+# Su análogo en stata es:  merge 1:1, keep _merge==3
+# Los que se pegaron perfectamente entre ambas bases.
+
+inner_join_example <- linelist_mini %>%
+  inner_join(hosp_info,
+             by = c("hospital" = "hosp_name"))
+```
+
+**Semi - join:** Mantiene todas las observaciones de la base de
+referencia que tengan un "match" en la base secundaria, pero NO agrega
+nuevas columnas ni duplicados en casos de multiples "match".
+
+```{r}
+semi_join_example1 <- semi_join(hosp_info, linelist_mini, 
+                                by = c("hosp_name" ="hospital"))
+
+
+semi_join_example <- hosp_info %>%
+                     semi_join(linelist_mini,
+                     by = c("hosp_name" = "hospital"))
+```
+
+**Anti- join:** Se le llama, al igual que semi-join "join de filtros".
+Retorna las observaciones/filas en la base de datos de referencia que no
+hacen "match" en base de datos secundaria.
+
+```{r}
+anti_join_example <- hosp_info %>%
+  anti_join(linelist_mini,
+            by = c("hosp_name" = "hospital"))
+```
+
+La función `merge`:
+
+```{r}
+rm(list = ls())
+
+authors <- data.frame(
+  surname = (c("Tukey", "Venables", "Tierney", "Ripley", "McNeil")),
+  nationality = c("US", "Australia", "US", "UK", "Australia"),
+  deceased = c("yes", rep("no", 4)))
+authors
+
+books <- data.frame(
+  name = (c("Tukey", "Venables", "Tierney",
+             "Ripley", "Ripley", "McNeil", "R Core")),
+  title = c("Exploratory Data Analysis",
+            "Modern Applied Statistics ...",
+            "LISP-STAT",
+            "Spatial Statistics", "Stochastic Simulation",
+            "Interactive Data Analysis",
+            "An Introduction to R"),
+  other.author = c(NA, "Ripley", NA, NA, NA, NA,
+                   "Venables & Smith"))
+books
+
+m0 <- merge(authors,
+            books,
+            by.x = "surname", by.y = "name")
+m0
+
+# Por defecto solo mantiene las que hicieron match.
+m1 <-  merge(authors,
+             books,
+             by.x = "surname", by.y = "name", all = TRUE)
+m1
+```
+
+#### Pegar hacia abajo (por filas)
+
+Otra forma de unir bases de datos es agregar filas. Similar a lo que se
+hace con `append()` en Stata. Vamos a utilizar la función `bind_rows()`
+desde el paquete "dplyr".
+
+1.  `bind_rows()` es bastante inclusivo. Cualquier columna presente en
+    las bases de datos se incluye en el output.
+2.  Si ambas columnas se llaman igual, se alinearan correctamente.
+3.  Adicionalmente, podemos agregar el argumento `.id=`. Este argumento
+    genera una nueva columna que sirve para identificar de donde
+    proviene la informacion.
+
+**Ejemplo 1:** caso sencillo
+
+```{r}
+continente_resumen <- gapminder %>%
+  group_by(continent) %>%
+  summarise(
+    cases = n(),
+    gdpPercapmedian = median(gdpPercap, na.rm = TRUE))
+continente_resumen
+
+# Crear Tabla 2: sin agrupar
+totales <- gapminder %>%
+  summarise(
+    cases = n(),
+    gdpPercapmedian =  median(gdpPercap, na.rm=T)
+  )
+totales
+
+# Ahora las podemos pegar
+combinadas <- bind_rows(continente_resumen, totales)
+combinadas
+
+# ¿Como cambiar ese NA? 
+combinadas <- combinadas %>% 
+              mutate(continent = replace_na("total"))
+combinadas
+
+# Muy util colocar "id"
+combinadas_id <- bind_rows(continente_resumen, 
+                           totales, 
+                           .id = "id")
+combinadas_id
+```
+
+**Ejemplo 2:** ¿Qué ocurre si hay más de un archivo?
+
+```{r}
+# Base de datos maestra
+trial <- data.frame(
+  year    = c(2016, 2017, 2018, 2019),
+  n       = c(501, 499, 498, 502),
+  outcome = c(51, 52, 49, 50)
+) %>%
+  print()
+
+# Base de datos 1
+trial_2020 <- data.frame(
+  year    = 2020,
+  n       = 500,
+  outcome = 48
+) %>%
+  print()
+
+# Base de datos 2
+trial_2021 <- data.frame(
+  year      = 2021,
+  n         = 598,
+  outcome   = 57
+) %>%
+  print()
+
+# Para combinar mas de una base de datos
+trial1<- bind_rows(trial,trial_2020, trial_2021)
+```
+
+**Ejemplo 3:** ¿Qué ocurre si tengo muchos archivos?
+
+```{r}
+rm(list=ls())
+library(pacman)
+p_load(plyr)    # Recomendable ocupar paquete plyr.
+
+allfiles <- list.files(path = "datos",
+                       pattern = ".csv",
+                       full.names = TRUE)
+allfiles
+
+# Append data
+combined_data<- ldply(allfiles, read_csv)
+combined_data
+
+# Transformar a un data.frame.
+combined_data_sep <- separate(data = combined_data,
+                              col = "year;n;outcome",
+                              into = c("year", "n", "outcome"),
+                              sep = ";")
+combined_data_sep
+```
+
+

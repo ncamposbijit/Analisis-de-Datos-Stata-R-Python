@@ -1,7 +1,6 @@
-bookdown::bs4_book:
+bookdown::gitbook:
   css: style4.css
   config:
     toc:
       before: |
         <li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
- 

@@ -3,14 +3,33 @@ title: "Using R for data analysis"
 author: "Nicolás Campos Bijit"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
+
 output:
   bookdown::gitbook:
     highlight: tango
+    css: style4.css
+    split_by: section
+    config:
+      toc:
+        collapse: section
+        scroll_highlight: yes
+      download: null
+      sharing:
+        github: yes
+        facebook: no
+        twitter: no
+      fontsettings:
+        theme: white
+        family: sans
+        size: 2
+
 bibliography: references.bib
 biblio-style: apalike
 link-citations: yes
-description: A book focused on teaching data analysis using R
+description: "A book focused on teaching data analysis using R"
 ---
+
+
 
 # Introducción 
 

@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.2 Herramientas de programación | Using R for data analysis</title>
+  <meta name="description" content="A book focused on teaching data analysis using R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.2 Herramientas de programación | Using R for data analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book focused on teaching data analysis using R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.2 Herramientas de programación | Using R for data analysis" />
+  
+  <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
+  
+
+<meta name="author" content="Nicolás Campos Bijit" />
+
+
+<meta name="date" content="2026-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-r-and-rstudio.html"/>
+<link rel="next" href="manipulación-de-bases-de-datos-parte-i.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="data-analysis-with-r.html"><a href="data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Data Analysis with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r-as-a-programming-language"><i class="fa fa-check"></i><b>2.1.1</b> Why use R as a programming language?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-and-recurring-terms-throughout-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key and recurring terms throughout the course</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning Resources</a></li>
+<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#package-installation-and-help"><i class="fa fa-check"></i><b>2.1.5</b> Package installation and help</a></li>
+<li class="chapter" data-level="2.1.6" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#manipulaci%C3%B3n-de-objetos"><i class="fa fa-check"></i><b>2.1.6</b> Manipulación de objetos</a></li>
+<li class="chapter" data-level="2.1.7" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.1.7</b> Tipos de objetos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html"><i class="fa fa-check"></i><b>2.2</b> Herramientas de programación</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#objetos-adicionales"><i class="fa fa-check"></i><b>2.2.1</b> Objetos adicionales</a></li>
+<li class="chapter" data-level="2.2.2" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#acceder-a-elementos-de-un-objeto"><i class="fa fa-check"></i><b>2.2.2</b> Acceder a elementos de un objeto</a></li>
+<li class="chapter" data-level="2.2.3" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#tipos-de-objetos-y-datos"><i class="fa fa-check"></i><b>2.2.3</b> Tipos de objetos y datos</a></li>
+<li class="chapter" data-level="2.2.4" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#herramientas-en-r"><i class="fa fa-check"></i><b>2.2.4</b> Herramientas en R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="manipulación-de-bases-de-datos-parte-i.html"><a href="manipulación-de-bases-de-datos-parte-i.html"><i class="fa fa-check"></i><b>2.3</b> Manipulación de bases de datos (Parte I)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="manipulación-de-bases-de-datos-parte-i.html"><a href="manipulación-de-bases-de-datos-parte-i.html#principios-de-programaci%C3%B3n"><i class="fa fa-check"></i><b>2.3.1</b> Principios de programación</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for data analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="herramientas-de-programación" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Herramientas de programación<a href="herramientas-de-programación.html#herramientas-de-programaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="objetos-adicionales" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Objetos adicionales<a href="herramientas-de-programación.html#objetos-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="arreglos" class="section level4 hasAnchor" number="2.2.1.1">
+<h4><span class="header-section-number">2.2.1.1</span> Arreglos<a href="herramientas-de-programación.html#arreglos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Crear arreglos: La única diferencia con matrices es que acepta mas de
+dos dimensiones.</p>
+<p>Para generarlos:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="herramientas-de-programación.html#cb160-1" tabindex="-1"></a>mi.arreglo <span class="ot">&lt;-</span><span class="fu">array</span>(vector, </span>
+<span id="cb160-2"><a href="herramientas-de-programación.html#cb160-2" tabindex="-1"></a>                   dimensiones, </span>
+<span id="cb160-3"><a href="herramientas-de-programación.html#cb160-3" tabindex="-1"></a>                   <span class="at">dimnames =</span> etiquetas_dim)</span></code></pre></div>
+<p>Para nombrarlos definimos etiquetas y luego las agregamos. Es mucho
+mejor y mas ordenado hacerlo así:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="herramientas-de-programación.html#cb161-1" tabindex="-1"></a>dim1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A1&quot;</span>, <span class="st">&quot;A2&quot;</span>)</span>
+<span id="cb161-2"><a href="herramientas-de-programación.html#cb161-2" tabindex="-1"></a>dim2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;B1&quot;</span>, <span class="st">&quot;B2&quot;</span>, <span class="st">&quot;B3&quot;</span>, <span class="st">&quot;B4&quot;</span>)</span>
+<span id="cb161-3"><a href="herramientas-de-programación.html#cb161-3" tabindex="-1"></a>dim3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;C1&quot;</span>, <span class="st">&quot;C2&quot;</span>, <span class="st">&quot;C3&quot;</span>)</span></code></pre></div>
+<p><strong>Ejemplo de arreglo:</strong> Defino un arreglo de 3 matrices de 2 (filas) x 4
+(columnas)</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="herramientas-de-programación.html#cb162-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">array</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">24</span>,</span>
+<span id="cb162-2"><a href="herramientas-de-programación.html#cb162-2" tabindex="-1"></a>           <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>),</span>
+<span id="cb162-3"><a href="herramientas-de-programación.html#cb162-3" tabindex="-1"></a>           <span class="at">dimnames =</span> <span class="fu">list</span>(dim1, dim2, dim3))</span>
+<span id="cb162-4"><a href="herramientas-de-programación.html#cb162-4" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## , , C1
+## 
+##    B1 B2 B3 B4
+## A1  1  3  5  7
+## A2  2  4  6  8
+## 
+## , , C2
+## 
+##    B1 B2 B3 B4
+## A1  9 11 13 15
+## A2 10 12 14 16
+## 
+## , , C3
+## 
+##    B1 B2 B3 B4
+## A1 17 19 21 23
+## A2 18 20 22 24</code></pre>
+<p>Notar la tercera dimensión!</p>
+<p><strong>Subconjuntos de un arreglo:</strong> x[Fila,Columna, Matriz]</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="herramientas-de-programación.html#cb164-1" tabindex="-1"></a>x[<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>]       <span class="co"># 1 fila, 2da columna, 3ra matriz</span></span></code></pre></div>
+<pre><code>## [1] 19</code></pre>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="herramientas-de-programación.html#cb166-1" tabindex="-1"></a>x[,,<span class="dv">3</span>]         <span class="co"># 3era matriz completa</span></span></code></pre></div>
+<pre><code>##    B1 B2 B3 B4
+## A1 17 19 21 23
+## A2 18 20 22 24</code></pre>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="herramientas-de-programación.html#cb168-1" tabindex="-1"></a>x[,<span class="dv">4</span>,]         <span class="co"># 4ta columna de todas las matrices</span></span></code></pre></div>
+<pre><code>##    C1 C2 C3
+## A1  7 15 23
+## A2  8 16 24</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="herramientas-de-programación.html#cb170-1" tabindex="-1"></a>x[,<span class="sc">-</span><span class="dv">1</span>,<span class="dv">2</span>]       <span class="co"># Todas las filas, sin la primera columna, de la matriz 2. </span></span></code></pre></div>
+<pre><code>##    B2 B3 B4
+## A1 11 13 15
+## A2 12 14 16</code></pre>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="herramientas-de-programación.html#cb172-1" tabindex="-1"></a>x[<span class="sc">-</span><span class="dv">1</span>,<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>),<span class="dv">3</span>] <span class="co"># Todas las columnas, sin la fila 1, de la matriz 3. </span></span></code></pre></div>
+<pre><code>## B1 B2 
+## 18 20</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="herramientas-de-programación.html#cb174-1" tabindex="-1"></a>x[<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,<span class="dv">3</span>]    <span class="co"># Columnas 1 y 2, sin la fila 1, de la matriz 3. </span></span></code></pre></div>
+<pre><code>## B1 B2 
+## 18 20</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="herramientas-de-programación.html#cb176-1" tabindex="-1"></a>x[,,<span class="dv">1</span>]<span class="sc">*</span><span class="dv">2</span></span></code></pre></div>
+<pre><code>##    B1 B2 B3 B4
+## A1  2  6 10 14
+## A2  4  8 12 16</code></pre>
+</div>
+<div id="listas" class="section level4 hasAnchor" number="2.2.1.2">
+<h4><span class="header-section-number">2.2.1.2</span> Listas<a href="herramientas-de-programación.html#listas" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Las listas contienen elementos de diferente tipo: matrices, objetos,
+dataframes, vectores, etc.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="herramientas-de-programación.html#cb178-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), <span class="st">&quot;R&quot;</span>, <span class="cn">TRUE</span>, <span class="dv">2</span><span class="sc">+</span><span class="dv">3</span><span class="dt">i</span>, <span class="dv">5</span><span class="dt">L</span>)</span>
+<span id="cb178-2"><a href="herramientas-de-programación.html#cb178-2" tabindex="-1"></a>x <span class="co">#separa todo componente</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1 2 3 4 5 6 7 8
+## 
+## [[2]]
+## [1] &quot;R&quot;
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] 2+3i
+## 
+## [[5]]
+## [1] 5</code></pre>
+<p>Para acceder a un objeto dentro de la lista se debe utilizar DOBLE
+CORCHETE:</p>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="herramientas-de-programación.html#cb180-1" tabindex="-1"></a>x[[<span class="dv">5</span>]]</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="herramientas-de-programación.html#cb182-1" tabindex="-1"></a>x[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 5</code></pre>
+<p>Veamos un ejemplo de cómo trabaja:</p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="herramientas-de-programación.html#cb184-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Titulacion =</span> <span class="fu">c</span>(<span class="st">&quot;Economia&quot;</span>, <span class="st">&quot;Administracion&quot;</span>, <span class="st">&quot;Politica&quot;</span>), </span>
+<span id="cb184-2"><a href="herramientas-de-programación.html#cb184-2" tabindex="-1"></a>           <span class="at">Edad =</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">23</span>,<span class="dv">27</span>))</span>
+<span id="cb184-3"><a href="herramientas-de-programación.html#cb184-3" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## $Titulacion
+## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Politica&quot;      
+## 
+## $Edad
+## [1] 25 23 27</code></pre>
+<p>Al nombrar los componentes dentro de la lista, podemos llamarlos sin
+necesidad de los corchetes:</p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="herramientas-de-programación.html#cb186-1" tabindex="-1"></a>x<span class="sc">$</span>Titulacion</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Politica&quot;</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="herramientas-de-programación.html#cb188-1" tabindex="-1"></a>x[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Politica&quot;</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="herramientas-de-programación.html#cb190-1" tabindex="-1"></a>x[[<span class="st">&quot;Titulacion&quot;</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Politica&quot;</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="herramientas-de-programación.html#cb192-1" tabindex="-1"></a>x<span class="sc">$</span>Edad</span></code></pre></div>
+<pre><code>## [1] 25 23 27</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="herramientas-de-programación.html#cb194-1" tabindex="-1"></a>x[[<span class="dv">2</span>]]</span></code></pre></div>
+<pre><code>## [1] 25 23 27</code></pre>
+<p>Como los componentes dentro de las listas tienen definida una
+naturaleza, podemos hacer operaciones con ellas también:</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="herramientas-de-programación.html#cb196-1" tabindex="-1"></a>x[[<span class="st">&quot;Edad&quot;</span>]]<span class="sc">*</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 75 69 81</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="herramientas-de-programación.html#cb198-1" tabindex="-1"></a>x<span class="sc">$</span>Edad[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]<span class="sc">*</span><span class="dv">3</span></span></code></pre></div>
+<pre><code>## [1] 75 81</code></pre>
+<p>Finalmente, tambien podemos crear listas vacias (útil para rellenar
+utilizando iteradores):</p>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="herramientas-de-programación.html#cb200-1" tabindex="-1"></a>x <span class="ot">&lt;-</span><span class="fu">vector</span>(<span class="st">&quot;list&quot;</span>, <span class="at">length =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p><strong>Ejemplo de una lista:</strong> Definimos una lista</p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="herramientas-de-programación.html#cb201-1" tabindex="-1"></a>milista <span class="ot">&lt;-</span> <span class="fu">list</span>(</span>
+<span id="cb201-2"><a href="herramientas-de-programación.html#cb201-2" tabindex="-1"></a>  </span>
+<span id="cb201-3"><a href="herramientas-de-programación.html#cb201-3" tabindex="-1"></a>  <span class="co"># Primer elemento sera un vector</span></span>
+<span id="cb201-4"><a href="herramientas-de-programación.html#cb201-4" tabindex="-1"></a>  <span class="at">hospitales =</span> <span class="fu">c</span>(<span class="st">&quot;Van Buren&quot;</span>, <span class="st">&quot;Gustavo Fricke&quot;</span>, <span class="st">&quot;Salvador&quot;</span>),</span>
+<span id="cb201-5"><a href="herramientas-de-programación.html#cb201-5" tabindex="-1"></a>  </span>
+<span id="cb201-6"><a href="herramientas-de-programación.html#cb201-6" tabindex="-1"></a>  <span class="co"># Segundo elemento sera un dataframe</span></span>
+<span id="cb201-7"><a href="herramientas-de-programación.html#cb201-7" tabindex="-1"></a>  <span class="at">direccion   =</span> <span class="fu">data.frame</span>(</span>
+<span id="cb201-8"><a href="herramientas-de-programación.html#cb201-8" tabindex="-1"></a>    <span class="at">calle =</span> <span class="fu">c</span>(<span class="st">&quot;San Ignacio&quot;</span>, <span class="st">&quot;Av. Alvarez&quot;</span>, <span class="st">&quot;Av. Salvador&quot;</span>),</span>
+<span id="cb201-9"><a href="herramientas-de-programación.html#cb201-9" tabindex="-1"></a>    <span class="at">ciudad   =</span> <span class="fu">c</span>(<span class="st">&quot;Valparaíso&quot;</span>, <span class="st">&quot;Viña del Mar&quot;</span>, <span class="st">&quot;Santiago&quot;</span>)</span>
+<span id="cb201-10"><a href="herramientas-de-programación.html#cb201-10" tabindex="-1"></a>  )</span>
+<span id="cb201-11"><a href="herramientas-de-programación.html#cb201-11" tabindex="-1"></a>)</span>
+<span id="cb201-12"><a href="herramientas-de-programación.html#cb201-12" tabindex="-1"></a></span>
+<span id="cb201-13"><a href="herramientas-de-programación.html#cb201-13" tabindex="-1"></a>milista</span></code></pre></div>
+<pre><code>## $hospitales
+## [1] &quot;Van Buren&quot;      &quot;Gustavo Fricke&quot; &quot;Salvador&quot;      
+## 
+## $direccion
+##          calle       ciudad
+## 1  San Ignacio   Valparaíso
+## 2  Av. Alvarez Viña del Mar
+## 3 Av. Salvador     Santiago</code></pre>
+<p>Llamar a subconjuntos</p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="herramientas-de-programación.html#cb203-1" tabindex="-1"></a><span class="co"># Retorna el elemento de la lista</span></span>
+<span id="cb203-2"><a href="herramientas-de-programación.html#cb203-2" tabindex="-1"></a>milista<span class="sc">$</span>hospitales</span></code></pre></div>
+<pre><code>## [1] &quot;Van Buren&quot;      &quot;Gustavo Fricke&quot; &quot;Salvador&quot;</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="herramientas-de-programación.html#cb205-1" tabindex="-1"></a>milista[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## $direccion
+##          calle       ciudad
+## 1  San Ignacio   Valparaíso
+## 2  Av. Alvarez Viña del Mar
+## 3 Av. Salvador     Santiago</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="herramientas-de-programación.html#cb207-1" tabindex="-1"></a><span class="co"># Retorna el elemento, pero sin nombre y como vector</span></span>
+<span id="cb207-2"><a href="herramientas-de-programación.html#cb207-2" tabindex="-1"></a>milista[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;Van Buren&quot;      &quot;Gustavo Fricke&quot; &quot;Salvador&quot;</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="herramientas-de-programación.html#cb209-1" tabindex="-1"></a>milista[[<span class="st">&quot;hospitales&quot;</span>]]</span></code></pre></div>
+<pre><code>## [1] &quot;Van Buren&quot;      &quot;Gustavo Fricke&quot; &quot;Salvador&quot;</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="herramientas-de-programación.html#cb211-1" tabindex="-1"></a><span class="co"># Elementos particulares</span></span>
+<span id="cb211-2"><a href="herramientas-de-programación.html#cb211-2" tabindex="-1"></a>milista[[<span class="dv">1</span>]][<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Salvador&quot;</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="herramientas-de-programación.html#cb213-1" tabindex="-1"></a>milista[[<span class="dv">2</span>]][,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;San Ignacio&quot;  &quot;Av. Alvarez&quot;  &quot;Av. Salvador&quot;</code></pre>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="herramientas-de-programación.html#cb215-1" tabindex="-1"></a>milista[[<span class="dv">2</span>]][<span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>##         calle     ciudad
+## 1 San Ignacio Valparaíso</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="herramientas-de-programación.html#cb217-1" tabindex="-1"></a>milista[[<span class="dv">2</span>]][<span class="dv">1</span>,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Valparaíso&quot;</code></pre>
+<p>Notar que es importante saber el tipo de dato.</p>
+</div>
+<div id="dataframes" class="section level4 hasAnchor" number="2.2.1.3">
+<h4><span class="header-section-number">2.2.1.3</span> Dataframes<a href="herramientas-de-programación.html#dataframes" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p><strong>Crear un dataframe:</strong> Es básicamente una matriz donde filas y columnas
+tienen significado. Contiene tanto valores numericos, carácteres,
+variables categóricas, etc.</p>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="herramientas-de-programación.html#cb219-1" tabindex="-1"></a>datos <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Titulacion =</span> <span class="fu">c</span>(<span class="st">&quot;Economia&quot;</span>, <span class="st">&quot;Administracion&quot;</span>, </span>
+<span id="cb219-2"><a href="herramientas-de-programación.html#cb219-2" tabindex="-1"></a>                                   <span class="st">&quot;Administracion&quot;</span>),</span>
+<span id="cb219-3"><a href="herramientas-de-programación.html#cb219-3" tabindex="-1"></a>                    <span class="at">Edad =</span><span class="fu">c</span>(<span class="dv">25</span>,<span class="dv">23</span>,<span class="dv">27</span>), </span>
+<span id="cb219-4"><a href="herramientas-de-programación.html#cb219-4" tabindex="-1"></a>                    <span class="at">ocupacion =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb219-5"><a href="herramientas-de-programación.html#cb219-5" tabindex="-1"></a>datos</span></code></pre></div>
+<pre><code>##       Titulacion Edad ocupacion
+## 1       Economia   25         1
+## 2 Administracion   23         0
+## 3 Administracion   27         1</code></pre>
+<p>Esto es lo mas cercano a una base de datos. Es uno de los objetos
+básicos que veremos muchas veces a lo largo del curso.</p>
+<p><strong>Dimensiones de un dataframe:</strong> Para ver las dimensiones hay que
+utilizar nrow(), ncol() o bien dim().</p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="herramientas-de-programación.html#cb221-1" tabindex="-1"></a><span class="fu">nrow</span>(datos)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="herramientas-de-programación.html#cb223-1" tabindex="-1"></a><span class="fu">ncol</span>(datos)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="herramientas-de-programación.html#cb225-1" tabindex="-1"></a><span class="fu">dim</span>(datos)</span></code></pre></div>
+<pre><code>## [1] 3 3</code></pre>
+<p>Notar que nrow() y ncol() tambien sirven para matrices.</p>
+<p><strong>Subconjuntos de un dataframe:</strong> Al igual que en las matrices,
+utilizamos <code>[ ]</code> para acceder a elementos dentro de la base.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="herramientas-de-programación.html#cb227-1" tabindex="-1"></a>datos[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="herramientas-de-programación.html#cb229-1" tabindex="-1"></a>datos[,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Administracion&quot;</code></pre>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="herramientas-de-programación.html#cb231-1" tabindex="-1"></a>datos[,<span class="sc">-</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>##       Titulacion ocupacion
+## 1       Economia         1
+## 2 Administracion         0
+## 3 Administracion         1</code></pre>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="herramientas-de-programación.html#cb233-1" tabindex="-1"></a>datos[, <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)]</span></code></pre></div>
+<pre><code>##       Titulacion Edad
+## 1       Economia   25
+## 2 Administracion   23
+## 3 Administracion   27</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="herramientas-de-programación.html#cb235-1" tabindex="-1"></a>datos[, <span class="fu">c</span>(<span class="st">&quot;Titulacion&quot;</span>)]</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Administracion&quot;</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="herramientas-de-programación.html#cb237-1" tabindex="-1"></a><span class="co"># Tambien puedo ocupar $ para llamar. </span></span>
+<span id="cb237-2"><a href="herramientas-de-programación.html#cb237-2" tabindex="-1"></a>datos<span class="sc">$</span>Titulacion</span></code></pre></div>
+<pre><code>## [1] &quot;Economia&quot;       &quot;Administracion&quot; &quot;Administracion&quot;</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="herramientas-de-programación.html#cb239-1" tabindex="-1"></a><span class="co"># Ojo que esto lo puedo hacer con todo</span></span>
+<span id="cb239-2"><a href="herramientas-de-programación.html#cb239-2" tabindex="-1"></a><span class="fu">summary</span>(datos[,<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##      23      24      25      25      26      27</code></pre>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="herramientas-de-programación.html#cb241-1" tabindex="-1"></a><span class="fu">summary</span>(datos[,<span class="dv">2</span>])[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## Median 
+##     25</code></pre>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="herramientas-de-programación.html#cb243-1" tabindex="-1"></a><span class="fu">summary</span>(datos[,<span class="dv">2</span>])[<span class="st">&quot;Max.&quot;</span>]</span></code></pre></div>
+<pre><code>## Max. 
+##   27</code></pre>
+<p><strong>Tibbles:</strong> Una version mas moderna de dataframes. Es la misma idea:
+lista de vectores con nombres.</p>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="herramientas-de-programación.html#cb245-1" tabindex="-1"></a>Altura <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">168</span>, <span class="dv">177</span>, <span class="dv">177</span>, <span class="dv">177</span>, <span class="dv">178</span>, <span class="dv">172</span>, <span class="dv">165</span>, <span class="dv">171</span>, <span class="dv">178</span>, <span class="dv">170</span>)</span>
+<span id="cb245-2"><a href="herramientas-de-programación.html#cb245-2" tabindex="-1"></a>Peso  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">72</span>, <span class="dv">85</span>, <span class="dv">95</span>, <span class="dv">71</span>, <span class="dv">69</span>, <span class="dv">61</span>, <span class="dv">61</span>, <span class="dv">51</span>, <span class="dv">75</span>)</span>
+<span id="cb245-3"><a href="herramientas-de-programación.html#cb245-3" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">cbind</span>(Altura, Peso)</span></code></pre></div>
+<p>Paquete para trabajar con bases de datos (más detalles en secciones 2.3
+y 2.4)</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="herramientas-de-programación.html#cb246-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>) </span></code></pre></div>
+<pre><code>## The following package(s) will be installed:
+## - tidyverse [2.0.0]
+## These packages will be installed into &quot;~/Library/CloudStorage/Dropbox/Nicolas/Cursos/01 Libro - análisis de datos/renv/library/R-4.2/aarch64-apple-darwin20&quot;.
+## 
+## 
+## # Installing packages --------------------------------------------------------
+## - Installing tidyverse ...                      OK [linked from cache]
+## Successfully installed 1 package in 12 milliseconds.</code></pre>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="herramientas-de-programación.html#cb248-1" tabindex="-1"></a><span class="fu">library</span>(tibble) <span class="co"># Una libreria dentro de tidyverse. </span></span>
+<span id="cb248-2"><a href="herramientas-de-programación.html#cb248-2" tabindex="-1"></a>misdatos <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M)</span>
+<span id="cb248-3"><a href="herramientas-de-programación.html#cb248-3" tabindex="-1"></a>misdatos</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##    Altura  Peso
+##     &lt;dbl&gt; &lt;dbl&gt;
+##  1    168    88
+##  2    177    72
+##  3    177    85
+##  4    177    95
+##  5    178    71
+##  6    172    69
+##  7    165    61
+##  8    171    61
+##  9    178    51
+## 10    170    75</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="herramientas-de-programación.html#cb250-1" tabindex="-1"></a><span class="co"># Podemos ver los nombres o bien estadistica básica de cada variable. </span></span>
+<span id="cb250-2"><a href="herramientas-de-programación.html#cb250-2" tabindex="-1"></a><span class="fu">names</span>(misdatos)</span></code></pre></div>
+<pre><code>## [1] &quot;Altura&quot; &quot;Peso&quot;</code></pre>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="herramientas-de-programación.html#cb252-1" tabindex="-1"></a><span class="fu">summary</span>(misdatos)</span></code></pre></div>
+<pre><code>##      Altura           Peso     
+##  Min.   :165.0   Min.   :51.0  
+##  1st Qu.:170.2   1st Qu.:63.0  
+##  Median :174.5   Median :71.5  
+##  Mean   :173.3   Mean   :72.8  
+##  3rd Qu.:177.0   3rd Qu.:82.5  
+##  Max.   :178.0   Max.   :95.0</code></pre>
+<p><strong>Agregar columnas a un dataframe:</strong> Podemos agregar variables a la
+base. Dos opciones:</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="herramientas-de-programación.html#cb254-1" tabindex="-1"></a><span class="co"># Opción 1: utilizando $nombre_columna&lt;-vector</span></span>
+<span id="cb254-2"><a href="herramientas-de-programación.html#cb254-2" tabindex="-1"></a>datos<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb254-3"><a href="herramientas-de-programación.html#cb254-3" tabindex="-1"></a>datos</span></code></pre></div>
+<pre><code>##       Titulacion Edad ocupacion id
+## 1       Economia   25         1  1
+## 2 Administracion   23         0  2
+## 3 Administracion   27         1  3</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="herramientas-de-programación.html#cb256-1" tabindex="-1"></a><span class="co"># Opción 2: utilizando el cbind (al igual que con matrices)</span></span>
+<span id="cb256-2"><a href="herramientas-de-programación.html#cb256-2" tabindex="-1"></a>id2<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span>
+<span id="cb256-3"><a href="herramientas-de-programación.html#cb256-3" tabindex="-1"></a>datos1 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(id2,datos) </span>
+<span id="cb256-4"><a href="herramientas-de-programación.html#cb256-4" tabindex="-1"></a>datos1</span></code></pre></div>
+<pre><code>##   id2     Titulacion Edad ocupacion id
+## 1   1       Economia   25         1  1
+## 2   2 Administracion   23         0  2
+## 3   3 Administracion   27         1  3</code></pre>
+<p><strong>Attach:</strong></p>
+<p>Notación muy inconveniente</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="herramientas-de-programación.html#cb258-1" tabindex="-1"></a>misdatos<span class="sc">$</span>Altura</span></code></pre></div>
+<pre><code>##  [1] 168 177 177 177 178 172 165 171 178 170</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="herramientas-de-programación.html#cb260-1" tabindex="-1"></a>misdatos<span class="sc">$</span>Peso</span></code></pre></div>
+<pre><code>##  [1] 88 72 85 95 71 69 61 61 51 75</code></pre>
+<p>Para evitar escribir datos cada vez que quiera llamar a una variable voy
+a utilizar la funcion <code>attach()</code>:</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="herramientas-de-programación.html#cb262-1" tabindex="-1"></a><span class="fu">attach</span>(datos) <span class="co"># para comenzar</span></span>
+<span id="cb262-2"><a href="herramientas-de-programación.html#cb262-2" tabindex="-1"></a></span>
+<span id="cb262-3"><a href="herramientas-de-programación.html#cb262-3" tabindex="-1"></a><span class="co"># Ahora puedo llamar a sus variables sin utilizar datos</span></span>
+<span id="cb262-4"><a href="herramientas-de-programación.html#cb262-4" tabindex="-1"></a>nueva <span class="ot">&lt;-</span> Edad <span class="sc">*</span> ocupacion </span>
+<span id="cb262-5"><a href="herramientas-de-programación.html#cb262-5" tabindex="-1"></a>nueva <span class="ot">&lt;-</span> datos<span class="sc">$</span>Edad <span class="sc">*</span> datos<span class="sc">$</span>ocupacion</span>
+<span id="cb262-6"><a href="herramientas-de-programación.html#cb262-6" tabindex="-1"></a>nueva </span></code></pre></div>
+<pre><code>## [1] 25  0 27</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="herramientas-de-programación.html#cb264-1" tabindex="-1"></a><span class="fu">detach</span>(datos) <span class="co"># para terminar</span></span></code></pre></div>
+<p>Esta es una forma mucho mas conveniente de trabajar con dataframes o
+tibble en R.</p>
+<div class="alert alert-block alert-warning">
+<p><b>Ejercicio 2.2.1:</b> Crear un dataframe</p>
+<p>Cree su primera base de datos. Debe armar una tabla igual a la figura.
+Tiene 5 minutos. <img src="01figuras/ejercicio2.PNG" alt="Ejercicio" /></p>
+</div>
+<p>Respuesta:</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="herramientas-de-programación.html#cb265-1" tabindex="-1"></a>ejer <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Tipo_animal =</span> <span class="fu">c</span>(<span class="st">&quot;Perro&quot;</span>, <span class="st">&quot;Perro&quot;</span>,<span class="st">&quot;Gato&quot;</span>,<span class="st">&quot;Perro&quot;</span>, </span>
+<span id="cb265-2"><a href="herramientas-de-programación.html#cb265-2" tabindex="-1"></a>                                   <span class="st">&quot;Gato&quot;</span>,<span class="st">&quot;Gato&quot;</span>,<span class="st">&quot;Gato&quot;</span>),</span>
+<span id="cb265-3"><a href="herramientas-de-programación.html#cb265-3" tabindex="-1"></a>                   <span class="at">Color =</span><span class="fu">c</span>(<span class="st">&quot;Café&quot;</span>,<span class="st">&quot;Blanco&quot;</span>,<span class="st">&quot;Negro&quot;</span>,<span class="st">&quot;Manchas&quot;</span>,<span class="st">&quot;Café&quot;</span>,<span class="st">&quot;Tricolor&quot;</span>,<span class="st">&quot;Negro&quot;</span>), </span>
+<span id="cb265-4"><a href="herramientas-de-programación.html#cb265-4" tabindex="-1"></a>                   <span class="at">Peso =</span> <span class="fu">c</span>(<span class="dv">7</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span>,<span class="dv">4</span>),</span>
+<span id="cb265-5"><a href="herramientas-de-programación.html#cb265-5" tabindex="-1"></a>                   <span class="at">Pasea=</span><span class="fu">c</span>(<span class="st">&quot;Sí&quot;</span>,<span class="st">&quot;Sí&quot;</span>,<span class="st">&quot;Sí&quot;</span>,<span class="st">&quot;No&quot;</span>,<span class="st">&quot;No&quot;</span>,<span class="st">&quot;No&quot;</span>,<span class="st">&quot;Sí&quot;</span>))</span></code></pre></div>
+</div>
+</div>
+<div id="acceder-a-elementos-de-un-objeto" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Acceder a elementos de un objeto<a href="herramientas-de-programación.html#acceder-a-elementos-de-un-objeto" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="vectores-1" class="section level4 hasAnchor" number="2.2.2.1">
+<h4><span class="header-section-number">2.2.2.1</span> Vectores<a href="herramientas-de-programación.html#vectores-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Para acceder a los elementos de un objeto debemos utilizar los corchetes
+<code>[ ]</code></p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="herramientas-de-programación.html#cb266-1" tabindex="-1"></a><span class="co"># Veamos en un vector</span></span>
+<span id="cb266-2"><a href="herramientas-de-programación.html#cb266-2" tabindex="-1"></a></span>
+<span id="cb266-3"><a href="herramientas-de-programación.html#cb266-3" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;T&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="dt">i</span>,<span class="st">&quot;t&quot;</span>, <span class="st">&quot;c&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="dv">6</span>)</span>
+<span id="cb266-4"><a href="herramientas-de-programación.html#cb266-4" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="herramientas-de-programación.html#cb268-1" tabindex="-1"></a><span class="co"># Podemos llamar a un objeto de un vector </span></span>
+<span id="cb268-2"><a href="herramientas-de-programación.html#cb268-2" tabindex="-1"></a>x[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;T&quot;</code></pre>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="herramientas-de-programación.html#cb270-1" tabindex="-1"></a>x[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## [1] &quot;1&quot;</code></pre>
+<p>De esta manera podemos extraerlo o utilizarlo en diferentes operaciones.
+Pero sólo debe ser entre observaciones numericas:</p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="herramientas-de-programación.html#cb272-1" tabindex="-1"></a>x[<span class="dv">1</span>]<span class="sc">+</span>x[<span class="dv">6</span>] <span class="co">#de lo contrario R nos arroja un error </span></span>
+<span id="cb272-2"><a href="herramientas-de-programación.html#cb272-2" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="dt">i</span>)</span>
+<span id="cb272-3"><a href="herramientas-de-programación.html#cb272-3" tabindex="-1"></a>y[<span class="dv">3</span>]<span class="sc">+</span>y[<span class="dv">7</span>]</span>
+<span id="cb272-4"><a href="herramientas-de-programación.html#cb272-4" tabindex="-1"></a></span>
+<span id="cb272-5"><a href="herramientas-de-programación.html#cb272-5" tabindex="-1"></a><span class="co">#O podemos visualizar a x, pero sin el primer objeto</span></span>
+<span id="cb272-6"><a href="herramientas-de-programación.html#cb272-6" tabindex="-1"></a>x[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb272-7"><a href="herramientas-de-programación.html#cb272-7" tabindex="-1"></a></span>
+<span id="cb272-8"><a href="herramientas-de-programación.html#cb272-8" tabindex="-1"></a><span class="co">#O eliminar el primer objeto </span></span>
+<span id="cb272-9"><a href="herramientas-de-programación.html#cb272-9" tabindex="-1"></a>x<span class="ot">&lt;-</span>x[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb272-10"><a href="herramientas-de-programación.html#cb272-10" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> x[<span class="sc">-</span><span class="dv">1</span>]</span></code></pre></div>
+</div>
+<div id="matrices-1" class="section level4 hasAnchor" number="2.2.2.2">
+<h4><span class="header-section-number">2.2.2.2</span> Matrices<a href="herramientas-de-programación.html#matrices-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Si analizamos los objetos de una matriz:</p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="herramientas-de-programación.html#cb273-1" tabindex="-1"></a>w<span class="ot">&lt;-</span><span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="dv">3</span>)</span>
+<span id="cb273-2"><a href="herramientas-de-programación.html#cb273-2" tabindex="-1"></a>w</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="herramientas-de-programación.html#cb275-1" tabindex="-1"></a><span class="co"># Elemento [1,1]</span></span>
+<span id="cb275-2"><a href="herramientas-de-programación.html#cb275-2" tabindex="-1"></a>w[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="herramientas-de-programación.html#cb277-1" tabindex="-1"></a><span class="co"># Toda la primera columna </span></span>
+<span id="cb277-2"><a href="herramientas-de-programación.html#cb277-2" tabindex="-1"></a>w[,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1 2 3</code></pre>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="herramientas-de-programación.html#cb279-1" tabindex="-1"></a><span class="co"># Toda la segunda fila</span></span>
+<span id="cb279-2"><a href="herramientas-de-programación.html#cb279-2" tabindex="-1"></a>w[<span class="dv">2</span>,]</span></code></pre></div>
+<pre><code>## [1] 2 5 8</code></pre>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="herramientas-de-programación.html#cb281-1" tabindex="-1"></a><span class="co"># Dos columnas</span></span>
+<span id="cb281-2"><a href="herramientas-de-programación.html#cb281-2" tabindex="-1"></a>w[,<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>] <span class="co"># w[,-3]</span></span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    4
+## [2,]    2    5
+## [3,]    3    6</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="herramientas-de-programación.html#cb283-1" tabindex="-1"></a><span class="co"># Todas las filas menos la primera</span></span>
+<span id="cb283-2"><a href="herramientas-de-programación.html#cb283-2" tabindex="-1"></a>w[<span class="sc">-</span><span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    2    5    8
+## [2,]    3    6    9</code></pre>
+</div>
+<div id="listas-1" class="section level4 hasAnchor" number="2.2.2.3">
+<h4><span class="header-section-number">2.2.2.3</span> Listas<a href="herramientas-de-programación.html#listas-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Si queremos llamar a un objeto dentro de una lista:</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="herramientas-de-programación.html#cb285-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), <span class="st">&quot;R&quot;</span>, T, <span class="dv">2</span><span class="sc">+</span><span class="dv">3</span><span class="dt">i</span>, <span class="dv">5</span><span class="dt">L</span>)</span>
+<span id="cb285-2"><a href="herramientas-de-programación.html#cb285-2" tabindex="-1"></a>z <span class="co">#separa todo componente</span></span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 1 2 3 4 5 6 7 8
+## 
+## [[2]]
+## [1] &quot;R&quot;
+## 
+## [[3]]
+## [1] TRUE
+## 
+## [[4]]
+## [1] 2+3i
+## 
+## [[5]]
+## [1] 5</code></pre>
+<p>Para acceder a un objeto dentro de la lista se debe utilizar doble
+corchete:</p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="herramientas-de-programación.html#cb287-1" tabindex="-1"></a>z[[<span class="dv">1</span>]]</span></code></pre></div>
+<pre><code>## [1] 1 2 3 4 5 6 7 8</code></pre>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="herramientas-de-programación.html#cb289-1" tabindex="-1"></a><span class="co">#Y algo dentro de ese objeto </span></span>
+<span id="cb289-2"><a href="herramientas-de-programación.html#cb289-2" tabindex="-1"></a>z[[<span class="dv">1</span>]][<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="herramientas-de-programación.html#cb291-1" tabindex="-1"></a><span class="co">#Tambien podemos analizar su clasificacion </span></span>
+<span id="cb291-2"><a href="herramientas-de-programación.html#cb291-2" tabindex="-1"></a><span class="fu">class</span>(z[[<span class="dv">1</span>]]) <span class="co">#numerico </span></span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="herramientas-de-programación.html#cb293-1" tabindex="-1"></a><span class="co">#Si es numerico, entonces tambien podemos hacer operaciones </span></span>
+<span id="cb293-2"><a href="herramientas-de-programación.html#cb293-2" tabindex="-1"></a>z[[<span class="dv">1</span>]][<span class="dv">3</span>]<span class="sc">*</span>z[[<span class="dv">1</span>]][<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>## [1] 15</code></pre>
+</div>
+</div>
+<div id="tipos-de-objetos-y-datos" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> Tipos de objetos y datos<a href="herramientas-de-programación.html#tipos-de-objetos-y-datos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="identificar-tipos-de-objetos" class="section level4 hasAnchor" number="2.2.3.1">
+<h4><span class="header-section-number">2.2.3.1</span> Identificar tipos de objetos<a href="herramientas-de-programación.html#identificar-tipos-de-objetos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Veamos en un vector cualquiera</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="herramientas-de-programación.html#cb295-1" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;T&quot;</span>, <span class="cn">FALSE</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>,<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="dt">i</span>,<span class="st">&quot;t&quot;</span>, <span class="st">&quot;c&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="dv">6</span>)</span>
+<span id="cb295-2"><a href="herramientas-de-programación.html#cb295-2" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Como bien sabemos todo en R es un objeto. Para saber que tipo de objeto
+es puedo utilizar la función <code>class()</code>:</p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="herramientas-de-programación.html#cb297-1" tabindex="-1"></a><span class="fu">class</span>(datos)</span></code></pre></div>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="herramientas-de-programación.html#cb299-1" tabindex="-1"></a><span class="fu">class</span> (x)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Note que <code>class()</code> identifico que es un “data.frame” y una lista.
+También puedo ver los tipos de elementos dentro de un determinado
+objeto. Para datos, existen 5 tipos principales, llamados:</p>
+<ol style="list-style-type: decimal">
+<li><strong>carácteres:</strong> texto. Se escriben con comillas (ej: “3”, “swc”).</li>
+<li><strong>numéricos:</strong> numeros reales (ej. 2, 15.5).</li>
+<li><strong>enteros:</strong> numeros enteros (“L” le dice a R que guarde esto como
+un entero).</li>
+<li><strong>logical:</strong> valores logicos (ej. TRUE, FALSE).</li>
+<li><strong>complejos:</strong> 1 + 4i (Numero complejos).</li>
+</ol>
+</div>
+<div id="identificar-tipos-de-datos" class="section level4 hasAnchor" number="2.2.3.2">
+<h4><span class="header-section-number">2.2.3.2</span> Identificar tipos de datos<a href="herramientas-de-programación.html#identificar-tipos-de-datos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="herramientas-de-programación.html#cb301-1" tabindex="-1"></a><span class="co"># 1. Carácteres</span></span>
+<span id="cb301-2"><a href="herramientas-de-programación.html#cb301-2" tabindex="-1"></a>z<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;a&quot;</span>,<span class="st">&quot;b&quot;</span>)</span>
+<span id="cb301-3"><a href="herramientas-de-programación.html#cb301-3" tabindex="-1"></a><span class="fu">class</span>(z)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="herramientas-de-programación.html#cb303-1" tabindex="-1"></a><span class="co"># 2. Números enteros</span></span>
+<span id="cb303-2"><a href="herramientas-de-programación.html#cb303-2" tabindex="-1"></a>w<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="dt">L</span>,<span class="dv">2</span><span class="dt">L</span>,<span class="dv">3</span><span class="dt">L</span>) <span class="co">#la L es para obligar que sea entero</span></span>
+<span id="cb303-3"><a href="herramientas-de-programación.html#cb303-3" tabindex="-1"></a><span class="fu">class</span>(w)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="herramientas-de-programación.html#cb305-1" tabindex="-1"></a><span class="co"># 3. Numéricos </span></span>
+<span id="cb305-2"><a href="herramientas-de-programación.html#cb305-2" tabindex="-1"></a>w1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb305-3"><a href="herramientas-de-programación.html#cb305-3" tabindex="-1"></a><span class="fu">class</span>(w1)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="herramientas-de-programación.html#cb307-1" tabindex="-1"></a><span class="co"># Notar que la L lo obliga a ser entero ¿Qué ocurre si no coloco la L? </span></span>
+<span id="cb307-2"><a href="herramientas-de-programación.html#cb307-2" tabindex="-1"></a></span>
+<span id="cb307-3"><a href="herramientas-de-programación.html#cb307-3" tabindex="-1"></a><span class="co"># 4. Valores logicos</span></span>
+<span id="cb307-4"><a href="herramientas-de-programación.html#cb307-4" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb307-5"><a href="herramientas-de-programación.html#cb307-5" tabindex="-1"></a><span class="fu">class</span>(v1)</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="herramientas-de-programación.html#cb309-1" tabindex="-1"></a><span class="co"># Notar que si estan entre comillas son caracteres, no logical!. </span></span>
+<span id="cb309-2"><a href="herramientas-de-programación.html#cb309-2" tabindex="-1"></a>v<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="st">&quot;TRUE&quot;</span>, <span class="st">&quot;FALSE&quot;</span>)</span>
+<span id="cb309-3"><a href="herramientas-de-programación.html#cb309-3" tabindex="-1"></a><span class="fu">class</span>(v)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="herramientas-de-programación.html#cb311-1" tabindex="-1"></a><span class="co"># 5. Números complejos </span></span>
+<span id="cb311-2"><a href="herramientas-de-programación.html#cb311-2" tabindex="-1"></a>t<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="dt">i</span>,<span class="dv">1</span><span class="sc">+</span><span class="dv">3</span><span class="dt">i</span>)</span>
+<span id="cb311-3"><a href="herramientas-de-programación.html#cb311-3" tabindex="-1"></a><span class="fu">class</span>(t)</span></code></pre></div>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
+<p>Hay más clases: Date(fechas), Factor(variables categóricas), data.frame,
+tibble, list.</p>
+</div>
+<div id="importan-los-tipos-de-los-objetos" class="section level4 hasAnchor" number="2.2.3.3">
+<h4><span class="header-section-number">2.2.3.3</span> ¿Importan los tipos de los objetos?<a href="herramientas-de-programación.html#importan-los-tipos-de-los-objetos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>R intenta mantener dentro de un vector el tipo de objeto. Si es que
+tratamos de juntar distintos tipos de datos en un vector. Igualar a la
+clase. Por ejemplo, si intentamos generar un vector con texto y
+número/logical todo será texto:</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="herramientas-de-programación.html#cb313-1" tabindex="-1"></a>h <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="st">&quot;a&quot;</span>, <span class="cn">TRUE</span>, <span class="dv">2</span>)</span>
+<span id="cb313-2"><a href="herramientas-de-programación.html#cb313-2" tabindex="-1"></a>h</span></code></pre></div>
+<pre><code>## [1] &quot;TRUE&quot; &quot;a&quot;    &quot;TRUE&quot; &quot;2&quot;</code></pre>
+<div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="herramientas-de-programación.html#cb315-1" tabindex="-1"></a><span class="fu">class</span>(h)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<p>Si intentamos juntar un “Logical” con un número todo será número:</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="herramientas-de-programación.html#cb317-1" tabindex="-1"></a>h1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="dv">2</span>,<span class="dv">3</span>)</span>
+<span id="cb317-2"><a href="herramientas-de-programación.html#cb317-2" tabindex="-1"></a>h1</span></code></pre></div>
+<pre><code>## [1] 1 2 3</code></pre>
+<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="herramientas-de-programación.html#cb319-1" tabindex="-1"></a><span class="fu">class</span>(h1)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Aquí carácter todo se va a caracter:</p>
+<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="herramientas-de-programación.html#cb321-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;T&quot;</span>, <span class="st">&quot;FALSE&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">+</span><span class="dv">2</span><span class="dt">i</span>, <span class="st">&quot;t&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;a&quot;</span>)</span>
+<span id="cb321-2"><a href="herramientas-de-programación.html#cb321-2" tabindex="-1"></a><span class="fu">class</span>(x)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="herramientas-de-programación.html#cb323-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb323-2"><a href="herramientas-de-programación.html#cb323-2" tabindex="-1"></a><span class="fu">class</span>(y)</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="herramientas-de-programación.html#cb325-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb325-2"><a href="herramientas-de-programación.html#cb325-2" tabindex="-1"></a><span class="fu">class</span>(y)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<p>Si utilizo el operador <code>:</code> para crear vectores lo interpreta como un
+<em>integer</em>.</p>
+</div>
+<div id="forzar-a-r-para-que-utilice-un-tipo-de-dato" class="section level4 hasAnchor" number="2.2.3.4">
+<h4><span class="header-section-number">2.2.3.4</span> Forzar a R para que utilice un tipo de dato<a href="herramientas-de-programación.html#forzar-a-r-para-que-utilice-un-tipo-de-dato" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Forzar a R a llevar el vector solo a numérico:</p>
+<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="herramientas-de-programación.html#cb327-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x)</span>
+<span id="cb327-2"><a href="herramientas-de-programación.html#cb327-2" tabindex="-1"></a><span class="fu">class</span>(z)</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;</code></pre>
+<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="herramientas-de-programación.html#cb329-1" tabindex="-1"></a>z </span></code></pre></div>
+<pre><code>## [1] NA NA  1  2  3 NA NA NA NA</code></pre>
+<p><code>as.numeric()</code> fuerza al vector a solo tener números. Noten que remplaza
+los que no son numérico por NA.</p>
+<p>Forzar a R a llevar el vector solo a carácteres:</p>
+<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="herramientas-de-programación.html#cb331-1" tabindex="-1"></a>z1 <span class="ot">&lt;-</span> <span class="fu">as.character</span>(y)</span>
+<span id="cb331-2"><a href="herramientas-de-programación.html#cb331-2" tabindex="-1"></a><span class="fu">class</span>(z1)</span></code></pre></div>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="herramientas-de-programación.html#cb333-1" tabindex="-1"></a>z1</span></code></pre></div>
+<pre><code>## [1] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot;</code></pre>
+<p>Noten que ahora se agregaron las dobles comillas.</p>
+<p>Forzar a R a llevar el vector sólo a carácter.</p>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="herramientas-de-programación.html#cb335-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>## [1] &quot;T&quot;     &quot;FALSE&quot; &quot;1&quot;     &quot;2&quot;     &quot;3&quot;     &quot;1+2i&quot;  &quot;t&quot;     &quot;c&quot;     &quot;a&quot;</code></pre>
+<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="herramientas-de-programación.html#cb337-1" tabindex="-1"></a>z2 <span class="ot">&lt;-</span> <span class="fu">as.logical</span>(x)</span>
+<span id="cb337-2"><a href="herramientas-de-programación.html#cb337-2" tabindex="-1"></a><span class="fu">class</span>(z2)</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="herramientas-de-programación.html#cb339-1" tabindex="-1"></a>z2 </span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE    NA    NA    NA    NA    NA    NA    NA</code></pre>
+<p>Noten que “T” fue aceptado como TRUE!</p>
+</div>
+<div id="cómo-saber-que-tipo-de-datos-tengo" class="section level4 hasAnchor" number="2.2.3.5">
+<h4><span class="header-section-number">2.2.3.5</span> ¿Cómo saber que tipo de datos tengo?<a href="herramientas-de-programación.html#c%C3%B3mo-saber-que-tipo-de-datos-tengo" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="herramientas-de-programación.html#cb341-1" tabindex="-1"></a><span class="co"># Puedo preguntar a R sobre el tipo. </span></span>
+<span id="cb341-2"><a href="herramientas-de-programación.html#cb341-2" tabindex="-1"></a></span>
+<span id="cb341-3"><a href="herramientas-de-programación.html#cb341-3" tabindex="-1"></a><span class="fu">is.numeric</span>(y)   <span class="co"># Es numerico?</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="herramientas-de-programación.html#cb343-1" tabindex="-1"></a><span class="fu">is.character</span>(y) <span class="co"># Es caracter?</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="herramientas-de-programación.html#cb345-1" tabindex="-1"></a><span class="fu">is.logical</span>(y)   <span class="co"># Es logico?</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb347"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb347-1"><a href="herramientas-de-programación.html#cb347-1" tabindex="-1"></a><span class="co"># La respuesta a esta pregunta va a ser un valor lógico</span></span>
+<span id="cb347-2"><a href="herramientas-de-programación.html#cb347-2" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">is.numeric</span>(y))</span></code></pre></div>
+<pre><code>## [1] &quot;logical&quot;</code></pre>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="herramientas-de-programación.html#cb349-1" tabindex="-1"></a><span class="co"># También se puede utilizar la opcion `typeof`</span></span>
+<span id="cb349-2"><a href="herramientas-de-programación.html#cb349-2" tabindex="-1"></a><span class="fu">typeof</span>(y)</span></code></pre></div>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+</div>
+<div id="mayúsculas-importan" class="section level4 hasAnchor" number="2.2.3.6">
+<h4><span class="header-section-number">2.2.3.6</span> Mayúsculas importan<a href="herramientas-de-programación.html#may%C3%BAsculas-importan" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Como vimos en lasección anterior, R es sensible a las mayúsculas. Esto
+aplica para nombres de funciones, paquetes, comando y también para los
+datos. Por ejemplo:</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="herramientas-de-programación.html#cb351-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;a&quot;</span>,<span class="st">&quot;a&quot;</span>,<span class="st">&quot;a&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;B&quot;</span>,<span class="st">&quot;b&quot;</span>, <span class="st">&quot;A&quot;</span>)</span>
+<span id="cb351-2"><a href="herramientas-de-programación.html#cb351-2" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="herramientas-de-programación.html#cb353-1" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">==</span> <span class="st">&#39;a&#39;</span>)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="herramientas-de-programación.html#cb355-1" tabindex="-1"></a><span class="fu">sum</span>(x <span class="sc">==</span> <span class="st">&#39;b&#39;</span>)</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<p>Para R las minúsculas y mayúsculas SI IMPORTAN!.</p>
+</div>
+<div id="carácteres-especiales" class="section level4 hasAnchor" number="2.2.3.7">
+<h4><span class="header-section-number">2.2.3.7</span> Carácteres especiales<a href="herramientas-de-programación.html#car%C3%A1cteres-especiales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Vimos que existen nombres de variables no validos en R. Tambien existe
+un conjunto de caracteres invalidos.</p>
+<ul>
+<li><strong>NA:</strong> Not Available (missing values)</li>
+<li><strong>NaN:</strong> Not a Numbers (ej. 0/0)</li>
+<li><strong>Inf:</strong> Infinito (1/0)</li>
+<li><strong>-Inf:</strong> Menos infinito</li>
+</ul>
+<div class="sourceCode" id="cb357"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb357-1"><a href="herramientas-de-programación.html#cb357-1" tabindex="-1"></a><span class="dv">0</span><span class="sc">/</span><span class="dv">0</span></span></code></pre></div>
+<pre><code>## [1] NaN</code></pre>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="herramientas-de-programación.html#cb359-1" tabindex="-1"></a><span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">0</span> </span></code></pre></div>
+<pre><code>## [1] -Inf</code></pre>
+</div>
+<div id="missing-values" class="section level4 hasAnchor" number="2.2.3.8">
+<h4><span class="header-section-number">2.2.3.8</span> Missing values<a href="herramientas-de-programación.html#missing-values" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>En R, los valores perdidos (“missing values”) se representan con el
+valor especial <code>NA</code> (letras mayusculas N y A - sin comillas). Para saber
+si tengo valores <code>NA</code> en un objeto, puedo ocupar la funcion <code>is.na()</code>:</p>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="herramientas-de-programación.html#cb361-1" tabindex="-1"></a>ejemplo <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="cn">NA</span>,<span class="dv">4</span>)</span>
+<span id="cb361-2"><a href="herramientas-de-programación.html#cb361-2" tabindex="-1"></a><span class="fu">is.na</span>(ejemplo)</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="herramientas-de-programación.html#cb363-1" tabindex="-1"></a>ejemplo[<span class="sc">!</span><span class="fu">is.na</span>(ejemplo)]</span></code></pre></div>
+<pre><code>## [1] 1 3 4</code></pre>
+<div class="sourceCode" id="cb365"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb365-1"><a href="herramientas-de-programación.html#cb365-1" tabindex="-1"></a><span class="co"># El resultado es un vector. Noten que es importante para utilizar algunas funciones:</span></span>
+<span id="cb365-2"><a href="herramientas-de-programación.html#cb365-2" tabindex="-1"></a></span>
+<span id="cb365-3"><a href="herramientas-de-programación.html#cb365-3" tabindex="-1"></a><span class="fu">mean</span>(ejemplo)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="herramientas-de-programación.html#cb367-1" tabindex="-1"></a><span class="fu">mean</span>(ejemplo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] 2.666667</code></pre>
+<p>No funciona en el primer caso, si en el segundo. Veremos mas detalles
+sobre como tratar missing values (ej. recodificar) en las clases de
+manipulacion y analisis de datos.</p>
+</div>
+<div id="funciones-útiles" class="section level4 hasAnchor" number="2.2.3.9">
+<h4><span class="header-section-number">2.2.3.9</span> Funciones útiles<a href="herramientas-de-programación.html#funciones-%C3%BAtiles" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="herramientas-de-programación.html#cb369-1" tabindex="-1"></a><span class="co"># Redondear</span></span>
+<span id="cb369-2"><a href="herramientas-de-programación.html#cb369-2" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">c</span>(<span class="fl">2.53</span>, <span class="fl">3.52</span>), <span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 2.5 3.5</code></pre>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="herramientas-de-programación.html#cb371-1" tabindex="-1"></a><span class="co"># Estadística simple</span></span>
+<span id="cb371-2"><a href="herramientas-de-programación.html#cb371-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb371-3"><a href="herramientas-de-programación.html#cb371-3" tabindex="-1"></a></span>
+<span id="cb371-4"><a href="herramientas-de-programación.html#cb371-4" tabindex="-1"></a><span class="fu">mean</span>(x)    <span class="co"># promedio</span></span></code></pre></div>
+<pre><code>## [1] 3.5</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="herramientas-de-programación.html#cb373-1" tabindex="-1"></a><span class="fu">median</span>(x)  <span class="co"># mediana</span></span></code></pre></div>
+<pre><code>## [1] 3.5</code></pre>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="herramientas-de-programación.html#cb375-1" tabindex="-1"></a><span class="fu">sd</span>(x)      <span class="co"># desviacion estandar</span></span></code></pre></div>
+<pre><code>## [1] 1.870829</code></pre>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="herramientas-de-programación.html#cb377-1" tabindex="-1"></a><span class="fu">sum</span>(x)     <span class="co"># suma del vector</span></span></code></pre></div>
+<pre><code>## [1] 21</code></pre>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="herramientas-de-programación.html#cb379-1" tabindex="-1"></a><span class="fu">min</span>(x)     <span class="co"># Valor minimo</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="herramientas-de-programación.html#cb381-1" tabindex="-1"></a><span class="fu">max</span>(x)     <span class="co"># Valor maximo</span></span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="herramientas-de-programación.html#cb383-1" tabindex="-1"></a><span class="fu">range</span>(x)   <span class="co"># rango </span></span></code></pre></div>
+<pre><code>## [1] 1 6</code></pre>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="herramientas-de-programación.html#cb385-1" tabindex="-1"></a><span class="fu">summary</span>(x) <span class="co"># resumen </span></span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1.00    2.25    3.50    3.50    4.75    6.00</code></pre>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="herramientas-de-programación.html#cb387-1" tabindex="-1"></a><span class="co"># Notar que tienen que ser vectores!</span></span>
+<span id="cb387-2"><a href="herramientas-de-programación.html#cb387-2" tabindex="-1"></a><span class="fu">mean</span>(<span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">0</span>) </span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="herramientas-de-programación.html#cb389-1" tabindex="-1"></a><span class="fu">mean</span>(<span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">6</span>, <span class="dv">12</span>, <span class="dv">10</span>, <span class="dv">5</span>, <span class="dv">0</span>))</span></code></pre></div>
+<pre><code>## [1] 7.166667</code></pre>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="herramientas-de-programación.html#cb391-1" tabindex="-1"></a><span class="co"># En el primer caso sólo toma el primer valor! Ojo, siempre un vector. </span></span>
+<span id="cb391-2"><a href="herramientas-de-programación.html#cb391-2" tabindex="-1"></a></span>
+<span id="cb391-3"><a href="herramientas-de-programación.html#cb391-3" tabindex="-1"></a><span class="co"># Otras funciones</span></span>
+<span id="cb391-4"><a href="herramientas-de-programación.html#cb391-4" tabindex="-1"></a><span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>,<span class="dv">2</span> )                        <span class="co"># Crear secuencias</span></span></code></pre></div>
+<pre><code>## [1] 1 3 5 7 9</code></pre>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="herramientas-de-programación.html#cb393-1" tabindex="-1"></a><span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>),<span class="dv">10</span>)                    <span class="co"># Repetir</span></span></code></pre></div>
+<pre><code>##  [1] 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3 1 2 3</code></pre>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="herramientas-de-programación.html#cb395-1" tabindex="-1"></a><span class="fu">cut</span>(x,<span class="dv">2</span>)                            <span class="co"># subdividir</span></span></code></pre></div>
+<pre><code>## [1] (0.995,3.5] (0.995,3.5] (0.995,3.5] (3.5,6]     (3.5,6]     (3.5,6]    
+## Levels: (0.995,3.5] (3.5,6]</code></pre>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="herramientas-de-programación.html#cb397-1" tabindex="-1"></a><span class="fu">sample</span>(x, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>) <span class="co"># Generar un aleatorio</span></span></code></pre></div>
+<pre><code>## [1] 5 5 5</code></pre>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="herramientas-de-programación.html#cb399-1" tabindex="-1"></a><span class="co"># El analisis de datos es...</span></span>
+<span id="cb399-2"><a href="herramientas-de-programación.html#cb399-2" tabindex="-1"></a></span>
+<span id="cb399-3"><a href="herramientas-de-programación.html#cb399-3" tabindex="-1"></a>Altura <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">168</span>, <span class="dv">177</span>, <span class="dv">177</span>, <span class="dv">177</span>, <span class="dv">178</span>, <span class="dv">172</span>, <span class="dv">165</span>, <span class="dv">171</span>, <span class="dv">178</span>, <span class="dv">170</span>)</span>
+<span id="cb399-4"><a href="herramientas-de-programación.html#cb399-4" tabindex="-1"></a>Peso  <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">88</span>, <span class="dv">72</span>, <span class="dv">85</span>, <span class="dv">95</span>, <span class="dv">71</span>, <span class="dv">69</span>, <span class="dv">61</span>, <span class="dv">61</span>, <span class="dv">51</span>, <span class="dv">75</span>)</span>
+<span id="cb399-5"><a href="herramientas-de-programación.html#cb399-5" tabindex="-1"></a>M <span class="ot">=</span> <span class="fu">cbind</span>(Altura, Peso)</span>
+<span id="cb399-6"><a href="herramientas-de-programación.html#cb399-6" tabindex="-1"></a></span>
+<span id="cb399-7"><a href="herramientas-de-programación.html#cb399-7" tabindex="-1"></a><span class="co"># Paquete para trabajar con bases de datos (más detalles en secciones 2.3 y 2.4)</span></span>
+<span id="cb399-8"><a href="herramientas-de-programación.html#cb399-8" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>) </span></code></pre></div>
+<pre><code>## The following package(s) will be installed:
+## - tidyverse [2.0.0]
+## These packages will be installed into &quot;~/Library/CloudStorage/Dropbox/Nicolas/Cursos/01 Libro - análisis de datos/renv/library/R-4.2/aarch64-apple-darwin20&quot;.
+## 
+## 
+## # Installing packages --------------------------------------------------------
+## - Installing tidyverse ...                      OK [linked from cache]
+## Successfully installed 1 package in 12 milliseconds.</code></pre>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="herramientas-de-programación.html#cb401-1" tabindex="-1"></a><span class="fu">library</span>(tibble) <span class="co"># Una libreria dentro de tidyverse. </span></span>
+<span id="cb401-2"><a href="herramientas-de-programación.html#cb401-2" tabindex="-1"></a>misdatos <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(M)</span>
+<span id="cb401-3"><a href="herramientas-de-programación.html#cb401-3" tabindex="-1"></a>misdatos</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##    Altura  Peso
+##     &lt;dbl&gt; &lt;dbl&gt;
+##  1    168    88
+##  2    177    72
+##  3    177    85
+##  4    177    95
+##  5    178    71
+##  6    172    69
+##  7    165    61
+##  8    171    61
+##  9    178    51
+## 10    170    75</code></pre>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="herramientas-de-programación.html#cb403-1" tabindex="-1"></a><span class="fu">attach</span>(misdatos)</span></code></pre></div>
+<pre><code>## The following objects are masked _by_ .GlobalEnv:
+## 
+##     Altura, Peso</code></pre>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="herramientas-de-programación.html#cb405-1" tabindex="-1"></a><span class="fu">max</span>(Altura)</span></code></pre></div>
+<pre><code>## [1] 178</code></pre>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="herramientas-de-programación.html#cb407-1" tabindex="-1"></a><span class="fu">min</span>(misdatos<span class="sc">$</span>Peso)</span></code></pre></div>
+<pre><code>## [1] 51</code></pre>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="herramientas-de-programación.html#cb409-1" tabindex="-1"></a><span class="fu">detach</span>(misdatos)</span></code></pre></div>
+</div>
+</div>
+<div id="herramientas-en-r" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> Herramientas en R<a href="herramientas-de-programación.html#herramientas-en-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="escribir-códigos" class="section level4 hasAnchor" number="2.2.4.1">
+<h4><span class="header-section-number">2.2.4.1</span> Escribir Códigos<a href="herramientas-de-programación.html#escribir-c%C3%B3digos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Algunos comentarios con respecto a la escritura de codigos:</p>
+<ol style="list-style-type: decimal">
+<li>Siempre escribir comentarios autocontenidos.</li>
+<li>Siempre utilizar índice.</li>
+</ol>
+<ul>
+<li>Me permite reducir el código.</li>
+<li>Me permite ver donde estoy también en un código largo.</li>
+<li>Puedo verlo con ctrl + shift + O o bien en la esquina inferior
+izquierda del script.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Separar códigos largos en varios códigos. Cada código debe tener un
+objetivo claro que debe explicar en una oración.</li>
+<li>Escribir códigos en bloques.</li>
+<li>Tres consejos básicos de estilo:</li>
+</ol>
+<ul>
+<li>utilizar <code>_</code> para generar variables o bien otra convención.</li>
+<li>separar entre objetos y operaciones.</li>
+</ul>
+</div>
+<div id="condicionales-y-controladores-de-flujo" class="section level4 hasAnchor" number="2.2.4.2">
+<h4><span class="header-section-number">2.2.4.2</span> Condicionales y controladores de flujo<a href="herramientas-de-programación.html#condicionales-y-controladores-de-flujo" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Operadores básicos:</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="herramientas-de-programación.html#cb410-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb410-2"><a href="herramientas-de-programación.html#cb410-2" tabindex="-1"></a></span>
+<span id="cb410-3"><a href="herramientas-de-programación.html#cb410-3" tabindex="-1"></a><span class="co"># Asignador</span></span>
+<span id="cb410-4"><a href="herramientas-de-programación.html#cb410-4" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb410-5"><a href="herramientas-de-programación.html#cb410-5" tabindex="-1"></a>a </span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="herramientas-de-programación.html#cb412-1" tabindex="-1"></a>a1 <span class="ot">=</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">3</span></span>
+<span id="cb412-2"><a href="herramientas-de-programación.html#cb412-2" tabindex="-1"></a>a1 </span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="herramientas-de-programación.html#cb414-1" tabindex="-1"></a><span class="co"># Nota: Nunca ocupar igual. </span></span>
+<span id="cb414-2"><a href="herramientas-de-programación.html#cb414-2" tabindex="-1"></a></span>
+<span id="cb414-3"><a href="herramientas-de-programación.html#cb414-3" tabindex="-1"></a><span class="co"># Igualdad </span></span>
+<span id="cb414-4"><a href="herramientas-de-programación.html#cb414-4" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">==</span> <span class="cn">TRUE</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="herramientas-de-programación.html#cb416-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">==</span> <span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="herramientas-de-programación.html#cb418-1" tabindex="-1"></a><span class="co"># Nota: Para comparar elementos se utiliza doble igual &quot;==&quot;.  </span></span>
+<span id="cb418-2"><a href="herramientas-de-programación.html#cb418-2" tabindex="-1"></a></span>
+<span id="cb418-3"><a href="herramientas-de-programación.html#cb418-3" tabindex="-1"></a></span>
+<span id="cb418-4"><a href="herramientas-de-programación.html#cb418-4" tabindex="-1"></a><span class="co"># Desigualdad (!=)</span></span>
+<span id="cb418-5"><a href="herramientas-de-programación.html#cb418-5" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">!=</span> <span class="cn">FALSE</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="herramientas-de-programación.html#cb420-1" tabindex="-1"></a><span class="st">&quot;Hola&quot;</span> <span class="sc">!=</span> <span class="st">&quot;Chao&quot;</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="herramientas-de-programación.html#cb422-1" tabindex="-1"></a><span class="co"># Otros comparadores: &lt;, &gt; (&gt;=), (&lt;=) </span></span>
+<span id="cb422-2"><a href="herramientas-de-programación.html#cb422-2" tabindex="-1"></a><span class="dv">3</span> <span class="sc">&lt;</span> <span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="herramientas-de-programación.html#cb424-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;</span> <span class="dv">8</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="herramientas-de-programación.html#cb426-1" tabindex="-1"></a><span class="dv">5</span> <span class="sc">&gt;=</span> <span class="dv">5</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="herramientas-de-programación.html#cb428-1" tabindex="-1"></a><span class="co"># Nota: No confundir con &lt;- que es para asignar. </span></span>
+<span id="cb428-2"><a href="herramientas-de-programación.html#cb428-2" tabindex="-1"></a></span>
+<span id="cb428-3"><a href="herramientas-de-programación.html#cb428-3" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&gt;</span> <span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="herramientas-de-programación.html#cb430-1" tabindex="-1"></a><span class="co"># Noten que la respuesta en un logical. </span></span>
+<span id="cb430-2"><a href="herramientas-de-programación.html#cb430-2" tabindex="-1"></a></span>
+<span id="cb430-3"><a href="herramientas-de-programación.html#cb430-3" tabindex="-1"></a><span class="co"># En vectores y matrices</span></span>
+<span id="cb430-4"><a href="herramientas-de-programación.html#cb430-4" tabindex="-1"></a>vector1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">16</span>,<span class="dv">9</span>,<span class="dv">13</span>)</span>
+<span id="cb430-5"><a href="herramientas-de-programación.html#cb430-5" tabindex="-1"></a>vector2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">10</span>,<span class="dv">12</span>,<span class="dv">15</span>)</span>
+<span id="cb430-6"><a href="herramientas-de-programación.html#cb430-6" tabindex="-1"></a></span>
+<span id="cb430-7"><a href="herramientas-de-programación.html#cb430-7" tabindex="-1"></a><span class="co"># Comparar contra un escalar</span></span>
+<span id="cb430-8"><a href="herramientas-de-programación.html#cb430-8" tabindex="-1"></a>vector1 <span class="sc">&gt;</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="herramientas-de-programación.html#cb432-1" tabindex="-1"></a>vector2 <span class="sc">&lt;</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>## [1] FALSE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="herramientas-de-programación.html#cb434-1" tabindex="-1"></a><span class="co"># Compararlos entre ellos </span></span>
+<span id="cb434-2"><a href="herramientas-de-programación.html#cb434-2" tabindex="-1"></a>vector1 <span class="sc">&lt;</span> vector2</span></code></pre></div>
+<pre><code>## [1] FALSE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="herramientas-de-programación.html#cb436-1" tabindex="-1"></a><span class="co"># Veamos en una matriz </span></span>
+<span id="cb436-2"><a href="herramientas-de-programación.html#cb436-2" tabindex="-1"></a>matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(vector1, vector2), </span>
+<span id="cb436-3"><a href="herramientas-de-programación.html#cb436-3" tabindex="-1"></a>                 <span class="at">byrow =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb436-4"><a href="herramientas-de-programación.html#cb436-4" tabindex="-1"></a>                 <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb436-5"><a href="herramientas-de-programación.html#cb436-5" tabindex="-1"></a>matrix</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   16    9   13
+## [2,]   10   12   15</code></pre>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="herramientas-de-programación.html#cb438-1" tabindex="-1"></a>matrix <span class="sc">&gt;</span> <span class="dv">10</span></span></code></pre></div>
+<pre><code>##       [,1]  [,2] [,3]
+## [1,]  TRUE FALSE TRUE
+## [2,] FALSE  TRUE TRUE</code></pre>
+<p>Operador %in%: Un operador muy útil para comparar valores y para evaluar
+rápidamente si un valor está dentro de un vector o marco de datos.</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="herramientas-de-programación.html#cb440-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span>
+<span id="cb440-2"><a href="herramientas-de-programación.html#cb440-2" tabindex="-1"></a></span>
+<span id="cb440-3"><a href="herramientas-de-programación.html#cb440-3" tabindex="-1"></a>v1 <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb440-4"><a href="herramientas-de-programación.html#cb440-4" tabindex="-1"></a>v2 <span class="ot">&lt;-</span> <span class="dv">101</span></span>
+<span id="cb440-5"><a href="herramientas-de-programación.html#cb440-5" tabindex="-1"></a>t <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="dv">8</span>)</span>
+<span id="cb440-6"><a href="herramientas-de-programación.html#cb440-6" tabindex="-1"></a></span>
+<span id="cb440-7"><a href="herramientas-de-programación.html#cb440-7" tabindex="-1"></a><span class="co"># El valor v1 ¿se encuentra dentro de t?</span></span>
+<span id="cb440-8"><a href="herramientas-de-programación.html#cb440-8" tabindex="-1"></a>v1 <span class="sc">%in%</span> t </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="herramientas-de-programación.html#cb442-1" tabindex="-1"></a><span class="co"># Otro ejemplo....</span></span>
+<span id="cb442-2"><a href="herramientas-de-programación.html#cb442-2" tabindex="-1"></a>mivector <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a&quot;</span>, <span class="st">&quot;b&quot;</span>, <span class="st">&quot;c&quot;</span>, <span class="st">&quot;d&quot;</span>)</span>
+<span id="cb442-3"><a href="herramientas-de-programación.html#cb442-3" tabindex="-1"></a><span class="st">&quot;a&quot;</span> <span class="sc">%in%</span> mivector</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="herramientas-de-programación.html#cb444-1" tabindex="-1"></a><span class="co"># Si no  está en el vector da un FALSE</span></span>
+<span id="cb444-2"><a href="herramientas-de-programación.html#cb444-2" tabindex="-1"></a><span class="st">&quot;h&quot;</span> <span class="sc">%in%</span> mivector</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="herramientas-de-programación.html#cb446-1" tabindex="-1"></a><span class="co"># Si le quiero preguntar si NO está, coloco un signo de exclamación al frente. </span></span>
+<span id="cb446-2"><a href="herramientas-de-programación.html#cb446-2" tabindex="-1"></a><span class="sc">!</span><span class="st">&quot;a&quot;</span> <span class="sc">%in%</span> mivector</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="herramientas-de-programación.html#cb448-1" tabindex="-1"></a><span class="co"># Un vector en otro vector </span></span>
+<span id="cb448-2"><a href="herramientas-de-programación.html#cb448-2" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">12</span>, <span class="dv">19</span>, <span class="dv">1</span>)</span>
+<span id="cb448-3"><a href="herramientas-de-programación.html#cb448-3" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">16</span>, <span class="dv">1</span>)</span>
+<span id="cb448-4"><a href="herramientas-de-programación.html#cb448-4" tabindex="-1"></a></span>
+<span id="cb448-5"><a href="herramientas-de-programación.html#cb448-5" tabindex="-1"></a><span class="co"># Veamos si los elementos de un vector &quot;largo&quot; están en uno &quot;corto&quot; </span></span>
+<span id="cb448-6"><a href="herramientas-de-programación.html#cb448-6" tabindex="-1"></a>b <span class="sc">%in%</span> a</span></code></pre></div>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE</code></pre>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="herramientas-de-programación.html#cb450-1" tabindex="-1"></a><span class="co"># Esto va a ser muy útil cuando trabajemos con bases de datos. </span></span></code></pre></div>
+<p>Operadores para seleccionar subconjuntos de datos:</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="herramientas-de-programación.html#cb451-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="cn">NA</span>,<span class="dv">8</span>)</span>
+<span id="cb451-2"><a href="herramientas-de-programación.html#cb451-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>## [1]  2  3  3  4 NA  8</code></pre>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="herramientas-de-programación.html#cb453-1" tabindex="-1"></a><span class="co"># Vamos a seleccionar solo los que no son NA</span></span>
+<span id="cb453-2"><a href="herramientas-de-programación.html#cb453-2" tabindex="-1"></a>y1 <span class="ot">&lt;-</span> y[<span class="sc">!</span><span class="fu">is.na</span>(y)]</span>
+<span id="cb453-3"><a href="herramientas-de-programación.html#cb453-3" tabindex="-1"></a>y1 </span></code></pre></div>
+<pre><code>## [1] 2 3 3 4 8</code></pre>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="herramientas-de-programación.html#cb455-1" tabindex="-1"></a><span class="co"># Noten que utilizamos la funcion is.NA y un operador (!). Más detalles en parte de análisis de datos, pero noten que la idea principal está aquí. </span></span></code></pre></div>
+<p>Operadores lógicos:</p>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="herramientas-de-programación.html#cb456-1" tabindex="-1"></a><span class="co"># Operador (&amp;): operador &quot;y&quot;</span></span>
+<span id="cb456-2"><a href="herramientas-de-programación.html#cb456-2" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">TRUE</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="herramientas-de-programación.html#cb458-1" tabindex="-1"></a><span class="cn">TRUE</span> <span class="sc">&amp;</span> <span class="cn">FALSE</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="herramientas-de-programación.html#cb460-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">&amp;</span> <span class="cn">TRUE</span></span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="herramientas-de-programación.html#cb462-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">&amp;</span> <span class="cn">FALSE</span> </span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="herramientas-de-programación.html#cb464-1" tabindex="-1"></a><span class="co"># Ejemplo </span></span>
+<span id="cb464-2"><a href="herramientas-de-programación.html#cb464-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">12</span> </span>
+<span id="cb464-3"><a href="herramientas-de-programación.html#cb464-3" tabindex="-1"></a>x <span class="sc">&gt;</span> <span class="dv">5</span> <span class="sc">&amp;</span> x <span class="sc">&lt;</span> <span class="dv">11</span>  </span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb466"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb466-1"><a href="herramientas-de-programación.html#cb466-1" tabindex="-1"></a><span class="co"># Operador (|): operador &quot;o&quot;. Condiciones no excluyentes.</span></span>
+<span id="cb466-2"><a href="herramientas-de-programación.html#cb466-2" tabindex="-1"></a><span class="cn">TRUE</span>  <span class="sc">|</span> <span class="cn">TRUE</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="herramientas-de-programación.html#cb468-1" tabindex="-1"></a><span class="cn">TRUE</span>  <span class="sc">|</span> <span class="cn">FALSE</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="herramientas-de-programación.html#cb470-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">|</span> <span class="cn">TRUE</span></span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="herramientas-de-programación.html#cb472-1" tabindex="-1"></a><span class="cn">FALSE</span> <span class="sc">|</span> <span class="cn">FALSE</span> </span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb474"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb474-1"><a href="herramientas-de-programación.html#cb474-1" tabindex="-1"></a><span class="co"># Ejemplo</span></span>
+<span id="cb474-2"><a href="herramientas-de-programación.html#cb474-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb474-3"><a href="herramientas-de-programación.html#cb474-3" tabindex="-1"></a>y <span class="sc">&lt;</span> <span class="dv">5</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">15</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="herramientas-de-programación.html#cb476-1" tabindex="-1"></a><span class="co"># Operador de negación (!)</span></span>
+<span id="cb476-2"><a href="herramientas-de-programación.html#cb476-2" tabindex="-1"></a><span class="sc">!</span><span class="cn">TRUE</span> </span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="herramientas-de-programación.html#cb478-1" tabindex="-1"></a><span class="sc">!</span><span class="cn">FALSE</span> </span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb480"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb480-1"><a href="herramientas-de-programación.html#cb480-1" tabindex="-1"></a><span class="co"># Combinarlo con funciones </span></span>
+<span id="cb480-2"><a href="herramientas-de-programación.html#cb480-2" tabindex="-1"></a><span class="sc">!</span><span class="fu">is.numeric</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE</code></pre>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="herramientas-de-programación.html#cb482-1" tabindex="-1"></a><span class="sc">!</span><span class="fu">is.numeric</span>(<span class="st">&quot;Hello&quot;</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="herramientas-de-programación.html#cb484-1" tabindex="-1"></a><span class="co"># Operadores con vectores </span></span>
+<span id="cb484-2"><a href="herramientas-de-programación.html#cb484-2" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>) <span class="sc">&amp;</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE FALSE FALSE</code></pre>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="herramientas-de-programación.html#cb486-1" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>) <span class="sc">|</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1]  TRUE  TRUE FALSE</code></pre>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="herramientas-de-programación.html#cb488-1" tabindex="-1"></a><span class="sc">!</span><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>,<span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] FALSE FALSE  TRUE</code></pre>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="herramientas-de-programación.html#cb490-1" tabindex="-1"></a><span class="co"># Si utilizo dos &quot;&amp;&amp;&quot; sólo compara el primer elemento del vector</span></span>
+<span id="cb490-2"><a href="herramientas-de-programación.html#cb490-2" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>) <span class="sc">||</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="herramientas-de-programación.html#cb492-1" tabindex="-1"></a><span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">FALSE</span>,<span class="cn">FALSE</span>) <span class="sc">&amp;&amp;</span> <span class="fu">c</span>(<span class="cn">TRUE</span>,<span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+</div>
+<div id="condicionales" class="section level4 hasAnchor" number="2.2.4.3">
+<h4><span class="header-section-number">2.2.4.3</span> Condicionales<a href="herramientas-de-programación.html#condicionales" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>If:</p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="herramientas-de-programación.html#cb494-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb494-2"><a href="herramientas-de-programación.html#cb494-2" tabindex="-1"></a>  </span>
+<span id="cb494-3"><a href="herramientas-de-programación.html#cb494-3" tabindex="-1"></a><span class="co">#if (condicion){</span></span>
+<span id="cb494-4"><a href="herramientas-de-programación.html#cb494-4" tabindex="-1"></a></span>
+<span id="cb494-5"><a href="herramientas-de-programación.html#cb494-5" tabindex="-1"></a><span class="co">#  cualquier cosa que quiero que se haga si la condición se cumple </span></span>
+<span id="cb494-6"><a href="herramientas-de-programación.html#cb494-6" tabindex="-1"></a></span>
+<span id="cb494-7"><a href="herramientas-de-programación.html#cb494-7" tabindex="-1"></a><span class="co">#}</span></span>
+<span id="cb494-8"><a href="herramientas-de-programación.html#cb494-8" tabindex="-1"></a></span>
+<span id="cb494-9"><a href="herramientas-de-programación.html#cb494-9" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb494-10"><a href="herramientas-de-programación.html#cb494-10" tabindex="-1"></a>  </span>
+<span id="cb494-11"><a href="herramientas-de-programación.html#cb494-11" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es número mayor que cero&quot;</span>)</span>
+<span id="cb494-12"><a href="herramientas-de-programación.html#cb494-12" tabindex="-1"></a>  </span>
+<span id="cb494-13"><a href="herramientas-de-programación.html#cb494-13" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es número mayor que cero&quot;</code></pre>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="herramientas-de-programación.html#cb496-1" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb496-2"><a href="herramientas-de-programación.html#cb496-2" tabindex="-1"></a>  </span>
+<span id="cb496-3"><a href="herramientas-de-programación.html#cb496-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es un número mayor que cero &quot;</span>)</span>
+<span id="cb496-4"><a href="herramientas-de-programación.html#cb496-4" tabindex="-1"></a>  </span>
+<span id="cb496-5"><a href="herramientas-de-programación.html#cb496-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es un número mayor que cero &quot;</code></pre>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="herramientas-de-programación.html#cb498-1" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&lt;</span> <span class="dv">0</span>){</span>
+<span id="cb498-2"><a href="herramientas-de-programación.html#cb498-2" tabindex="-1"></a>  </span>
+<span id="cb498-3"><a href="herramientas-de-programación.html#cb498-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es un número menor que cero&quot;</span>)</span>
+<span id="cb498-4"><a href="herramientas-de-programación.html#cb498-4" tabindex="-1"></a>  </span>
+<span id="cb498-5"><a href="herramientas-de-programación.html#cb498-5" tabindex="-1"></a>}</span></code></pre></div>
+<p>Else:</p>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="herramientas-de-programación.html#cb499-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb499-2"><a href="herramientas-de-programación.html#cb499-2" tabindex="-1"></a></span>
+<span id="cb499-3"><a href="herramientas-de-programación.html#cb499-3" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb499-4"><a href="herramientas-de-programación.html#cb499-4" tabindex="-1"></a>  </span>
+<span id="cb499-5"><a href="herramientas-de-programación.html#cb499-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es un número positivo&quot;</span>)</span>
+<span id="cb499-6"><a href="herramientas-de-programación.html#cb499-6" tabindex="-1"></a>  </span>
+<span id="cb499-7"><a href="herramientas-de-programación.html#cb499-7" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb499-8"><a href="herramientas-de-programación.html#cb499-8" tabindex="-1"></a>  </span>
+<span id="cb499-9"><a href="herramientas-de-programación.html#cb499-9" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es un número negativo&quot;</span>)</span>
+<span id="cb499-10"><a href="herramientas-de-programación.html#cb499-10" tabindex="-1"></a>  </span>
+<span id="cb499-11"><a href="herramientas-de-programación.html#cb499-11" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es un número negativo&quot;</code></pre>
+<p>Elseif:</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="herramientas-de-programación.html#cb501-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb501-2"><a href="herramientas-de-programación.html#cb501-2" tabindex="-1"></a></span>
+<span id="cb501-3"><a href="herramientas-de-programación.html#cb501-3" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">&gt;</span> <span class="dv">0</span>){</span>
+<span id="cb501-4"><a href="herramientas-de-programación.html#cb501-4" tabindex="-1"></a>  </span>
+<span id="cb501-5"><a href="herramientas-de-programación.html#cb501-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es mayor que cero&quot;</span>)</span>
+<span id="cb501-6"><a href="herramientas-de-programación.html#cb501-6" tabindex="-1"></a>  </span>
+<span id="cb501-7"><a href="herramientas-de-programación.html#cb501-7" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb501-8"><a href="herramientas-de-programación.html#cb501-8" tabindex="-1"></a>  </span>
+<span id="cb501-9"><a href="herramientas-de-programación.html#cb501-9" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es igual a cero&quot;</span>)</span>
+<span id="cb501-10"><a href="herramientas-de-programación.html#cb501-10" tabindex="-1"></a>} <span class="cf">else</span>{</span>
+<span id="cb501-11"><a href="herramientas-de-programación.html#cb501-11" tabindex="-1"></a>  </span>
+<span id="cb501-12"><a href="herramientas-de-programación.html#cb501-12" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es menor que cero&quot;</span>)</span>
+<span id="cb501-13"><a href="herramientas-de-programación.html#cb501-13" tabindex="-1"></a>  </span>
+<span id="cb501-14"><a href="herramientas-de-programación.html#cb501-14" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es igual a cero&quot;</code></pre>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="herramientas-de-programación.html#cb503-1" tabindex="-1"></a><span class="co"># Importante: `(%%) corresponde al resto de una división`</span></span>
+<span id="cb503-2"><a href="herramientas-de-programación.html#cb503-2" tabindex="-1"></a></span>
+<span id="cb503-3"><a href="herramientas-de-programación.html#cb503-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">6</span> </span>
+<span id="cb503-4"><a href="herramientas-de-programación.html#cb503-4" tabindex="-1"></a></span>
+<span id="cb503-5"><a href="herramientas-de-programación.html#cb503-5" tabindex="-1"></a><span class="cf">if</span> (x <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb503-6"><a href="herramientas-de-programación.html#cb503-6" tabindex="-1"></a>  </span>
+<span id="cb503-7"><a href="herramientas-de-programación.html#cb503-7" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es divisible por 2&quot;</span>)</span>
+<span id="cb503-8"><a href="herramientas-de-programación.html#cb503-8" tabindex="-1"></a>  </span>
+<span id="cb503-9"><a href="herramientas-de-programación.html#cb503-9" tabindex="-1"></a>} <span class="cf">else</span> <span class="cf">if</span> (x <span class="sc">%%</span> <span class="dv">3</span> <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb503-10"><a href="herramientas-de-programación.html#cb503-10" tabindex="-1"></a>  </span>
+<span id="cb503-11"><a href="herramientas-de-programación.html#cb503-11" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x es divisible por 3&quot;</span>)</span>
+<span id="cb503-12"><a href="herramientas-de-programación.html#cb503-12" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb503-13"><a href="herramientas-de-programación.html#cb503-13" tabindex="-1"></a>  </span>
+<span id="cb503-14"><a href="herramientas-de-programación.html#cb503-14" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;x no es divisible ni por 2 ni por 3&quot;</span>)</span>
+<span id="cb503-15"><a href="herramientas-de-programación.html#cb503-15" tabindex="-1"></a>  </span>
+<span id="cb503-16"><a href="herramientas-de-programación.html#cb503-16" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es divisible por 2&quot;</code></pre>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="herramientas-de-programación.html#cb505-1" tabindex="-1"></a><span class="co"># Notar que si la primera condición se cumple, la segunda no se ejecuta aunque sea cierta.  </span></span></code></pre></div>
+</div>
+<div id="funciones" class="section level4 hasAnchor" number="2.2.4.4">
+<h4><span class="header-section-number">2.2.4.4</span> Funciones<a href="herramientas-de-programación.html#funciones" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Idea principal: <span class="math inline">\(f(x) = 2x + 1\)</span>, <span class="math inline">\(x \in R\)</span> <span class="math inline">\(f(x) = &#39;hola&#39; + x\)</span>,
+<span class="math inline">\(x \in (&#39;pepe&#39;, &#39;pepa&#39;, &#39;marta&#39;)\)</span></p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="herramientas-de-programación.html#cb506-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span>  <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb506-2"><a href="herramientas-de-programación.html#cb506-2" tabindex="-1"></a><span class="fu">mean</span>(valores)</span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<p>Algunas cosas adicionales sobre funciones: <code>n</code> me permite ver los
+argumentos de una función, sin necesidad de ver la documentación. Útil a
+veces.</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="herramientas-de-programación.html#cb508-1" tabindex="-1"></a><span class="co"># Escribir funciones con un argumento</span></span>
+<span id="cb508-2"><a href="herramientas-de-programación.html#cb508-2" tabindex="-1"></a>triple <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb508-3"><a href="herramientas-de-programación.html#cb508-3" tabindex="-1"></a>  </span>
+<span id="cb508-4"><a href="herramientas-de-programación.html#cb508-4" tabindex="-1"></a>  y <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">*</span> x</span>
+<span id="cb508-5"><a href="herramientas-de-programación.html#cb508-5" tabindex="-1"></a>  <span class="fu">return</span>(y)</span>
+<span id="cb508-6"><a href="herramientas-de-programación.html#cb508-6" tabindex="-1"></a>  </span>
+<span id="cb508-7"><a href="herramientas-de-programación.html#cb508-7" tabindex="-1"></a>}</span>
+<span id="cb508-8"><a href="herramientas-de-programación.html#cb508-8" tabindex="-1"></a></span>
+<span id="cb508-9"><a href="herramientas-de-programación.html#cb508-9" tabindex="-1"></a></span>
+<span id="cb508-10"><a href="herramientas-de-programación.html#cb508-10" tabindex="-1"></a>triple <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb508-11"><a href="herramientas-de-programación.html#cb508-11" tabindex="-1"></a>  x<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb508-12"><a href="herramientas-de-programación.html#cb508-12" tabindex="-1"></a></span>
+<span id="cb508-13"><a href="herramientas-de-programación.html#cb508-13" tabindex="-1"></a>  </span>
+<span id="cb508-14"><a href="herramientas-de-programación.html#cb508-14" tabindex="-1"></a>}</span>
+<span id="cb508-15"><a href="herramientas-de-programación.html#cb508-15" tabindex="-1"></a></span>
+<span id="cb508-16"><a href="herramientas-de-programación.html#cb508-16" tabindex="-1"></a><span class="fu">triple</span>(<span class="dv">500</span>)</span></code></pre></div>
+<pre><code>## [1] 250</code></pre>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="herramientas-de-programación.html#cb510-1" tabindex="-1"></a><span class="co"># Escribir funciones con mas de un argumento</span></span>
+<span id="cb510-2"><a href="herramientas-de-programación.html#cb510-2" tabindex="-1"></a>operacion <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb510-3"><a href="herramientas-de-programación.html#cb510-3" tabindex="-1"></a>  </span>
+<span id="cb510-4"><a href="herramientas-de-programación.html#cb510-4" tabindex="-1"></a>  a<span class="sc">*</span>b <span class="sc">+</span> a<span class="sc">/</span>b</span>
+<span id="cb510-5"><a href="herramientas-de-programación.html#cb510-5" tabindex="-1"></a>  </span>
+<span id="cb510-6"><a href="herramientas-de-programación.html#cb510-6" tabindex="-1"></a>  </span>
+<span id="cb510-7"><a href="herramientas-de-programación.html#cb510-7" tabindex="-1"></a>}</span>
+<span id="cb510-8"><a href="herramientas-de-programación.html#cb510-8" tabindex="-1"></a></span>
+<span id="cb510-9"><a href="herramientas-de-programación.html#cb510-9" tabindex="-1"></a><span class="fu">operacion</span>(<span class="dv">4</span>,<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 10</code></pre>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="herramientas-de-programación.html#cb512-1" tabindex="-1"></a><span class="co"># Escribir funciones fijando opción por defecto.</span></span>
+<span id="cb512-2"><a href="herramientas-de-programación.html#cb512-2" tabindex="-1"></a>operacion_defecto <span class="ot">&lt;-</span> <span class="cf">function</span>(a,<span class="at">b =</span> <span class="dv">1</span>){</span>
+<span id="cb512-3"><a href="herramientas-de-programación.html#cb512-3" tabindex="-1"></a>  a<span class="sc">*</span>b <span class="sc">+</span> a<span class="sc">/</span>b</span>
+<span id="cb512-4"><a href="herramientas-de-programación.html#cb512-4" tabindex="-1"></a>  </span>
+<span id="cb512-5"><a href="herramientas-de-programación.html#cb512-5" tabindex="-1"></a>  </span>
+<span id="cb512-6"><a href="herramientas-de-programación.html#cb512-6" tabindex="-1"></a>}</span>
+<span id="cb512-7"><a href="herramientas-de-programación.html#cb512-7" tabindex="-1"></a></span>
+<span id="cb512-8"><a href="herramientas-de-programación.html#cb512-8" tabindex="-1"></a><span class="fu">operacion_defecto</span>(<span class="dv">4</span>)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="herramientas-de-programación.html#cb514-1" tabindex="-1"></a><span class="fu">operacion_defecto</span>(<span class="dv">4</span>,<span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] Inf</code></pre>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="herramientas-de-programación.html#cb516-1" tabindex="-1"></a><span class="co"># Escribir funciones utilizando if y return.</span></span>
+<span id="cb516-2"><a href="herramientas-de-programación.html#cb516-2" tabindex="-1"></a>operacion_condicionales <span class="ot">&lt;-</span> <span class="cf">function</span>(a,<span class="at">b =</span> <span class="dv">1</span>){</span>
+<span id="cb516-3"><a href="herramientas-de-programación.html#cb516-3" tabindex="-1"></a>  <span class="cf">if</span> (b <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb516-4"><a href="herramientas-de-programación.html#cb516-4" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb516-5"><a href="herramientas-de-programación.html#cb516-5" tabindex="-1"></a>    </span>
+<span id="cb516-6"><a href="herramientas-de-programación.html#cb516-6" tabindex="-1"></a>  }</span>
+<span id="cb516-7"><a href="herramientas-de-programación.html#cb516-7" tabindex="-1"></a>  a<span class="sc">*</span>b <span class="sc">+</span> a<span class="sc">/</span>b  </span>
+<span id="cb516-8"><a href="herramientas-de-programación.html#cb516-8" tabindex="-1"></a>  </span>
+<span id="cb516-9"><a href="herramientas-de-programación.html#cb516-9" tabindex="-1"></a>}</span>
+<span id="cb516-10"><a href="herramientas-de-programación.html#cb516-10" tabindex="-1"></a></span>
+<span id="cb516-11"><a href="herramientas-de-programación.html#cb516-11" tabindex="-1"></a><span class="fu">operacion_condicionales</span>(<span class="dv">4</span>,<span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="herramientas-de-programación.html#cb518-1" tabindex="-1"></a><span class="co"># Funciones con texto </span></span>
+<span id="cb518-2"><a href="herramientas-de-programación.html#cb518-2" tabindex="-1"></a>texto <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb518-3"><a href="herramientas-de-programación.html#cb518-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;Hola mundo!&quot;</span>)</span>
+<span id="cb518-4"><a href="herramientas-de-programación.html#cb518-4" tabindex="-1"></a>  <span class="fu">return</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb518-5"><a href="herramientas-de-programación.html#cb518-5" tabindex="-1"></a>}</span>
+<span id="cb518-6"><a href="herramientas-de-programación.html#cb518-6" tabindex="-1"></a></span>
+<span id="cb518-7"><a href="herramientas-de-programación.html#cb518-7" tabindex="-1"></a><span class="fu">texto</span>()</span></code></pre></div>
+<pre><code>## [1] &quot;Hola mundo!&quot;</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="herramientas-de-programación.html#cb521-1" tabindex="-1"></a><span class="co"># Funciones por defecto en ambos casos</span></span>
+<span id="cb521-2"><a href="herramientas-de-programación.html#cb521-2" tabindex="-1"></a>operacion_dosdefectos <span class="ot">&lt;-</span> <span class="cf">function</span>(<span class="at">a =</span> <span class="dv">1</span>,<span class="at">b =</span> <span class="dv">1</span>){</span>
+<span id="cb521-3"><a href="herramientas-de-programación.html#cb521-3" tabindex="-1"></a>  <span class="cf">if</span> (b <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb521-4"><a href="herramientas-de-programación.html#cb521-4" tabindex="-1"></a>    <span class="fu">return</span>(<span class="dv">0</span>)</span>
+<span id="cb521-5"><a href="herramientas-de-programación.html#cb521-5" tabindex="-1"></a>    </span>
+<span id="cb521-6"><a href="herramientas-de-programación.html#cb521-6" tabindex="-1"></a>  }</span>
+<span id="cb521-7"><a href="herramientas-de-programación.html#cb521-7" tabindex="-1"></a>  </span>
+<span id="cb521-8"><a href="herramientas-de-programación.html#cb521-8" tabindex="-1"></a>  a<span class="sc">*</span>b <span class="sc">+</span> a<span class="sc">/</span>b  </span>
+<span id="cb521-9"><a href="herramientas-de-programación.html#cb521-9" tabindex="-1"></a>  </span>
+<span id="cb521-10"><a href="herramientas-de-programación.html#cb521-10" tabindex="-1"></a>}</span>
+<span id="cb521-11"><a href="herramientas-de-programación.html#cb521-11" tabindex="-1"></a></span>
+<span id="cb521-12"><a href="herramientas-de-programación.html#cb521-12" tabindex="-1"></a><span class="fu">operacion_dosdefectos</span>()</span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="alert alert-block alert-warning">
+<p><b>Ejercicio 2.2.2:</b> Funciones</p>
+<p>Genere una función que sea igual a la división de dos elementos. Coloque
+un mensaje que indique cuando la división es indeterminada.</p>
+</div>
+<p>Respuesta:</p>
+<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="herramientas-de-programación.html#cb523-1" tabindex="-1"></a>operacion_indeterminada <span class="ot">&lt;-</span> <span class="cf">function</span>(a,b){</span>
+<span id="cb523-2"><a href="herramientas-de-programación.html#cb523-2" tabindex="-1"></a>  a<span class="sc">/</span>b </span>
+<span id="cb523-3"><a href="herramientas-de-programación.html#cb523-3" tabindex="-1"></a>  <span class="cf">if</span> (b <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb523-4"><a href="herramientas-de-programación.html#cb523-4" tabindex="-1"></a>    <span class="fu">print</span>(<span class="st">&quot;Es indeterminado&quot;</span>)</span>
+<span id="cb523-5"><a href="herramientas-de-programación.html#cb523-5" tabindex="-1"></a>  }</span>
+<span id="cb523-6"><a href="herramientas-de-programación.html#cb523-6" tabindex="-1"></a>}</span>
+<span id="cb523-7"><a href="herramientas-de-programación.html#cb523-7" tabindex="-1"></a></span>
+<span id="cb523-8"><a href="herramientas-de-programación.html#cb523-8" tabindex="-1"></a><span class="fu">operacion_indeterminada</span>(<span class="dv">1</span>,<span class="dv">0</span>)</span></code></pre></div>
+<pre><code>## [1] &quot;Es indeterminado&quot;</code></pre>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-r-and-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="manipulación-de-bases-de-datos-parte-i.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

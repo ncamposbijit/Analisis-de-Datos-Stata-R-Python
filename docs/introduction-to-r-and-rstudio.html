@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.1 Introduction to R and RStudio | Using R for data analysis</title>
+  <meta name="description" content="A book focused on teaching data analysis using R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.1 Introduction to R and RStudio | Using R for data analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book focused on teaching data analysis using R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.1 Introduction to R and RStudio | Using R for data analysis" />
+  
+  <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
+  
+
+<meta name="author" content="Nicolás Campos Bijit" />
+
+
+<meta name="date" content="2026-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-analysis-with-r.html"/>
+<link rel="next" href="herramientas-de-programación.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="data-analysis-with-r.html"><a href="data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Data Analysis with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r-as-a-programming-language"><i class="fa fa-check"></i><b>2.1.1</b> Why use R as a programming language?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-and-recurring-terms-throughout-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key and recurring terms throughout the course</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning Resources</a></li>
+<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#package-installation-and-help"><i class="fa fa-check"></i><b>2.1.5</b> Package installation and help</a></li>
+<li class="chapter" data-level="2.1.6" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#manipulaci%C3%B3n-de-objetos"><i class="fa fa-check"></i><b>2.1.6</b> Manipulación de objetos</a></li>
+<li class="chapter" data-level="2.1.7" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.1.7</b> Tipos de objetos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html"><i class="fa fa-check"></i><b>2.2</b> Herramientas de programación</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#objetos-adicionales"><i class="fa fa-check"></i><b>2.2.1</b> Objetos adicionales</a></li>
+<li class="chapter" data-level="2.2.2" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#acceder-a-elementos-de-un-objeto"><i class="fa fa-check"></i><b>2.2.2</b> Acceder a elementos de un objeto</a></li>
+<li class="chapter" data-level="2.2.3" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#tipos-de-objetos-y-datos"><i class="fa fa-check"></i><b>2.2.3</b> Tipos de objetos y datos</a></li>
+<li class="chapter" data-level="2.2.4" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#herramientas-en-r"><i class="fa fa-check"></i><b>2.2.4</b> Herramientas en R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="manipulación-de-bases-de-datos-parte-i.html"><a href="manipulación-de-bases-de-datos-parte-i.html"><i class="fa fa-check"></i><b>2.3</b> Manipulación de bases de datos (Parte I)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="manipulación-de-bases-de-datos-parte-i.html"><a href="manipulación-de-bases-de-datos-parte-i.html#principios-de-programaci%C3%B3n"><i class="fa fa-check"></i><b>2.3.1</b> Principios de programación</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for data analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="introduction-to-r-and-rstudio" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Introduction to R and RStudio<a href="introduction-to-r-and-rstudio.html#introduction-to-r-and-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="why-use-r-as-a-programming-language" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Why use R as a programming language?<a href="introduction-to-r-and-rstudio.html#why-use-r-as-a-programming-language" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>Open source:</strong> The license is free.</p></li>
+<li><p><strong>Versatile:</strong> statistical and econometric analysis + useful programming tasks (e.g., web scraping).</p></li>
+<li><p><strong>Flexible and reproducible:</strong> ensures reproducibility, is flexible to changes and error detection.</p></li>
+<li><p><strong>In demand:</strong> Open-source programming languages are increasingly requested in the labor market.</p></li>
+</ul>
+</div>
+<div id="key-and-recurring-terms-throughout-the-course" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Key and recurring terms throughout the course<a href="introduction-to-r-and-rstudio.html#key-and-recurring-terms-throughout-the-course" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><strong>RStudio:</strong> Graphical User Interface. It is designed to make using R easier.</li>
+<li><strong>Objects:</strong> Anything you store in R. For example: datasets, variables, lists of names, plots.</li>
+<li><strong>Functions:</strong> An operation produced by code that accepts inputs and returns outputs.</li>
+<li><strong>Packages:</strong> A set of functions grouped according to their purpose.</li>
+<li><strong>Scripts/Code:</strong> Document that contains all commands used in a data analysis process.</li>
+</ul>
+</div>
+<div id="learning-resources" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Learning Resources<a href="introduction-to-r-and-rstudio.html#learning-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div style="text-align: justify">
+<ul>
+<li>Cheat sheets: material available with a summary of the main commands/packages/functions for different topics.
+Available at: <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
+</ul>
+</div>
+<ul>
+<li>Forums and websites:
+<ul>
+<li><a href="https://stackoverflow.com/questions/tagged/r">Stackoverflow</a></li>
+<li><a href="https://preettheman.medium.com/awesome-tricks-every-r-coder-should-know-c4220cd2cfbc">Medium</a></li>
+<li><a href="https://posit.co/">The RStudio Blog</a></li>
+</ul></li>
+<li>Books:
+<ul>
+<li><a href="https://r4ds.had.co.nz/">R for Data Science</a></li>
+<li><a href="https://posit.co/resources/videos/">Resources about R in Spanish.</a></li>
+<li><a href="https://bookdown.org/">Bookdown</a></li>
+</ul></li>
+<li></li>
+</ul>
+</div>
+<div id="rstudio-interface" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> RStudio Interface<a href="introduction-to-r-and-rstudio.html#rstudio-interface" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="four-sections-in-rstudio" class="section level4 hasAnchor" number="2.1.4.1">
+<h4><span class="header-section-number">2.1.4.1</span> Four sections in RStudio<a href="introduction-to-r-and-rstudio.html#four-sections-in-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The fundamental ones are: <em>Scripts, Console,
+Environment/Files/Help</em>.</p>
+<ul>
+<li><strong>Scripts:</strong> Where we will develop the code. It is a notebook.</li>
+<li><strong>Console:</strong> Where we will see the results.</li>
+<li><strong>Environment:</strong> Where we will see the data and the information we are generating.</li>
+<li><strong>Files:</strong> Where we will see the files associated with our projects.</li>
+<li><strong>Help:</strong> Where we will develop the code. It is a notebook.</li>
+</ul>
+<p>To customize RStudio go to: <strong>Tools -&gt; Global Options</strong>.
+There you can change the environment color, font type, layout order. The
+idea is to use RStudio in the most intuitive way possible.</p>
+</div>
+<div id="writing-comments" class="section level4 hasAnchor" number="2.1.4.2">
+<h4><span class="header-section-number">2.1.4.2</span> Writing comments<a href="introduction-to-r-and-rstudio.html#writing-comments" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>It is very important to write comments throughout your code. It is also important to know how to write <strong>good</strong> comments. A very good guide that discusses this and many other things is: <a href="https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf">Code and Data for the Social Sciences: A Practitioner’s Guide</a>.</p>
+<p><code>(#)</code> to write comments in the script. If I want to mark multiple
+lines as comments: <code>ctrl + shift + c</code></p>
+</div>
+<div id="indices" class="section level4 hasAnchor" number="2.1.4.3">
+<h4><span class="header-section-number">2.1.4.3</span> Indices<a href="introduction-to-r-and-rstudio.html#indices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>It is important to write indices to document your code. To
+see it I must type: <code>ctrl + shift + o</code></p>
+<p>Titles can be hierarchical:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-to-r-and-rstudio.html#cb1-1" tabindex="-1"></a><span class="co"># The most important</span></span>
+<span id="cb1-2"><a href="introduction-to-r-and-rstudio.html#cb1-2" tabindex="-1"></a><span class="do">## This is a bit less important</span></span>
+<span id="cb1-3"><a href="introduction-to-r-and-rstudio.html#cb1-3" tabindex="-1"></a><span class="do">### This is a bit less important than the previous one</span></span>
+<span id="cb1-4"><a href="introduction-to-r-and-rstudio.html#cb1-4" tabindex="-1"></a><span class="do">#### The least important</span></span></code></pre></div>
+<p>It is important to update it constantly to avoid losing functionality.</p>
+</div>
+</div>
+<div id="package-installation-and-help" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Package installation and help<a href="introduction-to-r-and-rstudio.html#package-installation-and-help" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Packages are basically collections of functions. Packages are installed once, but they are called every time they are used.</p>
+<div id="libraries" class="section level4 hasAnchor" number="2.1.5.1">
+<h4><span class="header-section-number">2.1.5.1</span> Libraries<a href="introduction-to-r-and-rstudio.html#libraries" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>This can be done in two ways:</p>
+<ol style="list-style-type: decimal">
+<li><p>From the <em>Packages</em> tab in the bottom-right corner.</p></li>
+<li><p>Using commands</p></li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction-to-r-and-rstudio.html#cb2-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<p>Many packages at the same time:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-to-r-and-rstudio.html#cb3-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;rio&quot;</span>))</span></code></pre></div>
+<p>Common error:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction-to-r-and-rstudio.html#cb4-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>, <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<p>In general, it is a good idea to install them at the beginning of your work, since we commonly use the same libraries when doing data analysis. With this function, we tell R to install the package if it is not installed (something typical when we switch computers):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction-to-r-and-rstudio.html#cb5-1" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dplyr)) {<span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)}</span></code></pre></div>
+<p>Load libraries:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction-to-r-and-rstudio.html#cb6-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>If we want to see what is inside each package:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction-to-r-and-rstudio.html#cb7-1" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:dplyr&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>) <span class="co">#ls = list objects</span></span></code></pre></div>
+<p><strong>Important</strong>: the package must be installed once, but loaded every time it is used. There are often updates. To check and install them:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction-to-r-and-rstudio.html#cb8-1" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code></pre></div>
+<p>Alternatively, I can link a package to a function using <code>::</code>. If I do this, it is not necessary to load the library in order to use that specific function. However, the recommended practice is to load all the libraries of the packages I will use at the beginning.</p>
+</div>
+<div id="help-function" class="section level4 hasAnchor" number="2.1.5.2">
+<h4><span class="header-section-number">2.1.5.2</span> Help function<a href="introduction-to-r-and-rstudio.html#help-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>About a specific function:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction-to-r-and-rstudio.html#cb9-1" tabindex="-1"></a><span class="fu">help</span>(mean) </span>
+<span id="cb9-2"><a href="introduction-to-r-and-rstudio.html#cb9-2" tabindex="-1"></a>?mean </span>
+<span id="cb9-3"><a href="introduction-to-r-and-rstudio.html#cb9-3" tabindex="-1"></a>mean </span>
+<span id="cb9-4"><a href="introduction-to-r-and-rstudio.html#cb9-4" tabindex="-1"></a>sd</span></code></pre></div>
+<p>About a specific package:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction-to-r-and-rstudio.html#cb10-1" tabindex="-1"></a><span class="fu">help</span>(<span class="st">&quot;dplyr&quot;</span>) </span>
+<span id="cb10-2"><a href="introduction-to-r-and-rstudio.html#cb10-2" tabindex="-1"></a><span class="fu">library</span>(<span class="at">help=</span><span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+</div>
+<div id="useful-shortcuts" class="section level4 hasAnchor" number="2.1.5.3">
+<h4><span class="header-section-number">2.1.5.3</span> Useful <em>Shortcuts</em><a href="introduction-to-r-and-rstudio.html#useful-shortcuts" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li><code>Esc</code>: interrupt the current command</li>
+<li><code>Ctrl + s</code>: save</li>
+<li><code>tab</code>: autocomplete</li>
+<li><code>Ctrl + Enter</code>: run line</li>
+<li><code>Ctrl + Shift + C</code>: comment/uncomment</li>
+<li><code>&lt;-</code>: Alt + - / option + -</li>
+<li><code>%&gt;%</code>: Ctrl + Shift + M (<em>pipe</em>)</li>
+<li><code>Ctrl + l</code>: clear console</li>
+<li><code>Ctrl + Alt + b</code>: run everything up to here (the arrow keys in the console allow you to view the most recent commands used)</li>
+<li><code>Shift + lines</code>: select multiple lines</li>
+<li><code>Ctrl + f</code>: find/replace</li>
+<li><code>Ctrl + Up Arrow</code> (in the console): view previously used commands</li>
+</ul>
+</div>
+<div id="clear-the-r-environment" class="section level4 hasAnchor" number="2.1.5.4">
+<h4><span class="header-section-number">2.1.5.4</span> Clear the R <em>environment</em><a href="introduction-to-r-and-rstudio.html#clear-the-r-environment" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Remove all objects:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction-to-r-and-rstudio.html#cb11-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list=</span><span class="fu">ls</span>())</span></code></pre></div>
+<p>Remove only one object</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction-to-r-and-rstudio.html#cb12-1" tabindex="-1"></a><span class="fu">rm</span>(data1)</span></code></pre></div>
+<p>If I want to clear the console, I need to press <code>Ctrl + L</code>.</p>
+</div>
+<div id="identify-the-package-of-a-function" class="section level4 hasAnchor" number="2.1.5.5">
+<h4><span class="header-section-number">2.1.5.5</span> Identify the package of a function<a href="introduction-to-r-and-rstudio.html#identify-the-package-of-a-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sometimes we want to know which package a given function belongs to. For that, check:
+<a href="https://sebastiansauer.github.io/finds_funs/" class="uri">https://sebastiansauer.github.io/finds_funs/</a>
+`</p>
+</div>
+<div id="error-común" class="section level4 hasAnchor" number="2.1.5.6">
+<h4><span class="header-section-number">2.1.5.6</span> Error común<a href="introduction-to-r-and-rstudio.html#error-com%C3%BAn" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Por ejemplo:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction-to-r-and-rstudio.html#cb13-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="st">&quot;hola&quot;</span></span></code></pre></div>
+<p>Noten que en la consola aparece un signo <code>+</code>. En estos casos RStudio se
+detiene porque probablemente se les olvido un <code>)</code> o bien un <code>#</code>. En
+estos casos hay que corregir el error para ejecutar nuevamente y luego
+apretar <code>esc</code> en la consola para seguir ejecutando los comandos.</p>
+</div>
+</div>
+<div id="manipulación-de-objetos" class="section level3 hasAnchor" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> Manipulación de objetos<a href="introduction-to-r-and-rstudio.html#manipulaci%C3%B3n-de-objetos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="usar-r-como-calculadoraejecutar-comandos" class="section level4 hasAnchor" number="2.1.6.1">
+<h4><span class="header-section-number">2.1.6.1</span> Usar R como calculadora/ejecutar comandos<a href="introduction-to-r-and-rstudio.html#usar-r-como-calculadoraejecutar-comandos" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>De manera separada (seleccionar las <code>ordenes+ctrl+Enter</code>):</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introduction-to-r-and-rstudio.html#cb14-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span> </span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction-to-r-and-rstudio.html#cb16-1" tabindex="-1"></a><span class="dv">3</span><span class="sc">*</span><span class="dv">5</span><span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 6.708204</code></pre>
+<p>Ejecutar todas las instrucciones:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction-to-r-and-rstudio.html#cb18-1" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span> ; <span class="dv">3</span><span class="sc">*</span><span class="dv">5</span><span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<pre><code>## [1] 6.708204</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="introduction-to-r-and-rstudio.html#cb21-1" tabindex="-1"></a><span class="dv">3</span><span class="sc">+</span><span class="dv">4</span> </span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="introduction-to-r-and-rstudio.html#cb23-1" tabindex="-1"></a><span class="dv">5</span><span class="sc">*</span><span class="dv">4</span> </span></code></pre></div>
+<pre><code>## [1] 20</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="introduction-to-r-and-rstudio.html#cb25-1" tabindex="-1"></a><span class="dv">8</span><span class="sc">/</span><span class="dv">4</span> </span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction-to-r-and-rstudio.html#cb27-1" tabindex="-1"></a><span class="dv">6</span><span class="sc">^</span><span class="dv">7</span></span></code></pre></div>
+<pre><code>## [1] 279936</code></pre>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="introduction-to-r-and-rstudio.html#cb29-1" tabindex="-1"></a><span class="dv">6</span><span class="sc">^</span><span class="dv">77</span></span></code></pre></div>
+<pre><code>## [1] 8.272681e+59</code></pre>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="introduction-to-r-and-rstudio.html#cb31-1" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">10</span>) </span></code></pre></div>
+<pre><code>## [1] 2.302585</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="introduction-to-r-and-rstudio.html#cb33-1" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction-to-r-and-rstudio.html#cb35-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">91</span>) <span class="co"># raiz cuadrada</span></span></code></pre></div>
+<pre><code>## [1] 9.539392</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction-to-r-and-rstudio.html#cb37-1" tabindex="-1"></a><span class="fu">round</span>(<span class="fl">7.3</span>) <span class="co"># redondear</span></span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<p>Incluso grandes operaciones:</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="introduction-to-r-and-rstudio.html#cb39-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">91</span>) <span class="sc">+</span> <span class="dv">4892788</span><span class="sc">*</span><span class="dv">673</span> <span class="sc">-</span> (<span class="fu">log</span>(<span class="dv">4</span>)<span class="sc">*</span><span class="fu">round</span>(<span class="fl">67893.9181</span>, <span class="at">digits =</span> <span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 3292752213</code></pre>
+<p>Incluso uso de números imaginarios:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="introduction-to-r-and-rstudio.html#cb41-1" tabindex="-1"></a><span class="dv">2</span><span class="dt">i</span><span class="sc">+</span><span class="dv">5</span><span class="dt">i</span><span class="sc">+</span><span class="fu">sqrt</span>(<span class="dv">25</span><span class="dt">i</span>)</span></code></pre></div>
+<pre><code>## [1] 3.53553+10.53553i</code></pre>
+</div>
+<div id="creacion-de-objetos-asignaciones-y-funciones" class="section level4 hasAnchor" number="2.1.6.2">
+<h4><span class="header-section-number">2.1.6.2</span> Creacion de objetos: asignaciones y funciones<a href="introduction-to-r-and-rstudio.html#creacion-de-objetos-asignaciones-y-funciones" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>con el signo <code>&lt;-</code> asignamos valores. También se puede utilizar <code>=</code>, pero
+no es recomendable, ya que confunde.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="introduction-to-r-and-rstudio.html#cb43-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">+</span> <span class="dv">4</span> </span>
+<span id="cb43-2"><a href="introduction-to-r-and-rstudio.html#cb43-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>## [1] 6</code></pre>
+<p>Las asignaciones son MUDAS. Si no las llamo, no aparecen en la consola.
+Lo anterior es una operación sencilla, pero lo que queremos es generar
+asignaciones con funciones.</p>
+<p>Podemos utilizar funciones. Las funciones son la parte central del uso
+de R. Algunas funciones vienen instaladas en R. Otras funciones hay que
+obtenerlas desde paquetes. También es posible escribir tus propias
+funciones <code>()</code>. Las funciones estan por lo general escritas en
+paréntesis, por ejemplo <code>filter()</code>. Hay ocasiones en que las funciones
+estan relacionadas con un paquete específico <code>dplyr::filter()</code>.</p>
+<ul>
+<li>Ejemplo 1: función simple</li>
+</ul>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="introduction-to-r-and-rstudio.html#cb45-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">49</span>)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<ul>
+<li>Ejemplo 2: sobre una base de datos</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="introduction-to-r-and-rstudio.html#cb47-1" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   10.40   15.43   19.20   20.09   22.80   33.90</code></pre>
+<p><em>Nota:</em> mtcars viene incluidad en R.</p>
+<p>Para ver mas:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction-to-r-and-rstudio.html#cb49-1" tabindex="-1"></a><span class="fu">data</span>()</span></code></pre></div>
+<p>Otra función:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introduction-to-r-and-rstudio.html#cb50-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span> </span>
+<span id="cb50-2"><a href="introduction-to-r-and-rstudio.html#cb50-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb50-3"><a href="introduction-to-r-and-rstudio.html#cb50-3" tabindex="-1"></a>z <span class="ot">&lt;-</span><span class="fu">c</span>(x,y) </span>
+<span id="cb50-4"><a href="introduction-to-r-and-rstudio.html#cb50-4" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## [1] 2 3</code></pre>
+<p>Uso de funciones aritméticas:</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="introduction-to-r-and-rstudio.html#cb52-1" tabindex="-1"></a><span class="fu">mean</span>(z) </span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="introduction-to-r-and-rstudio.html#cb54-1" tabindex="-1"></a><span class="fu">median</span>(z)</span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<p>Relaciones entre objetos:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="introduction-to-r-and-rstudio.html#cb56-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">mean</span>(z)</span></code></pre></div>
+<p>Creación de objetos por asignación:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="introduction-to-r-and-rstudio.html#cb57-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span><span class="sc">+</span><span class="dv">10</span> </span>
+<span id="cb57-2"><a href="introduction-to-r-and-rstudio.html#cb57-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">*</span><span class="dv">4</span></span></code></pre></div>
+<p>Comparar objetos:</p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="introduction-to-r-and-rstudio.html#cb58-1" tabindex="-1"></a>a <span class="sc">&gt;</span> b</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Notar que las asignaciones son silenciosas:</p>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="introduction-to-r-and-rstudio.html#cb60-1" tabindex="-1"></a>a </span></code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="introduction-to-r-and-rstudio.html#cb62-1" tabindex="-1"></a>b </span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="introduction-to-r-and-rstudio.html#cb64-1" tabindex="-1"></a><span class="co"># o altenativamente utilizar print </span></span>
+<span id="cb64-2"><a href="introduction-to-r-and-rstudio.html#cb64-2" tabindex="-1"></a><span class="fu">print</span>(a) </span></code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="introduction-to-r-and-rstudio.html#cb66-1" tabindex="-1"></a><span class="fu">print</span>(b)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<p>Creación de objetos usando funciones:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="introduction-to-r-and-rstudio.html#cb68-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(a,b)</span>
+<span id="cb68-2"><a href="introduction-to-r-and-rstudio.html#cb68-2" tabindex="-1"></a>promedio <span class="ot">&lt;-</span> <span class="fu">mean</span>(valores)</span>
+<span id="cb68-3"><a href="introduction-to-r-and-rstudio.html#cb68-3" tabindex="-1"></a><span class="fu">print</span>(promedio)</span></code></pre></div>
+<pre><code>## [1] 10.5</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="introduction-to-r-and-rstudio.html#cb70-1" tabindex="-1"></a>promedio</span></code></pre></div>
+<pre><code>## [1] 10.5</code></pre>
+<p>Podemos escribir un promedio aquí usando función <code>mean():</code></p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="introduction-to-r-and-rstudio.html#cb72-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span> </span>
+<span id="cb72-2"><a href="introduction-to-r-and-rstudio.html#cb72-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb72-3"><a href="introduction-to-r-and-rstudio.html#cb72-3" tabindex="-1"></a>valores1 <span class="ot">&lt;-</span> <span class="fu">c</span>(a,b)</span>
+<span id="cb72-4"><a href="introduction-to-r-and-rstudio.html#cb72-4" tabindex="-1"></a>promedio1 <span class="ot">&lt;-</span><span class="fu">mean</span>(valores1)</span>
+<span id="cb72-5"><a href="introduction-to-r-and-rstudio.html#cb72-5" tabindex="-1"></a><span class="fu">print</span>(promedio1)</span></code></pre></div>
+<pre><code>## [1] 3.5</code></pre>
+<p>Limpiamos datos nuevamente:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="introduction-to-r-and-rstudio.html#cb74-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) </span>
+<span id="cb74-2"><a href="introduction-to-r-and-rstudio.html#cb74-2" tabindex="-1"></a><span class="fu">rm</span>(promedio)</span></code></pre></div>
+</div>
+<div id="creacion-de-objetos-y-asignaciones" class="section level4 hasAnchor" number="2.1.6.3">
+<h4><span class="header-section-number">2.1.6.3</span> Creacion de objetos y asignaciones<a href="introduction-to-r-and-rstudio.html#creacion-de-objetos-y-asignaciones" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Es importante espaciar codigos. Definimos dos vectores utilizando la
+función <code>c()</code></p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="introduction-to-r-and-rstudio.html#cb75-1" tabindex="-1"></a>educ <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">12</span>,<span class="dv">8</span>,<span class="dv">11</span>,<span class="dv">16</span>,<span class="dv">14</span>,<span class="dv">8</span>,<span class="dv">10</span>,<span class="dv">14</span>,<span class="dv">12</span>)</span>
+<span id="cb75-2"><a href="introduction-to-r-and-rstudio.html#cb75-2" tabindex="-1"></a>ingreso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">325</span>,<span class="dv">415</span>,<span class="dv">360</span>,<span class="dv">380</span>,<span class="dv">670</span>,<span class="dv">545</span>,<span class="dv">350</span>,<span class="dv">420</span>,<span class="dv">680</span>,<span class="dv">465</span>)</span></code></pre></div>
+<p>Calculamos promedio, desviación estándar y correlación</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="introduction-to-r-and-rstudio.html#cb76-1" tabindex="-1"></a><span class="fu">mean</span>(ingreso)</span></code></pre></div>
+<pre><code>## [1] 461</code></pre>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="introduction-to-r-and-rstudio.html#cb78-1" tabindex="-1"></a>promedioingreso <span class="ot">&lt;-</span> <span class="fu">mean</span>(ingreso)</span>
+<span id="cb78-2"><a href="introduction-to-r-and-rstudio.html#cb78-2" tabindex="-1"></a></span>
+<span id="cb78-3"><a href="introduction-to-r-and-rstudio.html#cb78-3" tabindex="-1"></a><span class="fu">sd</span>(ingreso)</span></code></pre></div>
+<pre><code>## [1] 129.1382</code></pre>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="introduction-to-r-and-rstudio.html#cb80-1" tabindex="-1"></a>sdingreso <span class="ot">&lt;-</span> <span class="fu">sd</span>(ingreso)</span>
+<span id="cb80-2"><a href="introduction-to-r-and-rstudio.html#cb80-2" tabindex="-1"></a></span>
+<span id="cb80-3"><a href="introduction-to-r-and-rstudio.html#cb80-3" tabindex="-1"></a><span class="fu">cor</span>(educ, ingreso)</span></code></pre></div>
+<pre><code>## [1] 0.9110521</code></pre>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="introduction-to-r-and-rstudio.html#cb82-1" tabindex="-1"></a>coreduing <span class="ot">&lt;-</span> <span class="fu">cor</span>(educ,ingreso)</span></code></pre></div>
+<p>Graficamos</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="introduction-to-r-and-rstudio.html#cb83-1" tabindex="-1"></a><span class="fu">plot</span>(educ, ingreso)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-1.png" alt="" width="672" /></p>
+<p>Estimar una regresión lineal</p>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="introduction-to-r-and-rstudio.html#cb84-1" tabindex="-1"></a><span class="fu">lm</span>(ingreso <span class="sc">~</span> educ)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ingreso ~ educ)
+## 
+## Coefficients:
+## (Intercept)         educ  
+##       -8.71        41.57</code></pre>
+<div class="alert alert-block alert-warning">
+<p><b>Ejercicio 2.1.1:</b> Nombrar objetos</p>
+<p>De los siguientes ejemplos, ¿Cuáles son nombres de variables válidas en
+R?</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="introduction-to-r-and-rstudio.html#cb86-1" tabindex="-1"></a><span class="co"># min_height</span></span>
+<span id="cb86-2"><a href="introduction-to-r-and-rstudio.html#cb86-2" tabindex="-1"></a><span class="co"># max.height</span></span>
+<span id="cb86-3"><a href="introduction-to-r-and-rstudio.html#cb86-3" tabindex="-1"></a><span class="co"># _age</span></span>
+<span id="cb86-4"><a href="introduction-to-r-and-rstudio.html#cb86-4" tabindex="-1"></a><span class="co"># .mass</span></span>
+<span id="cb86-5"><a href="introduction-to-r-and-rstudio.html#cb86-5" tabindex="-1"></a><span class="co"># MaxLength</span></span>
+<span id="cb86-6"><a href="introduction-to-r-and-rstudio.html#cb86-6" tabindex="-1"></a><span class="co"># Min-length</span></span>
+<span id="cb86-7"><a href="introduction-to-r-and-rstudio.html#cb86-7" tabindex="-1"></a><span class="co"># 2widths</span></span>
+<span id="cb86-8"><a href="introduction-to-r-and-rstudio.html#cb86-8" tabindex="-1"></a><span class="co"># Calsius2kelvin</span></span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="tipos-de-objetos" class="section level3 hasAnchor" number="2.1.7">
+<h3><span class="header-section-number">2.1.7</span> Tipos de objetos<a href="introduction-to-r-and-rstudio.html#tipos-de-objetos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="vectores" class="section level4 hasAnchor" number="2.1.7.1">
+<h4><span class="header-section-number">2.1.7.1</span> Vectores<a href="introduction-to-r-and-rstudio.html#vectores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>R opera componente por componente, por lo que es muy sencillo poder
+trabajar con vectores y matrices.</p>
+<p>Para crear un vector utilizamos la funcion <code>c()</code></p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-to-r-and-rstudio.html#cb87-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
+<span id="cb87-2"><a href="introduction-to-r-and-rstudio.html#cb87-2" tabindex="-1"></a><span class="co">#o bien</span></span>
+<span id="cb87-3"><a href="introduction-to-r-and-rstudio.html#cb87-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>)</span></code></pre></div>
+<p>Veamos los vectores</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="introduction-to-r-and-rstudio.html#cb88-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> x <span class="sc">+</span> y </span>
+<span id="cb88-2"><a href="introduction-to-r-and-rstudio.html#cb88-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## [1]  7  9 11 10 12</code></pre>
+<p>Supongamos los siguientes vectores:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="introduction-to-r-and-rstudio.html#cb90-1" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb90-2"><a href="introduction-to-r-and-rstudio.html#cb90-2" tabindex="-1"></a>y<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<p>¿Cuál es su longitud?</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="introduction-to-r-and-rstudio.html#cb91-1" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="introduction-to-r-and-rstudio.html#cb93-1" tabindex="-1"></a><span class="fu">length</span>(y)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>Si no tienen la misma longitud, ¿cual sería el resultado de <code>x + y</code>?</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="introduction-to-r-and-rstudio.html#cb95-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> x <span class="sc">+</span> y </span>
+<span id="cb95-2"><a href="introduction-to-r-and-rstudio.html#cb95-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## [1] 2 4 6 5</code></pre>
+<p><strong>IMPORTANTE</strong>: En este caso R realiza la operación de todos modos, pero
+nos indica que hay una advertencia de que sus dimensiones difieren. Lo
+relevante de los vectores es que sólo se puede concatenar elementos del
+mismo tipo, de lo contrario R nos arroja error.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="introduction-to-r-and-rstudio.html#cb97-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">1.5</span><span class="sc">:</span><span class="fl">9.5</span>,<span class="dv">4</span>) <span class="co">#genera repeticiones de los valores definidos </span></span>
+<span id="cb97-2"><a href="introduction-to-r-and-rstudio.html#cb97-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb97-3"><a href="introduction-to-r-and-rstudio.html#cb97-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>)</span>
+<span id="cb97-4"><a href="introduction-to-r-and-rstudio.html#cb97-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>)</span>
+<span id="cb97-5"><a href="introduction-to-r-and-rstudio.html#cb97-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">c</span>(x1,x2)</span>
+<span id="cb97-6"><a href="introduction-to-r-and-rstudio.html#cb97-6" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>,<span class="dv">4</span>))</span></code></pre></div>
+<p>Subconjunto de un vector</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="introduction-to-r-and-rstudio.html#cb98-1" tabindex="-1"></a>y[<span class="dv">3</span>] <span class="co"># obtener el tercer elemento </span></span></code></pre></div>
+<pre><code>## [1] 22</code></pre>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="introduction-to-r-and-rstudio.html#cb100-1" tabindex="-1"></a>y[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>] </span></code></pre></div>
+<pre><code>## [1] 21 22 23</code></pre>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="introduction-to-r-and-rstudio.html#cb102-1" tabindex="-1"></a>y[<span class="dv">4</span><span class="sc">:</span><span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 23 22 21</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="introduction-to-r-and-rstudio.html#cb104-1" tabindex="-1"></a>y[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">6</span>)]</span></code></pre></div>
+<pre><code>## [1] 21 25</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="introduction-to-r-and-rstudio.html#cb106-1" tabindex="-1"></a>y[<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">16</span>)]</span></code></pre></div>
+<pre><code>## [1] 21 NA</code></pre>
+</div>
+<div id="matrices" class="section level4 hasAnchor" number="2.1.7.2">
+<h4><span class="header-section-number">2.1.7.2</span> Matrices<a href="introduction-to-r-and-rstudio.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="definir-matrices" class="section level5 hasAnchor" number="2.1.7.2.1">
+<h5><span class="header-section-number">2.1.7.2.1</span> Definir matrices<a href="introduction-to-r-and-rstudio.html#definir-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Sintaxis general</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="introduction-to-r-and-rstudio.html#cb108-1" tabindex="-1"></a>mi.matriz <span class="ot">&lt;-</span> <span class="fu">matrix</span>(vector,</span>
+<span id="cb108-2"><a href="introduction-to-r-and-rstudio.html#cb108-2" tabindex="-1"></a>                    <span class="at">ncol =</span> num_columnas, </span>
+<span id="cb108-3"><a href="introduction-to-r-and-rstudio.html#cb108-3" tabindex="-1"></a>                    <span class="at">nrow =</span> num_filas,</span>
+<span id="cb108-4"><a href="introduction-to-r-and-rstudio.html#cb108-4" tabindex="-1"></a>                    <span class="at">byrow =</span> valor_logico,</span>
+<span id="cb108-5"><a href="introduction-to-r-and-rstudio.html#cb108-5" tabindex="-1"></a>                    <span class="at">dimnames =</span> <span class="fu">list</span>(vector_nombres_filas,</span>
+<span id="cb108-6"><a href="introduction-to-r-and-rstudio.html#cb108-6" tabindex="-1"></a>                                   vector_nombres_columnas)</span>
+<span id="cb108-7"><a href="introduction-to-r-and-rstudio.html#cb108-7" tabindex="-1"></a>)</span></code></pre></div>
+<p>Para crear matrices utilizamos la función <code>matrix()</code></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-to-r-and-rstudio.html#cb109-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span> (<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), </span>
+<span id="cb109-2"><a href="introduction-to-r-and-rstudio.html#cb109-2" tabindex="-1"></a>             <span class="at">nrow =</span> <span class="dv">2</span>, </span>
+<span id="cb109-3"><a href="introduction-to-r-and-rstudio.html#cb109-3" tabindex="-1"></a>             <span class="at">ncol =</span> <span class="dv">2</span>) </span>
+<span id="cb109-4"><a href="introduction-to-r-and-rstudio.html#cb109-4" tabindex="-1"></a></span>
+<span id="cb109-5"><a href="introduction-to-r-and-rstudio.html#cb109-5" tabindex="-1"></a></span>
+<span id="cb109-6"><a href="introduction-to-r-and-rstudio.html#cb109-6" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), </span>
+<span id="cb109-7"><a href="introduction-to-r-and-rstudio.html#cb109-7" tabindex="-1"></a>             <span class="dv">2</span>, </span>
+<span id="cb109-8"><a href="introduction-to-r-and-rstudio.html#cb109-8" tabindex="-1"></a>             <span class="dv">2</span>)</span></code></pre></div>
+<p>No es necesario poner <code>data=</code>, pero por orden mental es mejor hacerlo.</p>
+<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="introduction-to-r-and-rstudio.html#cb110-1" tabindex="-1"></a>x </span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="introduction-to-r-and-rstudio.html#cb112-1" tabindex="-1"></a>x1</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<p>Notar que por DEFECTO rellena columna por columna. Podemos explicitar
+que queremos realizar la matriz fila por fila</p>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="introduction-to-r-and-rstudio.html#cb114-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb114-2"><a href="introduction-to-r-and-rstudio.html#cb114-2" tabindex="-1"></a>          <span class="at">nrow =</span> <span class="dv">3</span>, </span>
+<span id="cb114-3"><a href="introduction-to-r-and-rstudio.html#cb114-3" tabindex="-1"></a>          <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb114-4"><a href="introduction-to-r-and-rstudio.html#cb114-4" tabindex="-1"></a>          <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb114-5"><a href="introduction-to-r-and-rstudio.html#cb114-5" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    1    2</code></pre>
+<p>Podemos saber cual es la dimensión de <code>x</code></p>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="introduction-to-r-and-rstudio.html#cb116-1" tabindex="-1"></a><span class="fu">dim</span>(y)</span></code></pre></div>
+<pre><code>## [1] 3 2</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="introduction-to-r-and-rstudio.html#cb118-1" tabindex="-1"></a><span class="fu">dim</span>(y)[<span class="dv">1</span>] <span class="co"># cantidad de filas</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="introduction-to-r-and-rstudio.html#cb120-1" tabindex="-1"></a><span class="fu">dim</span>(y)[<span class="dv">2</span>] <span class="co"># cantidad de columnas</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="introduction-to-r-and-rstudio.html#cb122-1" tabindex="-1"></a>y<span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span><span class="dv">2</span>)</span>
+<span id="cb122-2"><a href="introduction-to-r-and-rstudio.html#cb122-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<p>Los va a repetir!</p>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="introduction-to-r-and-rstudio.html#cb124-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">ncol=</span><span class="dv">3</span>, <span class="at">byrow=</span> <span class="dv">2</span>) </span>
+<span id="cb124-2"><a href="introduction-to-r-and-rstudio.html#cb124-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    1    2</code></pre>
+<p>Notar que el orden en cualquier matrix es <strong>filas x columnas</strong>. Podemos
+también omitir la cantidad de filas o columnas en la matriz y obtenemos
+el mismo resultado</p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="introduction-to-r-and-rstudio.html#cb126-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="dv">2</span>, <span class="at">byrow=</span>T)</span>
+<span id="cb126-2"><a href="introduction-to-r-and-rstudio.html#cb126-2" tabindex="-1"></a>y </span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<p>En el caso de crear matrices vacías hay que definir las dimensiones</p>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="introduction-to-r-and-rstudio.html#cb128-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow=</span><span class="dv">3</span>, <span class="at">ncol=</span><span class="dv">3</span>)</span>
+<span id="cb128-2"><a href="introduction-to-r-and-rstudio.html#cb128-2" tabindex="-1"></a>y <span class="co">#útil para los loops</span></span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   NA   NA   NA
+## [2,]   NA   NA   NA
+## [3,]   NA   NA   NA</code></pre>
+<p>Darle nombre a las filas y columnas</p>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="introduction-to-r-and-rstudio.html#cb130-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span> (<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb130-2"><a href="introduction-to-r-and-rstudio.html#cb130-2" tabindex="-1"></a>             <span class="at">dimnames=</span><span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>,<span class="st">&quot;X2&quot;</span>),<span class="fu">c</span>(<span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>)))</span>
+<span id="cb130-3"><a href="introduction-to-r-and-rstudio.html#cb130-3" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##    Y1 Y2
+## X1  1  3
+## X2  2  4</code></pre>
+<p>Se puede realizar desde las funciones colnames y rownames</p>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="introduction-to-r-and-rstudio.html#cb132-1" tabindex="-1"></a><span class="fu">colnames</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variable 1&quot;</span>, <span class="st">&quot;Variable 2&quot;</span>)</span>
+<span id="cb132-2"><a href="introduction-to-r-and-rstudio.html#cb132-2" tabindex="-1"></a><span class="fu">rownames</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a1&quot;</span>, <span class="st">&quot;a2&quot;</span>)</span>
+<span id="cb132-3"><a href="introduction-to-r-and-rstudio.html#cb132-3" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##    Variable 1 Variable 2
+## a1          1          3
+## a2          2          4</code></pre>
+<p>Añadir filas o columnas a una matriz</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="introduction-to-r-and-rstudio.html#cb134-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>)</span></code></pre></div>
+</div>
+<div id="unir-matrices" class="section level5 hasAnchor" number="2.1.7.2.2">
+<h5><span class="header-section-number">2.1.7.2.2</span> Unir matrices<a href="introduction-to-r-and-rstudio.html#unir-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Unir mediante filas (queda con el nombre del vector la observación)</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="introduction-to-r-and-rstudio.html#cb135-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x,w) </span>
+<span id="cb135-2"><a href="introduction-to-r-and-rstudio.html#cb135-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>##    Variable 1 Variable 2
+## a1          1          3
+## a2          2          4
+## w           5          6</code></pre>
+<p>Unir mediante columnas</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="introduction-to-r-and-rstudio.html#cb137-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x,w) </span>
+<span id="cb137-2"><a href="introduction-to-r-and-rstudio.html#cb137-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>##    Variable 1 Variable 2 w
+## a1          1          3 5
+## a2          2          4 6</code></pre>
+<p>¿Y si tienen diferente cantidad de filas y/o columnas? repite el vector
+o observaci?n con menor longitud</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="introduction-to-r-and-rstudio.html#cb139-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>),<span class="dv">3</span>)</span>
+<span id="cb139-2"><a href="introduction-to-r-and-rstudio.html#cb139-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="introduction-to-r-and-rstudio.html#cb141-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>)</span>
+<span id="cb141-2"><a href="introduction-to-r-and-rstudio.html#cb141-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>## [1] 5 6</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="introduction-to-r-and-rstudio.html#cb143-1" tabindex="-1"></a>z<span class="ot">&lt;-</span><span class="fu">rbind</span>(x,y)</span>
+<span id="cb143-2"><a href="introduction-to-r-and-rstudio.html#cb143-2" tabindex="-1"></a>z </span></code></pre></div>
+<pre><code>##   [,1] [,2] [,3]
+##      1    4    7
+##      2    5    8
+##      3    6    9
+## y    5    6    5</code></pre>
+<p>Podemos pasar un vector a una matriz</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="introduction-to-r-and-rstudio.html#cb145-1" tabindex="-1"></a>x<span class="ot">&lt;-</span><span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb145-2"><a href="introduction-to-r-and-rstudio.html#cb145-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="introduction-to-r-and-rstudio.html#cb147-1" tabindex="-1"></a><span class="fu">dim</span>(x)<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">5</span>)</span>
+<span id="cb147-2"><a href="introduction-to-r-and-rstudio.html#cb147-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10</code></pre>
+<p>Trasponer matrices:</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="introduction-to-r-and-rstudio.html#cb149-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>),<span class="dv">3</span>)</span>
+<span id="cb149-2"><a href="introduction-to-r-and-rstudio.html#cb149-2" tabindex="-1"></a>xtraspuesta <span class="ot">&lt;-</span> <span class="fu">t</span>(x)</span></code></pre></div>
+<p>Potencialmente se pueden hacer muchas más operaciones que involucren
+matrices. Por ejemplo, subconjuntos de una matriz: segundo y cuarto
+elemento de la segunda fila:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="introduction-to-r-and-rstudio.html#cb150-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow=</span><span class="dv">2</span>)</span>
+<span id="cb150-2"><a href="introduction-to-r-and-rstudio.html#cb150-2" tabindex="-1"></a>M</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    3    5    7
+## [2,]    2    4    6    8</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="introduction-to-r-and-rstudio.html#cb152-1" tabindex="-1"></a>M[<span class="dv">1</span>,<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="introduction-to-r-and-rstudio.html#cb154-1" tabindex="-1"></a>M[<span class="dv">1</span>,]</span></code></pre></div>
+<pre><code>## [1] 1 3 5 7</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="introduction-to-r-and-rstudio.html#cb156-1" tabindex="-1"></a>M[,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## [1] 3 4</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="introduction-to-r-and-rstudio.html#cb158-1" tabindex="-1"></a>M[<span class="dv">2</span>,<span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">4</span>)]</span></code></pre></div>
+<pre><code>## [1] 4 8</code></pre>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-analysis-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="herramientas-de-programación.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

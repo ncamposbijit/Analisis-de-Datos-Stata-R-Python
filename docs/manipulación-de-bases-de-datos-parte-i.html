@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.3 Manipulación de bases de datos (Parte I) | Using R for data analysis</title>
+  <meta name="description" content="A book focused on teaching data analysis using R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.3 Manipulación de bases de datos (Parte I) | Using R for data analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book focused on teaching data analysis using R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.3 Manipulación de bases de datos (Parte I) | Using R for data analysis" />
+  
+  <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
+  
+
+<meta name="author" content="Nicolás Campos Bijit" />
+
+
+<meta name="date" content="2026-01-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="herramientas-de-programación.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="data-analysis-with-r.html"><a href="data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Data Analysis with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r-as-a-programming-language"><i class="fa fa-check"></i><b>2.1.1</b> Why use R as a programming language?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-and-recurring-terms-throughout-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key and recurring terms throughout the course</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning Resources</a></li>
+<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio Interface</a></li>
+<li class="chapter" data-level="2.1.5" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#package-installation-and-help"><i class="fa fa-check"></i><b>2.1.5</b> Package installation and help</a></li>
+<li class="chapter" data-level="2.1.6" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#manipulaci%C3%B3n-de-objetos"><i class="fa fa-check"></i><b>2.1.6</b> Manipulación de objetos</a></li>
+<li class="chapter" data-level="2.1.7" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#tipos-de-objetos"><i class="fa fa-check"></i><b>2.1.7</b> Tipos de objetos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html"><i class="fa fa-check"></i><b>2.2</b> Herramientas de programación</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#objetos-adicionales"><i class="fa fa-check"></i><b>2.2.1</b> Objetos adicionales</a></li>
+<li class="chapter" data-level="2.2.2" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#acceder-a-elementos-de-un-objeto"><i class="fa fa-check"></i><b>2.2.2</b> Acceder a elementos de un objeto</a></li>
+<li class="chapter" data-level="2.2.3" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#tipos-de-objetos-y-datos"><i class="fa fa-check"></i><b>2.2.3</b> Tipos de objetos y datos</a></li>
+<li class="chapter" data-level="2.2.4" data-path="herramientas-de-programación.html"><a href="herramientas-de-programación.html#herramientas-en-r"><i class="fa fa-check"></i><b>2.2.4</b> Herramientas en R</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="manipulación-de-bases-de-datos-parte-i.html"><a href="manipulación-de-bases-de-datos-parte-i.html"><i class="fa fa-check"></i><b>2.3</b> Manipulación de bases de datos (Parte I)</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="manipulación-de-bases-de-datos-parte-i.html"><a href="manipulación-de-bases-de-datos-parte-i.html#principios-de-programaci%C3%B3n"><i class="fa fa-check"></i><b>2.3.1</b> Principios de programación</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Using R for data analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="manipulación-de-bases-de-datos-parte-i" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Manipulación de bases de datos (Parte I)<a href="manipulación-de-bases-de-datos-parte-i.html#manipulaci%C3%B3n-de-bases-de-datos-parte-i" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="principios-de-programación" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Principios de programación<a href="manipulación-de-bases-de-datos-parte-i.html#principios-de-programaci%C3%B3n" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="iteradores" class="section level4 hasAnchor" number="2.3.1.1">
+<h4><span class="header-section-number">2.3.1.1</span> Iteradores<a href="manipulación-de-bases-de-datos-parte-i.html#iteradores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>For loop:</p>
+<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb525-1" tabindex="-1"></a><span class="co"># Imaginen que queremos mostrar los nombres de un vector de forma reiterada</span></span>
+<span id="cb525-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb525-2" tabindex="-1"></a>ciudades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Nueva York&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Santiago&quot;</span>, <span class="st">&quot;Rancagua&quot;</span>)</span>
+<span id="cb525-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb525-3" tabindex="-1"></a></span>
+<span id="cb525-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb525-4" tabindex="-1"></a><span class="fu">print</span>(ciudades[<span class="dv">1</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;</code></pre>
+<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb527-1" tabindex="-1"></a><span class="fu">print</span>(ciudades[<span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;Paris&quot;</code></pre>
+<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb529-1" tabindex="-1"></a><span class="fu">print</span>(ciudades[<span class="dv">3</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;Santiago&quot;</code></pre>
+<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb531-1" tabindex="-1"></a><span class="fu">print</span>(ciudades[<span class="dv">4</span>])</span></code></pre></div>
+<pre><code>## [1] &quot;Rancagua&quot;</code></pre>
+<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb533-1" tabindex="-1"></a><span class="co"># Lo anterior se puede hacer utilizando un iterador.</span></span>
+<span id="cb533-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb533-2" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb533-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb533-3" tabindex="-1"></a>  <span class="fu">print</span>(ciudades[i])</span>
+<span id="cb533-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb533-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Rancagua&quot;</code></pre>
+<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb535-1" tabindex="-1"></a><span class="co"># Utilizando variables ocultas...</span></span>
+<span id="cb535-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb535-2" tabindex="-1"></a><span class="cf">for</span> (.j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>){</span>
+<span id="cb535-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb535-3" tabindex="-1"></a>  <span class="fu">print</span>(ciudades[.j])</span>
+<span id="cb535-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb535-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Rancagua&quot;</code></pre>
+<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb537-1" tabindex="-1"></a><span class="cf">for</span> (.j <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ciudades)){</span>
+<span id="cb537-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb537-2" tabindex="-1"></a>  <span class="fu">print</span>(ciudades[.j])</span>
+<span id="cb537-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb537-3" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Rancagua&quot;</code></pre>
+<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb539-1" tabindex="-1"></a><span class="co"># o escrito señalando el nombre de cada elemento de un vector. </span></span>
+<span id="cb539-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb539-2" tabindex="-1"></a><span class="cf">for</span> (ciudad <span class="cf">in</span> ciudades){</span>
+<span id="cb539-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb539-3" tabindex="-1"></a>  <span class="fu">print</span>(ciudad)</span>
+<span id="cb539-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb539-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Rancagua&quot;</code></pre>
+<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-1" tabindex="-1"></a><span class="co"># Otro ejemplo:</span></span>
+<span id="cb541-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-2" tabindex="-1"></a>semana <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Domingo&quot;</span>,</span>
+<span id="cb541-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-3" tabindex="-1"></a>            <span class="st">&quot;Lunes&quot;</span>,</span>
+<span id="cb541-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-4" tabindex="-1"></a>            <span class="st">&quot;Martes&quot;</span>,</span>
+<span id="cb541-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-5" tabindex="-1"></a>            <span class="st">&quot;Miercoles&quot;</span>,</span>
+<span id="cb541-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-6" tabindex="-1"></a>            <span class="st">&quot;Jueves&quot;</span>,</span>
+<span id="cb541-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-7" tabindex="-1"></a>            <span class="st">&quot;Viernes&quot;</span>,</span>
+<span id="cb541-8"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-8" tabindex="-1"></a>            <span class="st">&quot;Sabado&quot;</span>)</span>
+<span id="cb541-9"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-9" tabindex="-1"></a></span>
+<span id="cb541-10"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-10" tabindex="-1"></a><span class="cf">for</span> (dia <span class="cf">in</span> semana)</span>
+<span id="cb541-11"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-11" tabindex="-1"></a>{</span>
+<span id="cb541-12"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-12" tabindex="-1"></a>  <span class="fu">print</span>(dia)</span>
+<span id="cb541-13"><a href="manipulación-de-bases-de-datos-parte-i.html#cb541-13" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Domingo&quot;
+## [1] &quot;Lunes&quot;
+## [1] &quot;Martes&quot;
+## [1] &quot;Miercoles&quot;
+## [1] &quot;Jueves&quot;
+## [1] &quot;Viernes&quot;
+## [1] &quot;Sabado&quot;</code></pre>
+<p>For loop con opciones:</p>
+<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-1" tabindex="-1"></a>ciudades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Nueva York&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Santiago&quot;</span>, <span class="st">&quot;Tokio&quot;</span>)</span>
+<span id="cb543-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-2" tabindex="-1"></a></span>
+<span id="cb543-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-3" tabindex="-1"></a><span class="co"># Agregar opcion break: quiebra el loop</span></span>
+<span id="cb543-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-4" tabindex="-1"></a><span class="cf">for</span> (ciudad <span class="cf">in</span> ciudades){</span>
+<span id="cb543-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-5" tabindex="-1"></a>  <span class="cf">if</span>(<span class="fu">nchar</span>(ciudad) <span class="sc">==</span> <span class="dv">8</span>){</span>
+<span id="cb543-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-6" tabindex="-1"></a>    <span class="cf">break</span></span>
+<span id="cb543-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-7" tabindex="-1"></a>  }</span>
+<span id="cb543-8"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-8" tabindex="-1"></a>  <span class="fu">print</span>(ciudad)</span>
+<span id="cb543-9"><a href="manipulación-de-bases-de-datos-parte-i.html#cb543-9" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;</code></pre>
+<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-1" tabindex="-1"></a><span class="co"># Agregar  Opción next: se salta ese elemento</span></span>
+<span id="cb545-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-2" tabindex="-1"></a><span class="cf">for</span> (ciudad <span class="cf">in</span> ciudades){</span>
+<span id="cb545-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-3" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">nchar</span>(ciudad) <span class="sc">==</span> <span class="dv">8</span>){</span>
+<span id="cb545-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-4" tabindex="-1"></a>    <span class="cf">next</span> </span>
+<span id="cb545-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-5" tabindex="-1"></a>  }</span>
+<span id="cb545-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-6" tabindex="-1"></a>  <span class="fu">print</span>(ciudad)</span>
+<span id="cb545-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb545-7" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Tokio&quot;</code></pre>
+<p>Flexibilizar el iterador:</p>
+<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-1" tabindex="-1"></a>ciudades <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Nueva York&quot;</span>, <span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Santiago&quot;</span>, </span>
+<span id="cb547-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-2" tabindex="-1"></a>              <span class="st">&quot;Tokio&quot;</span>, <span class="st">&quot;Rancagua&quot;</span>, <span class="st">&quot;Roma&quot;</span>)</span>
+<span id="cb547-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-3" tabindex="-1"></a></span>
+<span id="cb547-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-4" tabindex="-1"></a><span class="co"># Ahora el tamaño del loop es flexible. Esto es muy inportante para cuando trabajemos con bases de datos. </span></span>
+<span id="cb547-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-5" tabindex="-1"></a></span>
+<span id="cb547-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-6" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ciudades)){</span>
+<span id="cb547-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-7" tabindex="-1"></a>  <span class="fu">print</span>(ciudades[i])</span>
+<span id="cb547-8"><a href="manipulación-de-bases-de-datos-parte-i.html#cb547-8" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Tokio&quot;
+## [1] &quot;Rancagua&quot;
+## [1] &quot;Roma&quot;</code></pre>
+<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-1" tabindex="-1"></a><span class="co"># Noten que ahora llamo a los elementos dentro de un loop como subconjuntos de un vector. </span></span>
+<span id="cb549-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-2" tabindex="-1"></a></span>
+<span id="cb549-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-3" tabindex="-1"></a><span class="co"># En resumen, dos versiones de lo mismo </span></span>
+<span id="cb549-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-4" tabindex="-1"></a></span>
+<span id="cb549-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-5" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ciudades)){</span>
+<span id="cb549-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-6" tabindex="-1"></a>  <span class="fu">print</span>(ciudades[i])</span>
+<span id="cb549-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb549-7" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Tokio&quot;
+## [1] &quot;Rancagua&quot;
+## [1] &quot;Roma&quot;</code></pre>
+<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb551-1" tabindex="-1"></a><span class="cf">for</span> (ciudad <span class="cf">in</span> ciudades){</span>
+<span id="cb551-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb551-2" tabindex="-1"></a>  </span>
+<span id="cb551-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb551-3" tabindex="-1"></a>  <span class="fu">print</span>(ciudad)</span>
+<span id="cb551-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb551-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York&quot;
+## [1] &quot;Paris&quot;
+## [1] &quot;Santiago&quot;
+## [1] &quot;Tokio&quot;
+## [1] &quot;Rancagua&quot;
+## [1] &quot;Roma&quot;</code></pre>
+<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb553-1" tabindex="-1"></a><span class="co"># Ejemplo: para dejar mensajes </span></span>
+<span id="cb553-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb553-2" tabindex="-1"></a></span>
+<span id="cb553-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb553-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(ciudades)){</span>
+<span id="cb553-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb553-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(ciudades[i], <span class="st">&quot;esta en la posicion&quot;</span>,i, </span>
+<span id="cb553-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb553-5" tabindex="-1"></a>              <span class="st">&quot;en el vector ciudades&quot;</span>))</span>
+<span id="cb553-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb553-6" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;Nueva York esta en la posicion 1 en el vector ciudades&quot;
+## [1] &quot;Paris esta en la posicion 2 en el vector ciudades&quot;
+## [1] &quot;Santiago esta en la posicion 3 en el vector ciudades&quot;
+## [1] &quot;Tokio esta en la posicion 4 en el vector ciudades&quot;
+## [1] &quot;Rancagua esta en la posicion 5 en el vector ciudades&quot;
+## [1] &quot;Roma esta en la posicion 6 en el vector ciudades&quot;</code></pre>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-1" tabindex="-1"></a><span class="co"># Lo anterior es aplicable para inspecciones de bases de datos, por ejemplo, podemos dejar un mensaje</span></span>
+<span id="cb555-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-2" tabindex="-1"></a></span>
+<span id="cb555-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-3" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(mtcars)){</span>
+<span id="cb555-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;el promedio de la variable&quot;</span>,</span>
+<span id="cb555-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-5" tabindex="-1"></a>              <span class="fu">names</span>(mtcars[i]), <span class="st">&quot;es&quot;</span>,</span>
+<span id="cb555-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-6" tabindex="-1"></a>              <span class="fu">mean</span>(mtcars[,i])))</span>
+<span id="cb555-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb555-7" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;el promedio de la variable mpg es 20.090625&quot;
+## [1] &quot;el promedio de la variable cyl es 6.1875&quot;
+## [1] &quot;el promedio de la variable disp es 230.721875&quot;
+## [1] &quot;el promedio de la variable hp es 146.6875&quot;
+## [1] &quot;el promedio de la variable drat es 3.5965625&quot;
+## [1] &quot;el promedio de la variable wt es 3.21725&quot;
+## [1] &quot;el promedio de la variable qsec es 17.84875&quot;
+## [1] &quot;el promedio de la variable vs es 0.4375&quot;
+## [1] &quot;el promedio de la variable am es 0.40625&quot;
+## [1] &quot;el promedio de la variable gear es 3.6875&quot;
+## [1] &quot;el promedio de la variable carb es 2.8125&quot;</code></pre>
+<p>While: mientras que…</p>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span> </span>
+<span id="cb557-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-2" tabindex="-1"></a></span>
+<span id="cb557-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-3" tabindex="-1"></a><span class="cf">while</span> (x <span class="sc">&lt;=</span> <span class="dv">7</span>){</span>
+<span id="cb557-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-4" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;x es&quot;</span>, x))</span>
+<span id="cb557-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-5" tabindex="-1"></a>  </span>
+<span id="cb557-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-6" tabindex="-1"></a><span class="co"># Actualización </span></span>
+<span id="cb557-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-7" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span> </span>
+<span id="cb557-8"><a href="manipulación-de-bases-de-datos-parte-i.html#cb557-8" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es 1&quot;
+## [1] &quot;x es 2&quot;
+## [1] &quot;x es 3&quot;
+## [1] &quot;x es 4&quot;
+## [1] &quot;x es 5&quot;
+## [1] &quot;x es 6&quot;
+## [1] &quot;x es 7&quot;</code></pre>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb559-1" tabindex="-1"></a><span class="cf">while</span> (x <span class="sc">&lt;=</span> <span class="dv">700</span>){</span>
+<span id="cb559-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb559-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;x es&quot;</span>, x))</span>
+<span id="cb559-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb559-3" tabindex="-1"></a>  <span class="co"># Actualizacion </span></span>
+<span id="cb559-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb559-4" tabindex="-1"></a>  x <span class="ot">&lt;-</span> x <span class="sc">+</span> <span class="dv">1</span> </span>
+<span id="cb559-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb559-5" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;x es 8&quot;
+## [1] &quot;x es 9&quot;
+## [1] &quot;x es 10&quot;
+## [1] &quot;x es 11&quot;
+## [1] &quot;x es 12&quot;
+## [1] &quot;x es 13&quot;
+## [1] &quot;x es 14&quot;
+## [1] &quot;x es 15&quot;
+## [1] &quot;x es 16&quot;
+## [1] &quot;x es 17&quot;
+## [1] &quot;x es 18&quot;
+## [1] &quot;x es 19&quot;
+## [1] &quot;x es 20&quot;
+## [1] &quot;x es 21&quot;
+## [1] &quot;x es 22&quot;
+## [1] &quot;x es 23&quot;
+## [1] &quot;x es 24&quot;
+## [1] &quot;x es 25&quot;
+## [1] &quot;x es 26&quot;
+## [1] &quot;x es 27&quot;
+## [1] &quot;x es 28&quot;
+## [1] &quot;x es 29&quot;
+## [1] &quot;x es 30&quot;
+## [1] &quot;x es 31&quot;
+## [1] &quot;x es 32&quot;
+## [1] &quot;x es 33&quot;
+## [1] &quot;x es 34&quot;
+## [1] &quot;x es 35&quot;
+## [1] &quot;x es 36&quot;
+## [1] &quot;x es 37&quot;
+## [1] &quot;x es 38&quot;
+## [1] &quot;x es 39&quot;
+## [1] &quot;x es 40&quot;
+## [1] &quot;x es 41&quot;
+## [1] &quot;x es 42&quot;
+## [1] &quot;x es 43&quot;
+## [1] &quot;x es 44&quot;
+## [1] &quot;x es 45&quot;
+## [1] &quot;x es 46&quot;
+## [1] &quot;x es 47&quot;
+## [1] &quot;x es 48&quot;
+## [1] &quot;x es 49&quot;
+## [1] &quot;x es 50&quot;
+## [1] &quot;x es 51&quot;
+## [1] &quot;x es 52&quot;
+## [1] &quot;x es 53&quot;
+## [1] &quot;x es 54&quot;
+## [1] &quot;x es 55&quot;
+## [1] &quot;x es 56&quot;
+## [1] &quot;x es 57&quot;
+## [1] &quot;x es 58&quot;
+## [1] &quot;x es 59&quot;
+## [1] &quot;x es 60&quot;
+## [1] &quot;x es 61&quot;
+## [1] &quot;x es 62&quot;
+## [1] &quot;x es 63&quot;
+## [1] &quot;x es 64&quot;
+## [1] &quot;x es 65&quot;
+## [1] &quot;x es 66&quot;
+## [1] &quot;x es 67&quot;
+## [1] &quot;x es 68&quot;
+## [1] &quot;x es 69&quot;
+## [1] &quot;x es 70&quot;
+## [1] &quot;x es 71&quot;
+## [1] &quot;x es 72&quot;
+## [1] &quot;x es 73&quot;
+## [1] &quot;x es 74&quot;
+## [1] &quot;x es 75&quot;
+## [1] &quot;x es 76&quot;
+## [1] &quot;x es 77&quot;
+## [1] &quot;x es 78&quot;
+## [1] &quot;x es 79&quot;
+## [1] &quot;x es 80&quot;
+## [1] &quot;x es 81&quot;
+## [1] &quot;x es 82&quot;
+## [1] &quot;x es 83&quot;
+## [1] &quot;x es 84&quot;
+## [1] &quot;x es 85&quot;
+## [1] &quot;x es 86&quot;
+## [1] &quot;x es 87&quot;
+## [1] &quot;x es 88&quot;
+## [1] &quot;x es 89&quot;
+## [1] &quot;x es 90&quot;
+## [1] &quot;x es 91&quot;
+## [1] &quot;x es 92&quot;
+## [1] &quot;x es 93&quot;
+## [1] &quot;x es 94&quot;
+## [1] &quot;x es 95&quot;
+## [1] &quot;x es 96&quot;
+## [1] &quot;x es 97&quot;
+## [1] &quot;x es 98&quot;
+## [1] &quot;x es 99&quot;
+## [1] &quot;x es 100&quot;
+## [1] &quot;x es 101&quot;
+## [1] &quot;x es 102&quot;
+## [1] &quot;x es 103&quot;
+## [1] &quot;x es 104&quot;
+## [1] &quot;x es 105&quot;
+## [1] &quot;x es 106&quot;
+## [1] &quot;x es 107&quot;
+## [1] &quot;x es 108&quot;
+## [1] &quot;x es 109&quot;
+## [1] &quot;x es 110&quot;
+## [1] &quot;x es 111&quot;
+## [1] &quot;x es 112&quot;
+## [1] &quot;x es 113&quot;
+## [1] &quot;x es 114&quot;
+## [1] &quot;x es 115&quot;
+## [1] &quot;x es 116&quot;
+## [1] &quot;x es 117&quot;
+## [1] &quot;x es 118&quot;
+## [1] &quot;x es 119&quot;
+## [1] &quot;x es 120&quot;
+## [1] &quot;x es 121&quot;
+## [1] &quot;x es 122&quot;
+## [1] &quot;x es 123&quot;
+## [1] &quot;x es 124&quot;
+## [1] &quot;x es 125&quot;
+## [1] &quot;x es 126&quot;
+## [1] &quot;x es 127&quot;
+## [1] &quot;x es 128&quot;
+## [1] &quot;x es 129&quot;
+## [1] &quot;x es 130&quot;
+## [1] &quot;x es 131&quot;
+## [1] &quot;x es 132&quot;
+## [1] &quot;x es 133&quot;
+## [1] &quot;x es 134&quot;
+## [1] &quot;x es 135&quot;
+## [1] &quot;x es 136&quot;
+## [1] &quot;x es 137&quot;
+## [1] &quot;x es 138&quot;
+## [1] &quot;x es 139&quot;
+## [1] &quot;x es 140&quot;
+## [1] &quot;x es 141&quot;
+## [1] &quot;x es 142&quot;
+## [1] &quot;x es 143&quot;
+## [1] &quot;x es 144&quot;
+## [1] &quot;x es 145&quot;
+## [1] &quot;x es 146&quot;
+## [1] &quot;x es 147&quot;
+## [1] &quot;x es 148&quot;
+## [1] &quot;x es 149&quot;
+## [1] &quot;x es 150&quot;
+## [1] &quot;x es 151&quot;
+## [1] &quot;x es 152&quot;
+## [1] &quot;x es 153&quot;
+## [1] &quot;x es 154&quot;
+## [1] &quot;x es 155&quot;
+## [1] &quot;x es 156&quot;
+## [1] &quot;x es 157&quot;
+## [1] &quot;x es 158&quot;
+## [1] &quot;x es 159&quot;
+## [1] &quot;x es 160&quot;
+## [1] &quot;x es 161&quot;
+## [1] &quot;x es 162&quot;
+## [1] &quot;x es 163&quot;
+## [1] &quot;x es 164&quot;
+## [1] &quot;x es 165&quot;
+## [1] &quot;x es 166&quot;
+## [1] &quot;x es 167&quot;
+## [1] &quot;x es 168&quot;
+## [1] &quot;x es 169&quot;
+## [1] &quot;x es 170&quot;
+## [1] &quot;x es 171&quot;
+## [1] &quot;x es 172&quot;
+## [1] &quot;x es 173&quot;
+## [1] &quot;x es 174&quot;
+## [1] &quot;x es 175&quot;
+## [1] &quot;x es 176&quot;
+## [1] &quot;x es 177&quot;
+## [1] &quot;x es 178&quot;
+## [1] &quot;x es 179&quot;
+## [1] &quot;x es 180&quot;
+## [1] &quot;x es 181&quot;
+## [1] &quot;x es 182&quot;
+## [1] &quot;x es 183&quot;
+## [1] &quot;x es 184&quot;
+## [1] &quot;x es 185&quot;
+## [1] &quot;x es 186&quot;
+## [1] &quot;x es 187&quot;
+## [1] &quot;x es 188&quot;
+## [1] &quot;x es 189&quot;
+## [1] &quot;x es 190&quot;
+## [1] &quot;x es 191&quot;
+## [1] &quot;x es 192&quot;
+## [1] &quot;x es 193&quot;
+## [1] &quot;x es 194&quot;
+## [1] &quot;x es 195&quot;
+## [1] &quot;x es 196&quot;
+## [1] &quot;x es 197&quot;
+## [1] &quot;x es 198&quot;
+## [1] &quot;x es 199&quot;
+## [1] &quot;x es 200&quot;
+## [1] &quot;x es 201&quot;
+## [1] &quot;x es 202&quot;
+## [1] &quot;x es 203&quot;
+## [1] &quot;x es 204&quot;
+## [1] &quot;x es 205&quot;
+## [1] &quot;x es 206&quot;
+## [1] &quot;x es 207&quot;
+## [1] &quot;x es 208&quot;
+## [1] &quot;x es 209&quot;
+## [1] &quot;x es 210&quot;
+## [1] &quot;x es 211&quot;
+## [1] &quot;x es 212&quot;
+## [1] &quot;x es 213&quot;
+## [1] &quot;x es 214&quot;
+## [1] &quot;x es 215&quot;
+## [1] &quot;x es 216&quot;
+## [1] &quot;x es 217&quot;
+## [1] &quot;x es 218&quot;
+## [1] &quot;x es 219&quot;
+## [1] &quot;x es 220&quot;
+## [1] &quot;x es 221&quot;
+## [1] &quot;x es 222&quot;
+## [1] &quot;x es 223&quot;
+## [1] &quot;x es 224&quot;
+## [1] &quot;x es 225&quot;
+## [1] &quot;x es 226&quot;
+## [1] &quot;x es 227&quot;
+## [1] &quot;x es 228&quot;
+## [1] &quot;x es 229&quot;
+## [1] &quot;x es 230&quot;
+## [1] &quot;x es 231&quot;
+## [1] &quot;x es 232&quot;
+## [1] &quot;x es 233&quot;
+## [1] &quot;x es 234&quot;
+## [1] &quot;x es 235&quot;
+## [1] &quot;x es 236&quot;
+## [1] &quot;x es 237&quot;
+## [1] &quot;x es 238&quot;
+## [1] &quot;x es 239&quot;
+## [1] &quot;x es 240&quot;
+## [1] &quot;x es 241&quot;
+## [1] &quot;x es 242&quot;
+## [1] &quot;x es 243&quot;
+## [1] &quot;x es 244&quot;
+## [1] &quot;x es 245&quot;
+## [1] &quot;x es 246&quot;
+## [1] &quot;x es 247&quot;
+## [1] &quot;x es 248&quot;
+## [1] &quot;x es 249&quot;
+## [1] &quot;x es 250&quot;
+## [1] &quot;x es 251&quot;
+## [1] &quot;x es 252&quot;
+## [1] &quot;x es 253&quot;
+## [1] &quot;x es 254&quot;
+## [1] &quot;x es 255&quot;
+## [1] &quot;x es 256&quot;
+## [1] &quot;x es 257&quot;
+## [1] &quot;x es 258&quot;
+## [1] &quot;x es 259&quot;
+## [1] &quot;x es 260&quot;
+## [1] &quot;x es 261&quot;
+## [1] &quot;x es 262&quot;
+## [1] &quot;x es 263&quot;
+## [1] &quot;x es 264&quot;
+## [1] &quot;x es 265&quot;
+## [1] &quot;x es 266&quot;
+## [1] &quot;x es 267&quot;
+## [1] &quot;x es 268&quot;
+## [1] &quot;x es 269&quot;
+## [1] &quot;x es 270&quot;
+## [1] &quot;x es 271&quot;
+## [1] &quot;x es 272&quot;
+## [1] &quot;x es 273&quot;
+## [1] &quot;x es 274&quot;
+## [1] &quot;x es 275&quot;
+## [1] &quot;x es 276&quot;
+## [1] &quot;x es 277&quot;
+## [1] &quot;x es 278&quot;
+## [1] &quot;x es 279&quot;
+## [1] &quot;x es 280&quot;
+## [1] &quot;x es 281&quot;
+## [1] &quot;x es 282&quot;
+## [1] &quot;x es 283&quot;
+## [1] &quot;x es 284&quot;
+## [1] &quot;x es 285&quot;
+## [1] &quot;x es 286&quot;
+## [1] &quot;x es 287&quot;
+## [1] &quot;x es 288&quot;
+## [1] &quot;x es 289&quot;
+## [1] &quot;x es 290&quot;
+## [1] &quot;x es 291&quot;
+## [1] &quot;x es 292&quot;
+## [1] &quot;x es 293&quot;
+## [1] &quot;x es 294&quot;
+## [1] &quot;x es 295&quot;
+## [1] &quot;x es 296&quot;
+## [1] &quot;x es 297&quot;
+## [1] &quot;x es 298&quot;
+## [1] &quot;x es 299&quot;
+## [1] &quot;x es 300&quot;
+## [1] &quot;x es 301&quot;
+## [1] &quot;x es 302&quot;
+## [1] &quot;x es 303&quot;
+## [1] &quot;x es 304&quot;
+## [1] &quot;x es 305&quot;
+## [1] &quot;x es 306&quot;
+## [1] &quot;x es 307&quot;
+## [1] &quot;x es 308&quot;
+## [1] &quot;x es 309&quot;
+## [1] &quot;x es 310&quot;
+## [1] &quot;x es 311&quot;
+## [1] &quot;x es 312&quot;
+## [1] &quot;x es 313&quot;
+## [1] &quot;x es 314&quot;
+## [1] &quot;x es 315&quot;
+## [1] &quot;x es 316&quot;
+## [1] &quot;x es 317&quot;
+## [1] &quot;x es 318&quot;
+## [1] &quot;x es 319&quot;
+## [1] &quot;x es 320&quot;
+## [1] &quot;x es 321&quot;
+## [1] &quot;x es 322&quot;
+## [1] &quot;x es 323&quot;
+## [1] &quot;x es 324&quot;
+## [1] &quot;x es 325&quot;
+## [1] &quot;x es 326&quot;
+## [1] &quot;x es 327&quot;
+## [1] &quot;x es 328&quot;
+## [1] &quot;x es 329&quot;
+## [1] &quot;x es 330&quot;
+## [1] &quot;x es 331&quot;
+## [1] &quot;x es 332&quot;
+## [1] &quot;x es 333&quot;
+## [1] &quot;x es 334&quot;
+## [1] &quot;x es 335&quot;
+## [1] &quot;x es 336&quot;
+## [1] &quot;x es 337&quot;
+## [1] &quot;x es 338&quot;
+## [1] &quot;x es 339&quot;
+## [1] &quot;x es 340&quot;
+## [1] &quot;x es 341&quot;
+## [1] &quot;x es 342&quot;
+## [1] &quot;x es 343&quot;
+## [1] &quot;x es 344&quot;
+## [1] &quot;x es 345&quot;
+## [1] &quot;x es 346&quot;
+## [1] &quot;x es 347&quot;
+## [1] &quot;x es 348&quot;
+## [1] &quot;x es 349&quot;
+## [1] &quot;x es 350&quot;
+## [1] &quot;x es 351&quot;
+## [1] &quot;x es 352&quot;
+## [1] &quot;x es 353&quot;
+## [1] &quot;x es 354&quot;
+## [1] &quot;x es 355&quot;
+## [1] &quot;x es 356&quot;
+## [1] &quot;x es 357&quot;
+## [1] &quot;x es 358&quot;
+## [1] &quot;x es 359&quot;
+## [1] &quot;x es 360&quot;
+## [1] &quot;x es 361&quot;
+## [1] &quot;x es 362&quot;
+## [1] &quot;x es 363&quot;
+## [1] &quot;x es 364&quot;
+## [1] &quot;x es 365&quot;
+## [1] &quot;x es 366&quot;
+## [1] &quot;x es 367&quot;
+## [1] &quot;x es 368&quot;
+## [1] &quot;x es 369&quot;
+## [1] &quot;x es 370&quot;
+## [1] &quot;x es 371&quot;
+## [1] &quot;x es 372&quot;
+## [1] &quot;x es 373&quot;
+## [1] &quot;x es 374&quot;
+## [1] &quot;x es 375&quot;
+## [1] &quot;x es 376&quot;
+## [1] &quot;x es 377&quot;
+## [1] &quot;x es 378&quot;
+## [1] &quot;x es 379&quot;
+## [1] &quot;x es 380&quot;
+## [1] &quot;x es 381&quot;
+## [1] &quot;x es 382&quot;
+## [1] &quot;x es 383&quot;
+## [1] &quot;x es 384&quot;
+## [1] &quot;x es 385&quot;
+## [1] &quot;x es 386&quot;
+## [1] &quot;x es 387&quot;
+## [1] &quot;x es 388&quot;
+## [1] &quot;x es 389&quot;
+## [1] &quot;x es 390&quot;
+## [1] &quot;x es 391&quot;
+## [1] &quot;x es 392&quot;
+## [1] &quot;x es 393&quot;
+## [1] &quot;x es 394&quot;
+## [1] &quot;x es 395&quot;
+## [1] &quot;x es 396&quot;
+## [1] &quot;x es 397&quot;
+## [1] &quot;x es 398&quot;
+## [1] &quot;x es 399&quot;
+## [1] &quot;x es 400&quot;
+## [1] &quot;x es 401&quot;
+## [1] &quot;x es 402&quot;
+## [1] &quot;x es 403&quot;
+## [1] &quot;x es 404&quot;
+## [1] &quot;x es 405&quot;
+## [1] &quot;x es 406&quot;
+## [1] &quot;x es 407&quot;
+## [1] &quot;x es 408&quot;
+## [1] &quot;x es 409&quot;
+## [1] &quot;x es 410&quot;
+## [1] &quot;x es 411&quot;
+## [1] &quot;x es 412&quot;
+## [1] &quot;x es 413&quot;
+## [1] &quot;x es 414&quot;
+## [1] &quot;x es 415&quot;
+## [1] &quot;x es 416&quot;
+## [1] &quot;x es 417&quot;
+## [1] &quot;x es 418&quot;
+## [1] &quot;x es 419&quot;
+## [1] &quot;x es 420&quot;
+## [1] &quot;x es 421&quot;
+## [1] &quot;x es 422&quot;
+## [1] &quot;x es 423&quot;
+## [1] &quot;x es 424&quot;
+## [1] &quot;x es 425&quot;
+## [1] &quot;x es 426&quot;
+## [1] &quot;x es 427&quot;
+## [1] &quot;x es 428&quot;
+## [1] &quot;x es 429&quot;
+## [1] &quot;x es 430&quot;
+## [1] &quot;x es 431&quot;
+## [1] &quot;x es 432&quot;
+## [1] &quot;x es 433&quot;
+## [1] &quot;x es 434&quot;
+## [1] &quot;x es 435&quot;
+## [1] &quot;x es 436&quot;
+## [1] &quot;x es 437&quot;
+## [1] &quot;x es 438&quot;
+## [1] &quot;x es 439&quot;
+## [1] &quot;x es 440&quot;
+## [1] &quot;x es 441&quot;
+## [1] &quot;x es 442&quot;
+## [1] &quot;x es 443&quot;
+## [1] &quot;x es 444&quot;
+## [1] &quot;x es 445&quot;
+## [1] &quot;x es 446&quot;
+## [1] &quot;x es 447&quot;
+## [1] &quot;x es 448&quot;
+## [1] &quot;x es 449&quot;
+## [1] &quot;x es 450&quot;
+## [1] &quot;x es 451&quot;
+## [1] &quot;x es 452&quot;
+## [1] &quot;x es 453&quot;
+## [1] &quot;x es 454&quot;
+## [1] &quot;x es 455&quot;
+## [1] &quot;x es 456&quot;
+## [1] &quot;x es 457&quot;
+## [1] &quot;x es 458&quot;
+## [1] &quot;x es 459&quot;
+## [1] &quot;x es 460&quot;
+## [1] &quot;x es 461&quot;
+## [1] &quot;x es 462&quot;
+## [1] &quot;x es 463&quot;
+## [1] &quot;x es 464&quot;
+## [1] &quot;x es 465&quot;
+## [1] &quot;x es 466&quot;
+## [1] &quot;x es 467&quot;
+## [1] &quot;x es 468&quot;
+## [1] &quot;x es 469&quot;
+## [1] &quot;x es 470&quot;
+## [1] &quot;x es 471&quot;
+## [1] &quot;x es 472&quot;
+## [1] &quot;x es 473&quot;
+## [1] &quot;x es 474&quot;
+## [1] &quot;x es 475&quot;
+## [1] &quot;x es 476&quot;
+## [1] &quot;x es 477&quot;
+## [1] &quot;x es 478&quot;
+## [1] &quot;x es 479&quot;
+## [1] &quot;x es 480&quot;
+## [1] &quot;x es 481&quot;
+## [1] &quot;x es 482&quot;
+## [1] &quot;x es 483&quot;
+## [1] &quot;x es 484&quot;
+## [1] &quot;x es 485&quot;
+## [1] &quot;x es 486&quot;
+## [1] &quot;x es 487&quot;
+## [1] &quot;x es 488&quot;
+## [1] &quot;x es 489&quot;
+## [1] &quot;x es 490&quot;
+## [1] &quot;x es 491&quot;
+## [1] &quot;x es 492&quot;
+## [1] &quot;x es 493&quot;
+## [1] &quot;x es 494&quot;
+## [1] &quot;x es 495&quot;
+## [1] &quot;x es 496&quot;
+## [1] &quot;x es 497&quot;
+## [1] &quot;x es 498&quot;
+## [1] &quot;x es 499&quot;
+## [1] &quot;x es 500&quot;
+## [1] &quot;x es 501&quot;
+## [1] &quot;x es 502&quot;
+## [1] &quot;x es 503&quot;
+## [1] &quot;x es 504&quot;
+## [1] &quot;x es 505&quot;
+## [1] &quot;x es 506&quot;
+## [1] &quot;x es 507&quot;
+## [1] &quot;x es 508&quot;
+## [1] &quot;x es 509&quot;
+## [1] &quot;x es 510&quot;
+## [1] &quot;x es 511&quot;
+## [1] &quot;x es 512&quot;
+## [1] &quot;x es 513&quot;
+## [1] &quot;x es 514&quot;
+## [1] &quot;x es 515&quot;
+## [1] &quot;x es 516&quot;
+## [1] &quot;x es 517&quot;
+## [1] &quot;x es 518&quot;
+## [1] &quot;x es 519&quot;
+## [1] &quot;x es 520&quot;
+## [1] &quot;x es 521&quot;
+## [1] &quot;x es 522&quot;
+## [1] &quot;x es 523&quot;
+## [1] &quot;x es 524&quot;
+## [1] &quot;x es 525&quot;
+## [1] &quot;x es 526&quot;
+## [1] &quot;x es 527&quot;
+## [1] &quot;x es 528&quot;
+## [1] &quot;x es 529&quot;
+## [1] &quot;x es 530&quot;
+## [1] &quot;x es 531&quot;
+## [1] &quot;x es 532&quot;
+## [1] &quot;x es 533&quot;
+## [1] &quot;x es 534&quot;
+## [1] &quot;x es 535&quot;
+## [1] &quot;x es 536&quot;
+## [1] &quot;x es 537&quot;
+## [1] &quot;x es 538&quot;
+## [1] &quot;x es 539&quot;
+## [1] &quot;x es 540&quot;
+## [1] &quot;x es 541&quot;
+## [1] &quot;x es 542&quot;
+## [1] &quot;x es 543&quot;
+## [1] &quot;x es 544&quot;
+## [1] &quot;x es 545&quot;
+## [1] &quot;x es 546&quot;
+## [1] &quot;x es 547&quot;
+## [1] &quot;x es 548&quot;
+## [1] &quot;x es 549&quot;
+## [1] &quot;x es 550&quot;
+## [1] &quot;x es 551&quot;
+## [1] &quot;x es 552&quot;
+## [1] &quot;x es 553&quot;
+## [1] &quot;x es 554&quot;
+## [1] &quot;x es 555&quot;
+## [1] &quot;x es 556&quot;
+## [1] &quot;x es 557&quot;
+## [1] &quot;x es 558&quot;
+## [1] &quot;x es 559&quot;
+## [1] &quot;x es 560&quot;
+## [1] &quot;x es 561&quot;
+## [1] &quot;x es 562&quot;
+## [1] &quot;x es 563&quot;
+## [1] &quot;x es 564&quot;
+## [1] &quot;x es 565&quot;
+## [1] &quot;x es 566&quot;
+## [1] &quot;x es 567&quot;
+## [1] &quot;x es 568&quot;
+## [1] &quot;x es 569&quot;
+## [1] &quot;x es 570&quot;
+## [1] &quot;x es 571&quot;
+## [1] &quot;x es 572&quot;
+## [1] &quot;x es 573&quot;
+## [1] &quot;x es 574&quot;
+## [1] &quot;x es 575&quot;
+## [1] &quot;x es 576&quot;
+## [1] &quot;x es 577&quot;
+## [1] &quot;x es 578&quot;
+## [1] &quot;x es 579&quot;
+## [1] &quot;x es 580&quot;
+## [1] &quot;x es 581&quot;
+## [1] &quot;x es 582&quot;
+## [1] &quot;x es 583&quot;
+## [1] &quot;x es 584&quot;
+## [1] &quot;x es 585&quot;
+## [1] &quot;x es 586&quot;
+## [1] &quot;x es 587&quot;
+## [1] &quot;x es 588&quot;
+## [1] &quot;x es 589&quot;
+## [1] &quot;x es 590&quot;
+## [1] &quot;x es 591&quot;
+## [1] &quot;x es 592&quot;
+## [1] &quot;x es 593&quot;
+## [1] &quot;x es 594&quot;
+## [1] &quot;x es 595&quot;
+## [1] &quot;x es 596&quot;
+## [1] &quot;x es 597&quot;
+## [1] &quot;x es 598&quot;
+## [1] &quot;x es 599&quot;
+## [1] &quot;x es 600&quot;
+## [1] &quot;x es 601&quot;
+## [1] &quot;x es 602&quot;
+## [1] &quot;x es 603&quot;
+## [1] &quot;x es 604&quot;
+## [1] &quot;x es 605&quot;
+## [1] &quot;x es 606&quot;
+## [1] &quot;x es 607&quot;
+## [1] &quot;x es 608&quot;
+## [1] &quot;x es 609&quot;
+## [1] &quot;x es 610&quot;
+## [1] &quot;x es 611&quot;
+## [1] &quot;x es 612&quot;
+## [1] &quot;x es 613&quot;
+## [1] &quot;x es 614&quot;
+## [1] &quot;x es 615&quot;
+## [1] &quot;x es 616&quot;
+## [1] &quot;x es 617&quot;
+## [1] &quot;x es 618&quot;
+## [1] &quot;x es 619&quot;
+## [1] &quot;x es 620&quot;
+## [1] &quot;x es 621&quot;
+## [1] &quot;x es 622&quot;
+## [1] &quot;x es 623&quot;
+## [1] &quot;x es 624&quot;
+## [1] &quot;x es 625&quot;
+## [1] &quot;x es 626&quot;
+## [1] &quot;x es 627&quot;
+## [1] &quot;x es 628&quot;
+## [1] &quot;x es 629&quot;
+## [1] &quot;x es 630&quot;
+## [1] &quot;x es 631&quot;
+## [1] &quot;x es 632&quot;
+## [1] &quot;x es 633&quot;
+## [1] &quot;x es 634&quot;
+## [1] &quot;x es 635&quot;
+## [1] &quot;x es 636&quot;
+## [1] &quot;x es 637&quot;
+## [1] &quot;x es 638&quot;
+## [1] &quot;x es 639&quot;
+## [1] &quot;x es 640&quot;
+## [1] &quot;x es 641&quot;
+## [1] &quot;x es 642&quot;
+## [1] &quot;x es 643&quot;
+## [1] &quot;x es 644&quot;
+## [1] &quot;x es 645&quot;
+## [1] &quot;x es 646&quot;
+## [1] &quot;x es 647&quot;
+## [1] &quot;x es 648&quot;
+## [1] &quot;x es 649&quot;
+## [1] &quot;x es 650&quot;
+## [1] &quot;x es 651&quot;
+## [1] &quot;x es 652&quot;
+## [1] &quot;x es 653&quot;
+## [1] &quot;x es 654&quot;
+## [1] &quot;x es 655&quot;
+## [1] &quot;x es 656&quot;
+## [1] &quot;x es 657&quot;
+## [1] &quot;x es 658&quot;
+## [1] &quot;x es 659&quot;
+## [1] &quot;x es 660&quot;
+## [1] &quot;x es 661&quot;
+## [1] &quot;x es 662&quot;
+## [1] &quot;x es 663&quot;
+## [1] &quot;x es 664&quot;
+## [1] &quot;x es 665&quot;
+## [1] &quot;x es 666&quot;
+## [1] &quot;x es 667&quot;
+## [1] &quot;x es 668&quot;
+## [1] &quot;x es 669&quot;
+## [1] &quot;x es 670&quot;
+## [1] &quot;x es 671&quot;
+## [1] &quot;x es 672&quot;
+## [1] &quot;x es 673&quot;
+## [1] &quot;x es 674&quot;
+## [1] &quot;x es 675&quot;
+## [1] &quot;x es 676&quot;
+## [1] &quot;x es 677&quot;
+## [1] &quot;x es 678&quot;
+## [1] &quot;x es 679&quot;
+## [1] &quot;x es 680&quot;
+## [1] &quot;x es 681&quot;
+## [1] &quot;x es 682&quot;
+## [1] &quot;x es 683&quot;
+## [1] &quot;x es 684&quot;
+## [1] &quot;x es 685&quot;
+## [1] &quot;x es 686&quot;
+## [1] &quot;x es 687&quot;
+## [1] &quot;x es 688&quot;
+## [1] &quot;x es 689&quot;
+## [1] &quot;x es 690&quot;
+## [1] &quot;x es 691&quot;
+## [1] &quot;x es 692&quot;
+## [1] &quot;x es 693&quot;
+## [1] &quot;x es 694&quot;
+## [1] &quot;x es 695&quot;
+## [1] &quot;x es 696&quot;
+## [1] &quot;x es 697&quot;
+## [1] &quot;x es 698&quot;
+## [1] &quot;x es 699&quot;
+## [1] &quot;x es 700&quot;</code></pre>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb561-1" tabindex="-1"></a><span class="co"># Muy importante la actualización.</span></span></code></pre></div>
+</div>
+<div id="lapply-sapply-y-vapply" class="section level4 hasAnchor" number="2.3.1.2">
+<h4><span class="header-section-number">2.3.1.2</span> Lapply, Sapply y Vapply<a href="manipulación-de-bases-de-datos-parte-i.html#lapply-sapply-y-vapply" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Lapply:</p>
+<div class="sourceCode" id="cb562"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb562-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb562-1" tabindex="-1"></a>nyc <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">poblacion =</span> <span class="dv">8405837</span>, </span>
+<span id="cb562-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb562-2" tabindex="-1"></a>            <span class="at">barrios =</span> <span class="fu">c</span>(<span class="st">&quot;Manhattan&quot;</span>, <span class="st">&quot;Bronx&quot;</span>, </span>
+<span id="cb562-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb562-3" tabindex="-1"></a>                        <span class="st">&quot;Brooklyn&quot;</span>, <span class="st">&quot;Queens&quot;</span>, </span>
+<span id="cb562-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb562-4" tabindex="-1"></a>                        <span class="st">&quot;Staten Island&quot;</span>))</span>
+<span id="cb562-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb562-5" tabindex="-1"></a>nyc</span></code></pre></div>
+<pre><code>## $poblacion
+## [1] 8405837
+## 
+## $barrios
+## [1] &quot;Manhattan&quot;     &quot;Bronx&quot;         &quot;Brooklyn&quot;      &quot;Queens&quot;        &quot;Staten Island&quot;</code></pre>
+<ul>
+<li>Equivalencia loop y lapply. Quiero saber todas las clases de la
+lista:</li>
+</ul>
+<div class="sourceCode" id="cb564"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb564-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb564-1" tabindex="-1"></a><span class="co"># Puedo hacer esto con un loop </span></span>
+<span id="cb564-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb564-2" tabindex="-1"></a><span class="cf">for</span> (objeto <span class="cf">in</span> nyc){</span>
+<span id="cb564-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb564-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">class</span>(objeto))</span>
+<span id="cb564-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb564-4" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;
+## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb566"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb566-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb566-1" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(nyc)){</span>
+<span id="cb566-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb566-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">class</span>(nyc[[i]]))</span>
+<span id="cb566-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb566-3" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;numeric&quot;
+## [1] &quot;character&quot;</code></pre>
+<div class="sourceCode" id="cb568"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb568-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb568-1" tabindex="-1"></a><span class="co"># Pero, si utilizo `lapply()` puedo hacerlo mucho más eficiente. </span></span>
+<span id="cb568-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb568-2" tabindex="-1"></a><span class="co"># Lapply: que aplica esto como si fuese un `for`. </span></span>
+<span id="cb568-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb568-3" tabindex="-1"></a><span class="fu">lapply</span>(nyc,class)</span></code></pre></div>
+<pre><code>## $poblacion
+## [1] &quot;numeric&quot;
+## 
+## $barrios
+## [1] &quot;character&quot;</code></pre>
+<ul>
+<li>Resultado de lapply con vector:</li>
+</ul>
+<div class="sourceCode" id="cb570"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb570-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb570-1" tabindex="-1"></a><span class="co"># Lapply ejecuta la función, en este caso class, para todo elemento del objeto, en este caso nyc. </span></span>
+<span id="cb570-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb570-2" tabindex="-1"></a></span>
+<span id="cb570-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb570-3" tabindex="-1"></a><span class="co"># Si quiero saber el número de carácteres</span></span>
+<span id="cb570-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb570-4" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;New york&quot;</span>,<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot; Rio de Janeiro&quot;</span>)</span>
+<span id="cb570-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb570-5" tabindex="-1"></a><span class="fu">lapply</span>(cities,nchar)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 8
+## 
+## [[2]]
+## [1] 5
+## 
+## [[3]]
+## [1] 5
+## 
+## [[4]]
+## [1] 15</code></pre>
+<div class="sourceCode" id="cb572"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb572-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb572-1" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">lapply</span>(cities,nchar))</span></code></pre></div>
+<pre><code>## [1] &quot;list&quot;</code></pre>
+<div class="sourceCode" id="cb574"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb574-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb574-1" tabindex="-1"></a><span class="co"># Noten que el resultado aquí es una lista. Si quiero que sea un vector, puedo utilizar la función `unlist()`. </span></span>
+<span id="cb574-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb574-2" tabindex="-1"></a><span class="fu">unlist</span>(<span class="fu">lapply</span>(cities,nchar))</span></code></pre></div>
+<pre><code>## [1]  8  5  5 15</code></pre>
+<div class="sourceCode" id="cb576"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb576-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb576-1" tabindex="-1"></a><span class="fu">class</span>(<span class="fu">unlist</span>(<span class="fu">lapply</span>(cities,nchar)))</span></code></pre></div>
+<pre><code>## [1] &quot;integer&quot;</code></pre>
+<ul>
+<li>Lapply como función:</li>
+</ul>
+<div class="sourceCode" id="cb578"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb578-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-1" tabindex="-1"></a>precios <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fl">2.25</span>, <span class="fl">2.18</span>, <span class="fl">2.89</span>, <span class="fl">2.84</span>, <span class="fl">2.89</span>)</span>
+<span id="cb578-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-2" tabindex="-1"></a></span>
+<span id="cb578-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-3" tabindex="-1"></a><span class="co"># Creamos una función</span></span>
+<span id="cb578-4"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-4" tabindex="-1"></a>multiplicar <span class="ot">&lt;-</span> <span class="cf">function</span>(x,factor){</span>
+<span id="cb578-5"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-5" tabindex="-1"></a>  x <span class="sc">*</span> factor</span>
+<span id="cb578-6"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-6" tabindex="-1"></a>}</span>
+<span id="cb578-7"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-7" tabindex="-1"></a></span>
+<span id="cb578-8"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-8" tabindex="-1"></a><span class="co"># Ahora, podemos aplicar lapply y agregar opciones de la función</span></span>
+<span id="cb578-9"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-9" tabindex="-1"></a>tresveces <span class="ot">&lt;-</span> <span class="fu">lapply</span>(precios, multiplicar, <span class="at">factor =</span> <span class="dv">3</span>)</span>
+<span id="cb578-10"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-10" tabindex="-1"></a>tresveces <span class="ot">&lt;-</span> <span class="fu">unlist</span>(tresveces)</span>
+<span id="cb578-11"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-11" tabindex="-1"></a></span>
+<span id="cb578-12"><a href="manipulación-de-bases-de-datos-parte-i.html#cb578-12" tabindex="-1"></a><span class="co"># Noten que la sintaxis es: objeto, función, opciones. Es decir, igual a lo anterior, pero pudiendo agregar opcionales. </span></span></code></pre></div>
+<p><strong>Sapply:</strong> Es una variacion de <code>lapply</code> que sirve para simplificar
+<code>lapply</code>. Ahora el resultado es un vector, no una lista.</p>
+<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb579-1" tabindex="-1"></a>cities <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;New york&quot;</span>,<span class="st">&quot;Paris&quot;</span>, <span class="st">&quot;Tokyo&quot;</span>, <span class="st">&quot; Rio de Janeiro&quot;</span>)</span>
+<span id="cb579-2"><a href="manipulación-de-bases-de-datos-parte-i.html#cb579-2" tabindex="-1"></a></span>
+<span id="cb579-3"><a href="manipulación-de-bases-de-datos-parte-i.html#cb579-3" tabindex="-1"></a><span class="fu">lapply</span>(cities,nchar)</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 8
+## 
+## [[2]]
+## [1] 5
+## 
+## [[3]]
+## [1] 5
+## 
+## [[4]]
+## [1] 15</code></pre>
+<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb581-1" tabindex="-1"></a><span class="fu">sapply</span>(cities,nchar)</span></code></pre></div>
+<pre><code>##        New york           Paris           Tokyo  Rio de Janeiro 
+##               8               5               5              15</code></pre>
+<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb583-1" tabindex="-1"></a><span class="co"># Noten que es bastante ordenado. Sin embargo, falla cuando no es fácil ordenar el resultado. </span></span></code></pre></div>
+<p><strong>Vapply:</strong> Es una variación que sirve para definir explícitamente el
+tipo de objeto del resultado.</p>
+<div class="sourceCode" id="cb584"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb584-1"><a href="manipulación-de-bases-de-datos-parte-i.html#cb584-1" tabindex="-1"></a><span class="fu">vapply</span>(cities, nchar, <span class="fu">numeric</span>(<span class="dv">1</span>))</span></code></pre></div>
+<pre><code>##        New york           Paris           Tokyo  Rio de Janeiro 
+##               8               5               5              15</code></pre>
+
+</div>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="herramientas-de-programación.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
