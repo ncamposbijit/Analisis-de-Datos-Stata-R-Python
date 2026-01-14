@@ -1,5 +1,5 @@
 ---
-title: "Análisis de Datos con Stata, R y Python"
+title: "Using R for data analysis"
 author: "Nicolás Campos Bijit"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -9,15 +9,18 @@ output:
 bibliography: references.bib
 biblio-style: apalike
 link-citations: yes
-description: Libro enfocado en enseñar análisis de datos utilizando Stata, R y Python
+description: A book focused on teaching data analysis using R
 ---
+
 # Introducción 
 
-Estas notas están diseñadas para aquellos que buscan aprender herramientas de análisis de datos en R, Python y Stata. Están estructuradas como notas de clase, lo que implica una progresión secuencial a través de las sesiones. Las notas de Python y R forman parte de un curso básico, mientras que el curso de Stata corresponde a un nivel avanzado. Para la sección de Stata, estas notas enfatizan buenas prácticas de programación, diseño de programas (archivos ado), matrices en Stata (mata), técnicas avanzadas de replicación y manejo de grandes bases de datos.
+These notes are designed for those who want to learn **data analysis tools in R**. They are structured as **lecture-style class notes**, which means they follow a **sequential progression across sessions**.
 
-Con el tiempo, estas notas de clase han evolucionado y seguirán haciéndolo. Se han enriquecido gracias a las contribuciones de varias personas. Agradezco especialmente a Camila Vivanco, Diego Menares, Catalina Buzio, Felix Ordoñez por sus contribuciones. Sin su colaboración, estas notas no serían lo que son hoy. También expreso mi gratitud a Benjamín Pinto, quien me ayudó a adaptar las notas a este formato.
+Over time, these class notes have evolved—and they will continue to do so. They have been enriched thanks to contributions from several people. I am especially grateful to **Camila Vivanco, Diego Menares, Catalina Buzio, Felix Ordoñez and Benjamín Pinto** for their contributions.
 
-Además, estas notas están basadas en varios materiales de acceso público. A lo largo de ellas, se indican las referencias bibliográficas correspondientes y se proporcionan recursos gratuitos para aquellos que deseen ampliar o consolidar sus conocimientos. En muchos casos, los ejemplos han sido tomados de este material adicional. Siempre hago un esfuerzo por citar adecuadamente las fuentes, con la intención de respetar la autoría original y proporcionar acceso a recursos valiosos para los lectores de estas notas. ¡Déjenme saber si encuentran errores!
+In addition, these notes are based on a variety of publicly available materials. Throughout the notes, I provide the corresponding bibliographic references and share free resources for readers who want to deepen or consolidate their knowledge. In many cases, examples have been adapted from these additional sources. I always make an effort to cite sources appropriately, with the goal of respecting original authorship and providing readers with access to valuable references. Please let me know if you find any errors.
 
-Para sugerencias, preguntas o recomendaciones, no duden en escribirme a ncamposbijit@gmail.com.
+These notes have also been **updated and adapted for the course *ECON 326: Introduction to Econometrics II***, an undergraduate course at the **University of British Columbia (UBC)**, **2026**.
+
+For suggestions, questions, or recommendations, feel free to contact me at **[ncamposbijit@gmail.com](mailto:ncamposbijit@gmail.com)**.
 
