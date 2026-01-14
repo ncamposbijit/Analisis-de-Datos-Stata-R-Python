@@ -12,6 +12,7 @@
     
 -  **In demand:** Open-source programming languages are increasingly requested in the labor market.
 
+
 ### Key and recurring terms throughout the course
 
 -   **RStudio:** Graphical User Interface. It is designed to make using R easier.
@@ -19,6 +20,7 @@
 -   **Functions:** An operation produced by code that accepts inputs and returns outputs.
 -   **Packages:** A set of functions grouped according to their purpose. 
 -   **Scripts/Code:** Document that contains all commands used in a data analysis process.
+
 
 ### Learning Resources
 
@@ -37,9 +39,9 @@
     -   [Bookdown](https://bookdown.org/)
 - 
 
-### RStudio Interface
 
-#### Four sections in RStudio
+### RStudio Interface
+  #### Four sections in RStudio
 
 The fundamental ones are: *Scripts, Console, 
 Environment/Files/Help*.
@@ -53,15 +55,15 @@ Environment/Files/Help*.
 To customize RStudio go to: **Tools -> Global Options**.
 There you can change the environment color, font type, layout order. The
 idea is to use RStudio in the most intuitive way possible. 
-
-#### Writing comments
+  
+  #### Writing comments
 
 It is very important to write comments throughout your code. It is also important to know how to write **good** comments. A very good guide that discusses this and many other things is: [Code and Data for the Social Sciences: A Practitioner's Guide](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf).
 
 `(#)` to write comments in the script. If I want to mark multiple
 lines as comments: `ctrl + shift + c`
 
-#### Indices
+  #### Indices
 
 It is important to write indices to document your code. To
 see it I must type: `ctrl + shift + o`
@@ -76,6 +78,7 @@ Titles can be hierarchical:
 ```
 
 It is important to update it constantly to avoid losing functionality.
+
 
 ### Package installation and help
 
@@ -188,17 +191,8 @@ Sometimes we want to know which package a given function belongs to. For that, c
 <https://sebastiansauer.github.io/finds_funs/>
 `
 
-#### Error común
-
-Por ejemplo:
-
-```{r}
-x <- "hola"
-```
-
 Note that a `+` sign appears in the console. In these cases, RStudio stops because you probably forgot a `)` or a `#`. You must correct the error, run the code again, and then press `Esc` in the console to continue executing commands.
 
----
 
 ### R Markdown
 

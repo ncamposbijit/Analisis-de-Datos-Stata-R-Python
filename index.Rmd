@@ -29,8 +29,6 @@ link-citations: yes
 description: "A book focused on teaching data analysis using R"
 ---
 
-
-
 # Introducción 
 
 These notes are designed for those who want to learn **data analysis tools in R**. They are structured as **lecture-style class notes**, which means they follow a **sequential progression across sessions**.
