@@ -915,3 +915,612 @@ M[2, c(2, 4)] # second and fourth elements of the second row
 
 Matrix subsetting uses the format `[row, column]`, where leaving either position blank returns all rows or all columns, respectively.
 
+
+
+# Arrays
+
+Arrays are multidimensional data structures that extend the concept of matrices. While matrices are two-dimensional, arrays can have three or more dimensions. They are particularly useful when working with data that naturally has multiple dimensions, such as time series data across different regions and variables.
+
+## Creating Arrays
+
+The basic syntax for creating an array is: `array(data, dim, dimnames)`
+
+```{r arrays-basic}
+# Creating a simple 3D array
+my_array <- array(1:24, c(2, 4, 3))
+my_array
+```
+
+The array above has dimensions 2 × 4 × 3, meaning it has 2 rows, 4 columns, and 3 "layers" or levels in the third dimension.
+
+## Adding Dimension Names
+
+Dimension names make arrays much easier to interpret and work with:
+
+```{r arrays-dimnames}
+# Define names for each dimension
+dim1 <- c("row1", "row2")
+dim2 <- c("col1", "col2", "col3", "col4")
+dim3 <- c("level1", "level2", "level3")
+
+# Create array with named dimensions
+my_array <- array(1:24, c(2, 4, 3),
+                  dimnames = list(dim1, dim2, dim3))
+my_array
+```
+
+## Accessing Array Elements
+
+Arrays can be subset using square brackets, similar to matrices but with additional dimensions:
+
+```{r arrays-subset}
+# Access a single element: row 1, column 2, level 3
+my_array[1, 2, 3]
+
+# Access entire slices
+my_array[, , 1]  # All of level 1
+my_array[1, , ]  # All of row 1 across all levels
+
+# Access by dimension names
+my_array["row1", "col2", "level3"]
+```
+
+# Lists
+
+Lists are R's most flexible data structure. Unlike vectors, which must contain elements of the same type, lists can contain elements of different types, including other lists, vectors, matrices, dataframes, and even functions.
+
+## Creating Lists
+
+```{r lists-create}
+# Create a heterogeneous list
+my_list <- list(
+  numbers = c(1, 2, 3),
+  text = "Hello R",
+  matrix = matrix(1:6, nrow = 2),
+  flag = TRUE
+)
+
+my_list
+```
+
+## Accessing List Components
+
+Lists have three main ways to access their components:
+
+```{r lists-access}
+# Method 1: Double brackets [[ ]] - extracts the element itself
+my_list[[1]]  # Returns the numeric vector
+
+# Method 2: Dollar sign $ - access by name
+my_list$text  # Returns "Hello R"
+
+# Method 3: Single brackets [ ] - returns a sublist
+my_list[1]    # Returns a list containing the first element
+
+# Accessing nested elements
+my_list[[3]][1, 2]  # Second element of first row in the matrix
+```
+
+## Adding and Removing List Elements
+
+```{r lists-modify}
+# Adding new components
+my_list$new_vector <- c(10, 20, 30)
+
+# Removing components (set to NULL)
+my_list$flag <- NULL
+
+# View updated structure
+str(my_list)
+```
+
+# Data Frames
+
+Data frames are the workhorse data structure for statistical analysis in R. They are similar to matrices but can contain columns of different types, making them perfect for representing datasets where variables may be numeric, character, or logical.
+
+## Creating Data Frames
+
+```{r dataframes-create}
+# Create a data frame
+df <- data.frame(
+  ID = 1:5,
+  Name = c("Alice", "Bob", "Charlie", "Diana", "Eve"),
+  Age = c(25, 30, 35, 28, 32),
+  Employed = c(TRUE, TRUE, FALSE, TRUE, TRUE)
+)
+
+df
+```
+
+## Exploring Data Frame Structure
+
+```{r dataframes-explore}
+# View structure
+str(df)
+
+# Dimensions
+dim(df)
+nrow(df)
+ncol(df)
+
+# Column names
+names(df)
+colnames(df)
+
+# Summary statistics
+summary(df)
+
+# First and last rows
+head(df, 3)
+tail(df, 2)
+```
+
+## Subsetting Data Frames
+
+Data frames combine the subsetting behavior of both matrices and lists:
+
+```{r dataframes-subset}
+# Accessing columns
+df$Name           # By name with $
+df[, "Age"]       # By name with brackets
+df[, 3]           # By position
+
+# Accessing rows
+df[2, ]           # Second row
+
+# Accessing specific cells
+df[2, 3]          # Row 2, Column 3
+df[2, "Age"]      # Same, using column name
+
+# Subsetting with conditions
+df[df$Age > 28, ]                    # Rows where Age > 28
+df[df$Employed == TRUE, c("Name", "Age")]  # Employed people's names and ages
+```
+
+## Tibbles: Modern Data Frames
+
+The `tibble` package (part of tidyverse) provides an enhanced version of data frames:
+
+```{r tibbles, message=FALSE}
+library(tibble)
+
+# Create a tibble
+tb <- tibble(
+  ID = 1:5,
+  Name = c("Alice", "Bob", "Charlie", "Diana", "Eve"),
+  Age = c(25, 30, 35, 28, 32),
+  Employed = c(TRUE, TRUE, FALSE, TRUE, TRUE)
+)
+
+tb
+
+# Tibbles have better printing and more consistent behavior
+```
+
+# Data Types and Type Checking
+
+Understanding data types is crucial for avoiding errors and writing robust R code.
+
+## Main Data Types
+
+```{r datatypes}
+# Character
+char_var <- "Hello"
+class(char_var)
+
+# Numeric (double precision)
+num_var <- 3.14
+class(num_var)
+
+# Integer
+int_var <- 42L
+class(int_var)
+
+# Logical
+log_var <- TRUE
+class(log_var)
+
+# Complex
+complex_var <- 3 + 2i
+class(complex_var)
+```
+
+## Type Checking Functions
+
+```{r type-checking}
+x <- 42
+
+# Specific type checks
+is.numeric(x)
+is.integer(x)
+is.character(x)
+is.logical(x)
+
+# Convert x to integer
+x_int <- as.integer(x)
+is.integer(x_int)
+```
+
+## Type Coercion
+
+When R combines different types, it follows a coercion hierarchy:
+logical → integer → numeric → complex → character
+
+```{r coercion}
+# Combining logical and numeric
+c(TRUE, 1, 2)  # TRUE becomes 1
+
+# Combining numeric and character
+c(1, 2, "three")  # Numbers become characters
+
+# Explicit coercion
+as.character(42)
+as.numeric("3.14")
+as.logical(1)  # Non-zero numbers become TRUE
+```
+
+# Missing Values
+
+R uses `NA` (Not Available) to represent missing values.
+
+```{r missing-values}
+# Creating vectors with missing values
+x <- c(1, 2, NA, 4, NA)
+
+# Detecting missing values
+is.na(x)
+
+# Counting missing values
+sum(is.na(x))
+
+# Removing missing values
+x[!is.na(x)]
+na.omit(x)
+
+# Many functions have na.rm parameter
+mean(x)              # Returns NA
+mean(x, na.rm = TRUE)  # Calculates mean ignoring NAs
+```
+
+# Conditional Statements
+
+Conditional statements allow your code to make decisions and execute different code based on conditions.
+
+## If-Else Statements
+
+```{r conditionals-basic}
+# Basic if statement
+x <- 10
+
+if (x > 5) {
+  print("x is greater than 5")
+}
+
+# If-else
+x <- 3
+
+if (x > 5) {
+  print("x is greater than 5")
+} else {
+  print("x is less than or equal to 5")
+}
+
+# If-else if-else chain
+score <- 75
+
+if (score >= 90) {
+  grade <- "A"
+} else if (score >= 80) {
+  grade <- "B"
+} else if (score >= 70) {
+  grade <- "C"
+} else {
+  grade <- "F"
+}
+
+grade
+```
+
+## Vectorized If-Else: ifelse()
+
+The `ifelse()` function is vectorized, making it perfect for applying conditions to entire vectors:
+
+```{r ifelse}
+# Create a vector of test scores
+scores <- c(92, 75, 88, 65, 95, 70)
+
+# Assign grades using ifelse
+grades <- ifelse(scores >= 80, "Pass", "Fail")
+grades
+
+# Nested ifelse for multiple conditions
+detailed_grades <- ifelse(scores >= 90, "A",
+                   ifelse(scores >= 80, "B",
+                   ifelse(scores >= 70, "C", "F")))
+detailed_grades
+```
+
+# Functions
+
+Functions are reusable blocks of code that perform specific tasks. They are fundamental to writing clean, maintainable code.
+
+## Creating Functions
+
+```{r functions-basic}
+# Basic function structure
+square <- function(x) {
+  result <- x^2
+  return(result)
+}
+
+square(4)
+square(1:5)
+```
+
+## Functions with Multiple Arguments
+
+```{r functions-multiple-args}
+# Function with default parameter values
+power <- function(base, exponent = 2) {
+  result <- base^exponent
+  return(result)
+}
+
+power(3)      # Uses default exponent = 2
+power(3, 3)   # Explicit exponent
+power(2, exponent = 4)  # Named argument
+```
+
+## Practical Example: Statistical Summary Function
+
+```{r functions-practical}
+# Create a function that returns multiple statistics
+summary_stats <- function(x, na.rm = TRUE) {
+  list(
+    mean = mean(x, na.rm = na.rm),
+    median = median(x, na.rm = na.rm),
+    sd = sd(x, na.rm = na.rm),
+    min = min(x, na.rm = na.rm),
+    max = max(x, na.rm = na.rm),
+    n = length(x),
+    n_missing = sum(is.na(x))
+  )
+}
+
+# Test the function
+test_data <- c(1, 2, 3, NA, 5, 6, 7, NA, 9, 10)
+summary_stats(test_data)
+```
+
+# Loops and Iteration
+
+## For Loops
+
+For loops iterate over a sequence of values:
+
+```{r loops-for}
+# Basic for loop
+for (i in 1:5) {
+  print(paste("Iteration", i))
+}
+
+# Iterating over vector elements
+fruits <- c("apple", "banana", "cherry")
+
+for (fruit in fruits) {
+  print(paste("I like", fruit))
+}
+
+# Building results in a loop
+squares <- numeric(10)
+for (i in 1:10) {
+  squares[i] <- i^2
+}
+squares
+```
+
+## While Loops
+
+While loops continue until a condition becomes FALSE:
+
+```{r loops-while}
+# Basic while loop
+counter <- 1
+
+while (counter <= 5) {
+  print(paste("Counter is", counter))
+  counter <- counter + 1
+}
+
+# Practical example: finding first value above threshold
+x <- 1
+while (2^x < 1000) {
+  x <- x + 1
+}
+print(paste("2^", x, "=", 2^x, "is the first power of 2 above 1000"))
+```
+
+# Apply Family Functions
+
+The apply family provides functional programming alternatives to loops. They are often faster and more concise.
+
+## lapply: Apply Function to List/Vector
+
+`lapply` always returns a list:
+
+```{r lapply}
+# Apply function to each element
+numbers <- list(a = 1:5, b = 6:10, c = 11:15)
+
+# Calculate mean of each element
+lapply(numbers, mean)
+
+# Using anonymous function
+lapply(numbers, function(x) x^2)
+
+# Practical example: read multiple files
+# file_names <- c("data1.csv", "data2.csv", "data3.csv")
+# data_list <- lapply(file_names, read.csv)
+```
+
+## sapply: Simplified Apply
+
+`sapply` tries to simplify the result to a vector or matrix:
+
+```{r sapply}
+# Same operation, simplified output
+sapply(numbers, mean)
+
+# Returns vector instead of list
+sapply(numbers, function(x) sum(x^2))
+
+# When result can't be simplified, returns list like lapply
+sapply(numbers, function(x) c(min = min(x), max = max(x)))
+```
+
+## vapply: Type-Safe Apply
+
+`vapply` requires you to specify the output type, making it safer and sometimes faster:
+
+```{r vapply}
+# Specify output type
+vapply(numbers, mean, FUN.VALUE = numeric(1))
+
+# For multiple return values
+vapply(numbers, function(x) c(mean = mean(x), sd = sd(x)),
+       FUN.VALUE = numeric(2))
+
+# Type safety prevents errors
+# This would error if we tried to return character when numeric specified
+```
+
+## Comparison and Best Practices
+
+```{r apply-comparison}
+# Create example data
+my_list <- list(
+  group1 = rnorm(100, mean = 10, sd = 2),
+  group2 = rnorm(100, mean = 15, sd = 3),
+  group3 = rnorm(100, mean = 20, sd = 4)
+)
+
+# lapply: Always returns list
+result_l <- lapply(my_list, summary)
+class(result_l)
+
+# sapply: Simplifies if possible
+result_s <- sapply(my_list, mean)
+class(result_s)
+
+# vapply: Type-safe, better for production code
+result_v <- vapply(my_list, mean, FUN.VALUE = numeric(1))
+class(result_v)
+```
+
+**Best Practices:**
+- Use `lapply` when you need a list output or when applying complex functions
+- Use `sapply` for interactive analysis when you want simplified output
+- Use `vapply` in production code or packages where type safety is important
+
+# Practical Applications
+
+## Example 1: Data Cleaning Pipeline
+
+```{r practical-1}
+# Create sample data with issues
+messy_data <- data.frame(
+  id = 1:6,
+  value = c(10, 20, NA, 40, 50, 60),
+  category = c("A", "B", "A", "C", "B", "A"),
+  valid = c(TRUE, TRUE, FALSE, TRUE, TRUE, TRUE)
+)
+
+# Function to clean and summarize
+clean_and_summarize <- function(df) {
+  # Remove invalid rows
+  df_clean <- df[df$valid == TRUE, ]
+
+  # Remove missing values
+  df_clean <- df_clean[!is.na(df_clean$value), ]
+
+  # Calculate summary by category
+  categories <- unique(df_clean$category)
+  results <- lapply(categories, function(cat) {
+    subset_data <- df_clean[df_clean$category == cat, "value"]
+    c(
+      category = cat,
+      mean = mean(subset_data),
+      n = length(subset_data)
+    )
+  })
+
+  # Combine into data frame
+  do.call(rbind, results)
+}
+
+clean_and_summarize(messy_data)
+```
+
+## Example 2: Simulation Study
+
+```{r practical-2}
+# Function to simulate and analyze data
+simulate_experiment <- function(n_samples, effect_size) {
+  # Generate data
+  control <- rnorm(n_samples, mean = 100, sd = 15)
+  treatment <- rnorm(n_samples, mean = 100 + effect_size, sd = 15)
+
+  # Perform t-test
+  test_result <- t.test(treatment, control)
+
+  # Return key results
+  list(
+    effect_size = effect_size,
+    p_value = test_result$p.value,
+    significant = test_result$p.value < 0.05
+  )
+}
+
+# Run simulations for different effect sizes
+effect_sizes <- seq(0, 10, by = 2)
+simulation_results <- lapply(effect_sizes, function(es) {
+  simulate_experiment(n_samples = 50, effect_size = es)
+})
+
+# Convert to data frame for easy viewing
+results_df <- do.call(rbind, lapply(simulation_results, as.data.frame))
+results_df
+```
+
+# Summary
+
+This tutorial covered essential advanced R programming concepts:
+
+1. **Arrays**: Multidimensional data structures for complex data
+2. **Lists**: Flexible containers for heterogeneous data
+3. **Data Frames & Tibbles**: Core structures for statistical data analysis
+4. **Data Types**: Understanding and working with different types
+5. **Conditionals**: Making decisions in code with if-else and ifelse
+6. **Functions**: Creating reusable, modular code
+7. **Loops**: For and while loops for iteration
+8. **Apply Functions**: Functional programming with lapply, sapply, and vapply
+
+These tools form the foundation for efficient data analysis and statistical programming in R. Mastering them will enable you to write cleaner, more maintainable, and more efficient R code.
+
+## Key Takeaways
+
+- **Choose the right data structure**: vectors for homogeneous data, lists for heterogeneous, data frames for tabular data
+- **Prefer vectorized operations** over loops when possible
+- **Write functions** to avoid repeating code
+- **Use apply functions** instead of for loops for cleaner functional code
+- **Check and handle missing values** explicitly
+- **Use type-safe functions** (like vapply) in production code
+
+## Further Learning
+
+To continue developing your R skills, explore:
+- Advanced data manipulation with `dplyr` and `data.table`
+- Functional programming with `purrr`
+- Advanced visualization with `ggplot2`
+- Writing efficient R code (vectorization, profiling)
+- Creating R packages for reusable code

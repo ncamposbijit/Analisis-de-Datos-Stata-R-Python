@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2.1 Introduction to R and RStudio | Object Naming and Types in R</title>
+  <title>5.2 Exploring Data Frame Structure | Object Naming and Types in R</title>
   <meta name="description" content="A book focused on teaching data analysis using R" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2.1 Introduction to R and RStudio | Object Naming and Types in R" />
+  <meta property="og:title" content="5.2 Exploring Data Frame Structure | Object Naming and Types in R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book focused on teaching data analysis using R" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2.1 Introduction to R and RStudio | Object Naming and Types in R" />
+  <meta name="twitter:title" content="5.2 Exploring Data Frame Structure | Object Naming and Types in R" />
   
   <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="data-analysis-with-r.html"/>
-<link rel="next" href="writing-code-comments-structure-and-cleaning-the-environment.html"/>
+<link rel="prev" href="creating-data-frames.html"/>
+<link rel="next" href="subsetting-data-frames.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -272,79 +272,54 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introduction-to-r-and-rstudio" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Introduction to R and RStudio<a href="introduction-to-r-and-rstudio.html#introduction-to-r-and-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This chapter introduces the basic workflow for working with R through RStudio. The goal is not only to learn <em>commands</em>, but also to develop good habits for writing clean, reproducible, and well-documented code.</p>
-<div id="why-use-r" class="section level3 hasAnchor" number="2.1.1">
-<h3><span class="header-section-number">2.1.1</span> Why use R?<a href="introduction-to-r-and-rstudio.html#why-use-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>R is one of the most widely used programming languages for data analysis in Economics and the Social Sciences. Its main advantages are:</p>
-<ul>
-<li><strong>Open source:</strong> R is free and has an active community that constantly develops new tools.</li>
-<li><strong>Versatility:</strong> it supports statistical and econometric analysis, data cleaning, visualization, and automation (including tasks like web scraping).</li>
-<li><strong>Reproducibility:</strong> scripts and reports allow you to document and replicate results reliably.</li>
-<li><strong>Labor market value:</strong> open-source programming languages are increasingly demanded across research and industry.</li>
-</ul>
-<p>In this course we will treat R not as a “calculator”, but as a programming language: we will write code, create objects, use functions systematically, and build routines that scale to larger projects.</p>
-<hr />
-</div>
-<div id="key-concepts-vocabulary-of-the-course" class="section level3 hasAnchor" number="2.1.2">
-<h3><span class="header-section-number">2.1.2</span> Key concepts (vocabulary of the course)<a href="introduction-to-r-and-rstudio.html#key-concepts-vocabulary-of-the-course" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Before writing code, it is important to define the core terms that will appear throughout the course:</p>
-<ul>
-<li><strong>RStudio:</strong> a Graphical User Interface (GUI) designed to make working with R easier.</li>
-<li><strong>Objects:</strong> anything you store in memory (datasets, variables, lists, plots, models, etc.).</li>
-<li><strong>Functions:</strong> operations that take inputs and return outputs (e.g., <code>mean(x)</code>, <code>lm(y ~ x)</code>).</li>
-<li><strong>Packages:</strong> collections of functions grouped by purpose (e.g., <code>dplyr</code>, <code>ggplot2</code>, <code>rio</code>).</li>
-<li><strong>Scripts / Code:</strong> files containing the commands that define your analysis pipeline.</li>
-</ul>
-<hr />
-</div>
-<div id="learning-resources" class="section level3 hasAnchor" number="2.1.3">
-<h3><span class="header-section-number">2.1.3</span> Learning resources<a href="introduction-to-r-and-rstudio.html#learning-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To learn R efficiently, you should rely on three types of resources: cheat sheets, forums, and structured books.</p>
-<div style="text-align: justify">
-<ul>
-<li><strong>Cheat sheets:</strong> short summaries of commands and workflows.<br />
-Available at: <a href="https://www.rstudio.com/resources/cheatsheets/" class="uri">https://www.rstudio.com/resources/cheatsheets/</a></li>
-</ul>
-</div>
-<ul>
-<li><strong>Forums and websites:</strong>
-<ul>
-<li>Stack Overflow: <a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a></li>
-<li>Medium: <a href="https://preettheman.medium.com/awesome-tricks-every-r-coder-should-know-c4220cd2cfbc" class="uri">https://preettheman.medium.com/awesome-tricks-every-r-coder-should-know-c4220cd2cfbc</a></li>
-<li>Posit Blog (formerly RStudio): <a href="https://posit.co/" class="uri">https://posit.co/</a></li>
-</ul></li>
-<li><strong>Books:</strong>
-<ul>
-<li><em>R for Data Science</em>: <a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></li>
-<li>Posit resources in Spanish: <a href="https://posit.co/resources/videos/" class="uri">https://posit.co/resources/videos/</a></li>
-<li>Bookdown: <a href="https://bookdown.org/" class="uri">https://bookdown.org/</a></li>
-</ul></li>
-</ul>
-<hr />
-</div>
-<div id="rstudio-interface" class="section level3 hasAnchor" number="2.1.4">
-<h3><span class="header-section-number">2.1.4</span> RStudio interface<a href="introduction-to-r-and-rstudio.html#rstudio-interface" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>RStudio is a convenient “vehicle” for working with R. The interface usually displays <strong>four main panels</strong>, which help you organize your work:</p>
-<ul>
-<li><strong>Scripts (Source):</strong> where you write and save code.</li>
-<li><strong>Console:</strong> where R runs commands and prints results.</li>
-<li><strong>Environment / History:</strong> where you see the objects created in memory.</li>
-<li><strong>Files / Plots / Packages / Help:</strong> tools to navigate folders, view plots, manage packages, and read documentation.</li>
-</ul>
-<p>A key takeaway is that most of your work should live in the <strong>Script</strong>, not in the Console. The Console is useful for quick checks, but scripts are what ensure reproducibility.</p>
-<p>You can customize RStudio via: <strong>Tools → Global Options</strong> (font size, theme, layout, etc.). The purpose is to make your workflow as intuitive and efficient as possible.</p>
-<hr />
-</div>
+<div id="exploring-data-frame-structure" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Exploring Data Frame Structure<a href="exploring-data-frame-structure.html#exploring-data-frame-structure" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="exploring-data-frame-structure.html#cb197-1" tabindex="-1"></a><span class="co"># View structure</span></span>
+<span id="cb197-2"><a href="exploring-data-frame-structure.html#cb197-2" tabindex="-1"></a><span class="fu">str</span>(df)</span></code></pre></div>
+<pre><code>## &#39;data.frame&#39;:    5 obs. of  4 variables:
+##  $ ID      : int  1 2 3 4 5
+##  $ Name    : chr  &quot;Alice&quot; &quot;Bob&quot; &quot;Charlie&quot; &quot;Diana&quot; ...
+##  $ Age     : num  25 30 35 28 32
+##  $ Employed: logi  TRUE TRUE FALSE TRUE TRUE</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="exploring-data-frame-structure.html#cb199-1" tabindex="-1"></a><span class="co"># Dimensions</span></span>
+<span id="cb199-2"><a href="exploring-data-frame-structure.html#cb199-2" tabindex="-1"></a><span class="fu">dim</span>(df)</span></code></pre></div>
+<pre><code>## [1] 5 4</code></pre>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="exploring-data-frame-structure.html#cb201-1" tabindex="-1"></a><span class="fu">nrow</span>(df)</span></code></pre></div>
+<pre><code>## [1] 5</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="exploring-data-frame-structure.html#cb203-1" tabindex="-1"></a><span class="fu">ncol</span>(df)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="exploring-data-frame-structure.html#cb205-1" tabindex="-1"></a><span class="co"># Column names</span></span>
+<span id="cb205-2"><a href="exploring-data-frame-structure.html#cb205-2" tabindex="-1"></a><span class="fu">names</span>(df)</span></code></pre></div>
+<pre><code>## [1] &quot;ID&quot;       &quot;Name&quot;     &quot;Age&quot;      &quot;Employed&quot;</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="exploring-data-frame-structure.html#cb207-1" tabindex="-1"></a><span class="fu">colnames</span>(df)</span></code></pre></div>
+<pre><code>## [1] &quot;ID&quot;       &quot;Name&quot;     &quot;Age&quot;      &quot;Employed&quot;</code></pre>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="exploring-data-frame-structure.html#cb209-1" tabindex="-1"></a><span class="co"># Summary statistics</span></span>
+<span id="cb209-2"><a href="exploring-data-frame-structure.html#cb209-2" tabindex="-1"></a><span class="fu">summary</span>(df)</span></code></pre></div>
+<pre><code>##        ID        Name                Age      Employed      
+##  Min.   :1   Length:5           Min.   :25   Mode :logical  
+##  1st Qu.:2   Class :character   1st Qu.:28   FALSE:1        
+##  Median :3   Mode  :character   Median :30   TRUE :4        
+##  Mean   :3                      Mean   :30                  
+##  3rd Qu.:4                      3rd Qu.:32                  
+##  Max.   :5                      Max.   :35</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="exploring-data-frame-structure.html#cb211-1" tabindex="-1"></a><span class="co"># First and last rows</span></span>
+<span id="cb211-2"><a href="exploring-data-frame-structure.html#cb211-2" tabindex="-1"></a><span class="fu">head</span>(df, <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>##   ID    Name Age Employed
+## 1  1   Alice  25     TRUE
+## 2  2     Bob  30     TRUE
+## 3  3 Charlie  35    FALSE</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="exploring-data-frame-structure.html#cb213-1" tabindex="-1"></a><span class="fu">tail</span>(df, <span class="dv">2</span>)</span></code></pre></div>
+<pre><code>##   ID  Name Age Employed
+## 4  4 Diana  28     TRUE
+## 5  5   Eve  32     TRUE</code></pre>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="data-analysis-with-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="writing-code-comments-structure-and-cleaning-the-environment.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="creating-data-frames.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="subsetting-data-frames.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
