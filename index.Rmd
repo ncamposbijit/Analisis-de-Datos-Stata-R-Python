@@ -31,13 +31,11 @@ description: "A book focused on teaching data analysis using R"
 
 # Introducción 
 
-These notes are designed for those who want to learn **data analysis tools in R**. They are structured as **lecture-style class notes**, which means they follow a **sequential progression across sessions**.
+These notes are designed for those who want to learn **data analysis tools in R**. They are structured as **lecture-style class notes**, which means they follow a **sequential progression across sessions**. There are basic notes, hopefully useful for an introduction to R coding. 
 
 Over time, these class notes have evolved—and they will continue to do so. They have been enriched thanks to contributions from several people. I am especially grateful to **Camila Vivanco, Diego Menares, Catalina Buzio, Felix Ordoñez and Benjamín Pinto** for their contributions.
 
 In addition, these notes are based on a variety of publicly available materials. Throughout the notes, I provide the corresponding bibliographic references and share free resources for readers who want to deepen or consolidate their knowledge. In many cases, examples have been adapted from these additional sources. I always make an effort to cite sources appropriately, with the goal of respecting original authorship and providing readers with access to valuable references. Please let me know if you find any errors.
-
-These notes have also been **updated and adapted for the course *ECON 326: Introduction to Econometrics II***, an undergraduate course at the **University of British Columbia (UBC)**, **2026**.
 
 For suggestions, questions, or recommendations, feel free to contact me at **[ncamposbijit@gmail.com](mailto:ncamposbijit@gmail.com)**.
 

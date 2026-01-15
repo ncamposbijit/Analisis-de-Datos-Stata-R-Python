@@ -1,5 +1,7 @@
 # Data Analysis with R
 
+These notes have been updated and adapted for the course ECON 326: Introduction to Econometrics II, an undergraduate course at the University of British Columbia (UBC), 2026.
+
 ## Introduction to R and RStudio
 
 This chapter introduces the basic workflow for working with R through RStudio. The goal is not only to learn *commands*, but also to develop good habits for writing clean, reproducible, and well-documented code.
