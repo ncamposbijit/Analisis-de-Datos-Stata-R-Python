@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Object Naming and Types in R</title>
+  <title>2.3 Package installation, libraries and help | Object Naming and Types in R</title>
   <meta name="description" content="A book focused on teaching data analysis using R" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Object Naming and Types in R" />
+  <meta property="og:title" content="2.3 Package installation, libraries and help | Object Naming and Types in R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book focused on teaching data analysis using R" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Object Naming and Types in R" />
+  <meta name="twitter:title" content="2.3 Package installation, libraries and help | Object Naming and Types in R" />
   
   <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="writing-code-comments-structure-and-cleaning-the-environment.html"/>
+<link rel="next" href="r-markdown---reproducible-research.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -213,19 +213,80 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="package-installation-libraries-and-help" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Package installation, libraries and help<a href="package-installation-libraries-and-help.html#package-installation-libraries-and-help" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In R, most of the tools we use are contained in <strong>packages</strong>. A package is simply a <strong>collection of functions</strong> designed for a specific purpose (e.g., data cleaning, plotting, importing files, estimation).</p>
+<p>A key distinction is the following:</p>
+<ul>
+<li>Packages are <strong>installed once</strong> on your computer.</li>
+<li>Packages must be <strong>loaded every time</strong> you open a new R session in order to use them.</li>
+</ul>
+<p>This difference is crucial: many beginner errors come from confusing “installing” with “loading”.</p>
+<div id="libraries" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Libraries<a href="package-installation-libraries-and-help.html#libraries" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>There are two standard ways to install packages in RStudio:</p>
+<ol style="list-style-type: decimal">
+<li>Using the <em>Packages</em> tab in the bottom-right panel.</li>
+<li>Using commands directly in R.</li>
+</ol>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="package-installation-libraries-and-help.html#cb4-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+<p>Many packages at the same time:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="package-installation-libraries-and-help.html#cb5-1" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;dplyr&quot;</span>,<span class="st">&quot;ggplot2&quot;</span>,<span class="st">&quot;rio&quot;</span>))</span></code></pre></div>
+<p>Common error:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="package-installation-libraries-and-help.html#cb6-1" tabindex="-1"></a><span class="fu">install.packages</span>(dplyr, <span class="st">&quot;ggplot2&quot;</span>)</span></code></pre></div>
+<p>In general, it is a good idea to install them at the beginning of your work, since we commonly use the same libraries when doing data analysis. With this function, we tell R to install the package if it is not installed (something typical when we switch computers):</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="package-installation-libraries-and-help.html#cb7-1" tabindex="-1"></a><span class="cf">if</span>(<span class="sc">!</span><span class="fu">require</span>(dplyr)) {<span class="fu">install.packages</span>(<span class="st">&quot;dplyr&quot;</span>)}</span></code></pre></div>
+<p>Load libraries:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="package-installation-libraries-and-help.html#cb8-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<p>If we want to see what is inside each package:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="package-installation-libraries-and-help.html#cb9-1" tabindex="-1"></a><span class="fu">ls</span>(<span class="st">&quot;package:dplyr&quot;</span>, <span class="at">all =</span> <span class="cn">TRUE</span>) <span class="co">#ls = list objects</span></span></code></pre></div>
+<p><strong>Important</strong>: the package must be installed once, but loaded every time it is used. There are often updates. To check and install them:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="package-installation-libraries-and-help.html#cb10-1" tabindex="-1"></a><span class="fu">update.packages</span>()</span></code></pre></div>
+<p>Alternatively, I can link a package to a function using <code>::</code>. If I do this, it is not necessary to load the library in order to use that specific function. However, the recommended practice is to load all the libraries of the packages I will use at the beginning.</p>
+</div>
+<div id="help-function" class="section level3 hasAnchor" number="2.3.2">
+<h3><span class="header-section-number">2.3.2</span> Help function<a href="package-installation-libraries-and-help.html#help-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>About a specific function:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="package-installation-libraries-and-help.html#cb11-1" tabindex="-1"></a><span class="fu">help</span>(mean) </span>
+<span id="cb11-2"><a href="package-installation-libraries-and-help.html#cb11-2" tabindex="-1"></a>?mean </span>
+<span id="cb11-3"><a href="package-installation-libraries-and-help.html#cb11-3" tabindex="-1"></a>mean </span>
+<span id="cb11-4"><a href="package-installation-libraries-and-help.html#cb11-4" tabindex="-1"></a>sd</span></code></pre></div>
+<p>About a specific package:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="package-installation-libraries-and-help.html#cb12-1" tabindex="-1"></a><span class="fu">help</span>(<span class="st">&quot;dplyr&quot;</span>) </span>
+<span id="cb12-2"><a href="package-installation-libraries-and-help.html#cb12-2" tabindex="-1"></a><span class="fu">library</span>(<span class="at">help=</span><span class="st">&quot;dplyr&quot;</span>)</span></code></pre></div>
+</div>
+<div id="useful-shortcuts" class="section level3 hasAnchor" number="2.3.3">
+<h3><span class="header-section-number">2.3.3</span> Useful <em>Shortcuts</em><a href="package-installation-libraries-and-help.html#useful-shortcuts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><code>Esc</code>: interrupt the current command</li>
+<li><code>Ctrl + s</code>: save</li>
+<li><code>tab</code>: autocomplete</li>
+<li><code>Ctrl + Enter</code>: run line</li>
+<li><code>Ctrl + Shift + C</code>: comment/uncomment</li>
+<li><code>&lt;-</code>: Alt + - / option + -</li>
+<li><code>%&gt;%</code>: Ctrl + Shift + M (<em>pipe</em>)</li>
+<li><code>Ctrl + l</code>: clear console</li>
+<li><code>Ctrl + Alt + b</code>: run everything up to here (the arrow keys in the console allow you to view the most recent commands used)</li>
+<li><code>Shift + lines</code>: select multiple lines</li>
+<li><code>Ctrl + f</code>: find/replace</li>
+<li><code>Ctrl + Up Arrow</code> (in the console): view previously used commands</li>
+</ul>
+<div id="identify-the-package-of-a-function" class="section level4 hasAnchor" number="2.3.3.1">
+<h4><span class="header-section-number">2.3.3.1</span> Identify the package of a function<a href="package-installation-libraries-and-help.html#identify-the-package-of-a-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sometimes we want to know which package a given function belongs to. For that, check:
+<a href="https://sebastiansauer.github.io/finds_funs/" class="uri">https://sebastiansauer.github.io/finds_funs/</a>
+`</p>
+<p>Note that a <code>+</code> sign appears in the console. In these cases, RStudio stops because you probably forgot a <code>)</code> or a <code>#</code>. You must correct the error, run the code again, and then press <code>Esc</code> in the console to continue executing commands.</p>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="writing-code-comments-structure-and-cleaning-the-environment.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="r-markdown---reproducible-research.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -256,7 +317,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/%s",
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -264,7 +325,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/%s",
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
     "text": null
   },
   "download": null,

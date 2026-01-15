@@ -2,73 +2,90 @@
 
 ## Introduction to R and RStudio
 
-### Why use R as a programming language?
+This chapter introduces the basic workflow for working with R through RStudio. The goal is not only to learn *commands*, but also to develop good habits for writing clean, reproducible, and well-documented code.
 
--  **Open source:** The license is free.
+### Why use R?
 
--  **Versatile:** statistical and econometric analysis + useful programming tasks (e.g., web scraping).
+R is one of the most widely used programming languages for data analysis in Economics and the Social Sciences. Its main advantages are:
 
--  **Flexible and reproducible:** ensures reproducibility, is flexible to changes and error detection. 
-    
--  **In demand:** Open-source programming languages are increasingly requested in the labor market.
+- **Open source:** R is free and has an active community that constantly develops new tools.
+- **Versatility:** it supports statistical and econometric analysis, data cleaning, visualization, and automation (including tasks like web scraping).
+- **Reproducibility:** scripts and reports allow you to document and replicate results reliably.
+- **Labor market value:** open-source programming languages are increasingly demanded across research and industry.
 
+In this course we will treat R not as a “calculator”, but as a programming language: we will write code, create objects, use functions systematically, and build routines that scale to larger projects.
 
-### Key and recurring terms throughout the course
+---
 
--   **RStudio:** Graphical User Interface. It is designed to make using R easier.
--   **Objects:** Anything you store in R. For example: datasets, variables, lists of names, plots.
--   **Functions:** An operation produced by code that accepts inputs and returns outputs.
--   **Packages:** A set of functions grouped according to their purpose. 
--   **Scripts/Code:** Document that contains all commands used in a data analysis process.
+### Key concepts (vocabulary of the course)
 
+Before writing code, it is important to define the core terms that will appear throughout the course:
 
-### Learning Resources
+- **RStudio:** a Graphical User Interface (GUI) designed to make working with R easier.
+- **Objects:** anything you store in memory (datasets, variables, lists, plots, models, etc.).
+- **Functions:** operations that take inputs and return outputs (e.g., `mean(x)`, `lm(y ~ x)`).
+- **Packages:** collections of functions grouped by purpose (e.g., `dplyr`, `ggplot2`, `rio`).
+- **Scripts / Code:** files containing the commands that define your analysis pipeline.
+
+---
+
+### Learning resources
+
+To learn R efficiently, you should rely on three types of resources: cheat sheets, forums, and structured books.
 
 ::: {style="text-align: justify"}
--   Cheat sheets: material available with a summary of the main commands/packages/functions for different topics.
-    Available at: <https://www.rstudio.com/resources/cheatsheets/>
+- **Cheat sheets:** short summaries of commands and workflows.  
+  Available at: <https://www.rstudio.com/resources/cheatsheets/>
 :::
 
--   Forums and websites:
-    -   [Stackoverflow](https://stackoverflow.com/questions/tagged/r)
-    -   [Medium](https://preettheman.medium.com/awesome-tricks-every-r-coder-should-know-c4220cd2cfbc)
-    -   [The RStudio Blog](https://posit.co/)
--   Books:
-    -   [R for Data Science](https://r4ds.had.co.nz/)
-    -   [Resources about R in Spanish.](https://posit.co/resources/videos/)
-    -   [Bookdown](https://bookdown.org/)
-- 
+- **Forums and websites:**
+  - Stack Overflow: <https://stackoverflow.com/questions/tagged/r>
+  - Medium: <https://preettheman.medium.com/awesome-tricks-every-r-coder-should-know-c4220cd2cfbc>
+  - Posit Blog (formerly RStudio): <https://posit.co/>
 
+- **Books:**
+  - *R for Data Science*: <https://r4ds.had.co.nz/>
+  - Posit resources in Spanish: <https://posit.co/resources/videos/>
+  - Bookdown: <https://bookdown.org/>
 
-### RStudio Interface
-  #### Four sections in RStudio
+---
 
-The fundamental ones are: *Scripts, Console, 
-Environment/Files/Help*.
+### RStudio interface
 
-- **Scripts:** Where we will develop the code. It is a notebook. 
-- **Console:** Where we will see the results.
-- **Environment:** Where we will see the data and the information we are generating.
-- **Files:** Where we will see the files associated with our projects.
-- **Help:** Where we will develop the code. It is a notebook. 
+RStudio is a convenient “vehicle” for working with R. The interface usually displays **four main panels**, which help you organize your work:
 
-To customize RStudio go to: **Tools -> Global Options**.
-There you can change the environment color, font type, layout order. The
-idea is to use RStudio in the most intuitive way possible. 
-  
-  #### Writing comments
+- **Scripts (Source):** where you write and save code.
+- **Console:** where R runs commands and prints results.
+- **Environment / History:** where you see the objects created in memory.
+- **Files / Plots / Packages / Help:** tools to navigate folders, view plots, manage packages, and read documentation.
 
-It is very important to write comments throughout your code. It is also important to know how to write **good** comments. A very good guide that discusses this and many other things is: [Code and Data for the Social Sciences: A Practitioner's Guide](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf).
+A key takeaway is that most of your work should live in the **Script**, not in the Console. The Console is useful for quick checks, but scripts are what ensure reproducibility.
 
-`(#)` to write comments in the script. If I want to mark multiple
-lines as comments: `ctrl + shift + c`
+You can customize RStudio via: **Tools → Global Options** (font size, theme, layout, etc.). The purpose is to make your workflow as intuitive and efficient as possible.
 
-  #### Indices
+---
 
-It is important to write indices to document your code. To
-see it I must type: `ctrl + shift + o`
+## Writing code: comments, structure and cleaning the environment
 
-Titles can be hierarchical:
+### Comments
+
+Good code is code that other people (including “future you”) can understand. Comments are essential to explain *why* you do something, not only *what* you do.
+
+To write comments in R scripts, use `#`. To comment multiple lines at once use:
+
+- `Ctrl + Shift + C` (Windows)
+- `Cmd + Shift + C` (Mac)
+
+A very useful reference for best practices is:  
+[Code and Data for the Social Sciences: A Practitioner's Guide](https://web.stanford.edu/~gentzkow/research/CodeAndData.pdf)
+
+### Outlines (code indexing)
+
+RStudio allows you to structure scripts using headings. This creates an outline that helps navigation in long files.
+
+- Open outline: `Ctrl + Shift + O`
+
+Headings can be hierarchical:
 
 ```{r message=FALSE}
 # The most important
@@ -77,21 +94,50 @@ Titles can be hierarchical:
 #### The least important
 ```
 
-It is important to update it constantly to avoid losing functionality.
+Keeping the outline updated is not optional: as the script grows, the outline becomes one of the main tools to navigate your code efficiently. If headings are outdated or inconsistent, the outline loses its usefulness and long scripts become harder to maintain.
 
+---
 
-### Package installation and help
+### Cleaning in R: environment vs console
 
-Packages are basically collections of functions. Packages are installed once, but they are called every time they are used.
+When working in R, it is important to distinguish between two different things:
 
-#### Libraries
+1. **The environment (memory):** where R stores the objects you create (datasets, vectors, models, plots, etc.).
+2. **The console (screen):** where commands and results are printed.
 
-This can be done in two ways:
+Cleaning the environment is about deleting objects stored in memory.  
+Cleaning the console is only about making the screen look “clean” — it does not delete anything.
 
-1.  From the *Packages* tab in the bottom-right corner.
+---
 
-2.  Using commands
+Remove all objects from the environment
 
+```{r message=FALSE}
+rm(list = ls())
+```
+Remove only one object
+
+```{r message=FALSE}
+# rm(data1)
+```
+
+## Package installation, libraries and help
+
+In R, most of the tools we use are contained in **packages**. A package is simply a **collection of functions** designed for a specific purpose (e.g., data cleaning, plotting, importing files, estimation).  
+
+A key distinction is the following:
+
+- Packages are **installed once** on your computer.
+- Packages must be **loaded every time** you open a new R session in order to use them.
+
+This difference is crucial: many beginner errors come from confusing “installing” with “loading”.
+
+### Libraries
+
+There are two standard ways to install packages in RStudio:
+
+1. Using the *Packages* tab in the bottom-right panel.
+2. Using commands directly in R.
 
 ```{r message = FALSE, warning = FALSE, results="hide"}
 install.packages("dplyr")
@@ -105,7 +151,7 @@ install.packages(c("dplyr","ggplot2","rio"))
 
 Common error: 
 ```{r, eval=FALSE}
-install.packages("dplyr", "ggplot2")
+install.packages(dplyr, "ggplot2")
 ```
 
 In general, it is a good idea to install them at the beginning of your work, since we commonly use the same libraries when doing data analysis. With this function, we tell R to install the package if it is not installed (something typical when we switch computers):
@@ -135,7 +181,7 @@ update.packages()
 
 Alternatively, I can link a package to a function using `::`. If I do this, it is not necessary to load the library in order to use that specific function. However, the recommended practice is to load all the libraries of the packages I will use at the beginning.
 
-#### Help function 
+### Help function 
 
 About a specific function: 
 
@@ -153,7 +199,7 @@ help("dplyr")
 library(help="dplyr")
 ```
 
-#### Useful *Shortcuts*
+### Useful *Shortcuts*
 
 -   `Esc`: interrupt the current command
 -   `Ctrl + s`: save
@@ -169,22 +215,6 @@ library(help="dplyr")
 -   `Ctrl + Up Arrow` (in the console): view previously used commands
 
 
-#### Clear the R *environment*
-
-Remove all objects:
-
-```{r}
-rm(list=ls())
-```
-
-Remove only one object 
-
-```{r}
-rm(data1)
-```
-
-If I want to clear the console, I need to press `Ctrl + L`.
-
 #### Identify the package of a function
 
 Sometimes we want to know which package a given function belongs to. For that, check:
@@ -193,43 +223,195 @@ Sometimes we want to know which package a given function belongs to. For that, c
 
 Note that a `+` sign appears in the console. In these cases, RStudio stops because you probably forgot a `)` or a `#`. You must correct the error, run the code again, and then press `Esc` in the console to continue executing commands.
 
+## R Markdown - Reproducible research
 
-### R Markdown
+R Markdown is one of the most useful tools in applied data analysis because it allows you to combine **explanatory text** with **executable code** in a single document. The key idea is simple:
 
-- A tool for creating reports that are automatic, reproducible, and based on data that can be updated over time.
-- Reports can be generated in Word, PDF, or HTML format.
-- R Markdown (`.Rmd`) is basically an intersection between narrative text and code that generates visualizations and estimations in order to analyze data.
-- `.Rmd` can generate: plain text, code chunks, plots, tables, and interactive dashboards.
-- R Markdown is especially useful for:
-  - **Routine reports:** For example, a weekly report for a set of analyses that is updated over time.
-  - **Analytical reports for subsets of data:** For example, country-specific reports from a dataset that contains information for multiple countries.
+> You write the analysis once, and every time the data changes, you can re-run the document to automatically update tables, figures, and results.
 
-#### Basic concepts
+This makes your work:
 
-- **Markdown** is the language that allows you to write documents in plain text. Files written in Markdown have the `.md` extension.
-- **R Markdown** is the R-specific variation. It allows you to write plain text using Markdown and embed R code. Files written in R Markdown have the `.Rmd` extension.
-- **knitr:** An R package. It is used to read (and execute) the code chunks that we include in reports.
-- **Pandoc:** Used to convert the output into a Word/PDF/HTML formatted file. It is software that is installed automatically with RStudio.
+- **Automatic:** outputs are generated by code (not manually copied).
+- **Reproducible:** anyone can re-run the document and obtain the same results.
+- **Well documented:** results are always accompanied by explanations, interpretation, and methodology.
 
-#### Process
+In practice, an R Markdown file (`.Rmd`) works like a hybrid between a report and a script: it contains written text (like a Word document) and chunks of code (like an R script). When you compile (“knit”) the file, R executes the code chunks and inserts the results (tables, plots, numbers) directly into the final report.
+
+---
+
+### What can R Markdown produce?
+
+An `.Rmd` file can generate many different types of outputs, such as:
+
+- **Word reports** (`.docx`)
+- **PDF reports** (`.pdf`)
+- **HTML reports** (`.html`)
+- **Presentations** (slides)
+- **Dashboards** (interactive documents)
+
+More importantly, an `.Rmd` file can include all elements that typically appear in a data analysis:
+
+- plain text explanations
+- R code chunks
+- tables
+- plots
+- regression output
+- automatically updated statistics (means, SDs, p-values, etc.)
+
+---
+
+### When is R Markdown especially useful?
+
+R Markdown is particularly valuable in two common situations:
+
+1. **Routine reports**  
+   Example: a weekly report with updated descriptive statistics and graphs.  
+   Instead of rewriting the report every week, you update the data and re-knit.
+
+2. **Reports for subsets of a dataset**  
+   Example: a dataset contains several countries. You want one report per country.  
+   With R Markdown, you can parameterize the report and automatically generate one output per country.
+
+The general lesson is: if you are repeating work manually, it can probably be automated with R Markdown.
+
+---
+
+## Basic concepts
+
+To understand R Markdown, you need to distinguish the following components:
+
+### Markdown (`.md`)
+
+**Markdown** is a simple plain-text language to format documents. For example:
+
+- `# Title` creates a section title
+- `**bold**` produces bold text
+- lists, links, and images are easy to write
+
+Markdown files have extension `.md`.
+
+### R Markdown (`.Rmd`)
+
+**R Markdown** extends Markdown by allowing you to embed R code directly into the document. Files have extension `.Rmd`.
+
+The most important feature is that R code is executed and its output is included in the report. This is what makes the document **dynamic** and **reproducible**.
+
+### knitr
+
+`knitr` is the R package responsible for:
+
+- reading the `.Rmd` file
+- identifying code chunks
+- executing the R code
+- inserting the results (tables/figures/output) into the document
+
+In other words: `knitr` is the engine that turns the `.Rmd` file into a report.
+
+### Pandoc
+
+Pandoc is the tool that converts the report into a final format such as PDF, Word, or HTML.
+
+It takes the document produced by `knitr` and transforms it into a clean formatted file.  
+Pandoc is installed automatically with RStudio, so you do not need to install it manually.
+
+---
+
+### Process (how everything works together)
+
+The workflow is:
+
+1. You write text and R code in a single `.Rmd` document.
+2. `knitr` executes the code chunks.
+3. Pandoc converts the final output into PDF/Word/HTML.
 
 ![Source: https://rmarkdown.rstudio.com/authoring/quick_tour.html](01figuras/C8.1.png)
 
-#### First R Markdown file
+---
+
+### Your first R Markdown file
+
+To create your first `.Rmd` document in RStudio:
+
+- Go to: **File → New File → R Markdown**
+- Choose the output format: report / presentation / dashboard
+- Set the document title and author
 
 ![](01figuras/C8.2.png)  
 ![](01figuras/C8.3.png)
 
-- Options to choose the type of document and whether you want to create a document, a presentation, a dashboard, or other more specialized formats.
-- Options to change the title and the author.
+The most common starting point is a simple report that outputs to HTML or Word.
 
-#### Working directory
+---
+
+### Working directory (critical detail)
+
+A frequent source of confusion in R Markdown is the **working directory**.
+
+The general rule is:
+
+> The working directory of an `.Rmd` file is the folder where the `.Rmd` file is saved.
+
+This means that if your `.Rmd` file is saved in a folder, R will look for datasets and external files in the **same folder** (unless you specify full paths).
+
+For this course, we will keep things simple:
+- store your data in the same folder as the `.Rmd` file
+- avoid complicated paths until you gain familiarity
+
+This is a best practice for beginners because it reduces file-loading errors.
+
+---
+
+### Components of an R Markdown file
+
+An R Markdown file has three main components:
+
+1. **YAML header**  
+   A block at the top of the file containing metadata (title, author, output type).
+
+2. **Markdown text**  
+   Where you write narrative explanations: motivation, steps, interpretation.
+
+3. **Code chunks**  
+   Blocks of R code used for loading packages, importing data, transforming variables, estimating models, and generating plots.
+
+![](01figuras/C8.4.png)
+
+A code chunk looks like this:
+
+
+A typical workflow is:
+
+- YAML sets format + structure
+- Markdown text explains what you are doing
+- code chunks do the analysis and generate outputs
+
+![](01figuras/C8.5.png)
+
+---
+
+### Why is this powerful?
+
+In Word/Excel workflows, people often:
+- run regressions in one place,
+- copy results into a document,
+- manually update tables and plots.
+
+This is slow and error-prone.
+
+With R Markdown:
+- your report is generated directly from code,
+- results are always consistent with data,
+- there is no manual copy/paste.
+
+That is why R Markdown is considered a core tool for reproducible research.
+
+ ### Working directory
 
 - The working directory of a `.Rmd` file is the folder where the file is saved.
 - Therefore, R will search for files in the same folder where the `.Rmd` file is stored.
 - For this exercise, we will simply keep the data we use in the same folder as the `.Rmd` file.
 
-#### Components of R Markdown
+### Components of R Markdown
 
 ![](01figuras/C8.4.png)
 
@@ -239,4 +421,495 @@ Note that a `+` sign appears in the console. In these cases, RStudio stops becau
 
 ![](01figuras/C8.5.png)
 
+## Object manipulation
+
+#### Using R as a calculator / running commands
+
+You can run commands in R in an interactive way, just like using a calculator. To do this, select the line(s) of code you want to execute and press:
+
+- `Ctrl + Enter` (Windows)
+- `Cmd + Enter` (Mac)
+
+This allows you to run commands separately (one line at a time or a selected block), without executing the entire script.
+
+
+```{r}
+2+2 
+3*5^(1/2)
+```
+
+#### Running all instructions
+
+To execute the entire script (i.e., run all commands in the file at once), you have several options:
+
+- Click **Source** (top-right of the Script panel) to run the whole script.
+- Use the menu: **Code → Run Region → Run All**.
+- Shortcut: `Ctrl + Alt + R` (Windows) / `Cmd + Option + R` (Mac)
+
+Running the full script is useful when you want to reproduce the complete workflow from start to finish (e.g., cleaning data, generating tables, producing plots).
+
+
+```{r}
+2+2 ; 3*5^(1/2)
+3+4 
+5*4 
+8/4 
+6^7
+6^77
+
+log(10) 
+log(1)
+
+sqrt(91) # raiz cuadrada
+
+round(7.3) # redondear
+```
+
+Even large operations can be executed this way. For example, you can select and run a full block of code (data imports, transformations, loops, regressions, plots) instead of running commands one by one. This is especially useful when your analysis requires multiple steps that must be executed in the correct order.
+
+
+```{r}
+sqrt(91) + 4892788*673 - (log(4)*round(67893.9181, digits = 2))
+```
+
+You can even work with **complex numbers** (imaginary numbers) in R.  
+In R, the imaginary unit is written as `i`, and complex numbers can be used in arithmetic operations just like real numbers.
+
+Example:
+
+```{r}
+2i+5i+sqrt(25i)
+```
+
+#### Object creation: assignment and functions
+
+In R, we create objects using the assignment operator `<-`. This is one of the most important operations in the language, because almost everything we do in R consists of creating and transforming objects (vectors, datasets, models, plots, etc.).  
+
+It is also possible to assign values using `=`, but this is **not recommended** in general practice, since it can be confusing (especially inside functions). The recommended standard in most applied work is to use `<-`.
+
+```{r}
+y <- 2 + 4 
+y
+```
+
+## Understanding Assignments and Functions in R
+
+Assignments in R are silent operations. When we create an assignment, it stores the value but does not automatically display it in the console. To see the result of an assignment, we must explicitly call the object by typing its name or using the `print()` function.
+
+While simple assignments are straightforward, the real power of R lies in generating assignments through functions. Functions are the central component of working with R. Some functions come pre-installed with the base R installation, while others must be obtained from external packages. Additionally, users can write their own custom functions. Functions are typically written with parentheses, such as `filter()`. In some cases, functions are associated with specific packages and are referenced using the double colon notation, for example `dplyr::filter()`.
+
+Let's explore how functions work through several examples. First, we can apply a simple mathematical function:
+
+```{r}
+sqrt(49)
+```
+
+This calculates the square root of 49. We can also apply functions to datasets. For instance, we can obtain summary statistics for a variable within a dataset:
+
+```{r}
+summary(mtcars$mpg)
+```
+
+The `mtcars` dataset comes pre-installed with R and contains information about various car models. To see other datasets that come bundled with R, we can use the `data()` function:
+
+```{r}
+data()
+```
+
+### Working with Vectors and Arithmetic Functions
+
+We can create objects by assigning values to them and then combine these objects into vectors. A vector is a fundamental data structure in R that contains elements of the same type:
+
+```{r}
+x <- 2
+y <- 3
+z <- c(x, y)
+z
+```
+
+Here, we create two individual numeric objects (`x` and `y`) and then combine them into a vector `z` using the concatenate function `c()`. Once we have a vector, we can apply various statistical functions to it:
+
+```{r}
+mean(z)
+median(z)
+```
+
+These functions calculate the arithmetic mean and median of the values in the vector, respectively.
+
+### Creating Relationships Between Objects
+
+We can create new objects based on calculations performed on existing objects. For example, we can store the mean of a vector as a new object:
+
+```{r}
+w <- mean(z)
+```
+
+We can also create objects through arithmetic operations:
+
+```{r}
+a <- 3 + 10
+b <- 2 * 4
+```
+
+R allows us to perform logical comparisons between objects:
+
+```{r}
+a > b
+```
+
+This returns a logical value (`TRUE` or `FALSE`) indicating whether `a` is greater than `b`.
+
+### The Silent Nature of Assignments
+
+As mentioned earlier, assignments do not produce output unless we explicitly request it. To display the contents of an object, we simply type its name or use the `print()` function:
+
+```{r}
+a
+b
+# alternatively, use print
+print(a)
+print(b)
+```
+
+### Building Complex Objects from Functions
+
+We can build more complex objects by combining multiple operations. For instance, we can create a vector from previously defined objects and calculate its mean:
+
+```{r}
+valores <- c(a, b)
+promedio <- mean(valores)
+print(promedio)
+promedio
+```
+
+Let's work through another example where we calculate the mean of two values:
+
+```{r}
+a <- 2
+b <- 5
+valores1 <- c(a, b)
+promedio1 <- mean(valores1)
+print(promedio1)
+```
+
+To clear our workspace and remove specific objects, we can use the `rm()` function:
+
+```{r}
+rm(list = ls())
+rm(promedio)
+```
+
+The first command removes all objects from the environment, while the second removes a specific object.
+
+### Working with Real Data: Education and Income Example
+
+Proper spacing and organization of code is essential for readability and maintenance. Let's create two vectors representing education (in years) and income for ten individuals using the concatenate function `c()`:
+
+```{r}
+educ <- c(8, 12, 8, 11, 16, 14, 8, 10, 14, 12)
+ingreso <- c(325, 415, 360, 380, 670, 545, 350, 420, 680, 465)
+```
+
+Once we have these vectors, we can calculate various descriptive statistics. We can compute the mean income, the standard deviation of income, and the correlation between education and income:
+
+```{r}
+mean(ingreso)
+promedioingreso <- mean(ingreso)
+
+sd(ingreso)
+sdingreso <- sd(ingreso)
+
+cor(educ, ingreso)
+coreduing <- cor(educ, ingreso)
+```
+
+The mean provides the average income, the standard deviation measures the dispersion of income values around the mean, and the correlation coefficient quantifies the strength and direction of the linear relationship between education and income.
+
+### Visualizing the Relationship
+
+To visually examine the relationship between education and income, we can create a scatter plot:
+
+```{r}
+plot(educ, ingreso)
+```
+
+This produces a graph with education on the x-axis and income on the y-axis, allowing us to see the pattern of association between these two variables.
+
+### Estimating a Linear Regression Model
+
+Finally, we can formally model the relationship between education and income using linear regression. The `lm()` function estimates a linear model where income is the dependent variable and education is the independent variable:
+
+```{r}
+lm(ingreso ~ educ)
+```
+
+This function returns the estimated coefficients for the linear model, providing us with the intercept and the slope coefficient for education. The slope coefficient indicates how much income is expected to change for each additional year of education.
+
+---
+title: "Object Naming and Types in R"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Object Naming and Types
+
+### Naming Objects
+
+The following exercise helps us understand the rules for valid variable names in R.
+
+**Exercise: Valid Variable Names**
+
+Consider the following examples. Which of these are valid variable names in R?
+
+```{r}
+# min_height      # Valid: uses underscore
+# max.height      # Valid: uses dot
+# _age            # Invalid: starts with underscore
+# .mass           # Valid: starts with dot (but creates hidden variable)
+# MaxLength       # Valid: uses camel case
+# Min-length      # Invalid: uses hyphen (minus sign)
+# 2widths         # Invalid: starts with number
+# Calsius2kelvin  # Valid: number in middle is allowed
+```
+
+In R, variable names must follow these rules: they can contain letters, numbers, dots, and underscores, but they must start with a letter or a dot (if starting with a dot, the second character cannot be a number). Variable names cannot contain spaces or special characters like hyphens, and they cannot start with numbers or underscores.
+
+### Types of Objects
+
+#### Vectors
+
+R operates component by component, which makes it very straightforward to work with vectors and matrices. Vectors are one-dimensional arrays that can hold numeric data, character data, or logical data, but all elements must be of the same type.
+
+To create a vector, we use the `c()` function (which stands for "concatenate" or "combine"):
+
+```{r}
+x <- c(1, 2, 3, 4, 5)
+# or alternatively
+y <- c(6:8)
+```
+
+Let's examine what happens when we add vectors together:
+
+```{r}
+z <- x + y
+z
+```
+
+Now, let's consider two vectors of different lengths:
+
+```{r}
+x <- c(1:4)
+y <- c(1:3)
+```
+
+We can check the length of each vector using the `length()` function:
+
+```{r}
+length(x)
+length(y)
+```
+
+What happens when we try to add vectors of different lengths?
+
+```{r}
+z <- x + y
+z
+```
+
+**IMPORTANT**: In this case, R performs the operation anyway, but it gives us a warning that the lengths differ. R uses "vector recycling," where the shorter vector is repeated to match the length of the longer vector. A crucial characteristic of vectors is that they can only concatenate elements of the same type; otherwise, R will coerce all elements to a common type (usually character if there's a mix).
+
+Let's explore more vector operations:
+
+```{r}
+x <- rep(1.5:9.5, 4)  # generates repetitions of the defined values
+y <- c(20:30)
+x1 <- c(1, 2)
+x2 <- c(3, 4)
+x3 <- c(x1, x2)
+x4 <- c(c(1, 2), c(3, 4))
+```
+
+##### Subsetting Vectors
+
+We can extract specific elements from a vector using square bracket notation:
+
+```{r}
+y[3]         # get the third element
+y[2:4]       # get elements 2 through 4
+y[4:2]       # get elements in reverse order (4, 3, 2)
+y[c(2, 6)]   # get elements 2 and 6
+y[c(2, 16)]  # attempt to get element 16 (returns NA if out of bounds)
+```
+
+#### Matrices
+
+Matrices are two-dimensional arrays where all elements must be of the same type. They are particularly useful for mathematical operations and organizing data in rows and columns.
+
+##### Defining Matrices
+
+The general syntax for creating a matrix is:
+
+```{r, eval=FALSE}
+my.matrix <- matrix(vector,
+                    ncol = num_columns,
+                    nrow = num_rows,
+                    byrow = logical_value,
+                    dimnames = list(vector_row_names,
+                                   vector_column_names))
+```
+
+To create matrices, we use the `matrix()` function:
+
+```{r}
+x <- matrix(data = c(1, 2, 3, 4),
+            nrow = 2,
+            ncol = 2)
+
+x1 <- matrix(c(1, 2, 3, 4),
+             2,
+             2)
+```
+
+While it is not necessary to explicitly write `data=`, doing so improves code readability and makes the intent clearer.
+
+```{r}
+x
+x1
+```
+
+Note that by DEFAULT, R fills the matrix column by column. We can explicitly specify that we want to fill the matrix row by row using the `byrow` argument:
+
+```{r}
+y <- matrix(data = c(1:4),
+            nrow = 3,
+            ncol = 2,
+            byrow = TRUE)
+y
+```
+
+We can determine the dimensions of a matrix using the `dim()` function:
+
+```{r}
+dim(y)
+dim(y)[1]  # number of rows
+dim(y)[2]  # number of columns
+
+y <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 2, byrow = 2)
+y
+```
+
+If the vector is shorter than the matrix dimensions, R will recycle the values to fill the matrix:
+
+```{r}
+y <- matrix(c(1, 2, 3, 4), nrow = 2, ncol = 3, byrow = 2)
+y
+```
+
+Note that the order in any matrix is always **rows × columns**. We can also omit either the number of rows or columns, and R will calculate the missing dimension:
+
+```{r}
+y <- matrix(c(1:4), 2, byrow = T)
+y
+```
+
+When creating empty matrices, we must define the dimensions:
+
+```{r}
+y <- matrix(nrow = 3, ncol = 3)
+y  # useful for loops where we fill values iteratively
+```
+
+##### Naming Rows and Columns
+
+We can assign names to rows and columns directly in the `matrix()` function:
+
+```{r}
+y <- matrix(c(1:4), 2, byrow = FALSE,
+            dimnames = list(c("X1", "X2"), c("Y1", "Y2")))
+y
+```
+
+Alternatively, we can use the `colnames()` and `rownames()` functions:
+
+```{r}
+colnames(x) <- c("Variable 1", "Variable 2")
+rownames(x) <- c("a1", "a2")
+x
+```
+
+##### Adding Rows or Columns to a Matrix
+
+Let's create a new vector to add to our matrix:
+
+```{r}
+w <- c(5, 6)
+```
+
+We can combine matrices and vectors using rows (note that the vector name becomes the row name):
+
+```{r}
+z <- rbind(x, w)
+z
+```
+
+We can also combine using columns:
+
+```{r}
+z <- cbind(x, w)
+z
+```
+
+What happens if they have different numbers of rows and/or columns? R will recycle the shorter vector or observation to match the longer dimension:
+
+```{r}
+x <- matrix(c(1:9), 3)
+x
+y <- c(5, 6)
+y
+
+z <- rbind(x, y)
+z
+```
+
+##### Converting Vectors to Matrices
+
+We can convert a vector to a matrix by assigning dimensions:
+
+```{r}
+x <- 1:10
+x
+
+dim(x) <- c(2, 5)
+x
+```
+
+##### Transposing Matrices
+
+We can transpose a matrix (swap rows and columns) using the `t()` function:
+
+```{r}
+x <- matrix(c(1:9), 3)
+x_transposed <- t(x)
+x_transposed
+```
+
+##### Subsetting Matrices
+
+We can extract specific elements, rows, or columns from a matrix. For example, to get the second and fourth elements of the second row:
+
+```{r}
+M <- matrix(1:8, nrow = 2)
+M
+M[1, 1]       # element in first row, first column
+M[1, ]        # entire first row
+M[, 2]        # entire second column
+M[2, c(2, 4)] # second and fourth elements of the second row
+```
+
+Matrix subsetting uses the format `[row, column]`, where leaving either position blank returns all rows or all columns, respectively.
 

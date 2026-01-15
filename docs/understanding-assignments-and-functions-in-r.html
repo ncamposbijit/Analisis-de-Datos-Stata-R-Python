@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.7 Understanding Assignments and Functions in R | Object Naming and Types in R</title>
+  <meta name="description" content="A book focused on teaching data analysis using R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.7 Understanding Assignments and Functions in R | Object Naming and Types in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book focused on teaching data analysis using R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.7 Understanding Assignments and Functions in R | Object Naming and Types in R" />
+  
+  <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
+  
+
+<meta name="author" content="Your Name" />
+
+
+<meta name="date" content="2026-01-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="object-manipulation.html"/>
+<link rel="next" href="object-naming-and-types.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="data-analysis-with-r.html"><a href="data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Data Analysis with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r"><i class="fa fa-check"></i><b>2.1.1</b> Why use R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-concepts-vocabulary-of-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key concepts (vocabulary of the course)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning resources</a></li>
+<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio interface</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html"><i class="fa fa-check"></i><b>2.2</b> Writing code: comments, structure and cleaning the environment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#comments"><i class="fa fa-check"></i><b>2.2.1</b> Comments</a></li>
+<li class="chapter" data-level="2.2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#outlines-code-indexing"><i class="fa fa-check"></i><b>2.2.2</b> Outlines (code indexing)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#cleaning-in-r-environment-vs-console"><i class="fa fa-check"></i><b>2.2.3</b> Cleaning in R: environment vs console</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html"><i class="fa fa-check"></i><b>2.3</b> Package installation, libraries and help</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#libraries"><i class="fa fa-check"></i><b>2.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="2.3.2" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#help-function"><i class="fa fa-check"></i><b>2.3.2</b> Help function</a></li>
+<li class="chapter" data-level="2.3.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#useful-shortcuts"><i class="fa fa-check"></i><b>2.3.3</b> Useful <em>Shortcuts</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html"><i class="fa fa-check"></i><b>2.4</b> R Markdown - Reproducible research</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#what-can-r-markdown-produce"><i class="fa fa-check"></i><b>2.4.1</b> What can R Markdown produce?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#when-is-r-markdown-especially-useful"><i class="fa fa-check"></i><b>2.4.2</b> When is R Markdown especially useful?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>2.5</b> Basic concepts</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="basic-concepts.html"><a href="basic-concepts.html#markdown-.md"><i class="fa fa-check"></i><b>2.5.1</b> Markdown (<code>.md</code>)</a></li>
+<li class="chapter" data-level="2.5.2" data-path="basic-concepts.html"><a href="basic-concepts.html#r-markdown-.rmd"><i class="fa fa-check"></i><b>2.5.2</b> R Markdown (<code>.Rmd</code>)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="basic-concepts.html"><a href="basic-concepts.html#knitr"><i class="fa fa-check"></i><b>2.5.3</b> knitr</a></li>
+<li class="chapter" data-level="2.5.4" data-path="basic-concepts.html"><a href="basic-concepts.html#pandoc"><i class="fa fa-check"></i><b>2.5.4</b> Pandoc</a></li>
+<li class="chapter" data-level="2.5.5" data-path="basic-concepts.html"><a href="basic-concepts.html#process-how-everything-works-together"><i class="fa fa-check"></i><b>2.5.5</b> Process (how everything works together)</a></li>
+<li class="chapter" data-level="2.5.6" data-path="basic-concepts.html"><a href="basic-concepts.html#your-first-r-markdown-file"><i class="fa fa-check"></i><b>2.5.6</b> Your first R Markdown file</a></li>
+<li class="chapter" data-level="2.5.7" data-path="basic-concepts.html"><a href="basic-concepts.html#working-directory-critical-detail"><i class="fa fa-check"></i><b>2.5.7</b> Working directory (critical detail)</a></li>
+<li class="chapter" data-level="2.5.8" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-an-r-markdown-file"><i class="fa fa-check"></i><b>2.5.8</b> Components of an R Markdown file</a></li>
+<li class="chapter" data-level="2.5.9" data-path="basic-concepts.html"><a href="basic-concepts.html#why-is-this-powerful"><i class="fa fa-check"></i><b>2.5.9</b> Why is this powerful?</a></li>
+<li class="chapter" data-level="2.5.10" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-r-markdown"><i class="fa fa-check"></i><b>2.5.10</b> Components of R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="object-manipulation.html"><a href="object-manipulation.html"><i class="fa fa-check"></i><b>2.6</b> Object manipulation</a></li>
+<li class="chapter" data-level="2.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html"><i class="fa fa-check"></i><b>2.7</b> Understanding Assignments and Functions in R</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-vectors-and-arithmetic-functions"><i class="fa fa-check"></i><b>2.7.1</b> Working with Vectors and Arithmetic Functions</a></li>
+<li class="chapter" data-level="2.7.2" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#creating-relationships-between-objects"><i class="fa fa-check"></i><b>2.7.2</b> Creating Relationships Between Objects</a></li>
+<li class="chapter" data-level="2.7.3" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#the-silent-nature-of-assignments"><i class="fa fa-check"></i><b>2.7.3</b> The Silent Nature of Assignments</a></li>
+<li class="chapter" data-level="2.7.4" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#building-complex-objects-from-functions"><i class="fa fa-check"></i><b>2.7.4</b> Building Complex Objects from Functions</a></li>
+<li class="chapter" data-level="2.7.5" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-real-data-education-and-income-example"><i class="fa fa-check"></i><b>2.7.5</b> Working with Real Data: Education and Income Example</a></li>
+<li class="chapter" data-level="2.7.6" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#visualizing-the-relationship"><i class="fa fa-check"></i><b>2.7.6</b> Visualizing the Relationship</a></li>
+<li class="chapter" data-level="2.7.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#estimating-a-linear-regression-model"><i class="fa fa-check"></i><b>2.7.7</b> Estimating a Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html"><i class="fa fa-check"></i><b>2.8</b> Object Naming and Types</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#naming-objects"><i class="fa fa-check"></i><b>2.8.1</b> Naming Objects</a></li>
+<li class="chapter" data-level="2.8.2" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#types-of-objects"><i class="fa fa-check"></i><b>2.8.2</b> Types of Objects</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Object Naming and Types in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="understanding-assignments-and-functions-in-r" class="section level2 hasAnchor" number="2.7">
+<h2><span class="header-section-number">2.7</span> Understanding Assignments and Functions in R<a href="understanding-assignments-and-functions-in-r.html#understanding-assignments-and-functions-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Assignments in R are silent operations. When we create an assignment, it stores the value but does not automatically display it in the console. To see the result of an assignment, we must explicitly call the object by typing its name or using the <code>print()</code> function.</p>
+<p>While simple assignments are straightforward, the real power of R lies in generating assignments through functions. Functions are the central component of working with R. Some functions come pre-installed with the base R installation, while others must be obtained from external packages. Additionally, users can write their own custom functions. Functions are typically written with parentheses, such as <code>filter()</code>. In some cases, functions are associated with specific packages and are referenced using the double colon notation, for example <code>dplyr::filter()</code>.</p>
+<p>Let’s explore how functions work through several examples. First, we can apply a simple mathematical function:</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="understanding-assignments-and-functions-in-r.html#cb44-1" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="dv">49</span>)</span></code></pre></div>
+<pre><code>## [1] 7</code></pre>
+<p>This calculates the square root of 49. We can also apply functions to datasets. For instance, we can obtain summary statistics for a variable within a dataset:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="understanding-assignments-and-functions-in-r.html#cb46-1" tabindex="-1"></a><span class="fu">summary</span>(mtcars<span class="sc">$</span>mpg)</span></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   10.40   15.43   19.20   20.09   22.80   33.90</code></pre>
+<p>The <code>mtcars</code> dataset comes pre-installed with R and contains information about various car models. To see other datasets that come bundled with R, we can use the <code>data()</code> function:</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="understanding-assignments-and-functions-in-r.html#cb48-1" tabindex="-1"></a><span class="fu">data</span>()</span></code></pre></div>
+<div id="working-with-vectors-and-arithmetic-functions" class="section level3 hasAnchor" number="2.7.1">
+<h3><span class="header-section-number">2.7.1</span> Working with Vectors and Arithmetic Functions<a href="understanding-assignments-and-functions-in-r.html#working-with-vectors-and-arithmetic-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can create objects by assigning values to them and then combine these objects into vectors. A vector is a fundamental data structure in R that contains elements of the same type:</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="understanding-assignments-and-functions-in-r.html#cb49-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb49-2"><a href="understanding-assignments-and-functions-in-r.html#cb49-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb49-3"><a href="understanding-assignments-and-functions-in-r.html#cb49-3" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">c</span>(x, y)</span>
+<span id="cb49-4"><a href="understanding-assignments-and-functions-in-r.html#cb49-4" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## [1] 2 3</code></pre>
+<p>Here, we create two individual numeric objects (<code>x</code> and <code>y</code>) and then combine them into a vector <code>z</code> using the concatenate function <code>c()</code>. Once we have a vector, we can apply various statistical functions to it:</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="understanding-assignments-and-functions-in-r.html#cb51-1" tabindex="-1"></a><span class="fu">mean</span>(z)</span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="understanding-assignments-and-functions-in-r.html#cb53-1" tabindex="-1"></a><span class="fu">median</span>(z)</span></code></pre></div>
+<pre><code>## [1] 2.5</code></pre>
+<p>These functions calculate the arithmetic mean and median of the values in the vector, respectively.</p>
+</div>
+<div id="creating-relationships-between-objects" class="section level3 hasAnchor" number="2.7.2">
+<h3><span class="header-section-number">2.7.2</span> Creating Relationships Between Objects<a href="understanding-assignments-and-functions-in-r.html#creating-relationships-between-objects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can create new objects based on calculations performed on existing objects. For example, we can store the mean of a vector as a new object:</p>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="understanding-assignments-and-functions-in-r.html#cb55-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">mean</span>(z)</span></code></pre></div>
+<p>We can also create objects through arithmetic operations:</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="understanding-assignments-and-functions-in-r.html#cb56-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="sc">+</span> <span class="dv">10</span></span>
+<span id="cb56-2"><a href="understanding-assignments-and-functions-in-r.html#cb56-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> <span class="dv">4</span></span></code></pre></div>
+<p>R allows us to perform logical comparisons between objects:</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="understanding-assignments-and-functions-in-r.html#cb57-1" tabindex="-1"></a>a <span class="sc">&gt;</span> b</span></code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>This returns a logical value (<code>TRUE</code> or <code>FALSE</code>) indicating whether <code>a</code> is greater than <code>b</code>.</p>
+</div>
+<div id="the-silent-nature-of-assignments" class="section level3 hasAnchor" number="2.7.3">
+<h3><span class="header-section-number">2.7.3</span> The Silent Nature of Assignments<a href="understanding-assignments-and-functions-in-r.html#the-silent-nature-of-assignments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As mentioned earlier, assignments do not produce output unless we explicitly request it. To display the contents of an object, we simply type its name or use the <code>print()</code> function:</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="understanding-assignments-and-functions-in-r.html#cb59-1" tabindex="-1"></a>a</span></code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="understanding-assignments-and-functions-in-r.html#cb61-1" tabindex="-1"></a>b</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="understanding-assignments-and-functions-in-r.html#cb63-1" tabindex="-1"></a><span class="co"># alternatively, use print</span></span>
+<span id="cb63-2"><a href="understanding-assignments-and-functions-in-r.html#cb63-2" tabindex="-1"></a><span class="fu">print</span>(a)</span></code></pre></div>
+<pre><code>## [1] 13</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="understanding-assignments-and-functions-in-r.html#cb65-1" tabindex="-1"></a><span class="fu">print</span>(b)</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+</div>
+<div id="building-complex-objects-from-functions" class="section level3 hasAnchor" number="2.7.4">
+<h3><span class="header-section-number">2.7.4</span> Building Complex Objects from Functions<a href="understanding-assignments-and-functions-in-r.html#building-complex-objects-from-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can build more complex objects by combining multiple operations. For instance, we can create a vector from previously defined objects and calculate its mean:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="understanding-assignments-and-functions-in-r.html#cb67-1" tabindex="-1"></a>valores <span class="ot">&lt;-</span> <span class="fu">c</span>(a, b)</span>
+<span id="cb67-2"><a href="understanding-assignments-and-functions-in-r.html#cb67-2" tabindex="-1"></a>promedio <span class="ot">&lt;-</span> <span class="fu">mean</span>(valores)</span>
+<span id="cb67-3"><a href="understanding-assignments-and-functions-in-r.html#cb67-3" tabindex="-1"></a><span class="fu">print</span>(promedio)</span></code></pre></div>
+<pre><code>## [1] 10.5</code></pre>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="understanding-assignments-and-functions-in-r.html#cb69-1" tabindex="-1"></a>promedio</span></code></pre></div>
+<pre><code>## [1] 10.5</code></pre>
+<p>Let’s work through another example where we calculate the mean of two values:</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="understanding-assignments-and-functions-in-r.html#cb71-1" tabindex="-1"></a>a <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb71-2"><a href="understanding-assignments-and-functions-in-r.html#cb71-2" tabindex="-1"></a>b <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb71-3"><a href="understanding-assignments-and-functions-in-r.html#cb71-3" tabindex="-1"></a>valores1 <span class="ot">&lt;-</span> <span class="fu">c</span>(a, b)</span>
+<span id="cb71-4"><a href="understanding-assignments-and-functions-in-r.html#cb71-4" tabindex="-1"></a>promedio1 <span class="ot">&lt;-</span> <span class="fu">mean</span>(valores1)</span>
+<span id="cb71-5"><a href="understanding-assignments-and-functions-in-r.html#cb71-5" tabindex="-1"></a><span class="fu">print</span>(promedio1)</span></code></pre></div>
+<pre><code>## [1] 3.5</code></pre>
+<p>To clear our workspace and remove specific objects, we can use the <code>rm()</code> function:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="understanding-assignments-and-functions-in-r.html#cb73-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb73-2"><a href="understanding-assignments-and-functions-in-r.html#cb73-2" tabindex="-1"></a><span class="fu">rm</span>(promedio)</span></code></pre></div>
+<p>The first command removes all objects from the environment, while the second removes a specific object.</p>
+</div>
+<div id="working-with-real-data-education-and-income-example" class="section level3 hasAnchor" number="2.7.5">
+<h3><span class="header-section-number">2.7.5</span> Working with Real Data: Education and Income Example<a href="understanding-assignments-and-functions-in-r.html#working-with-real-data-education-and-income-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Proper spacing and organization of code is essential for readability and maintenance. Let’s create two vectors representing education (in years) and income for ten individuals using the concatenate function <code>c()</code>:</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="understanding-assignments-and-functions-in-r.html#cb74-1" tabindex="-1"></a>educ <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">8</span>, <span class="dv">12</span>, <span class="dv">8</span>, <span class="dv">11</span>, <span class="dv">16</span>, <span class="dv">14</span>, <span class="dv">8</span>, <span class="dv">10</span>, <span class="dv">14</span>, <span class="dv">12</span>)</span>
+<span id="cb74-2"><a href="understanding-assignments-and-functions-in-r.html#cb74-2" tabindex="-1"></a>ingreso <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">325</span>, <span class="dv">415</span>, <span class="dv">360</span>, <span class="dv">380</span>, <span class="dv">670</span>, <span class="dv">545</span>, <span class="dv">350</span>, <span class="dv">420</span>, <span class="dv">680</span>, <span class="dv">465</span>)</span></code></pre></div>
+<p>Once we have these vectors, we can calculate various descriptive statistics. We can compute the mean income, the standard deviation of income, and the correlation between education and income:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="understanding-assignments-and-functions-in-r.html#cb75-1" tabindex="-1"></a><span class="fu">mean</span>(ingreso)</span></code></pre></div>
+<pre><code>## [1] 461</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="understanding-assignments-and-functions-in-r.html#cb77-1" tabindex="-1"></a>promedioingreso <span class="ot">&lt;-</span> <span class="fu">mean</span>(ingreso)</span>
+<span id="cb77-2"><a href="understanding-assignments-and-functions-in-r.html#cb77-2" tabindex="-1"></a></span>
+<span id="cb77-3"><a href="understanding-assignments-and-functions-in-r.html#cb77-3" tabindex="-1"></a><span class="fu">sd</span>(ingreso)</span></code></pre></div>
+<pre><code>## [1] 129.1382</code></pre>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="understanding-assignments-and-functions-in-r.html#cb79-1" tabindex="-1"></a>sdingreso <span class="ot">&lt;-</span> <span class="fu">sd</span>(ingreso)</span>
+<span id="cb79-2"><a href="understanding-assignments-and-functions-in-r.html#cb79-2" tabindex="-1"></a></span>
+<span id="cb79-3"><a href="understanding-assignments-and-functions-in-r.html#cb79-3" tabindex="-1"></a><span class="fu">cor</span>(educ, ingreso)</span></code></pre></div>
+<pre><code>## [1] 0.9110521</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="understanding-assignments-and-functions-in-r.html#cb81-1" tabindex="-1"></a>coreduing <span class="ot">&lt;-</span> <span class="fu">cor</span>(educ, ingreso)</span></code></pre></div>
+<p>The mean provides the average income, the standard deviation measures the dispersion of income values around the mean, and the correlation coefficient quantifies the strength and direction of the linear relationship between education and income.</p>
+</div>
+<div id="visualizing-the-relationship" class="section level3 hasAnchor" number="2.7.6">
+<h3><span class="header-section-number">2.7.6</span> Visualizing the Relationship<a href="understanding-assignments-and-functions-in-r.html#visualizing-the-relationship" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To visually examine the relationship between education and income, we can create a scatter plot:</p>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="understanding-assignments-and-functions-in-r.html#cb82-1" tabindex="-1"></a><span class="fu">plot</span>(educ, ingreso)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-32-1.png" alt="" width="672" /></p>
+<p>This produces a graph with education on the x-axis and income on the y-axis, allowing us to see the pattern of association between these two variables.</p>
+</div>
+<div id="estimating-a-linear-regression-model" class="section level3 hasAnchor" number="2.7.7">
+<h3><span class="header-section-number">2.7.7</span> Estimating a Linear Regression Model<a href="understanding-assignments-and-functions-in-r.html#estimating-a-linear-regression-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Finally, we can formally model the relationship between education and income using linear regression. The <code>lm()</code> function estimates a linear model where income is the dependent variable and education is the independent variable:</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="understanding-assignments-and-functions-in-r.html#cb83-1" tabindex="-1"></a><span class="fu">lm</span>(ingreso <span class="sc">~</span> educ)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = ingreso ~ educ)
+## 
+## Coefficients:
+## (Intercept)         educ  
+##       -8.71        41.57</code></pre>
+<p>This function returns the estimated coefficients for the linear model, providing us with the intercept and the slope coefficient for education. The slope coefficient indicates how much income is expected to change for each additional year of education.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="object-manipulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="object-naming-and-types.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

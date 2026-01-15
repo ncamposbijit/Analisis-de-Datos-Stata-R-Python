@@ -75,8 +75,28 @@ Titles can be hierarchical:
 #### The least important
 ```
 
-Es importante actualizarlo constantemente para no perder funcionalidad.
+# Cleaning in R: environment vs console
 
+When working in R, it is important to distinguish between two different things:
+
+1. **The environment (memory):** where R stores the objects you create (datasets, vectors, models, plots, etc.).
+2. **The console (screen):** where commands and results are printed.
+
+Cleaning the environment is about deleting objects stored in memory.  
+Cleaning the console is only about making the screen look “clean” — it does not delete anything.
+
+---
+
+Remove all objects from the environment
+
+```{r message=FALSE}
+rm(list = ls())
+```
+Remove only one object
+
+```{r message=FALSE}
+# rm(data1)
+```
 ### Instalación de paquetes y ayuda
 
 Los paquetes son basicamente conjuntos de funciones. Los paquetes se

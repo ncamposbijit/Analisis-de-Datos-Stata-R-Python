@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.8 Object Naming and Types | Object Naming and Types in R</title>
+  <meta name="description" content="A book focused on teaching data analysis using R" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.8 Object Naming and Types | Object Naming and Types in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book focused on teaching data analysis using R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.8 Object Naming and Types | Object Naming and Types in R" />
+  
+  <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
+  
+
+<meta name="author" content="Your Name" />
+
+
+<meta name="date" content="2026-01-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="understanding-assignments-and-functions-in-r.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="data-analysis-with-r.html"><a href="data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Data Analysis with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r"><i class="fa fa-check"></i><b>2.1.1</b> Why use R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-concepts-vocabulary-of-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key concepts (vocabulary of the course)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning resources</a></li>
+<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio interface</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html"><i class="fa fa-check"></i><b>2.2</b> Writing code: comments, structure and cleaning the environment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#comments"><i class="fa fa-check"></i><b>2.2.1</b> Comments</a></li>
+<li class="chapter" data-level="2.2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#outlines-code-indexing"><i class="fa fa-check"></i><b>2.2.2</b> Outlines (code indexing)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#cleaning-in-r-environment-vs-console"><i class="fa fa-check"></i><b>2.2.3</b> Cleaning in R: environment vs console</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html"><i class="fa fa-check"></i><b>2.3</b> Package installation, libraries and help</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#libraries"><i class="fa fa-check"></i><b>2.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="2.3.2" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#help-function"><i class="fa fa-check"></i><b>2.3.2</b> Help function</a></li>
+<li class="chapter" data-level="2.3.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#useful-shortcuts"><i class="fa fa-check"></i><b>2.3.3</b> Useful <em>Shortcuts</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html"><i class="fa fa-check"></i><b>2.4</b> R Markdown - Reproducible research</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#what-can-r-markdown-produce"><i class="fa fa-check"></i><b>2.4.1</b> What can R Markdown produce?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#when-is-r-markdown-especially-useful"><i class="fa fa-check"></i><b>2.4.2</b> When is R Markdown especially useful?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>2.5</b> Basic concepts</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="basic-concepts.html"><a href="basic-concepts.html#markdown-.md"><i class="fa fa-check"></i><b>2.5.1</b> Markdown (<code>.md</code>)</a></li>
+<li class="chapter" data-level="2.5.2" data-path="basic-concepts.html"><a href="basic-concepts.html#r-markdown-.rmd"><i class="fa fa-check"></i><b>2.5.2</b> R Markdown (<code>.Rmd</code>)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="basic-concepts.html"><a href="basic-concepts.html#knitr"><i class="fa fa-check"></i><b>2.5.3</b> knitr</a></li>
+<li class="chapter" data-level="2.5.4" data-path="basic-concepts.html"><a href="basic-concepts.html#pandoc"><i class="fa fa-check"></i><b>2.5.4</b> Pandoc</a></li>
+<li class="chapter" data-level="2.5.5" data-path="basic-concepts.html"><a href="basic-concepts.html#process-how-everything-works-together"><i class="fa fa-check"></i><b>2.5.5</b> Process (how everything works together)</a></li>
+<li class="chapter" data-level="2.5.6" data-path="basic-concepts.html"><a href="basic-concepts.html#your-first-r-markdown-file"><i class="fa fa-check"></i><b>2.5.6</b> Your first R Markdown file</a></li>
+<li class="chapter" data-level="2.5.7" data-path="basic-concepts.html"><a href="basic-concepts.html#working-directory-critical-detail"><i class="fa fa-check"></i><b>2.5.7</b> Working directory (critical detail)</a></li>
+<li class="chapter" data-level="2.5.8" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-an-r-markdown-file"><i class="fa fa-check"></i><b>2.5.8</b> Components of an R Markdown file</a></li>
+<li class="chapter" data-level="2.5.9" data-path="basic-concepts.html"><a href="basic-concepts.html#why-is-this-powerful"><i class="fa fa-check"></i><b>2.5.9</b> Why is this powerful?</a></li>
+<li class="chapter" data-level="2.5.10" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-r-markdown"><i class="fa fa-check"></i><b>2.5.10</b> Components of R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="object-manipulation.html"><a href="object-manipulation.html"><i class="fa fa-check"></i><b>2.6</b> Object manipulation</a></li>
+<li class="chapter" data-level="2.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html"><i class="fa fa-check"></i><b>2.7</b> Understanding Assignments and Functions in R</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-vectors-and-arithmetic-functions"><i class="fa fa-check"></i><b>2.7.1</b> Working with Vectors and Arithmetic Functions</a></li>
+<li class="chapter" data-level="2.7.2" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#creating-relationships-between-objects"><i class="fa fa-check"></i><b>2.7.2</b> Creating Relationships Between Objects</a></li>
+<li class="chapter" data-level="2.7.3" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#the-silent-nature-of-assignments"><i class="fa fa-check"></i><b>2.7.3</b> The Silent Nature of Assignments</a></li>
+<li class="chapter" data-level="2.7.4" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#building-complex-objects-from-functions"><i class="fa fa-check"></i><b>2.7.4</b> Building Complex Objects from Functions</a></li>
+<li class="chapter" data-level="2.7.5" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-real-data-education-and-income-example"><i class="fa fa-check"></i><b>2.7.5</b> Working with Real Data: Education and Income Example</a></li>
+<li class="chapter" data-level="2.7.6" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#visualizing-the-relationship"><i class="fa fa-check"></i><b>2.7.6</b> Visualizing the Relationship</a></li>
+<li class="chapter" data-level="2.7.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#estimating-a-linear-regression-model"><i class="fa fa-check"></i><b>2.7.7</b> Estimating a Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html"><i class="fa fa-check"></i><b>2.8</b> Object Naming and Types</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#naming-objects"><i class="fa fa-check"></i><b>2.8.1</b> Naming Objects</a></li>
+<li class="chapter" data-level="2.8.2" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#types-of-objects"><i class="fa fa-check"></i><b>2.8.2</b> Types of Objects</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Object Naming and Types in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="object-naming-and-types" class="section level2 hasAnchor" number="2.8">
+<h2><span class="header-section-number">2.8</span> Object Naming and Types<a href="object-naming-and-types.html#object-naming-and-types" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="naming-objects" class="section level3 hasAnchor" number="2.8.1">
+<h3><span class="header-section-number">2.8.1</span> Naming Objects<a href="object-naming-and-types.html#naming-objects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The following exercise helps us understand the rules for valid variable names in R.</p>
+<p><strong>Exercise: Valid Variable Names</strong></p>
+<p>Consider the following examples. Which of these are valid variable names in R?</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="object-naming-and-types.html#cb85-1" tabindex="-1"></a><span class="co"># min_height      # Valid: uses underscore</span></span>
+<span id="cb85-2"><a href="object-naming-and-types.html#cb85-2" tabindex="-1"></a><span class="co"># max.height      # Valid: uses dot</span></span>
+<span id="cb85-3"><a href="object-naming-and-types.html#cb85-3" tabindex="-1"></a><span class="co"># _age            # Invalid: starts with underscore</span></span>
+<span id="cb85-4"><a href="object-naming-and-types.html#cb85-4" tabindex="-1"></a><span class="co"># .mass           # Valid: starts with dot (but creates hidden variable)</span></span>
+<span id="cb85-5"><a href="object-naming-and-types.html#cb85-5" tabindex="-1"></a><span class="co"># MaxLength       # Valid: uses camel case</span></span>
+<span id="cb85-6"><a href="object-naming-and-types.html#cb85-6" tabindex="-1"></a><span class="co"># Min-length      # Invalid: uses hyphen (minus sign)</span></span>
+<span id="cb85-7"><a href="object-naming-and-types.html#cb85-7" tabindex="-1"></a><span class="co"># 2widths         # Invalid: starts with number</span></span>
+<span id="cb85-8"><a href="object-naming-and-types.html#cb85-8" tabindex="-1"></a><span class="co"># Calsius2kelvin  # Valid: number in middle is allowed</span></span></code></pre></div>
+<p>In R, variable names must follow these rules: they can contain letters, numbers, dots, and underscores, but they must start with a letter or a dot (if starting with a dot, the second character cannot be a number). Variable names cannot contain spaces or special characters like hyphens, and they cannot start with numbers or underscores.</p>
+</div>
+<div id="types-of-objects" class="section level3 hasAnchor" number="2.8.2">
+<h3><span class="header-section-number">2.8.2</span> Types of Objects<a href="object-naming-and-types.html#types-of-objects" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="vectors" class="section level4 hasAnchor" number="2.8.2.1">
+<h4><span class="header-section-number">2.8.2.1</span> Vectors<a href="object-naming-and-types.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>R operates component by component, which makes it very straightforward to work with vectors and matrices. Vectors are one-dimensional arrays that can hold numeric data, character data, or logical data, but all elements must be of the same type.</p>
+<p>To create a vector, we use the <code>c()</code> function (which stands for “concatenate” or “combine”):</p>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="object-naming-and-types.html#cb86-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb86-2"><a href="object-naming-and-types.html#cb86-2" tabindex="-1"></a><span class="co"># or alternatively</span></span>
+<span id="cb86-3"><a href="object-naming-and-types.html#cb86-3" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>)</span></code></pre></div>
+<p>Let’s examine what happens when we add vectors together:</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="object-naming-and-types.html#cb87-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb87-2"><a href="object-naming-and-types.html#cb87-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## [1]  7  9 11 10 12</code></pre>
+<p>Now, let’s consider two vectors of different lengths:</p>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="object-naming-and-types.html#cb89-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb89-2"><a href="object-naming-and-types.html#cb89-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>)</span></code></pre></div>
+<p>We can check the length of each vector using the <code>length()</code> function:</p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="object-naming-and-types.html#cb90-1" tabindex="-1"></a><span class="fu">length</span>(x)</span></code></pre></div>
+<pre><code>## [1] 4</code></pre>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="object-naming-and-types.html#cb92-1" tabindex="-1"></a><span class="fu">length</span>(y)</span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<p>What happens when we try to add vectors of different lengths?</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="object-naming-and-types.html#cb94-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> x <span class="sc">+</span> y</span>
+<span id="cb94-2"><a href="object-naming-and-types.html#cb94-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>## [1] 2 4 6 5</code></pre>
+<p><strong>IMPORTANT</strong>: In this case, R performs the operation anyway, but it gives us a warning that the lengths differ. R uses “vector recycling,” where the shorter vector is repeated to match the length of the longer vector. A crucial characteristic of vectors is that they can only concatenate elements of the same type; otherwise, R will coerce all elements to a common type (usually character if there’s a mix).</p>
+<p>Let’s explore more vector operations:</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="object-naming-and-types.html#cb96-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="fl">1.5</span><span class="sc">:</span><span class="fl">9.5</span>, <span class="dv">4</span>)  <span class="co"># generates repetitions of the defined values</span></span>
+<span id="cb96-2"><a href="object-naming-and-types.html#cb96-2" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span><span class="sc">:</span><span class="dv">30</span>)</span>
+<span id="cb96-3"><a href="object-naming-and-types.html#cb96-3" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb96-4"><a href="object-naming-and-types.html#cb96-4" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>)</span>
+<span id="cb96-5"><a href="object-naming-and-types.html#cb96-5" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> <span class="fu">c</span>(x1, x2)</span>
+<span id="cb96-6"><a href="object-naming-and-types.html#cb96-6" tabindex="-1"></a>x4 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>))</span></code></pre></div>
+<div id="subsetting-vectors" class="section level5 hasAnchor" number="2.8.2.1.1">
+<h5><span class="header-section-number">2.8.2.1.1</span> Subsetting Vectors<a href="object-naming-and-types.html#subsetting-vectors" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>We can extract specific elements from a vector using square bracket notation:</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="object-naming-and-types.html#cb97-1" tabindex="-1"></a>y[<span class="dv">3</span>]         <span class="co"># get the third element</span></span></code></pre></div>
+<pre><code>## [1] 22</code></pre>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="object-naming-and-types.html#cb99-1" tabindex="-1"></a>y[<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>]       <span class="co"># get elements 2 through 4</span></span></code></pre></div>
+<pre><code>## [1] 21 22 23</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="object-naming-and-types.html#cb101-1" tabindex="-1"></a>y[<span class="dv">4</span><span class="sc">:</span><span class="dv">2</span>]       <span class="co"># get elements in reverse order (4, 3, 2)</span></span></code></pre></div>
+<pre><code>## [1] 23 22 21</code></pre>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="object-naming-and-types.html#cb103-1" tabindex="-1"></a>y[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">6</span>)]   <span class="co"># get elements 2 and 6</span></span></code></pre></div>
+<pre><code>## [1] 21 25</code></pre>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="object-naming-and-types.html#cb105-1" tabindex="-1"></a>y[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">16</span>)]  <span class="co"># attempt to get element 16 (returns NA if out of bounds)</span></span></code></pre></div>
+<pre><code>## [1] 21 NA</code></pre>
+</div>
+</div>
+<div id="matrices" class="section level4 hasAnchor" number="2.8.2.2">
+<h4><span class="header-section-number">2.8.2.2</span> Matrices<a href="object-naming-and-types.html#matrices" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Matrices are two-dimensional arrays where all elements must be of the same type. They are particularly useful for mathematical operations and organizing data in rows and columns.</p>
+<div id="defining-matrices" class="section level5 hasAnchor" number="2.8.2.2.1">
+<h5><span class="header-section-number">2.8.2.2.1</span> Defining Matrices<a href="object-naming-and-types.html#defining-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The general syntax for creating a matrix is:</p>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="object-naming-and-types.html#cb107-1" tabindex="-1"></a>my.matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(vector,</span>
+<span id="cb107-2"><a href="object-naming-and-types.html#cb107-2" tabindex="-1"></a>                    <span class="at">ncol =</span> num_columns,</span>
+<span id="cb107-3"><a href="object-naming-and-types.html#cb107-3" tabindex="-1"></a>                    <span class="at">nrow =</span> num_rows,</span>
+<span id="cb107-4"><a href="object-naming-and-types.html#cb107-4" tabindex="-1"></a>                    <span class="at">byrow =</span> logical_value,</span>
+<span id="cb107-5"><a href="object-naming-and-types.html#cb107-5" tabindex="-1"></a>                    <span class="at">dimnames =</span> <span class="fu">list</span>(vector_row_names,</span>
+<span id="cb107-6"><a href="object-naming-and-types.html#cb107-6" tabindex="-1"></a>                                   vector_column_names))</span></code></pre></div>
+<p>To create matrices, we use the <code>matrix()</code> function:</p>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="object-naming-and-types.html#cb108-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb108-2"><a href="object-naming-and-types.html#cb108-2" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb108-3"><a href="object-naming-and-types.html#cb108-3" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">2</span>)</span>
+<span id="cb108-4"><a href="object-naming-and-types.html#cb108-4" tabindex="-1"></a></span>
+<span id="cb108-5"><a href="object-naming-and-types.html#cb108-5" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>),</span>
+<span id="cb108-6"><a href="object-naming-and-types.html#cb108-6" tabindex="-1"></a>             <span class="dv">2</span>,</span>
+<span id="cb108-7"><a href="object-naming-and-types.html#cb108-7" tabindex="-1"></a>             <span class="dv">2</span>)</span></code></pre></div>
+<p>While it is not necessary to explicitly write <code>data=</code>, doing so improves code readability and makes the intent clearer.</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="object-naming-and-types.html#cb109-1" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="object-naming-and-types.html#cb111-1" tabindex="-1"></a>x1</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4</code></pre>
+<p>Note that by DEFAULT, R fills the matrix column by column. We can explicitly specify that we want to fill the matrix row by row using the <code>byrow</code> argument:</p>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="object-naming-and-types.html#cb113-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">data =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>),</span>
+<span id="cb113-2"><a href="object-naming-and-types.html#cb113-2" tabindex="-1"></a>            <span class="at">nrow =</span> <span class="dv">3</span>,</span>
+<span id="cb113-3"><a href="object-naming-and-types.html#cb113-3" tabindex="-1"></a>            <span class="at">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb113-4"><a href="object-naming-and-types.html#cb113-4" tabindex="-1"></a>            <span class="at">byrow =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb113-5"><a href="object-naming-and-types.html#cb113-5" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4
+## [3,]    1    2</code></pre>
+<p>We can determine the dimensions of a matrix using the <code>dim()</code> function:</p>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="object-naming-and-types.html#cb115-1" tabindex="-1"></a><span class="fu">dim</span>(y)</span></code></pre></div>
+<pre><code>## [1] 3 2</code></pre>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="object-naming-and-types.html#cb117-1" tabindex="-1"></a><span class="fu">dim</span>(y)[<span class="dv">1</span>]  <span class="co"># number of rows</span></span></code></pre></div>
+<pre><code>## [1] 3</code></pre>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="object-naming-and-types.html#cb119-1" tabindex="-1"></a><span class="fu">dim</span>(y)[<span class="dv">2</span>]  <span class="co"># number of columns</span></span></code></pre></div>
+<pre><code>## [1] 2</code></pre>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="object-naming-and-types.html#cb121-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">byrow =</span> <span class="dv">2</span>)</span>
+<span id="cb121-2"><a href="object-naming-and-types.html#cb121-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<p>If the vector is shorter than the matrix dimensions, R will recycle the values to fill the matrix:</p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="object-naming-and-types.html#cb123-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>), <span class="at">nrow =</span> <span class="dv">2</span>, <span class="at">ncol =</span> <span class="dv">3</span>, <span class="at">byrow =</span> <span class="dv">2</span>)</span>
+<span id="cb123-2"><a href="object-naming-and-types.html#cb123-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    1    2</code></pre>
+<p>Note that the order in any matrix is always <strong>rows × columns</strong>. We can also omit either the number of rows or columns, and R will calculate the missing dimension:</p>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="object-naming-and-types.html#cb125-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="dv">2</span>, <span class="at">byrow =</span> T)</span>
+<span id="cb125-2"><a href="object-naming-and-types.html#cb125-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    2
+## [2,]    3    4</code></pre>
+<p>When creating empty matrices, we must define the dimensions:</p>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="object-naming-and-types.html#cb127-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="at">nrow =</span> <span class="dv">3</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb127-2"><a href="object-naming-and-types.html#cb127-2" tabindex="-1"></a>y  <span class="co"># useful for loops where we fill values iteratively</span></span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]   NA   NA   NA
+## [2,]   NA   NA   NA
+## [3,]   NA   NA   NA</code></pre>
+</div>
+<div id="naming-rows-and-columns" class="section level5 hasAnchor" number="2.8.2.2.2">
+<h5><span class="header-section-number">2.8.2.2.2</span> Naming Rows and Columns<a href="object-naming-and-types.html#naming-rows-and-columns" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>We can assign names to rows and columns directly in the <code>matrix()</code> function:</p>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="object-naming-and-types.html#cb129-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="dv">2</span>, <span class="at">byrow =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb129-2"><a href="object-naming-and-types.html#cb129-2" tabindex="-1"></a>            <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="st">&quot;X1&quot;</span>, <span class="st">&quot;X2&quot;</span>), <span class="fu">c</span>(<span class="st">&quot;Y1&quot;</span>, <span class="st">&quot;Y2&quot;</span>)))</span>
+<span id="cb129-3"><a href="object-naming-and-types.html#cb129-3" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>##    Y1 Y2
+## X1  1  3
+## X2  2  4</code></pre>
+<p>Alternatively, we can use the <code>colnames()</code> and <code>rownames()</code> functions:</p>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="object-naming-and-types.html#cb131-1" tabindex="-1"></a><span class="fu">colnames</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Variable 1&quot;</span>, <span class="st">&quot;Variable 2&quot;</span>)</span>
+<span id="cb131-2"><a href="object-naming-and-types.html#cb131-2" tabindex="-1"></a><span class="fu">rownames</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;a1&quot;</span>, <span class="st">&quot;a2&quot;</span>)</span>
+<span id="cb131-3"><a href="object-naming-and-types.html#cb131-3" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##    Variable 1 Variable 2
+## a1          1          3
+## a2          2          4</code></pre>
+</div>
+<div id="adding-rows-or-columns-to-a-matrix" class="section level5 hasAnchor" number="2.8.2.2.3">
+<h5><span class="header-section-number">2.8.2.2.3</span> Adding Rows or Columns to a Matrix<a href="object-naming-and-types.html#adding-rows-or-columns-to-a-matrix" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Let’s create a new vector to add to our matrix:</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb133-1"><a href="object-naming-and-types.html#cb133-1" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span></code></pre></div>
+<p>We can combine matrices and vectors using rows (note that the vector name becomes the row name):</p>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="object-naming-and-types.html#cb134-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x, w)</span>
+<span id="cb134-2"><a href="object-naming-and-types.html#cb134-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>##    Variable 1 Variable 2
+## a1          1          3
+## a2          2          4
+## w           5          6</code></pre>
+<p>We can also combine using columns:</p>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="object-naming-and-types.html#cb136-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x, w)</span>
+<span id="cb136-2"><a href="object-naming-and-types.html#cb136-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>##    Variable 1 Variable 2 w
+## a1          1          3 5
+## a2          2          4 6</code></pre>
+<p>What happens if they have different numbers of rows and/or columns? R will recycle the shorter vector or observation to match the longer dimension:</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="object-naming-and-types.html#cb138-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="dv">3</span>)</span>
+<span id="cb138-2"><a href="object-naming-and-types.html#cb138-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    4    7
+## [2,]    2    5    8
+## [3,]    3    6    9</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="object-naming-and-types.html#cb140-1" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">6</span>)</span>
+<span id="cb140-2"><a href="object-naming-and-types.html#cb140-2" tabindex="-1"></a>y</span></code></pre></div>
+<pre><code>## [1] 5 6</code></pre>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="object-naming-and-types.html#cb142-1" tabindex="-1"></a>z <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x, y)</span>
+<span id="cb142-2"><a href="object-naming-and-types.html#cb142-2" tabindex="-1"></a>z</span></code></pre></div>
+<pre><code>##   [,1] [,2] [,3]
+##      1    4    7
+##      2    5    8
+##      3    6    9
+## y    5    6    5</code></pre>
+</div>
+<div id="converting-vectors-to-matrices" class="section level5 hasAnchor" number="2.8.2.2.4">
+<h5><span class="header-section-number">2.8.2.2.4</span> Converting Vectors to Matrices<a href="object-naming-and-types.html#converting-vectors-to-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>We can convert a vector to a matrix by assigning dimensions:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="object-naming-and-types.html#cb144-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb144-2"><a href="object-naming-and-types.html#cb144-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="object-naming-and-types.html#cb146-1" tabindex="-1"></a><span class="fu">dim</span>(x) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">5</span>)</span>
+<span id="cb146-2"><a href="object-naming-and-types.html#cb146-2" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10</code></pre>
+</div>
+<div id="transposing-matrices" class="section level5 hasAnchor" number="2.8.2.2.5">
+<h5><span class="header-section-number">2.8.2.2.5</span> Transposing Matrices<a href="object-naming-and-types.html#transposing-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>We can transpose a matrix (swap rows and columns) using the <code>t()</code> function:</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="object-naming-and-types.html#cb148-1" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">9</span>), <span class="dv">3</span>)</span>
+<span id="cb148-2"><a href="object-naming-and-types.html#cb148-2" tabindex="-1"></a>x_transposed <span class="ot">&lt;-</span> <span class="fu">t</span>(x)</span>
+<span id="cb148-3"><a href="object-naming-and-types.html#cb148-3" tabindex="-1"></a>x_transposed</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9</code></pre>
+</div>
+<div id="subsetting-matrices" class="section level5 hasAnchor" number="2.8.2.2.6">
+<h5><span class="header-section-number">2.8.2.2.6</span> Subsetting Matrices<a href="object-naming-and-types.html#subsetting-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>We can extract specific elements, rows, or columns from a matrix. For example, to get the second and fourth elements of the second row:</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="object-naming-and-types.html#cb150-1" tabindex="-1"></a>M <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb150-2"><a href="object-naming-and-types.html#cb150-2" tabindex="-1"></a>M</span></code></pre></div>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    1    3    5    7
+## [2,]    2    4    6    8</code></pre>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="object-naming-and-types.html#cb152-1" tabindex="-1"></a>M[<span class="dv">1</span>, <span class="dv">1</span>]       <span class="co"># element in first row, first column</span></span></code></pre></div>
+<pre><code>## [1] 1</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="object-naming-and-types.html#cb154-1" tabindex="-1"></a>M[<span class="dv">1</span>, ]        <span class="co"># entire first row</span></span></code></pre></div>
+<pre><code>## [1] 1 3 5 7</code></pre>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="object-naming-and-types.html#cb156-1" tabindex="-1"></a>M[, <span class="dv">2</span>]        <span class="co"># entire second column</span></span></code></pre></div>
+<pre><code>## [1] 3 4</code></pre>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="object-naming-and-types.html#cb158-1" tabindex="-1"></a>M[<span class="dv">2</span>, <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>)] <span class="co"># second and fourth elements of the second row</span></span></code></pre></div>
+<pre><code>## [1] 4 8</code></pre>
+<p>Matrix subsetting uses the format <code>[row, column]</code>, where leaving either position blank returns all rows or all columns, respectively.</p>
+
+</div>
+</div>
+</div>
+</div>
+<!-- </div> -->
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="understanding-assignments-and-functions-in-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+</body>
+
+</html>

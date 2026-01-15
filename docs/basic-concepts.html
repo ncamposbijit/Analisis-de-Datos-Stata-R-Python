@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Object Naming and Types in R</title>
+  <title>2.5 Basic concepts | Object Naming and Types in R</title>
   <meta name="description" content="A book focused on teaching data analysis using R" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Object Naming and Types in R" />
+  <meta property="og:title" content="2.5 Basic concepts | Object Naming and Types in R" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book focused on teaching data analysis using R" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Object Naming and Types in R" />
+  <meta name="twitter:title" content="2.5 Basic concepts | Object Naming and Types in R" />
   
   <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="r-markdown---reproducible-research.html"/>
+<link rel="next" href="object-manipulation.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -213,19 +213,142 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="basic-concepts" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> Basic concepts<a href="basic-concepts.html#basic-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To understand R Markdown, you need to distinguish the following components:</p>
+<div id="markdown-.md" class="section level3 hasAnchor" number="2.5.1">
+<h3><span class="header-section-number">2.5.1</span> Markdown (<code>.md</code>)<a href="basic-concepts.html#markdown-.md" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Markdown</strong> is a simple plain-text language to format documents. For example:</p>
+<ul>
+<li><code># Title</code> creates a section title</li>
+<li><code>**bold**</code> produces bold text</li>
+<li>lists, links, and images are easy to write</li>
+</ul>
+<p>Markdown files have extension <code>.md</code>.</p>
+</div>
+<div id="r-markdown-.rmd" class="section level3 hasAnchor" number="2.5.2">
+<h3><span class="header-section-number">2.5.2</span> R Markdown (<code>.Rmd</code>)<a href="basic-concepts.html#r-markdown-.rmd" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>R Markdown</strong> extends Markdown by allowing you to embed R code directly into the document. Files have extension <code>.Rmd</code>.</p>
+<p>The most important feature is that R code is executed and its output is included in the report. This is what makes the document <strong>dynamic</strong> and <strong>reproducible</strong>.</p>
+</div>
+<div id="knitr" class="section level3 hasAnchor" number="2.5.3">
+<h3><span class="header-section-number">2.5.3</span> knitr<a href="basic-concepts.html#knitr" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><code>knitr</code> is the R package responsible for:</p>
+<ul>
+<li>reading the <code>.Rmd</code> file</li>
+<li>identifying code chunks</li>
+<li>executing the R code</li>
+<li>inserting the results (tables/figures/output) into the document</li>
+</ul>
+<p>In other words: <code>knitr</code> is the engine that turns the <code>.Rmd</code> file into a report.</p>
+</div>
+<div id="pandoc" class="section level3 hasAnchor" number="2.5.4">
+<h3><span class="header-section-number">2.5.4</span> Pandoc<a href="basic-concepts.html#pandoc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Pandoc is the tool that converts the report into a final format such as PDF, Word, or HTML.</p>
+<p>It takes the document produced by <code>knitr</code> and transforms it into a clean formatted file.<br />
+Pandoc is installed automatically with RStudio, so you do not need to install it manually.</p>
+<hr />
+</div>
+<div id="process-how-everything-works-together" class="section level3 hasAnchor" number="2.5.5">
+<h3><span class="header-section-number">2.5.5</span> Process (how everything works together)<a href="basic-concepts.html#process-how-everything-works-together" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The workflow is:</p>
+<ol style="list-style-type: decimal">
+<li>You write text and R code in a single <code>.Rmd</code> document.</li>
+<li><code>knitr</code> executes the code chunks.</li>
+<li>Pandoc converts the final output into PDF/Word/HTML.</li>
+</ol>
+<div class="float">
+<img src="01figuras/C8.1.png" alt="Source: https://rmarkdown.rstudio.com/authoring/quick_tour.html" />
+<div class="figcaption">Source: <a href="https://rmarkdown.rstudio.com/authoring/quick_tour.html" class="uri">https://rmarkdown.rstudio.com/authoring/quick_tour.html</a></div>
+</div>
+<hr />
+</div>
+<div id="your-first-r-markdown-file" class="section level3 hasAnchor" number="2.5.6">
+<h3><span class="header-section-number">2.5.6</span> Your first R Markdown file<a href="basic-concepts.html#your-first-r-markdown-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To create your first <code>.Rmd</code> document in RStudio:</p>
+<ul>
+<li>Go to: <strong>File → New File → R Markdown</strong></li>
+<li>Choose the output format: report / presentation / dashboard</li>
+<li>Set the document title and author</li>
+</ul>
+<p><img src="01figuras/C8.2.png" /><br />
+<img src="01figuras/C8.3.png" /></p>
+<p>The most common starting point is a simple report that outputs to HTML or Word.</p>
+<hr />
+</div>
+<div id="working-directory-critical-detail" class="section level3 hasAnchor" number="2.5.7">
+<h3><span class="header-section-number">2.5.7</span> Working directory (critical detail)<a href="basic-concepts.html#working-directory-critical-detail" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A frequent source of confusion in R Markdown is the <strong>working directory</strong>.</p>
+<p>The general rule is:</p>
+<blockquote>
+<p>The working directory of an <code>.Rmd</code> file is the folder where the <code>.Rmd</code> file is saved.</p>
+</blockquote>
+<p>This means that if your <code>.Rmd</code> file is saved in a folder, R will look for datasets and external files in the <strong>same folder</strong> (unless you specify full paths).</p>
+<p>For this course, we will keep things simple:
+- store your data in the same folder as the <code>.Rmd</code> file
+- avoid complicated paths until you gain familiarity</p>
+<p>This is a best practice for beginners because it reduces file-loading errors.</p>
+<hr />
+</div>
+<div id="components-of-an-r-markdown-file" class="section level3 hasAnchor" number="2.5.8">
+<h3><span class="header-section-number">2.5.8</span> Components of an R Markdown file<a href="basic-concepts.html#components-of-an-r-markdown-file" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>An R Markdown file has three main components:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>YAML header</strong><br />
+A block at the top of the file containing metadata (title, author, output type).</p></li>
+<li><p><strong>Markdown text</strong><br />
+Where you write narrative explanations: motivation, steps, interpretation.</p></li>
+<li><p><strong>Code chunks</strong><br />
+Blocks of R code used for loading packages, importing data, transforming variables, estimating models, and generating plots.</p></li>
+</ol>
+<p><img src="01figuras/C8.4.png" /></p>
+<p>A code chunk looks like this:</p>
+<p>A typical workflow is:</p>
+<ul>
+<li>YAML sets format + structure</li>
+<li>Markdown text explains what you are doing</li>
+<li>code chunks do the analysis and generate outputs</li>
+</ul>
+<p><img src="01figuras/C8.5.png" /></p>
+<hr />
+</div>
+<div id="why-is-this-powerful" class="section level3 hasAnchor" number="2.5.9">
+<h3><span class="header-section-number">2.5.9</span> Why is this powerful?<a href="basic-concepts.html#why-is-this-powerful" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In Word/Excel workflows, people often:
+- run regressions in one place,
+- copy results into a document,
+- manually update tables and plots.</p>
+<p>This is slow and error-prone.</p>
+<p>With R Markdown:
+- your report is generated directly from code,
+- results are always consistent with data,
+- there is no manual copy/paste.</p>
+<p>That is why R Markdown is considered a core tool for reproducible research.</p>
+<p>### Working directory</p>
+<ul>
+<li>The working directory of a <code>.Rmd</code> file is the folder where the file is saved.</li>
+<li>Therefore, R will search for files in the same folder where the <code>.Rmd</code> file is stored.</li>
+<li>For this exercise, we will simply keep the data we use in the same folder as the <code>.Rmd</code> file.</li>
+</ul>
+</div>
+<div id="components-of-r-markdown" class="section level3 hasAnchor" number="2.5.10">
+<h3><span class="header-section-number">2.5.10</span> Components of R Markdown<a href="basic-concepts.html#components-of-r-markdown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><img src="01figuras/C8.4.png" /></p>
+<ul>
+<li>YAML: set title, date, and output type.</li>
+<li>Markdown text: write narrative text.</li>
+<li>Code chunk: load packages, data, and create visualizations.</li>
+</ul>
+<p><img src="01figuras/C8.5.png" /></p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="r-markdown---reproducible-research.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="object-manipulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -256,7 +379,7 @@ gitbook.start({
     "size": 2
   },
   "edit": {
-    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/%s",
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
     "text": "Edit"
   },
   "history": {
@@ -264,7 +387,7 @@ gitbook.start({
     "text": null
   },
   "view": {
-    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/%s",
+    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
     "text": null
   },
   "download": null,
