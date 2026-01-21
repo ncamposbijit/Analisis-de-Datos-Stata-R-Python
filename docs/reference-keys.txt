@@ -1,4 +1,4 @@
-introducción
+introduction
 tutorial-1-data-analysis-with-r
 why-use-r
 key-concepts-vocabulary-of-the-course
@@ -120,4 +120,3 @@ iii-interpret-the-intercept-and-the-slope
 iv-predicted-participation-when-mrate-3.5.-is-it-reasonable
 v-how-much-of-the-variation-in-prate-is-explained-by-mrate
 optional-quick-plot
-introduction-to-r-and-rstudio
