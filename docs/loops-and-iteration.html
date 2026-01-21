@@ -1,341 +1,198 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>10 Loops and Iteration | Object Naming and Types in R</title>
-  <meta name="description" content="A book focused on teaching data analysis using R" />
-  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="10 Loops and Iteration | Object Naming and Types in R" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="A book focused on teaching data analysis using R" />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="10 Loops and Iteration | Object Naming and Types in R" />
-  
-  <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
-  
-
-<meta name="author" content="Your Name" />
-
-
-<meta name="date" content="2026-01-14" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="practical-example-statistical-summary-function.html"/>
-<link rel="next" href="for-loops.html"/>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  background-color: #f8f8f8; }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ef2929; } /* Alert */
-code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #204a87; } /* Attribute */
-code span.bn { color: #0000cf; } /* BaseN */
-code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4e9a06; } /* Char */
-code span.cn { color: #8f5902; } /* Constant */
-code span.co { color: #8f5902; font-style: italic; } /* Comment */
-code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
-code span.dt { color: #204a87; } /* DataType */
-code span.dv { color: #0000cf; } /* DecVal */
-code span.er { color: #a40000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #0000cf; } /* Float */
-code span.fu { color: #204a87; font-weight: bold; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
-code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
-code span.ot { color: #8f5902; } /* Other */
-code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
-code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
-code span.ss { color: #4e9a06; } /* SpecialString */
-code span.st { color: #4e9a06; } /* String */
-code span.va { color: #000000; } /* Variable */
-code span.vs { color: #4e9a06; } /* VerbatimString */
-code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-
-<link rel="stylesheet" href="style4.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>10 Loops and Iteration | Object Naming and Types in R</title>
+<meta name="author" content="Your Name">
+<meta name="description" content='10.1 For Loops For loops iterate over a sequence of values: # Basic for loop for (i in 1:5) {  print(paste("Iteration", i)) } ## [1] "Iteration 1" ## [1] "Iteration 2" ## [1] "Iteration 3" ## [1]...'>
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="10 Loops and Iteration | Object Naming and Types in R">
+<meta property="og:type" content="book">
+<meta property="og:description" content='10.1 For Loops For loops iterate over a sequence of values: # Basic for loop for (i in 1:5) {  print(paste("Iteration", i)) } ## [1] "Iteration 1" ## [1] "Iteration 2" ## [1] "Iteration 3" ## [1]...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10 Loops and Iteration | Object Naming and Types in R">
+<meta name="twitter:description" content='10.1 For Loops For loops iterate over a sequence of values: # Basic for loop for (i in 1:5) {  print(paste("Iteration", i)) } ## [1] "Iteration 1" ## [1] "Iteration 2" ## [1] "Iteration 3" ## [1]...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Object Naming and Types in R</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
 
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
 
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
-<li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
-<li class="chapter" data-level="2" data-path="data-analysis-with-r.html"><a href="data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Data Analysis with R</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r"><i class="fa fa-check"></i><b>2.1.1</b> Why use R?</a></li>
-<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-concepts-vocabulary-of-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key concepts (vocabulary of the course)</a></li>
-<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning resources</a></li>
-<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio interface</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html"><i class="fa fa-check"></i><b>2.2</b> Writing code: comments, structure and cleaning the environment</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#comments"><i class="fa fa-check"></i><b>2.2.1</b> Comments</a></li>
-<li class="chapter" data-level="2.2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#outlines-code-indexing"><i class="fa fa-check"></i><b>2.2.2</b> Outlines (code indexing)</a></li>
-<li class="chapter" data-level="2.2.3" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#cleaning-in-r-environment-vs-console"><i class="fa fa-check"></i><b>2.2.3</b> Cleaning in R: environment vs console</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html"><i class="fa fa-check"></i><b>2.3</b> Package installation, libraries and help</a>
-<ul>
-<li class="chapter" data-level="2.3.1" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#libraries"><i class="fa fa-check"></i><b>2.3.1</b> Libraries</a></li>
-<li class="chapter" data-level="2.3.2" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#help-function"><i class="fa fa-check"></i><b>2.3.2</b> Help function</a></li>
-<li class="chapter" data-level="2.3.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#useful-shortcuts"><i class="fa fa-check"></i><b>2.3.3</b> Useful <em>Shortcuts</em></a></li>
-</ul></li>
-<li class="chapter" data-level="2.4" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html"><i class="fa fa-check"></i><b>2.4</b> R Markdown - Reproducible research</a>
-<ul>
-<li class="chapter" data-level="2.4.1" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#what-can-r-markdown-produce"><i class="fa fa-check"></i><b>2.4.1</b> What can R Markdown produce?</a></li>
-<li class="chapter" data-level="2.4.2" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#when-is-r-markdown-especially-useful"><i class="fa fa-check"></i><b>2.4.2</b> When is R Markdown especially useful?</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>2.5</b> Basic concepts</a>
-<ul>
-<li class="chapter" data-level="2.5.1" data-path="basic-concepts.html"><a href="basic-concepts.html#markdown-.md"><i class="fa fa-check"></i><b>2.5.1</b> Markdown (<code>.md</code>)</a></li>
-<li class="chapter" data-level="2.5.2" data-path="basic-concepts.html"><a href="basic-concepts.html#r-markdown-.rmd"><i class="fa fa-check"></i><b>2.5.2</b> R Markdown (<code>.Rmd</code>)</a></li>
-<li class="chapter" data-level="2.5.3" data-path="basic-concepts.html"><a href="basic-concepts.html#knitr"><i class="fa fa-check"></i><b>2.5.3</b> knitr</a></li>
-<li class="chapter" data-level="2.5.4" data-path="basic-concepts.html"><a href="basic-concepts.html#pandoc"><i class="fa fa-check"></i><b>2.5.4</b> Pandoc</a></li>
-<li class="chapter" data-level="2.5.5" data-path="basic-concepts.html"><a href="basic-concepts.html#process-how-everything-works-together"><i class="fa fa-check"></i><b>2.5.5</b> Process (how everything works together)</a></li>
-<li class="chapter" data-level="2.5.6" data-path="basic-concepts.html"><a href="basic-concepts.html#your-first-r-markdown-file"><i class="fa fa-check"></i><b>2.5.6</b> Your first R Markdown file</a></li>
-<li class="chapter" data-level="2.5.7" data-path="basic-concepts.html"><a href="basic-concepts.html#working-directory-critical-detail"><i class="fa fa-check"></i><b>2.5.7</b> Working directory (critical detail)</a></li>
-<li class="chapter" data-level="2.5.8" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-an-r-markdown-file"><i class="fa fa-check"></i><b>2.5.8</b> Components of an R Markdown file</a></li>
-<li class="chapter" data-level="2.5.9" data-path="basic-concepts.html"><a href="basic-concepts.html#why-is-this-powerful"><i class="fa fa-check"></i><b>2.5.9</b> Why is this powerful?</a></li>
-<li class="chapter" data-level="2.5.10" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-r-markdown"><i class="fa fa-check"></i><b>2.5.10</b> Components of R Markdown</a></li>
-</ul></li>
-<li class="chapter" data-level="2.6" data-path="object-manipulation.html"><a href="object-manipulation.html"><i class="fa fa-check"></i><b>2.6</b> Object manipulation</a></li>
-<li class="chapter" data-level="2.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html"><i class="fa fa-check"></i><b>2.7</b> Understanding Assignments and Functions in R</a>
-<ul>
-<li class="chapter" data-level="2.7.1" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-vectors-and-arithmetic-functions"><i class="fa fa-check"></i><b>2.7.1</b> Working with Vectors and Arithmetic Functions</a></li>
-<li class="chapter" data-level="2.7.2" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#creating-relationships-between-objects"><i class="fa fa-check"></i><b>2.7.2</b> Creating Relationships Between Objects</a></li>
-<li class="chapter" data-level="2.7.3" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#the-silent-nature-of-assignments"><i class="fa fa-check"></i><b>2.7.3</b> The Silent Nature of Assignments</a></li>
-<li class="chapter" data-level="2.7.4" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#building-complex-objects-from-functions"><i class="fa fa-check"></i><b>2.7.4</b> Building Complex Objects from Functions</a></li>
-<li class="chapter" data-level="2.7.5" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-real-data-education-and-income-example"><i class="fa fa-check"></i><b>2.7.5</b> Working with Real Data: Education and Income Example</a></li>
-<li class="chapter" data-level="2.7.6" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#visualizing-the-relationship"><i class="fa fa-check"></i><b>2.7.6</b> Visualizing the Relationship</a></li>
-<li class="chapter" data-level="2.7.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#estimating-a-linear-regression-model"><i class="fa fa-check"></i><b>2.7.7</b> Estimating a Linear Regression Model</a></li>
-</ul></li>
-<li class="chapter" data-level="2.8" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html"><i class="fa fa-check"></i><b>2.8</b> Object Naming and Types</a>
-<ul>
-<li class="chapter" data-level="2.8.1" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#naming-objects"><i class="fa fa-check"></i><b>2.8.1</b> Naming Objects</a></li>
-<li class="chapter" data-level="2.8.2" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#types-of-objects"><i class="fa fa-check"></i><b>2.8.2</b> Types of Objects</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="arrays.html"><a href="arrays.html"><i class="fa fa-check"></i><b>3</b> Arrays</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="creating-arrays.html"><a href="creating-arrays.html"><i class="fa fa-check"></i><b>3.1</b> Creating Arrays</a></li>
-<li class="chapter" data-level="3.2" data-path="adding-dimension-names.html"><a href="adding-dimension-names.html"><i class="fa fa-check"></i><b>3.2</b> Adding Dimension Names</a></li>
-<li class="chapter" data-level="3.3" data-path="accessing-array-elements.html"><a href="accessing-array-elements.html"><i class="fa fa-check"></i><b>3.3</b> Accessing Array Elements</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="lists.html"><a href="lists.html"><i class="fa fa-check"></i><b>4</b> Lists</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="creating-lists.html"><a href="creating-lists.html"><i class="fa fa-check"></i><b>4.1</b> Creating Lists</a></li>
-<li class="chapter" data-level="4.2" data-path="accessing-list-components.html"><a href="accessing-list-components.html"><i class="fa fa-check"></i><b>4.2</b> Accessing List Components</a></li>
-<li class="chapter" data-level="4.3" data-path="adding-and-removing-list-elements.html"><a href="adding-and-removing-list-elements.html"><i class="fa fa-check"></i><b>4.3</b> Adding and Removing List Elements</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>5</b> Data Frames</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="creating-data-frames.html"><a href="creating-data-frames.html"><i class="fa fa-check"></i><b>5.1</b> Creating Data Frames</a></li>
-<li class="chapter" data-level="5.2" data-path="exploring-data-frame-structure.html"><a href="exploring-data-frame-structure.html"><i class="fa fa-check"></i><b>5.2</b> Exploring Data Frame Structure</a></li>
-<li class="chapter" data-level="5.3" data-path="subsetting-data-frames.html"><a href="subsetting-data-frames.html"><i class="fa fa-check"></i><b>5.3</b> Subsetting Data Frames</a></li>
-<li class="chapter" data-level="5.4" data-path="tibbles-modern-data-frames.html"><a href="tibbles-modern-data-frames.html"><i class="fa fa-check"></i><b>5.4</b> Tibbles: Modern Data Frames</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="data-types-and-type-checking.html"><a href="data-types-and-type-checking.html"><i class="fa fa-check"></i><b>6</b> Data Types and Type Checking</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="main-data-types.html"><a href="main-data-types.html"><i class="fa fa-check"></i><b>6.1</b> Main Data Types</a></li>
-<li class="chapter" data-level="6.2" data-path="type-checking-functions.html"><a href="type-checking-functions.html"><i class="fa fa-check"></i><b>6.2</b> Type Checking Functions</a></li>
-<li class="chapter" data-level="6.3" data-path="type-coercion.html"><a href="type-coercion.html"><i class="fa fa-check"></i><b>6.3</b> Type Coercion</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>7</b> Missing Values</a></li>
-<li class="chapter" data-level="8" data-path="conditional-statements.html"><a href="conditional-statements.html"><i class="fa fa-check"></i><b>8</b> Conditional Statements</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="if-else-statements.html"><a href="if-else-statements.html"><i class="fa fa-check"></i><b>8.1</b> If-Else Statements</a></li>
-<li class="chapter" data-level="8.2" data-path="vectorized-if-else-ifelse.html"><a href="vectorized-if-else-ifelse.html"><i class="fa fa-check"></i><b>8.2</b> Vectorized If-Else: ifelse()</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>9</b> Functions</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="creating-functions.html"><a href="creating-functions.html"><i class="fa fa-check"></i><b>9.1</b> Creating Functions</a></li>
-<li class="chapter" data-level="9.2" data-path="functions-with-multiple-arguments.html"><a href="functions-with-multiple-arguments.html"><i class="fa fa-check"></i><b>9.2</b> Functions with Multiple Arguments</a></li>
-<li class="chapter" data-level="9.3" data-path="practical-example-statistical-summary-function.html"><a href="practical-example-statistical-summary-function.html"><i class="fa fa-check"></i><b>9.3</b> Practical Example: Statistical Summary Function</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="loops-and-iteration.html"><a href="loops-and-iteration.html"><i class="fa fa-check"></i><b>10</b> Loops and Iteration</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="for-loops.html"><a href="for-loops.html"><i class="fa fa-check"></i><b>10.1</b> For Loops</a></li>
-<li class="chapter" data-level="10.2" data-path="while-loops.html"><a href="while-loops.html"><i class="fa fa-check"></i><b>10.2</b> While Loops</a></li>
-</ul></li>
-<li class="chapter" data-level="11" data-path="apply-family-functions.html"><a href="apply-family-functions.html"><i class="fa fa-check"></i><b>11</b> Apply Family Functions</a>
-<ul>
-<li class="chapter" data-level="11.1" data-path="lapply-apply-function-to-listvector.html"><a href="lapply-apply-function-to-listvector.html"><i class="fa fa-check"></i><b>11.1</b> lapply: Apply Function to List/Vector</a></li>
-<li class="chapter" data-level="11.2" data-path="sapply-simplified-apply.html"><a href="sapply-simplified-apply.html"><i class="fa fa-check"></i><b>11.2</b> sapply: Simplified Apply</a></li>
-<li class="chapter" data-level="11.3" data-path="vapply-type-safe-apply.html"><a href="vapply-type-safe-apply.html"><i class="fa fa-check"></i><b>11.3</b> vapply: Type-Safe Apply</a></li>
-<li class="chapter" data-level="11.4" data-path="comparison-and-best-practices.html"><a href="comparison-and-best-practices.html"><i class="fa fa-check"></i><b>11.4</b> Comparison and Best Practices</a></li>
-</ul></li>
-<li class="chapter" data-level="12" data-path="practical-applications.html"><a href="practical-applications.html"><i class="fa fa-check"></i><b>12</b> Practical Applications</a>
-<ul>
-<li class="chapter" data-level="12.1" data-path="example-1-data-cleaning-pipeline.html"><a href="example-1-data-cleaning-pipeline.html"><i class="fa fa-check"></i><b>12.1</b> Example 1: Data Cleaning Pipeline</a></li>
-<li class="chapter" data-level="12.2" data-path="example-2-simulation-study.html"><a href="example-2-simulation-study.html"><i class="fa fa-check"></i><b>12.2</b> Example 2: Simulation Study</a></li>
-</ul></li>
-<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary</a>
-<ul>
-<li class="chapter" data-level="13.1" data-path="key-takeaways.html"><a href="key-takeaways.html"><i class="fa fa-check"></i><b>13.1</b> Key Takeaways</a></li>
-<li class="chapter" data-level="13.2" data-path="further-learning.html"><a href="further-learning.html"><i class="fa fa-check"></i><b>13.2</b> Further Learning</a></li>
-</ul></li>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introducción</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="arrays.html"><span class="header-section-number">3</span> Arrays</a></li>
+<li><a class="" href="lists.html"><span class="header-section-number">4</span> Lists</a></li>
+<li><a class="" href="data-frames.html"><span class="header-section-number">5</span> Data Frames</a></li>
+<li><a class="" href="data-types-and-type-checking.html"><span class="header-section-number">6</span> Data Types and Type Checking</a></li>
+<li><a class="" href="missing-values.html"><span class="header-section-number">7</span> Missing Values</a></li>
+<li><a class="" href="conditional-statements.html"><span class="header-section-number">8</span> Conditional Statements</a></li>
+<li><a class="" href="functions.html"><span class="header-section-number">9</span> Functions</a></li>
+<li><a class="active" href="loops-and-iteration.html"><span class="header-section-number">10</span> Loops and Iteration</a></li>
+<li><a class="" href="apply-family-functions.html"><span class="header-section-number">11</span> Apply Family Functions</a></li>
+<li><a class="" href="practical-applications.html"><span class="header-section-number">12</span> Practical Applications</a></li>
+<li><a class="" href="summary.html"><span class="header-section-number">13</span> Summary</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression-with-intercept-ols-derivation-and-residual-properties.html"><span class="header-section-number">14</span> Tutorial 2: Simple Linear Regression (with Intercept): OLS Derivation and Residual Properties</a></li>
 </ul>
 
+        <div class="book-extra">
+          
+        </div>
       </nav>
-    </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Object Naming and Types in R</a>
-          </h1>
-        </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="loops-and-iteration" class="section level1 hasAnchor" number="10">
-<h1><span class="header-section-number">10</span> Loops and Iteration<a href="loops-and-iteration.html#loops-and-iteration" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 </div>
-            </section>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="loops-and-iteration" class="section level1" number="10">
+<h1>
+<span class="header-section-number">10</span> Loops and Iteration<a class="anchor" aria-label="anchor" href="#loops-and-iteration"><i class="fas fa-link"></i></a>
+</h1>
+<div id="for-loops" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> For Loops<a class="anchor" aria-label="anchor" href="#for-loops"><i class="fas fa-link"></i></a>
+</h2>
+<p>For loops iterate over a sequence of values:</p>
+<div class="sourceCode" id="cb298"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Basic for loop</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Iteration"</span>, <span class="va">i</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "Iteration 1"
+## [1] "Iteration 2"
+## [1] "Iteration 3"
+## [1] "Iteration 4"
+## [1] "Iteration 5"</code></pre>
+<div class="sourceCode" id="cb300"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Iterating over vector elements</span></span>
+<span><span class="va">fruits</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"apple"</span>, <span class="st">"banana"</span>, <span class="st">"cherry"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">fruit</span> <span class="kw">in</span> <span class="va">fruits</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"I like"</span>, <span class="va">fruit</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "I like apple"
+## [1] "I like banana"
+## [1] "I like cherry"</code></pre>
+<div class="sourceCode" id="cb302"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Building results in a loop</span></span>
+<span><span class="va">squares</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="fl">10</span><span class="op">)</span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">squares</span><span class="op">[</span><span class="va">i</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="va">i</span><span class="op">^</span><span class="fl">2</span></span>
+<span><span class="op">}</span></span>
+<span><span class="va">squares</span></span></code></pre></div>
+<pre><code>##  [1]   1   4   9  16  25  36  49  64  81 100</code></pre>
+</div>
+<div id="while-loops" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> While Loops<a class="anchor" aria-label="anchor" href="#while-loops"><i class="fas fa-link"></i></a>
+</h2>
+<p>While loops continue until a condition becomes FALSE:</p>
+<div class="sourceCode" id="cb304"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Basic while loop</span></span>
+<span><span class="va">counter</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span></span>
+<span><span class="kw">while</span> <span class="op">(</span><span class="va">counter</span> <span class="op">&lt;=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"Counter is"</span>, <span class="va">counter</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="va">counter</span> <span class="op">&lt;-</span> <span class="va">counter</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## [1] "Counter is 1"
+## [1] "Counter is 2"
+## [1] "Counter is 3"
+## [1] "Counter is 4"
+## [1] "Counter is 5"</code></pre>
+<div class="sourceCode" id="cb306"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Practical example: finding first value above threshold</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="kw">while</span> <span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="va">x</span> <span class="op">&lt;</span> <span class="fl">1000</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="fl">1</span></span>
+<span><span class="op">}</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"2^"</span>, <span class="va">x</span>, <span class="st">"="</span>, <span class="fl">2</span><span class="op">^</span><span class="va">x</span>, <span class="st">"is the first power of 2 above 1000"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "2^ 10 = 1024 is the first power of 2 above 1000"</code></pre>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="functions.html"><span class="header-section-number">9</span> Functions</a></div>
+<div class="next"><a href="apply-family-functions.html"><span class="header-section-number">11</span> Apply Family Functions</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#loops-and-iteration"><span class="header-section-number">10</span> Loops and Iteration</a></li>
+<li><a class="nav-link" href="#for-loops"><span class="header-section-number">10.1</span> For Loops</a></li>
+<li><a class="nav-link" href="#while-loops"><span class="header-section-number">10.2</span> While Loops</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="practical-example-statistical-summary-function.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="for-loops.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
-    </div>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Object Naming and Types in R</strong>" was written by Your Name. It was last built on 2026-01-21.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-  "sharing": {
-    "github": true,
-    "facebook": false,
-    "twitter": false,
-    "linkedin": false,
-    "weibo": false,
-    "instapaper": false,
-    "vk": false,
-    "whatsapp": false,
-    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-  },
-  "fontsettings": {
-    "theme": "white",
-    "family": "sans",
-    "size": 2
-  },
-  "edit": {
-    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/03-cursoR.Rmd",
-    "text": "Edit"
-  },
-  "history": {
-    "link": null,
-    "text": null
-  },
-  "view": {
-    "link": "https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/03-cursoR.Rmd",
-    "text": null
-  },
-  "download": null,
-  "search": {
-    "engine": "fuse",
-    "options": null
-  },
-  "toc": {
-    "collapse": "section",
-    "scroll_highlight": true
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
   }
-});
-});
+}
 </script>
-
 </body>
-
 </html>

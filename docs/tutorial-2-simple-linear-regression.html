@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>3 Tutorial 2: Simple linear Regression | Tutorial 2: Simple Linear Regression (with Intercept)</title>
+<meta name="author" content="">
+<meta name="description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 2: Simple Linear Regression (with Intercept)">
+<meta property="og:type" content="book">
+<meta property="og:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 2: Simple Linear Regression (with Intercept)">
+<meta name="twitter:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="OLS Derivation and Residual Properties">Tutorial 2: Simple Linear Regression (with Intercept)</a>:
+        <small class="text-muted">OLS Derivation and Residual Properties</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introducción</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="active" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-2-simple-linear-regression" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Tutorial 2: Simple linear Regression<a class="anchor" aria-label="anchor" href="#tutorial-2-simple-linear-regression"><i class="fas fa-link"></i></a>
+</h1>
+<div id="problem-1-simple-linear-regression-with-intercept" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Problem 1: Simple Linear Regression with Intercept<a class="anchor" aria-label="anchor" href="#problem-1-simple-linear-regression-with-intercept"><i class="fas fa-link"></i></a>
+</h2>
+<p>We study the <strong>simple linear regression with an intercept</strong>:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n
+\]</span></p>
+<p>with the regularity condition <span class="math inline">\(\sum_{i=1}^n (X_i - \bar{X})^2 &gt; 0\)</span> (i.e., not all <span class="math inline">\(X_i\)</span> are equal).</p>
+<p><strong>Sample means:</strong></p>
+<p><span class="math display">\[
+\bar{Y} = \frac{1}{n} \sum_{i=1}^n Y_i, \qquad \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
+\]</span></p>
+<p><strong>OLS objective:</strong> Minimize the sum of squared residuals:</p>
+<p><span class="math display">\[
+S(\beta_0, \beta_1) = \sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right)^2
+\]</span></p>
+<p><strong>Definitions:</strong></p>
+<ul>
+<li>
+<strong>Fitted values:</strong> <span class="math inline">\(\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i\)</span>
+</li>
+<li>
+<strong>Residuals:</strong> <span class="math inline">\(\hat{u}_i = Y_i - \hat{Y}_i\)</span>
+</li>
+</ul>
+<hr>
+<div id="derive-the-ols-normal-equations" class="section level3" number="3.1.1">
+<h3>
+<span class="header-section-number">3.1.1</span> Derive the OLS Normal Equations<a class="anchor" aria-label="anchor" href="#derive-the-ols-normal-equations"><i class="fas fa-link"></i></a>
+</h3>
+<p>Differentiate <span class="math inline">\(S(\beta_0, \beta_1)\)</span> with respect to <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> and set equal to zero.</p>
+<p>First-Order Condition for <span class="math inline">\(\beta_0\)</span>:</p>
+<p><span class="math display">\[
+\frac{\partial S}{\partial \beta_0} = -2 \sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+\]</span></p>
+<p>This simplifies to:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+\]</span></p>
+<p>Expanding:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n Y_i = n \beta_0 + \beta_1 \sum_{i=1}^n X_i
+\]</span></p>
+<p>Solving for <span class="math inline">\(\beta_0\)</span>:</p>
+<p><span class="math display">\[
+\boxed{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}}
+\]</span></p>
+<p>First-Order Condition for <span class="math inline">\(\beta_1\)</span>:</p>
+<p><span class="math display">\[
+\frac{\partial S}{\partial \beta_1} = -2 \sum_{i=1}^n X_i \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+\]</span></p>
+<p>This simplifies to:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n X_i \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+\]</span></p>
+<p>Derive the Slope in Centered Form:</p>
+<p>Substitute <span class="math inline">\(\beta_0 = \bar{Y} - \beta_1 \bar{X}\)</span> into the residual expression:</p>
+<p><span class="math display">\[
+Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X})
+\]</span></p>
+<p>Minimizing <span class="math inline">\(\sum_{i=1}^n \left[ (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X}) \right]^2\)</span> with respect to <span class="math inline">\(\beta_1\)</span> gives:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (X_i - \bar{X}) \left[ (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X}) \right] = 0
+\]</span></p>
+<p>Rearranging:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}) = \beta_1 \sum_{i=1}^n (X_i - \bar{X})^2
+\]</span></p>
+<p><strong>OLS Estimators:</strong></p>
+<p><span class="math display">\[
+\boxed{\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}}
+\]</span></p>
+<p><span class="math display">\[
+\boxed{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}}
+\]</span></p>
+</div>
+<div id="residual-orthogonality-properties" class="section level3" number="3.1.2">
+<h3>
+<span class="header-section-number">3.1.2</span> Residual Orthogonality Properties<a class="anchor" aria-label="anchor" href="#residual-orthogonality-properties"><i class="fas fa-link"></i></a>
+</h3>
+<p>These are the key properties that follow directly from the first-order conditions.</p>
+<div id="residuals-sum-to-zero" class="section level4" number="3.1.2.1">
+<h4>
+<span class="header-section-number">3.1.2.1</span> Residuals Sum to Zero<a class="anchor" aria-label="anchor" href="#residuals-sum-to-zero"><i class="fas fa-link"></i></a>
+</h4>
+<p>From the FOC for <span class="math inline">\(\beta_0\)</span> evaluated at <span class="math inline">\((\hat{\beta}_0, \hat{\beta}_1)\)</span>:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \left( Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i \right) = 0
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat{u}_i = 0}
+\]</span></p>
+</div>
+<div id="residuals-are-orthogonal-to-x" class="section level4" number="3.1.2.2">
+<h4>
+<span class="header-section-number">3.1.2.2</span> Residuals are Orthogonal to <span class="math inline">\(X\)</span><a class="anchor" aria-label="anchor" href="#residuals-are-orthogonal-to-x"><i class="fas fa-link"></i></a>
+</h4>
+<p>From the FOC for <span class="math inline">\(\beta_1\)</span> evaluated at <span class="math inline">\((\hat{\beta}_0, \hat{\beta}_1)\)</span>:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n X_i \left( Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i \right) = 0
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n X_i \hat{u}_i = 0}
+\]</span></p>
+</div>
+<div id="residuals-are-orthogonal-to-x_i---barx" class="section level4" number="3.1.2.3">
+<h4>
+<span class="header-section-number">3.1.2.3</span> Residuals are Orthogonal to <span class="math inline">\((X_i - \bar{X})\)</span><a class="anchor" aria-label="anchor" href="#residuals-are-orthogonal-to-x_i---barx"><i class="fas fa-link"></i></a>
+</h4>
+<p>Using the result <span class="math inline">\(\sum_{i=1}^n \hat{u}_i = 0\)</span>:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = \sum_{i=1}^n X_i \hat{u}_i - \bar{X} \sum_{i=1}^n \hat{u}_i = 0 - \bar{X} \cdot 0 = 0
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0}
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="properties-of-fitted-values" class="section level3" number="3.1.3">
+<h3>
+<span class="header-section-number">3.1.3</span> Properties of Fitted Values<a class="anchor" aria-label="anchor" href="#properties-of-fitted-values"><i class="fas fa-link"></i></a>
+</h3>
+<div id="the-regression-line-passes-through-barx-bary" class="section level4" number="3.1.3.1">
+<h4>
+<span class="header-section-number">3.1.3.1</span> The Regression Line Passes Through <span class="math inline">\((\bar{X}, \bar{Y})\)</span><a class="anchor" aria-label="anchor" href="#the-regression-line-passes-through-barx-bary"><i class="fas fa-link"></i></a>
+</h4>
+<p>Taking the average of fitted values:</p>
+<p><span class="math display">\[
+\overline{\hat{Y}} = \frac{1}{n} \sum_{i=1}^n \hat{Y}_i = \frac{1}{n} \sum_{i=1}^n (\hat{\beta}_0 + \hat{\beta}_1 X_i) = \hat{\beta}_0 + \hat{\beta}_1 \bar{X}
+\]</span></p>
+<p>Since <span class="math inline">\(\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}\)</span>:</p>
+<p><span class="math display">\[
+\overline{\hat{Y}} = (\bar{Y} - \hat{\beta}_1 \bar{X}) + \hat{\beta}_1 \bar{X} = \bar{Y}
+\]</span></p>
+<p>Equivalently, at <span class="math inline">\(X = \bar{X}\)</span>:</p>
+<p><span class="math display">\[
+\hat{Y}(\bar{X}) = \hat{\beta}_0 + \hat{\beta}_1 \bar{X} = \bar{Y}
+\]</span></p>
+<p><strong>Conclusion:</strong> The OLS fitted line passes through the point <span class="math inline">\((\bar{X}, \bar{Y})\)</span>.</p>
+</div>
+<div id="mean-residual-is-zero" class="section level4" number="3.1.3.2">
+<h4>
+<span class="header-section-number">3.1.3.2</span> Mean Residual is Zero<a class="anchor" aria-label="anchor" href="#mean-residual-is-zero"><i class="fas fa-link"></i></a>
+</h4>
+<p>Since <span class="math inline">\(\sum_{i=1}^n \hat{u}_i = 0\)</span>:</p>
+<p><span class="math display">\[
+\boxed{\bar{\hat{u}} = \frac{1}{n} \sum_{i=1}^n \hat{u}_i = 0}
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="decomposition-of-variation-tss-ess-rss" class="section level3" number="3.1.4">
+<h3>
+<span class="header-section-number">3.1.4</span> Decomposition of Variation (TSS = ESS + RSS)<a class="anchor" aria-label="anchor" href="#decomposition-of-variation-tss-ess-rss"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Definitions:</strong></p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="40%">
+<col width="24%">
+<col width="36%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Quantity</th>
+<th align="left">Name</th>
+<th align="left">Formula</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">TSS</td>
+<td align="left">Total Sum of Squares</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n (Y_i - \bar{Y})^2\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">ESS</td>
+<td align="left">Explained Sum of Squares</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">RSS</td>
+<td align="left">Residual Sum of Squares</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n \hat{u}_i^2\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<div id="decomposition" class="section level4" number="3.1.4.1">
+<h4>
+<span class="header-section-number">3.1.4.1</span> Decomposition<a class="anchor" aria-label="anchor" href="#decomposition"><i class="fas fa-link"></i></a>
+</h4>
+<p>Start from:</p>
+<p><span class="math display">\[
+Y_i - \bar{Y} = (\hat{Y}_i - \bar{Y}) + (Y_i - \hat{Y}_i) = (\hat{Y}_i - \bar{Y}) + \hat{u}_i
+\]</span></p>
+<p>Square both sides and sum:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (Y_i - \bar{Y})^2 = \sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2 + \sum_{i=1}^n \hat{u}_i^2 + 2 \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{u}_i
+\]</span></p>
+</div>
+<div id="the-cross-term-vanishes" class="section level4" number="3.1.4.2">
+<h4>
+<span class="header-section-number">3.1.4.2</span> The Cross-Term Vanishes<a class="anchor" aria-label="anchor" href="#the-cross-term-vanishes"><i class="fas fa-link"></i></a>
+</h4>
+<p>Note that:</p>
+<p><span class="math display">\[
+\hat{Y}_i - \bar{Y} = (\hat{\beta}_0 + \hat{\beta}_1 X_i) - \bar{Y} = (\bar{Y} - \hat{\beta}_1 \bar{X} + \hat{\beta}_1 X_i) - \bar{Y} = \hat{\beta}_1 (X_i - \bar{X})
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{u}_i = \hat{\beta}_1 \sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = \hat{\beta}_1 \cdot 0 = 0
+\]</span></p>
+</div>
+<div id="result" class="section level4" number="3.1.4.3">
+<h4>
+<span class="header-section-number">3.1.4.3</span> Result<a class="anchor" aria-label="anchor" href="#result"><i class="fas fa-link"></i></a>
+</h4>
+<p><span class="math display">\[
+\boxed{\text{TSS} = \text{ESS} + \text{RSS}}
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="sample-covariance-implications" class="section level3" number="3.1.5">
+<h3>
+<span class="header-section-number">3.1.5</span> Sample Covariance Implications<a class="anchor" aria-label="anchor" href="#sample-covariance-implications"><i class="fas fa-link"></i></a>
+</h3>
+<div id="sample-covariance-between-x-and-hatu-is-zero" class="section level4" number="3.1.5.1">
+<h4>
+<span class="header-section-number">3.1.5.1</span> Sample Covariance Between <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat{u}\)</span> is Zero<a class="anchor" aria-label="anchor" href="#sample-covariance-between-x-and-hatu-is-zero"><i class="fas fa-link"></i></a>
+</h4>
+<p>Since <span class="math inline">\(\sum_{i=1}^n \hat{u}_i = 0\)</span>, the sample covariance between <span class="math inline">\(X\)</span> and <span class="math inline">\(\hat{u}\)</span> is proportional to:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{\widehat{\text{Cov}}(X, \hat{u}) = 0}
+\]</span></p>
+</div>
+</div>
+<div id="fitted-values-are-orthogonal-to-residuals" class="section level3" number="3.1.6">
+<h3>
+<span class="header-section-number">3.1.6</span> Fitted Values are Orthogonal to Residuals<a class="anchor" aria-label="anchor" href="#fitted-values-are-orthogonal-to-residuals"><i class="fas fa-link"></i></a>
+</h3>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat{Y}_i \hat{u}_i = \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{u}_i + \bar{Y} \sum_{i=1}^n \hat{u}_i = 0 + \bar{Y} \cdot 0 = 0
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0}
+\]</span></p>
+<hr>
+</div>
+<div id="summary-of-key-results" class="section level3" number="3.1.7">
+<h3>
+<span class="header-section-number">3.1.7</span> Summary of Key Results<a class="anchor" aria-label="anchor" href="#summary-of-key-results"><i class="fas fa-link"></i></a>
+</h3>
+<div id="ols-estimators" class="section level4" number="3.1.7.1">
+<h4>
+<span class="header-section-number">3.1.7.1</span> OLS Estimators<a class="anchor" aria-label="anchor" href="#ols-estimators"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="55%">
+<col width="45%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Estimator</th>
+<th align="left">Formula</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Slope</td>
+<td align="left"><span class="math inline">\(\hat{\beta}_1 = \dfrac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Intercept</td>
+<td align="left"><span class="math inline">\(\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}\)</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="residual-properties" class="section level4" number="3.1.7.2">
+<h4>
+<span class="header-section-number">3.1.7.2</span> Residual Properties<a class="anchor" aria-label="anchor" href="#residual-properties"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="55%">
+<col width="44%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Property</th>
+<th align="left">Result</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Residuals sum to zero</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n \hat{u}_i = 0\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Residuals orthogonal to <span class="math inline">\(X\)</span>
+</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n X_i \hat{u}_i = 0\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Residuals orthogonal to centered <span class="math inline">\(X\)</span>
+</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Mean residual is zero</td>
+<td align="left"><span class="math inline">\(\bar{\hat{u}} = 0\)</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<div id="additional-properties" class="section level4" number="3.1.7.3">
+<h4>
+<span class="header-section-number">3.1.7.3</span> Additional Properties<a class="anchor" aria-label="anchor" href="#additional-properties"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="55%">
+<col width="44%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Property</th>
+<th align="left">Result</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Regression line passes through</td>
+<td align="left"><span class="math inline">\((\bar{X}, \bar{Y})\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Variance decomposition</td>
+<td align="left">TSS = ESS + RSS</td>
+</tr>
+<tr class="odd">
+<td align="left">Sample covariance</td>
+<td align="left"><span class="math inline">\(\widehat{\text{Cov}}(X, \hat{u}) = 0\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Fitted values orthogonal to residuals</td>
+<td align="left"><span class="math inline">\(\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0\)</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+</div>
+<div id="problem-2-wooldridge-computer-exercise-c1-401k-participation-and-match-rate" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> Problem 2: Wooldridge Computer Exercise C1 (401K): Participation and Match Rate<a class="anchor" aria-label="anchor" href="#problem-2-wooldridge-computer-exercise-c1-401k-participation-and-match-rate"><i class="fas fa-link"></i></a>
+</h2>
+<div id="overview" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> Overview<a class="anchor" aria-label="anchor" href="#overview"><i class="fas fa-link"></i></a>
+</h3>
+<p>This notebook reproduces <strong>Wooldridge, Computer Exercise C1 (401K)</strong>. <strong>Goal.</strong> Use plan-level data to study whether a more generous employer match rate is associated with higher 401(k) participation.</p>
+<ul>
+<li>Outcome: <code>prate</code> = percentage of eligible workers with an active 401(k) account.</li>
+<li>Regressor: <code>mrate</code> = match rate (average firm contribution per $1 worker contribution).</li>
+</ul>
+<p>We estimate the simple linear regression:
+<span class="math display">\[
+prate = \beta_0 + \beta_1 \, mrate + u.
+\]</span></p>
+</div>
+<div id="load-packages-and-data" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> Load packages and data<a class="anchor" aria-label="anchor" href="#load-packages-and-data"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># If you do not have the package installed, uncomment the next line:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"wooldridge"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## The following package(s) will be installed:
+## - wooldridge [1.4-4]
+## These packages will be installed into "~/Library/CloudStorage/Dropbox/Nicolas/Cursos/01 Libro - análisis de datos/renv/library/R-4.2/aarch64-apple-darwin20".
+## 
+## 
+## # Installing packages --------------------------------------------------------
+## - Installing wooldridge ...                     OK [linked from cache]
+## Successfully installed 1 package in 14 milliseconds.</code></pre>
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Load the dataset used in this exercise.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"k401k"</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">k401k</span></span>
+<span></span>
+<span><span class="co"># Quick check: dimensions and variable names</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] 1534    8</code></pre>
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "prate"   "mrate"   "totpart" "totelg"  "age"     "totemp"  "sole"    "ltotemp"</code></pre>
+</div>
+<div id="i-compute-the-sample-averages-of-participation-and-match-rates" class="section level3" number="3.2.3">
+<h3>
+<span class="header-section-number">3.2.3</span> (i) Compute the sample averages of participation and match rates<a class="anchor" aria-label="anchor" href="#i-compute-the-sample-averages-of-participation-and-match-rates"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># In this dataset:</span></span>
+<span><span class="co"># - prate is the plan participation rate (in percentage points)</span></span>
+<span><span class="co"># - mrate is the match rate</span></span>
+<span></span>
+<span><span class="va">mean_prate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">prate</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">mean_mrate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">mean_prate</span></span></code></pre></div>
+<pre><code>## [1] 87.36291</code></pre>
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_mrate</span></span></code></pre></div>
+<pre><code>## [1] 0.7315124</code></pre>
+<p><strong>Interpretation.</strong>
+- <code>mean_prate</code> is the average percentage of eligible workers participating across plans.
+- <code>mean_mrate</code> is the average employer match rate across plans.</p>
+</div>
+<div id="ii-estimate-the-simple-regression-prate-on-mrate" class="section level3" number="3.2.4">
+<h3>
+<span class="header-section-number">3.2.4</span> (ii) Estimate the simple regression: prate on mrate<a class="anchor" aria-label="anchor" href="#ii-estimate-the-simple-regression-prate-on-mrate"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Estimate the simple OLS regression model</span></span>
+<span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">prate</span> <span class="op">~</span> <span class="va">mrate</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Summary includes coefficient estimates, standard errors, t-stats, and R^2</span></span>
+<span><span class="va">s1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span>
+<span><span class="va">s1</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prate ~ mrate, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -82.303  -8.184   5.178  12.712  16.807 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  83.0755     0.5633  147.48   &lt;2e-16 ***
+## mrate         5.8611     0.5270   11.12   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 16.09 on 1532 degrees of freedom
+## Multiple R-squared:  0.0747, Adjusted R-squared:  0.0741 
+## F-statistic: 123.7 on 1 and 1532 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Report the sample size used by the regression (after dropping any missing values)</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nobs.html">nobs</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Extract R-squared (fraction of sample variation in prate explained by mrate)</span></span>
+<span><span class="va">r2</span> <span class="op">&lt;-</span> <span class="va">s1</span><span class="op">$</span><span class="va">r.squared</span></span>
+<span></span>
+<span><span class="va">n</span></span></code></pre></div>
+<pre><code>## [1] 1534</code></pre>
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r2</span></span></code></pre></div>
+<pre><code>## [1] 0.0747031</code></pre>
+</div>
+<div id="iii-interpret-the-intercept-and-the-slope" class="section level3" number="3.2.5">
+<h3>
+<span class="header-section-number">3.2.5</span> (iii) Interpret the intercept and the slope<a class="anchor" aria-label="anchor" href="#iii-interpret-the-intercept-and-the-slope"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Extract coefficients</span></span>
+<span><span class="va">b0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>  <span class="co"># intercept</span></span>
+<span><span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>  <span class="co"># slope on mrate</span></span>
+<span></span>
+<span><span class="va">b0</span></span></code></pre></div>
+<pre><code>## (Intercept) 
+##    83.07546</code></pre>
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">b1</span></span></code></pre></div>
+<pre><code>##    mrate 
+## 5.861079</code></pre>
+<p><strong>How to read these coefficients (economic meaning).</strong></p>
+<ul>
+<li>
+<strong>Intercept (<span class="math inline">\(\hat\beta_0\)</span>)</strong>: Predicted participation rate when <code>mrate = 0</code>.
+<ul>
+<li>This is the fitted <code>prate</code> for a plan with <strong>no employer match</strong>.</li>
+<li>Note: Interpretation is most meaningful if <code>mrate = 0</code> is in (or near) the support of the data.</li>
+</ul>
+</li>
+<li>
+<strong>Slope (<span class="math inline">\(\hat\beta_1\)</span>)</strong>: Predicted change in participation (in percentage points) for a <strong>one-unit</strong> increase in <code>mrate</code>.
+<ul>
+<li>Since <code>mrate</code> measures how many dollars the firm contributes per $1 the worker contributes,
+a one-unit change is economically large (e.g., from 0.5 to 1.5).</li>
+<li>Practically, you may also interpret smaller changes:
+a 0.10 increase in <code>mrate</code> changes predicted participation by <span class="math inline">\(0.10 \times \hat\beta_1\)</span>.</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Example: predicted change in prate for a 0.10 increase in mrate</span></span>
+<span><span class="va">delta_mrate</span> <span class="op">&lt;-</span> <span class="fl">0.10</span></span>
+<span><span class="va">pred_change_prate</span> <span class="op">&lt;-</span> <span class="va">delta_mrate</span> <span class="op">*</span> <span class="va">b1</span></span>
+<span><span class="va">pred_change_prate</span></span></code></pre></div>
+<pre><code>##     mrate 
+## 0.5861079</code></pre>
+</div>
+<div id="iv-predicted-participation-when-mrate-3.5.-is-it-reasonable" class="section level3" number="3.2.6">
+<h3>
+<span class="header-section-number">3.2.6</span> (iv) Predicted participation when mrate = 3.5. Is it reasonable?<a class="anchor" aria-label="anchor" href="#iv-predicted-participation-when-mrate-3.5.-is-it-reasonable"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Prediction at mrate = 3.5</span></span>
+<span><span class="va">pred_35</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m1</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">pred_35</span></span></code></pre></div>
+<pre><code>##        1 
+## 103.5892</code></pre>
+<p>To assess whether this prediction is reasonable, check whether <code>mrate = 3.5</code> lies within the <strong>observed range</strong> of the data.<br>
+Predictions far outside the support of <code>mrate</code> are <strong>extrapolations</strong>, which can be unreliable.</p>
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Range of mrate in the sample</span></span>
+<span><span class="va">range_mrate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">range_mrate</span></span></code></pre></div>
+<pre><code>## [1] 0.01 4.91</code></pre>
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Also helpful: a few quantiles to understand typical values</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">.25</span>, <span class="fl">.5</span>, <span class="fl">.75</span>, <span class="fl">.95</span>, <span class="fl">1</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##     0%     5%    25%    50%    75%    95%   100% 
+## 0.0100 0.1100 0.3000 0.4600 0.8300 2.3635 4.9100</code></pre>
+<p><strong>Discussion prompt (what is happening if it looks unreasonable):</strong>
+- If 3.5 is much larger than typical match rates in the data, then the fitted value is based on
+extending a linear trend beyond where you have information.
+- In addition, <code>prate</code> is a percentage and should generally lie between 0 and 100; a linear model can
+produce fitted values outside this range, especially under extrapolation.</p>
+</div>
+<div id="v-how-much-of-the-variation-in-prate-is-explained-by-mrate" class="section level3" number="3.2.7">
+<h3>
+<span class="header-section-number">3.2.7</span> (v) How much of the variation in prate is explained by mrate?<a class="anchor" aria-label="anchor" href="#v-how-much-of-the-variation-in-prate-is-explained-by-mrate"><i class="fas fa-link"></i></a>
+</h3>
+<p>The share of variation in <code>prate</code> explained by <code>mrate</code> in this simple model is the <strong>R-squared</strong>:</p>
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">r2</span></span></code></pre></div>
+<pre><code>## [1] 0.0747031</code></pre>
+<p><strong>Interpretation.</strong>
+- <span class="math inline">\(R^2\)</span> is the fraction of sample variation in participation that is accounted for by variation in the match rate.
+- Whether it is “a lot” depends on context; in cross-sectional data, modest <span class="math inline">\(R^2\)</span> values are common.</p>
+</div>
+<div id="optional-quick-plot" class="section level3" number="3.2.8">
+<h3>
+<span class="header-section-number">3.2.8</span> Optional: quick plot<a class="anchor" aria-label="anchor" href="#optional-quick-plot"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># A simple scatter plot with the fitted regression line.</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, <span class="va">df</span><span class="op">$</span><span class="va">prate</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"Match rate (mrate)"</span>,</span>
+<span>     ylab <span class="op">=</span> <span class="st">"Participation rate (prate)"</span>,</span>
+<span>     main <span class="op">=</span> <span class="st">"401(k) Participation vs Match Rate"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span><span class="va">m1</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" alt="" width="672"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutorial-2-simple-linear-regression"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li>
+<a class="nav-link" href="#problem-1-simple-linear-regression-with-intercept"><span class="header-section-number">3.1</span> Problem 1: Simple Linear Regression with Intercept</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#derive-the-ols-normal-equations"><span class="header-section-number">3.1.1</span> Derive the OLS Normal Equations</a></li>
+<li><a class="nav-link" href="#residual-orthogonality-properties"><span class="header-section-number">3.1.2</span> Residual Orthogonality Properties</a></li>
+<li><a class="nav-link" href="#properties-of-fitted-values"><span class="header-section-number">3.1.3</span> Properties of Fitted Values</a></li>
+<li><a class="nav-link" href="#decomposition-of-variation-tss-ess-rss"><span class="header-section-number">3.1.4</span> Decomposition of Variation (TSS = ESS + RSS)</a></li>
+<li><a class="nav-link" href="#sample-covariance-implications"><span class="header-section-number">3.1.5</span> Sample Covariance Implications</a></li>
+<li><a class="nav-link" href="#fitted-values-are-orthogonal-to-residuals"><span class="header-section-number">3.1.6</span> Fitted Values are Orthogonal to Residuals</a></li>
+<li><a class="nav-link" href="#summary-of-key-results"><span class="header-section-number">3.1.7</span> Summary of Key Results</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#problem-2-wooldridge-computer-exercise-c1-401k-participation-and-match-rate"><span class="header-section-number">3.2</span> Problem 2: Wooldridge Computer Exercise C1 (401K): Participation and Match Rate</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#overview"><span class="header-section-number">3.2.1</span> Overview</a></li>
+<li><a class="nav-link" href="#load-packages-and-data"><span class="header-section-number">3.2.2</span> Load packages and data</a></li>
+<li><a class="nav-link" href="#i-compute-the-sample-averages-of-participation-and-match-rates"><span class="header-section-number">3.2.3</span> (i) Compute the sample averages of participation and match rates</a></li>
+<li><a class="nav-link" href="#ii-estimate-the-simple-regression-prate-on-mrate"><span class="header-section-number">3.2.4</span> (ii) Estimate the simple regression: prate on mrate</a></li>
+<li><a class="nav-link" href="#iii-interpret-the-intercept-and-the-slope"><span class="header-section-number">3.2.5</span> (iii) Interpret the intercept and the slope</a></li>
+<li><a class="nav-link" href="#iv-predicted-participation-when-mrate-3.5.-is-it-reasonable"><span class="header-section-number">3.2.6</span> (iv) Predicted participation when mrate = 3.5. Is it reasonable?</a></li>
+<li><a class="nav-link" href="#v-how-much-of-the-variation-in-prate-is-explained-by-mrate"><span class="header-section-number">3.2.7</span> (v) How much of the variation in prate is explained by mrate?</a></li>
+<li><a class="nav-link" href="#optional-quick-plot"><span class="header-section-number">3.2.8</span> Optional: quick plot</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 2: Simple Linear Regression (with Intercept)</strong>: OLS Derivation and Residual Properties" was written by . </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

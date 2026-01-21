@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>14.2 Step 1: Derive the OLS normal equations | Object Naming and Types in R</title>
+  <meta name="description" content="Exercises and concepts for introduction econometrics" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="14.2 Step 1: Derive the OLS normal equations | Object Naming and Types in R" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="Exercises and concepts for introduction econometrics" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="14.2 Step 1: Derive the OLS normal equations | Object Naming and Types in R" />
+  
+  <meta name="twitter:description" content="Exercises and concepts for introduction econometrics" />
+  
+
+<meta name="author" content="Your Name" />
+
+
+<meta name="date" content="2026-01-21" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="setup.html"/>
+<link rel="next" href="step-2-derive-the-slope-in-centered-form.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style4.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="tutorial-1-data-analysis-with-r.html"><a href="tutorial-1-data-analysis-with-r.html"><i class="fa fa-check"></i><b>2</b> Tutorial 1: Data Analysis with R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html"><i class="fa fa-check"></i><b>2.1</b> Introduction to R and RStudio</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#why-use-r"><i class="fa fa-check"></i><b>2.1.1</b> Why use R?</a></li>
+<li class="chapter" data-level="2.1.2" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#key-concepts-vocabulary-of-the-course"><i class="fa fa-check"></i><b>2.1.2</b> Key concepts (vocabulary of the course)</a></li>
+<li class="chapter" data-level="2.1.3" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#learning-resources"><i class="fa fa-check"></i><b>2.1.3</b> Learning resources</a></li>
+<li class="chapter" data-level="2.1.4" data-path="introduction-to-r-and-rstudio.html"><a href="introduction-to-r-and-rstudio.html#rstudio-interface"><i class="fa fa-check"></i><b>2.1.4</b> RStudio interface</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html"><i class="fa fa-check"></i><b>2.2</b> Writing code: comments, structure and cleaning the environment</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#comments"><i class="fa fa-check"></i><b>2.2.1</b> Comments</a></li>
+<li class="chapter" data-level="2.2.2" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#outlines-code-indexing"><i class="fa fa-check"></i><b>2.2.2</b> Outlines (code indexing)</a></li>
+<li class="chapter" data-level="2.2.3" data-path="writing-code-comments-structure-and-cleaning-the-environment.html"><a href="writing-code-comments-structure-and-cleaning-the-environment.html#cleaning-in-r-environment-vs-console"><i class="fa fa-check"></i><b>2.2.3</b> Cleaning in R: environment vs console</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html"><i class="fa fa-check"></i><b>2.3</b> Package installation, libraries and help</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#libraries"><i class="fa fa-check"></i><b>2.3.1</b> Libraries</a></li>
+<li class="chapter" data-level="2.3.2" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#help-function"><i class="fa fa-check"></i><b>2.3.2</b> Help function</a></li>
+<li class="chapter" data-level="2.3.3" data-path="package-installation-libraries-and-help.html"><a href="package-installation-libraries-and-help.html#useful-shortcuts"><i class="fa fa-check"></i><b>2.3.3</b> Useful <em>Shortcuts</em></a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html"><i class="fa fa-check"></i><b>2.4</b> R Markdown - Reproducible research</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#what-can-r-markdown-produce"><i class="fa fa-check"></i><b>2.4.1</b> What can R Markdown produce?</a></li>
+<li class="chapter" data-level="2.4.2" data-path="r-markdown---reproducible-research.html"><a href="r-markdown---reproducible-research.html#when-is-r-markdown-especially-useful"><i class="fa fa-check"></i><b>2.4.2</b> When is R Markdown especially useful?</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="basic-concepts.html"><a href="basic-concepts.html"><i class="fa fa-check"></i><b>2.5</b> Basic concepts</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="basic-concepts.html"><a href="basic-concepts.html#markdown-.md"><i class="fa fa-check"></i><b>2.5.1</b> Markdown (<code>.md</code>)</a></li>
+<li class="chapter" data-level="2.5.2" data-path="basic-concepts.html"><a href="basic-concepts.html#r-markdown-.rmd"><i class="fa fa-check"></i><b>2.5.2</b> R Markdown (<code>.Rmd</code>)</a></li>
+<li class="chapter" data-level="2.5.3" data-path="basic-concepts.html"><a href="basic-concepts.html#knitr"><i class="fa fa-check"></i><b>2.5.3</b> knitr</a></li>
+<li class="chapter" data-level="2.5.4" data-path="basic-concepts.html"><a href="basic-concepts.html#pandoc"><i class="fa fa-check"></i><b>2.5.4</b> Pandoc</a></li>
+<li class="chapter" data-level="2.5.5" data-path="basic-concepts.html"><a href="basic-concepts.html#process-how-everything-works-together"><i class="fa fa-check"></i><b>2.5.5</b> Process (how everything works together)</a></li>
+<li class="chapter" data-level="2.5.6" data-path="basic-concepts.html"><a href="basic-concepts.html#your-first-r-markdown-file"><i class="fa fa-check"></i><b>2.5.6</b> Your first R Markdown file</a></li>
+<li class="chapter" data-level="2.5.7" data-path="basic-concepts.html"><a href="basic-concepts.html#working-directory-critical-detail"><i class="fa fa-check"></i><b>2.5.7</b> Working directory (critical detail)</a></li>
+<li class="chapter" data-level="2.5.8" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-an-r-markdown-file"><i class="fa fa-check"></i><b>2.5.8</b> Components of an R Markdown file</a></li>
+<li class="chapter" data-level="2.5.9" data-path="basic-concepts.html"><a href="basic-concepts.html#why-is-this-powerful"><i class="fa fa-check"></i><b>2.5.9</b> Why is this powerful?</a></li>
+<li class="chapter" data-level="2.5.10" data-path="basic-concepts.html"><a href="basic-concepts.html#components-of-r-markdown"><i class="fa fa-check"></i><b>2.5.10</b> Components of R Markdown</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="object-manipulation.html"><a href="object-manipulation.html"><i class="fa fa-check"></i><b>2.6</b> Object manipulation</a></li>
+<li class="chapter" data-level="2.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html"><i class="fa fa-check"></i><b>2.7</b> Understanding Assignments and Functions in R</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-vectors-and-arithmetic-functions"><i class="fa fa-check"></i><b>2.7.1</b> Working with Vectors and Arithmetic Functions</a></li>
+<li class="chapter" data-level="2.7.2" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#creating-relationships-between-objects"><i class="fa fa-check"></i><b>2.7.2</b> Creating Relationships Between Objects</a></li>
+<li class="chapter" data-level="2.7.3" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#the-silent-nature-of-assignments"><i class="fa fa-check"></i><b>2.7.3</b> The Silent Nature of Assignments</a></li>
+<li class="chapter" data-level="2.7.4" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#building-complex-objects-from-functions"><i class="fa fa-check"></i><b>2.7.4</b> Building Complex Objects from Functions</a></li>
+<li class="chapter" data-level="2.7.5" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#working-with-real-data-education-and-income-example"><i class="fa fa-check"></i><b>2.7.5</b> Working with Real Data: Education and Income Example</a></li>
+<li class="chapter" data-level="2.7.6" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#visualizing-the-relationship"><i class="fa fa-check"></i><b>2.7.6</b> Visualizing the Relationship</a></li>
+<li class="chapter" data-level="2.7.7" data-path="understanding-assignments-and-functions-in-r.html"><a href="understanding-assignments-and-functions-in-r.html#estimating-a-linear-regression-model"><i class="fa fa-check"></i><b>2.7.7</b> Estimating a Linear Regression Model</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html"><i class="fa fa-check"></i><b>2.8</b> Object Naming and Types</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#naming-objects"><i class="fa fa-check"></i><b>2.8.1</b> Naming Objects</a></li>
+<li class="chapter" data-level="2.8.2" data-path="object-naming-and-types.html"><a href="object-naming-and-types.html#types-of-objects"><i class="fa fa-check"></i><b>2.8.2</b> Types of Objects</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="arrays.html"><a href="arrays.html"><i class="fa fa-check"></i><b>3</b> Arrays</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="creating-arrays.html"><a href="creating-arrays.html"><i class="fa fa-check"></i><b>3.1</b> Creating Arrays</a></li>
+<li class="chapter" data-level="3.2" data-path="adding-dimension-names.html"><a href="adding-dimension-names.html"><i class="fa fa-check"></i><b>3.2</b> Adding Dimension Names</a></li>
+<li class="chapter" data-level="3.3" data-path="accessing-array-elements.html"><a href="accessing-array-elements.html"><i class="fa fa-check"></i><b>3.3</b> Accessing Array Elements</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="lists.html"><a href="lists.html"><i class="fa fa-check"></i><b>4</b> Lists</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="creating-lists.html"><a href="creating-lists.html"><i class="fa fa-check"></i><b>4.1</b> Creating Lists</a></li>
+<li class="chapter" data-level="4.2" data-path="accessing-list-components.html"><a href="accessing-list-components.html"><i class="fa fa-check"></i><b>4.2</b> Accessing List Components</a></li>
+<li class="chapter" data-level="4.3" data-path="adding-and-removing-list-elements.html"><a href="adding-and-removing-list-elements.html"><i class="fa fa-check"></i><b>4.3</b> Adding and Removing List Elements</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames.html"><a href="data-frames.html"><i class="fa fa-check"></i><b>5</b> Data Frames</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="creating-data-frames.html"><a href="creating-data-frames.html"><i class="fa fa-check"></i><b>5.1</b> Creating Data Frames</a></li>
+<li class="chapter" data-level="5.2" data-path="exploring-data-frame-structure.html"><a href="exploring-data-frame-structure.html"><i class="fa fa-check"></i><b>5.2</b> Exploring Data Frame Structure</a></li>
+<li class="chapter" data-level="5.3" data-path="subsetting-data-frames.html"><a href="subsetting-data-frames.html"><i class="fa fa-check"></i><b>5.3</b> Subsetting Data Frames</a></li>
+<li class="chapter" data-level="5.4" data-path="tibbles-modern-data-frames.html"><a href="tibbles-modern-data-frames.html"><i class="fa fa-check"></i><b>5.4</b> Tibbles: Modern Data Frames</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="data-types-and-type-checking.html"><a href="data-types-and-type-checking.html"><i class="fa fa-check"></i><b>6</b> Data Types and Type Checking</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="main-data-types.html"><a href="main-data-types.html"><i class="fa fa-check"></i><b>6.1</b> Main Data Types</a></li>
+<li class="chapter" data-level="6.2" data-path="type-checking-functions.html"><a href="type-checking-functions.html"><i class="fa fa-check"></i><b>6.2</b> Type Checking Functions</a></li>
+<li class="chapter" data-level="6.3" data-path="type-coercion.html"><a href="type-coercion.html"><i class="fa fa-check"></i><b>6.3</b> Type Coercion</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="missing-values.html"><a href="missing-values.html"><i class="fa fa-check"></i><b>7</b> Missing Values</a></li>
+<li class="chapter" data-level="8" data-path="conditional-statements.html"><a href="conditional-statements.html"><i class="fa fa-check"></i><b>8</b> Conditional Statements</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="if-else-statements.html"><a href="if-else-statements.html"><i class="fa fa-check"></i><b>8.1</b> If-Else Statements</a></li>
+<li class="chapter" data-level="8.2" data-path="vectorized-if-else-ifelse.html"><a href="vectorized-if-else-ifelse.html"><i class="fa fa-check"></i><b>8.2</b> Vectorized If-Else: ifelse()</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="functions.html"><a href="functions.html"><i class="fa fa-check"></i><b>9</b> Functions</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="creating-functions.html"><a href="creating-functions.html"><i class="fa fa-check"></i><b>9.1</b> Creating Functions</a></li>
+<li class="chapter" data-level="9.2" data-path="functions-with-multiple-arguments.html"><a href="functions-with-multiple-arguments.html"><i class="fa fa-check"></i><b>9.2</b> Functions with Multiple Arguments</a></li>
+<li class="chapter" data-level="9.3" data-path="practical-example-statistical-summary-function.html"><a href="practical-example-statistical-summary-function.html"><i class="fa fa-check"></i><b>9.3</b> Practical Example: Statistical Summary Function</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="loops-and-iteration.html"><a href="loops-and-iteration.html"><i class="fa fa-check"></i><b>10</b> Loops and Iteration</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="for-loops.html"><a href="for-loops.html"><i class="fa fa-check"></i><b>10.1</b> For Loops</a></li>
+<li class="chapter" data-level="10.2" data-path="while-loops.html"><a href="while-loops.html"><i class="fa fa-check"></i><b>10.2</b> While Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="apply-family-functions.html"><a href="apply-family-functions.html"><i class="fa fa-check"></i><b>11</b> Apply Family Functions</a>
+<ul>
+<li class="chapter" data-level="11.1" data-path="lapply-apply-function-to-listvector.html"><a href="lapply-apply-function-to-listvector.html"><i class="fa fa-check"></i><b>11.1</b> lapply: Apply Function to List/Vector</a></li>
+<li class="chapter" data-level="11.2" data-path="sapply-simplified-apply.html"><a href="sapply-simplified-apply.html"><i class="fa fa-check"></i><b>11.2</b> sapply: Simplified Apply</a></li>
+<li class="chapter" data-level="11.3" data-path="vapply-type-safe-apply.html"><a href="vapply-type-safe-apply.html"><i class="fa fa-check"></i><b>11.3</b> vapply: Type-Safe Apply</a></li>
+<li class="chapter" data-level="11.4" data-path="comparison-and-best-practices.html"><a href="comparison-and-best-practices.html"><i class="fa fa-check"></i><b>11.4</b> Comparison and Best Practices</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="practical-applications.html"><a href="practical-applications.html"><i class="fa fa-check"></i><b>12</b> Practical Applications</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="example-1-data-cleaning-pipeline.html"><a href="example-1-data-cleaning-pipeline.html"><i class="fa fa-check"></i><b>12.1</b> Example 1: Data Cleaning Pipeline</a></li>
+<li class="chapter" data-level="12.2" data-path="example-2-simulation-study.html"><a href="example-2-simulation-study.html"><i class="fa fa-check"></i><b>12.2</b> Example 2: Simulation Study</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>13</b> Summary</a>
+<ul>
+<li class="chapter" data-level="13.1" data-path="key-takeaways.html"><a href="key-takeaways.html"><i class="fa fa-check"></i><b>13.1</b> Key Takeaways</a></li>
+<li class="chapter" data-level="13.2" data-path="further-learning.html"><a href="further-learning.html"><i class="fa fa-check"></i><b>13.2</b> Further Learning</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="tutorial-2-simple-linear-regression-with-intercept-ols-derivation-and-residual-properties.html"><a href="tutorial-2-simple-linear-regression-with-intercept-ols-derivation-and-residual-properties.html"><i class="fa fa-check"></i><b>14</b> Tutorial 2: Simple Linear Regression (with Intercept): OLS Derivation and Residual Properties</a>
+<ul>
+<li class="chapter" data-level="14.1" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>14.1</b> Setup</a></li>
+<li class="chapter" data-level="14.2" data-path="step-1-derive-the-ols-normal-equations.html"><a href="step-1-derive-the-ols-normal-equations.html"><i class="fa fa-check"></i><b>14.2</b> Step 1: Derive the OLS normal equations</a>
+<ul>
+<li class="chapter" data-level="14.2.1" data-path="step-1-derive-the-ols-normal-equations.html"><a href="step-1-derive-the-ols-normal-equations.html#foc-for-beta_0"><i class="fa fa-check"></i><b>14.2.1</b> FOC for <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="14.2.2" data-path="step-1-derive-the-ols-normal-equations.html"><a href="step-1-derive-the-ols-normal-equations.html#foc-for-beta_1"><i class="fa fa-check"></i><b>14.2.2</b> FOC for <span class="math inline">\(\beta_1\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="step-2-derive-the-slope-in-centered-form.html"><a href="step-2-derive-the-slope-in-centered-form.html"><i class="fa fa-check"></i><b>14.3</b> Step 2: Derive the slope in centered form</a></li>
+<li class="chapter" data-level="14.4" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html"><i class="fa fa-check"></i><b>14.4</b> Step 3: Residual orthogonality (core properties)</a>
+<ul>
+<li class="chapter" data-level="14.4.1" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html#residuals-sum-to-zero"><i class="fa fa-check"></i><b>14.4.1</b> 3.1 Residuals sum to zero</a></li>
+<li class="chapter" data-level="14.4.2" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html#residuals-are-orthogonal-to-x"><i class="fa fa-check"></i><b>14.4.2</b> 3.2 Residuals are orthogonal to <span class="math inline">\(X\)</span></a></li>
+<li class="chapter" data-level="14.4.3" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html#residuals-are-orthogonal-to-centered-regressor-x_i-bar-x"><i class="fa fa-check"></i><b>14.4.3</b> 3.3 Residuals are orthogonal to centered regressor <span class="math inline">\((X_i-\bar X)\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="14.5" data-path="step-4-more-implications-involving-fitted-values-and-means.html"><a href="step-4-more-implications-involving-fitted-values-and-means.html"><i class="fa fa-check"></i><b>14.5</b> Step 4: More implications involving fitted values and means</a>
+<ul>
+<li class="chapter" data-level="14.5.1" data-path="step-4-more-implications-involving-fitted-values-and-means.html"><a href="step-4-more-implications-involving-fitted-values-and-means.html#the-regression-line-goes-through-bar-xbar-y"><i class="fa fa-check"></i><b>14.5.1</b> 4.1 The regression line goes through <span class="math inline">\((\bar X,\bar Y)\)</span></a></li>
+<li class="chapter" data-level="14.5.2" data-path="step-4-more-implications-involving-fitted-values-and-means.html"><a href="step-4-more-implications-involving-fitted-values-and-means.html#mean-residual-is-zero"><i class="fa fa-check"></i><b>14.5.2</b> 4.2 Mean residual is zero</a></li>
+</ul></li>
+<li class="chapter" data-level="14.6" data-path="step-5-decomposition-of-variation-tss-ess-rss.html"><a href="step-5-decomposition-of-variation-tss-ess-rss.html"><i class="fa fa-check"></i><b>14.6</b> Step 5: Decomposition of variation (TSS = ESS + RSS)</a></li>
+<li class="chapter" data-level="14.7" data-path="step-6-sample-covariance-implications-useful-quick-corollaries.html"><a href="step-6-sample-covariance-implications-useful-quick-corollaries.html"><i class="fa fa-check"></i><b>14.7</b> Step 6: Sample covariance implications (useful quick corollaries)</a></li>
+<li class="chapter" data-level="14.8" data-path="optional-one-line-geometric-interpretation-if-you-want-it.html"><a href="optional-one-line-geometric-interpretation-if-you-want-it.html"><i class="fa fa-check"></i><b>14.8</b> Optional: one-line geometric interpretation (if you want it)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Object Naming and Types in R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="step-1-derive-the-ols-normal-equations" class="section level2 hasAnchor" number="14.2">
+<h2><span class="header-section-number">14.2</span> Step 1: Derive the OLS normal equations<a href="step-1-derive-the-ols-normal-equations.html#step-1-derive-the-ols-normal-equations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Differentiate <span class="math inline">\(S(\beta_0,\beta_1)\)</span> with respect to <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span>.</p>
+<div id="foc-for-beta_0" class="section level3 hasAnchor" number="14.2.1">
+<h3><span class="header-section-number">14.2.1</span> FOC for <span class="math inline">\(\beta_0\)</span><a href="step-1-derive-the-ols-normal-equations.html#foc-for-beta_0" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+\frac{\partial S}{\partial \beta_0}
+=
+\sum_{i=1}^n 2\left(Y_i-\beta_0-\beta_1X_i\right)(-1)=0
+\]</span>
+<span class="math display">\[
+\Longrightarrow\quad
+\sum_{i=1}^n \left(Y_i-\beta_0-\beta_1X_i\right)=0.
+\]</span></p>
+<p>This implies
+<span class="math display">\[
+\sum_{i=1}^n Y_i
+=
+n\beta_0+\beta_1\sum_{i=1}^n X_i
+\quad\Longrightarrow\quad
+\hat\beta_0
+=
+\bar Y-\hat\beta_1\bar X.
+\]</span></p>
+</div>
+<div id="foc-for-beta_1" class="section level3 hasAnchor" number="14.2.2">
+<h3><span class="header-section-number">14.2.2</span> FOC for <span class="math inline">\(\beta_1\)</span><a href="step-1-derive-the-ols-normal-equations.html#foc-for-beta_1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+\frac{\partial S}{\partial \beta_1}
+=
+\sum_{i=1}^n 2\left(Y_i-\beta_0-\beta_1X_i\right)(-X_i)=0
+\]</span>
+<span class="math display">\[
+\Longrightarrow\quad
+\sum_{i=1}^n X_i\left(Y_i-\beta_0-\beta_1X_i\right)=0.
+\]</span></p>
+<hr />
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="setup.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="step-2-derive-the-slope-in-centered-form.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/tutorial2.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": "https://github.com/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/tutorial2.Rmd",
+    "text": null
+  },
+  "download": null,
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

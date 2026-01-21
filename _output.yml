@@ -1,6 +1,8 @@
-bookdown::gitbook:
+bookdown::bs4_book:
+  theme:
+    primary: "#0B3D91"
+    base_font: {google: "Source Sans 3"}
+    heading_font: {google: "Source Sans 3"}
+    code_font: {google: "IBM Plex Mono"}
   css: style4.css
-  config:
-    toc:
-      before: |
-        <li><a href="./">Análisis de datos con Stata - Nivel avanzado</a></li>
+  repo: null

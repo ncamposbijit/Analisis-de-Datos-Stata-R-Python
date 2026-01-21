@@ -4,12 +4,13 @@ output_dir: "docs"
 delete_merged_file: true
 
 rmd_files:
-  - "index.Rmd"
-  - "03-cursoR.Rmd"
+  - index.Rmd
+  - tutorial1.Rmd
+  - tutorial2.Rmd
 
-edit: https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/%s
-view: https://github.com/ncamposbijit/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/%s
+edit: https://github.com/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/%s
+view: https://github.com/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/%s
 
 language:
   ui:
-    chapter_name:
+    chapter_name: ""

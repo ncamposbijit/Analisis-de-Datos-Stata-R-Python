@@ -1,0 +1,457 @@
+---
+title: "Tutorial 2: Simple Linear Regression (with Intercept)"
+subtitle: "OLS Derivation and Residual Properties"
+author: ""
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+# Tutorial 2: Simple linear Regression 
+## Problem 1: Simple Linear Regression with Intercept
+
+We study the **simple linear regression with an intercept**:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n
+$$
+
+with the regularity condition $\sum_{i=1}^n (X_i - \bar{X})^2 > 0$ (i.e., not all $X_i$ are equal).
+
+**Sample means:**
+
+$$
+\bar{Y} = \frac{1}{n} \sum_{i=1}^n Y_i, \qquad \bar{X} = \frac{1}{n} \sum_{i=1}^n X_i
+$$
+
+**OLS objective:** Minimize the sum of squared residuals:
+
+$$
+S(\beta_0, \beta_1) = \sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right)^2
+$$
+
+**Definitions:**
+
+- **Fitted values:** $\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i$
+- **Residuals:** $\hat{u}_i = Y_i - \hat{Y}_i$
+
+---
+
+### Derive the OLS Normal Equations
+
+Differentiate $S(\beta_0, \beta_1)$ with respect to $\beta_0$ and $\beta_1$ and set equal to zero.
+
+First-Order Condition for $\beta_0$: 
+
+$$
+\frac{\partial S}{\partial \beta_0} = -2 \sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+$$
+
+This simplifies to:
+
+$$
+\sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+$$
+
+Expanding:
+
+$$
+\sum_{i=1}^n Y_i = n \beta_0 + \beta_1 \sum_{i=1}^n X_i
+$$
+
+Solving for $\beta_0$:
+
+$$
+\boxed{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}}
+$$
+
+First-Order Condition for $\beta_1$: 
+
+$$
+\frac{\partial S}{\partial \beta_1} = -2 \sum_{i=1}^n X_i \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+$$
+
+This simplifies to:
+
+$$
+\sum_{i=1}^n X_i \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
+$$
+
+Derive the Slope in Centered Form: 
+
+Substitute $\beta_0 = \bar{Y} - \beta_1 \bar{X}$ into the residual expression:
+
+$$
+Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X})
+$$
+
+Minimizing $\sum_{i=1}^n \left[ (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X}) \right]^2$ with respect to $\beta_1$ gives:
+
+$$
+\sum_{i=1}^n (X_i - \bar{X}) \left[ (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X}) \right] = 0
+$$
+
+Rearranging:
+
+$$
+\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y}) = \beta_1 \sum_{i=1}^n (X_i - \bar{X})^2
+$$
+
+**OLS Estimators:**
+
+$$
+\boxed{\hat{\beta}_1 = \frac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}}
+$$
+
+$$
+\boxed{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}}
+$$
+
+### Residual Orthogonality Properties
+
+These are the key properties that follow directly from the first-order conditions.
+
+#### Residuals Sum to Zero
+
+From the FOC for $\beta_0$ evaluated at $(\hat{\beta}_0, \hat{\beta}_1)$:
+
+$$
+\sum_{i=1}^n \left( Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i \right) = 0
+$$
+
+Therefore:
+
+$$
+\boxed{\sum_{i=1}^n \hat{u}_i = 0}
+$$
+
+#### Residuals are Orthogonal to $X$
+
+From the FOC for $\beta_1$ evaluated at $(\hat{\beta}_0, \hat{\beta}_1)$:
+
+$$
+\sum_{i=1}^n X_i \left( Y_i - \hat{\beta}_0 - \hat{\beta}_1 X_i \right) = 0
+$$
+
+Therefore:
+
+$$
+\boxed{\sum_{i=1}^n X_i \hat{u}_i = 0}
+$$
+
+#### Residuals are Orthogonal to $(X_i - \bar{X})$
+
+Using the result $\sum_{i=1}^n \hat{u}_i = 0$:
+
+$$
+\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = \sum_{i=1}^n X_i \hat{u}_i - \bar{X} \sum_{i=1}^n \hat{u}_i = 0 - \bar{X} \cdot 0 = 0
+$$
+
+Therefore:
+
+$$
+\boxed{\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0}
+$$
+
+---
+
+### Properties of Fitted Values
+
+#### The Regression Line Passes Through $(\bar{X}, \bar{Y})$
+
+Taking the average of fitted values:
+
+$$
+\overline{\hat{Y}} = \frac{1}{n} \sum_{i=1}^n \hat{Y}_i = \frac{1}{n} \sum_{i=1}^n (\hat{\beta}_0 + \hat{\beta}_1 X_i) = \hat{\beta}_0 + \hat{\beta}_1 \bar{X}
+$$
+
+Since $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}$:
+
+$$
+\overline{\hat{Y}} = (\bar{Y} - \hat{\beta}_1 \bar{X}) + \hat{\beta}_1 \bar{X} = \bar{Y}
+$$
+
+Equivalently, at $X = \bar{X}$:
+
+$$
+\hat{Y}(\bar{X}) = \hat{\beta}_0 + \hat{\beta}_1 \bar{X} = \bar{Y}
+$$
+
+**Conclusion:** The OLS fitted line passes through the point $(\bar{X}, \bar{Y})$.
+
+#### Mean Residual is Zero
+
+Since $\sum_{i=1}^n \hat{u}_i = 0$:
+
+$$
+\boxed{\bar{\hat{u}} = \frac{1}{n} \sum_{i=1}^n \hat{u}_i = 0}
+$$
+
+---
+
+### Decomposition of Variation (TSS = ESS + RSS)
+
+**Definitions:**
+
+| Quantity | Name | Formula |
+|:---------|:-----|:--------|
+| TSS | Total Sum of Squares | $\sum_{i=1}^n (Y_i - \bar{Y})^2$ |
+| ESS | Explained Sum of Squares | $\sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2$ |
+| RSS | Residual Sum of Squares | $\sum_{i=1}^n \hat{u}_i^2$ |
+
+#### Decomposition
+
+Start from:
+
+$$
+Y_i - \bar{Y} = (\hat{Y}_i - \bar{Y}) + (Y_i - \hat{Y}_i) = (\hat{Y}_i - \bar{Y}) + \hat{u}_i
+$$
+
+Square both sides and sum:
+
+$$
+\sum_{i=1}^n (Y_i - \bar{Y})^2 = \sum_{i=1}^n (\hat{Y}_i - \bar{Y})^2 + \sum_{i=1}^n \hat{u}_i^2 + 2 \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{u}_i
+$$
+
+#### The Cross-Term Vanishes
+
+Note that:
+
+$$
+\hat{Y}_i - \bar{Y} = (\hat{\beta}_0 + \hat{\beta}_1 X_i) - \bar{Y} = (\bar{Y} - \hat{\beta}_1 \bar{X} + \hat{\beta}_1 X_i) - \bar{Y} = \hat{\beta}_1 (X_i - \bar{X})
+$$
+
+Therefore:
+
+$$
+\sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{u}_i = \hat{\beta}_1 \sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = \hat{\beta}_1 \cdot 0 = 0
+$$
+
+#### Result
+
+$$
+\boxed{\text{TSS} = \text{ESS} + \text{RSS}}
+$$
+
+---
+
+### Sample Covariance Implications
+
+#### Sample Covariance Between $X$ and $\hat{u}$ is Zero
+
+Since $\sum_{i=1}^n \hat{u}_i = 0$, the sample covariance between $X$ and $\hat{u}$ is proportional to:
+
+$$
+\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0
+$$
+
+Therefore:
+
+$$
+\boxed{\widehat{\text{Cov}}(X, \hat{u}) = 0}
+$$
+
+### Fitted Values are Orthogonal to Residuals
+
+$$
+\sum_{i=1}^n \hat{Y}_i \hat{u}_i = \sum_{i=1}^n (\hat{Y}_i - \bar{Y}) \hat{u}_i + \bar{Y} \sum_{i=1}^n \hat{u}_i = 0 + \bar{Y} \cdot 0 = 0
+$$
+
+Therefore:
+
+$$
+\boxed{\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0}
+$$
+
+---
+
+### Summary of Key Results
+
+#### OLS Estimators
+
+| Estimator | Formula |
+|:----------|:--------|
+| Slope | $\hat{\beta}_1 = \dfrac{\sum_{i=1}^n (X_i - \bar{X})(Y_i - \bar{Y})}{\sum_{i=1}^n (X_i - \bar{X})^2}$ |
+| Intercept | $\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}$ |
+
+#### Residual Properties
+
+| Property | Result |
+|:---------|:-------|
+| Residuals sum to zero | $\sum_{i=1}^n \hat{u}_i = 0$ |
+| Residuals orthogonal to $X$ | $\sum_{i=1}^n X_i \hat{u}_i = 0$ |
+| Residuals orthogonal to centered $X$ | $\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0$ |
+| Mean residual is zero | $\bar{\hat{u}} = 0$ |
+
+#### Additional Properties
+
+| Property | Result |
+|:---------|:-------|
+| Regression line passes through | $(\bar{X}, \bar{Y})$ |
+| Variance decomposition | TSS = ESS + RSS |
+| Sample covariance | $\widehat{\text{Cov}}(X, \hat{u}) = 0$ |
+| Fitted values orthogonal to residuals | $\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0$ |
+
+## Problem 2: Wooldridge Computer Exercise C1 (401K): Participation and Match Rate
+
+### Overview
+
+This notebook reproduces **Wooldridge, Computer Exercise C1 (401K)**.  **Goal.** Use plan-level data to study whether a more generous employer match rate is associated with higher 401(k) participation.
+
+- Outcome: `prate` = percentage of eligible workers with an active 401(k) account.
+- Regressor: `mrate` = match rate (average firm contribution per $1 worker contribution).
+
+We estimate the simple linear regression:
+\[
+prate = \beta_0 + \beta_1 \, mrate + u.
+\]
+
+### Load packages and data
+
+```{r}
+# If you do not have the package installed, uncomment the next line:
+install.packages("wooldridge")
+library(wooldridge)
+
+# Load the dataset used in this exercise.
+data("k401k")
+df <- k401k
+
+# Quick check: dimensions and variable names
+dim(df)
+names(df)
+```
+
+### (i) Compute the sample averages of participation and match rates
+
+```{r}
+# In this dataset:
+# - prate is the plan participation rate (in percentage points)
+# - mrate is the match rate
+
+mean_prate <- mean(df$prate, na.rm = TRUE)
+mean_mrate <- mean(df$mrate, na.rm = TRUE)
+
+mean_prate
+mean_mrate
+```
+
+**Interpretation.**
+- `mean_prate` is the average percentage of eligible workers participating across plans.
+- `mean_mrate` is the average employer match rate across plans.
+
+### (ii) Estimate the simple regression: prate on mrate
+
+```{r}
+# Estimate the simple OLS regression model
+m1 <- lm(prate ~ mrate, data = df)
+
+# Summary includes coefficient estimates, standard errors, t-stats, and R^2
+s1 <- summary(m1)
+s1
+```
+
+```{r}
+# Report the sample size used by the regression (after dropping any missing values)
+n <- nobs(m1)
+
+# Extract R-squared (fraction of sample variation in prate explained by mrate)
+r2 <- s1$r.squared
+
+n
+r2
+```
+
+### (iii) Interpret the intercept and the slope
+
+```{r}
+# Extract coefficients
+b0 <- coef(m1)[1]  # intercept
+b1 <- coef(m1)[2]  # slope on mrate
+
+b0
+b1
+```
+
+**How to read these coefficients (economic meaning).**
+
+- **Intercept (\(\hat\beta_0\))**: Predicted participation rate when `mrate = 0`.
+  - This is the fitted `prate` for a plan with **no employer match**.
+  - Note: Interpretation is most meaningful if `mrate = 0` is in (or near) the support of the data.
+
+- **Slope (\(\hat\beta_1\))**: Predicted change in participation (in percentage points) for a **one-unit** increase in `mrate`.
+  - Since `mrate` measures how many dollars the firm contributes per $1 the worker contributes,
+    a one-unit change is economically large (e.g., from 0.5 to 1.5).
+  - Practically, you may also interpret smaller changes:
+    a 0.10 increase in `mrate` changes predicted participation by \(0.10 \times \hat\beta_1\).
+
+```{r}
+# Example: predicted change in prate for a 0.10 increase in mrate
+delta_mrate <- 0.10
+pred_change_prate <- delta_mrate * b1
+pred_change_prate
+```
+
+### (iv) Predicted participation when mrate = 3.5. Is it reasonable?
+
+```{r}
+# Prediction at mrate = 3.5
+pred_35 <- predict(m1, newdata = data.frame(mrate = 3.5))
+pred_35
+```
+
+To assess whether this prediction is reasonable, check whether `mrate = 3.5` lies within the **observed range** of the data.  
+Predictions far outside the support of `mrate` are **extrapolations**, which can be unreliable.
+
+```{r}
+# Range of mrate in the sample
+range_mrate <- range(df$mrate, na.rm = TRUE)
+range_mrate
+```
+
+```{r}
+# Also helpful: a few quantiles to understand typical values
+quantile(df$mrate, probs = c(0, .05, .25, .5, .75, .95, 1), na.rm = TRUE)
+```
+
+**Discussion prompt (what is happening if it looks unreasonable):**
+- If 3.5 is much larger than typical match rates in the data, then the fitted value is based on
+  extending a linear trend beyond where you have information.
+- In addition, `prate` is a percentage and should generally lie between 0 and 100; a linear model can
+  produce fitted values outside this range, especially under extrapolation.
+
+### (v) How much of the variation in prate is explained by mrate?
+
+The share of variation in `prate` explained by `mrate` in this simple model is the **R-squared**:
+
+```{r}
+r2
+```
+
+**Interpretation.**
+- \(R^2\) is the fraction of sample variation in participation that is accounted for by variation in the match rate.
+- Whether it is “a lot” depends on context; in cross-sectional data, modest \(R^2\) values are common.
+
+### Optional: quick plot
+
+```{r}
+# A simple scatter plot with the fitted regression line.
+plot(df$mrate, df$prate,
+     xlab = "Match rate (mrate)",
+     ylab = "Participation rate (prate)",
+     main = "401(k) Participation vs Match Rate")
+abline(m1, lwd = 2)
+```
+
+
+
+
+
+
+

@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>2 Data Analysis with R | Object Naming and Types in R</title>
+  <title>2 Data Analysis with R | Simple Linear Regression (with Intercept): OLS Derivation and Residual Properties</title>
   <meta name="description" content="A book focused on teaching data analysis using R" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="2 Data Analysis with R | Object Naming and Types in R" />
+  <meta property="og:title" content="2 Data Analysis with R | Simple Linear Regression (with Intercept): OLS Derivation and Residual Properties" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book focused on teaching data analysis using R" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="2 Data Analysis with R | Object Naming and Types in R" />
+  <meta name="twitter:title" content="2 Data Analysis with R | Simple Linear Regression (with Intercept): OLS Derivation and Residual Properties" />
   
   <meta name="twitter:description" content="A book focused on teaching data analysis using R" />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Your Name" />
 
 
-<meta name="date" content="2026-01-14" />
+<meta name="date" content="2026-01-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -254,6 +254,27 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="13.1" data-path="key-takeaways.html"><a href="key-takeaways.html"><i class="fa fa-check"></i><b>13.1</b> Key Takeaways</a></li>
 <li class="chapter" data-level="13.2" data-path="further-learning.html"><a href="further-learning.html"><i class="fa fa-check"></i><b>13.2</b> Further Learning</a></li>
+<li class="chapter" data-level="13.3" data-path="setup.html"><a href="setup.html"><i class="fa fa-check"></i><b>13.3</b> Setup</a></li>
+<li class="chapter" data-level="13.4" data-path="step-1-derive-the-ols-normal-equations.html"><a href="step-1-derive-the-ols-normal-equations.html"><i class="fa fa-check"></i><b>13.4</b> Step 1: Derive the OLS normal equations</a>
+<ul>
+<li class="chapter" data-level="13.4.1" data-path="step-1-derive-the-ols-normal-equations.html"><a href="step-1-derive-the-ols-normal-equations.html#foc-for-beta_0"><i class="fa fa-check"></i><b>13.4.1</b> FOC for <span class="math inline">\(\beta_0\)</span></a></li>
+<li class="chapter" data-level="13.4.2" data-path="step-1-derive-the-ols-normal-equations.html"><a href="step-1-derive-the-ols-normal-equations.html#foc-for-beta_1"><i class="fa fa-check"></i><b>13.4.2</b> FOC for <span class="math inline">\(\beta_1\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="step-2-derive-the-slope-in-centered-form.html"><a href="step-2-derive-the-slope-in-centered-form.html"><i class="fa fa-check"></i><b>13.5</b> Step 2: Derive the slope in centered form</a></li>
+<li class="chapter" data-level="13.6" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html"><i class="fa fa-check"></i><b>13.6</b> Step 3: Residual orthogonality (core properties)</a>
+<ul>
+<li class="chapter" data-level="13.6.1" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html#residuals-sum-to-zero"><i class="fa fa-check"></i><b>13.6.1</b> 3.1 Residuals sum to zero</a></li>
+<li class="chapter" data-level="13.6.2" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html#residuals-are-orthogonal-to-x"><i class="fa fa-check"></i><b>13.6.2</b> 3.2 Residuals are orthogonal to <span class="math inline">\(X\)</span></a></li>
+<li class="chapter" data-level="13.6.3" data-path="step-3-residual-orthogonality-core-properties.html"><a href="step-3-residual-orthogonality-core-properties.html#residuals-are-orthogonal-to-centered-regressor-x_i-bar-x"><i class="fa fa-check"></i><b>13.6.3</b> 3.3 Residuals are orthogonal to centered regressor <span class="math inline">\((X_i-\bar X)\)</span></a></li>
+</ul></li>
+<li class="chapter" data-level="13.7" data-path="step-4-more-implications-involving-fitted-values-and-means.html"><a href="step-4-more-implications-involving-fitted-values-and-means.html"><i class="fa fa-check"></i><b>13.7</b> Step 4: More implications involving fitted values and means</a>
+<ul>
+<li class="chapter" data-level="13.7.1" data-path="step-4-more-implications-involving-fitted-values-and-means.html"><a href="step-4-more-implications-involving-fitted-values-and-means.html#the-regression-line-goes-through-bar-xbar-y"><i class="fa fa-check"></i><b>13.7.1</b> 4.1 The regression line goes through <span class="math inline">\((\bar X,\bar Y)\)</span></a></li>
+<li class="chapter" data-level="13.7.2" data-path="step-4-more-implications-involving-fitted-values-and-means.html"><a href="step-4-more-implications-involving-fitted-values-and-means.html#mean-residual-is-zero"><i class="fa fa-check"></i><b>13.7.2</b> 4.2 Mean residual is zero</a></li>
+</ul></li>
+<li class="chapter" data-level="13.8" data-path="step-5-decomposition-of-variation-tss-ess-rss.html"><a href="step-5-decomposition-of-variation-tss-ess-rss.html"><i class="fa fa-check"></i><b>13.8</b> Step 5: Decomposition of variation (TSS = ESS + RSS)</a></li>
+<li class="chapter" data-level="13.9" data-path="step-6-sample-covariance-implications-useful-quick-corollaries.html"><a href="step-6-sample-covariance-implications-useful-quick-corollaries.html"><i class="fa fa-check"></i><b>13.9</b> Step 6: Sample covariance implications (useful quick corollaries)</a></li>
+<li class="chapter" data-level="13.10" data-path="optional-one-line-geometric-interpretation-if-you-want-it.html"><a href="optional-one-line-geometric-interpretation-if-you-want-it.html"><i class="fa fa-check"></i><b>13.10</b> Optional: one-line geometric interpretation (if you want it)</a></li>
 </ul></li>
 </ul>
 
@@ -264,7 +285,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Object Naming and Types in R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simple Linear Regression (with Intercept): OLS Derivation and Residual Properties</a>
           </h1>
         </div>
 
@@ -337,6 +358,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

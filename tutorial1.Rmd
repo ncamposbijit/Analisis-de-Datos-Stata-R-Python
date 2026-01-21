@@ -1,7 +1,6 @@
-# Data Analysis with R
+# Tutorial 1: Data Analysis with R
 
-These notes have been updated and adapted for the course ECON 326: Introduction to Econometrics II, an undergraduate course at the University of British Columbia (UBC), 2026.
-
+These notes have been updated and adapted for the course ECON 326: Introduction to Econometrics II, an undergraduate course at the University of British Columbia (UBC), 2026. These are the notes for the tutorial 1. This is an introduction to R and R Studio. 
 ## Introduction to R and RStudio
 
 This chapter introduces the basic workflow for working with R through RStudio. The goal is not only to learn *commands*, but also to develop good habits for writing clean, reproducible, and well-documented code.
@@ -647,17 +646,6 @@ lm(ingreso ~ educ)
 
 This function returns the estimated coefficients for the linear model, providing us with the intercept and the slope coefficient for education. The slope coefficient indicates how much income is expected to change for each additional year of education.
 
----
-title: "Object Naming and Types in R"
-author: "Your Name"
-date: "`r Sys.Date()`"
-output: html_document
----
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
 ## Object Naming and Types
 
 ### Naming Objects
@@ -916,12 +904,11 @@ M[2, c(2, 4)] # second and fourth elements of the second row
 Matrix subsetting uses the format `[row, column]`, where leaving either position blank returns all rows or all columns, respectively.
 
 
-
-# Arrays
+## Arrays
 
 Arrays are multidimensional data structures that extend the concept of matrices. While matrices are two-dimensional, arrays can have three or more dimensions. They are particularly useful when working with data that naturally has multiple dimensions, such as time series data across different regions and variables.
 
-## Creating Arrays
+### Creating Arrays
 
 The basic syntax for creating an array is: `array(data, dim, dimnames)`
 
@@ -933,7 +920,7 @@ my_array
 
 The array above has dimensions 2 × 4 × 3, meaning it has 2 rows, 4 columns, and 3 "layers" or levels in the third dimension.
 
-## Adding Dimension Names
+### Adding Dimension Names
 
 Dimension names make arrays much easier to interpret and work with:
 
@@ -949,7 +936,7 @@ my_array <- array(1:24, c(2, 4, 3),
 my_array
 ```
 
-## Accessing Array Elements
+### Accessing Array Elements
 
 Arrays can be subset using square brackets, similar to matrices but with additional dimensions:
 
@@ -965,11 +952,11 @@ my_array[1, , ]  # All of row 1 across all levels
 my_array["row1", "col2", "level3"]
 ```
 
-# Lists
+## Lists
 
 Lists are R's most flexible data structure. Unlike vectors, which must contain elements of the same type, lists can contain elements of different types, including other lists, vectors, matrices, dataframes, and even functions.
 
-## Creating Lists
+### Creating Lists
 
 ```{r lists-create}
 # Create a heterogeneous list
@@ -983,7 +970,7 @@ my_list <- list(
 my_list
 ```
 
-## Accessing List Components
+### Accessing List Components
 
 Lists have three main ways to access their components:
 
@@ -1001,7 +988,7 @@ my_list[1]    # Returns a list containing the first element
 my_list[[3]][1, 2]  # Second element of first row in the matrix
 ```
 
-## Adding and Removing List Elements
+### Adding and Removing List Elements
 
 ```{r lists-modify}
 # Adding new components
@@ -1014,11 +1001,11 @@ my_list$flag <- NULL
 str(my_list)
 ```
 
-# Data Frames
+## Data Frames
 
 Data frames are the workhorse data structure for statistical analysis in R. They are similar to matrices but can contain columns of different types, making them perfect for representing datasets where variables may be numeric, character, or logical.
 
-## Creating Data Frames
+### Creating Data Frames
 
 ```{r dataframes-create}
 # Create a data frame
@@ -1032,7 +1019,7 @@ df <- data.frame(
 df
 ```
 
-## Exploring Data Frame Structure
+### Exploring Data Frame Structure
 
 ```{r dataframes-explore}
 # View structure
@@ -1055,7 +1042,7 @@ head(df, 3)
 tail(df, 2)
 ```
 
-## Subsetting Data Frames
+### Subsetting Data Frames
 
 Data frames combine the subsetting behavior of both matrices and lists:
 
@@ -1077,7 +1064,7 @@ df[df$Age > 28, ]                    # Rows where Age > 28
 df[df$Employed == TRUE, c("Name", "Age")]  # Employed people's names and ages
 ```
 
-## Tibbles: Modern Data Frames
+### Tibbles: Modern Data Frames
 
 The `tibble` package (part of tidyverse) provides an enhanced version of data frames:
 
@@ -1097,11 +1084,11 @@ tb
 # Tibbles have better printing and more consistent behavior
 ```
 
-# Data Types and Type Checking
+## Data Types and Type Checking
 
 Understanding data types is crucial for avoiding errors and writing robust R code.
 
-## Main Data Types
+### Main Data Types
 
 ```{r datatypes}
 # Character
@@ -1125,7 +1112,7 @@ complex_var <- 3 + 2i
 class(complex_var)
 ```
 
-## Type Checking Functions
+### Type Checking Functions
 
 ```{r type-checking}
 x <- 42
@@ -1141,7 +1128,7 @@ x_int <- as.integer(x)
 is.integer(x_int)
 ```
 
-## Type Coercion
+### Type Coercion
 
 When R combines different types, it follows a coercion hierarchy:
 logical → integer → numeric → complex → character
@@ -1159,7 +1146,7 @@ as.numeric("3.14")
 as.logical(1)  # Non-zero numbers become TRUE
 ```
 
-# Missing Values
+### Missing Values
 
 R uses `NA` (Not Available) to represent missing values.
 
@@ -1182,7 +1169,7 @@ mean(x)              # Returns NA
 mean(x, na.rm = TRUE)  # Calculates mean ignoring NAs
 ```
 
-# Conditional Statements
+### Conditional Statements
 
 Conditional statements allow your code to make decisions and execute different code based on conditions.
 
@@ -1240,11 +1227,11 @@ detailed_grades <- ifelse(scores >= 90, "A",
 detailed_grades
 ```
 
-# Functions
+### Functions
 
 Functions are reusable blocks of code that perform specific tasks. They are fundamental to writing clean, maintainable code.
 
-## Creating Functions
+### Creating Functions
 
 ```{r functions-basic}
 # Basic function structure
@@ -1257,7 +1244,7 @@ square(4)
 square(1:5)
 ```
 
-## Functions with Multiple Arguments
+### Functions with Multiple Arguments
 
 ```{r functions-multiple-args}
 # Function with default parameter values
@@ -1271,7 +1258,7 @@ power(3, 3)   # Explicit exponent
 power(2, exponent = 4)  # Named argument
 ```
 
-## Practical Example: Statistical Summary Function
+### Practical Example: Statistical Summary Function
 
 ```{r functions-practical}
 # Create a function that returns multiple statistics
@@ -1292,9 +1279,9 @@ test_data <- c(1, 2, 3, NA, 5, 6, 7, NA, 9, 10)
 summary_stats(test_data)
 ```
 
-# Loops and Iteration
+## Loops and Iteration
 
-## For Loops
+### For Loops
 
 For loops iterate over a sequence of values:
 
@@ -1319,7 +1306,7 @@ for (i in 1:10) {
 squares
 ```
 
-## While Loops
+### While Loops
 
 While loops continue until a condition becomes FALSE:
 
@@ -1340,11 +1327,11 @@ while (2^x < 1000) {
 print(paste("2^", x, "=", 2^x, "is the first power of 2 above 1000"))
 ```
 
-# Apply Family Functions
+### Apply Family Functions
 
 The apply family provides functional programming alternatives to loops. They are often faster and more concise.
 
-## lapply: Apply Function to List/Vector
+### lapply: Apply Function to List/Vector
 
 `lapply` always returns a list:
 
@@ -1363,7 +1350,7 @@ lapply(numbers, function(x) x^2)
 # data_list <- lapply(file_names, read.csv)
 ```
 
-## sapply: Simplified Apply
+### sapply: Simplified Apply
 
 `sapply` tries to simplify the result to a vector or matrix:
 
@@ -1378,7 +1365,7 @@ sapply(numbers, function(x) sum(x^2))
 sapply(numbers, function(x) c(min = min(x), max = max(x)))
 ```
 
-## vapply: Type-Safe Apply
+### vapply: Type-Safe Apply
 
 `vapply` requires you to specify the output type, making it safer and sometimes faster:
 
@@ -1422,9 +1409,9 @@ class(result_v)
 - Use `sapply` for interactive analysis when you want simplified output
 - Use `vapply` in production code or packages where type safety is important
 
-# Practical Applications
+## Practical Applications
 
-## Example 1: Data Cleaning Pipeline
+### Example 1: Data Cleaning Pipeline
 
 ```{r practical-1}
 # Create sample data with issues
@@ -1461,7 +1448,7 @@ clean_and_summarize <- function(df) {
 clean_and_summarize(messy_data)
 ```
 
-## Example 2: Simulation Study
+### Example 2: Simulation Study
 
 ```{r practical-2}
 # Function to simulate and analyze data
@@ -1492,7 +1479,7 @@ results_df <- do.call(rbind, lapply(simulation_results, as.data.frame))
 results_df
 ```
 
-# Summary
+## Summary
 
 This tutorial covered essential advanced R programming concepts:
 
@@ -1507,7 +1494,7 @@ This tutorial covered essential advanced R programming concepts:
 
 These tools form the foundation for efficient data analysis and statistical programming in R. Mastering them will enable you to write cleaner, more maintainable, and more efficient R code.
 
-## Key Takeaways
+### Key Takeaways
 
 - **Choose the right data structure**: vectors for homogeneous data, lists for heterogeneous, data frames for tabular data
 - **Prefer vectorized operations** over loops when possible
@@ -1516,7 +1503,7 @@ These tools form the foundation for efficient data analysis and statistical prog
 - **Check and handle missing values** explicitly
 - **Use type-safe functions** (like vapply) in production code
 
-## Further Learning
+### Further Learning
 
 To continue developing your R skills, explore:
 - Advanced data manipulation with `dplyr` and `data.table`
