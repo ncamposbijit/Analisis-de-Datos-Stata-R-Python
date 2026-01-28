@@ -4,16 +4,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>1 Introduction | Tutorial 3: Understanding Simple linear Regression</title>
+<title>4 Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 3: Understanding Simple linear Regression</title>
 <meta name="author" content="Nicolás Campos Bijit">
-<meta name="description" content="Exercises and concepts for introduction econometrics">
+<meta name="description" content="We observe an i.i.d. sample \(\{(Y_i, X_i)\}_{i=1}^n\) with \(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\). The simple linear regression model is \[ Y = \beta_0 + \beta_1 X + u. \] In the sample, OLS chooses...">
 <meta name="generator" content="bookdown 0.46 with bs4_book()">
-<meta property="og:title" content="1 Introduction | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:title" content="4 Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 3: Understanding Simple linear Regression">
 <meta property="og:type" content="book">
-<meta property="og:description" content="Exercises and concepts for introduction econometrics">
+<meta property="og:description" content="We observe an i.i.d. sample \(\{(Y_i, X_i)\}_{i=1}^n\) with \(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\). The simple linear regression model is \[ Y = \beta_0 + \beta_1 X + u. \] In the sample, OLS chooses...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="1 Introduction | Tutorial 3: Understanding Simple linear Regression">
-<meta name="twitter:description" content="Exercises and concepts for introduction econometrics">
+<meta name="twitter:title" content="4 Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:description" content="We observe an i.i.d. sample \(\{(Y_i, X_i)\}_{i=1}^n\) with \(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\). The simple linear regression model is \[ Y = \beta_0 + \beta_1 X + u. \] In the sample, OLS chooses...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
@@ -46,10 +46,10 @@
 
       <nav aria-label="Table of contents"><h2>Table of contents</h2>
         <ul class="book-toc list-unstyled">
-<li><a class="active" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
 <li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
 <li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
-<li><a class="" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="active" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
 <li><a class="" href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
 <li><a class="" href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
 <li><a class="" href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
@@ -61,19 +61,33 @@
         </div>
       </nav>
 </div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><!--bookdown:title:end--><!--bookdown:title:start--><div id="introduction" class="section level1" number="1">
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation" class="section level1" number="4">
 <h1>
-<span class="header-section-number">1</span> Introduction<a class="anchor" aria-label="anchor" href="#introduction"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation<a class="anchor" aria-label="anchor" href="#tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation"><i class="fas fa-link"></i></a>
 </h1>
-<p>These notes have been updated and adapted for the course ECON 326: Introduction to Econometrics II, at the University of British Columbia (UBC), 2026.</p>
-
+<p>We observe an i.i.d. sample <span class="math inline">\(\{(Y_i, X_i)\}_{i=1}^n\)</span> with
+<span class="math inline">\(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\)</span>. The simple linear regression model is</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 X + u.
+\]</span></p>
+<p>In the sample, OLS chooses <span class="math inline">\((\hat\beta_0,\hat\beta_1)\)</span> to minimize the sum of squared residuals:</p>
+<p><span class="math display">\[
+\min_{\beta_0,\beta_1}\ \sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2.
+\]</span></p>
+<p>Define the fitted values and residuals:</p>
+<p><span class="math display">\[
+\hat Y_i = \hat\beta_0+\hat\beta_1X_i,
+\qquad
+\hat u_i = Y_i-\hat Y_i.
+\]</span></p>
+<hr>
 </div>
   <div class="chapter-nav">
-<div class="empty"></div>
-<div class="next"><a href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></div>
+<div class="prev"><a href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></div>
+<div class="next"><a href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav"><li><a class="nav-link" href="#introduction"><span class="header-section-number">1</span> Introduction</a></li></ul>
+      <ul class="nav navbar-nav"><li><a class="nav-link" href="#tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li></ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">

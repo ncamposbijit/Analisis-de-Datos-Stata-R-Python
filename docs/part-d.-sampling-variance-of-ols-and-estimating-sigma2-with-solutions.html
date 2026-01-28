@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>7 Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions) | Tutorial 3: Understanding Simple linear Regression</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="Narrative idea. In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean. Part D asks a different question: how variable is OLS across samples? That is, what is the...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="7 Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions) | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Narrative idea. In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean. Part D asks a different question: how variable is OLS across samples? That is, what is the...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="7 Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions) | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:description" content="Narrative idea. In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean. Part D asks a different question: how variable is OLS across samples? That is, what is the...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
+        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
+<li><a class="" href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
+<li><a class="active" href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
+<li><a class="" href="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions.html"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions" class="section level1" number="7">
+<h1>
+<span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating <span class="math inline">\(\sigma^2\)</span> (with solutions)<a class="anchor" aria-label="anchor" href="#part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions"><i class="fas fa-link"></i></a>
+</h1>
+<p><strong>Narrative idea.</strong> In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean.<br>
+Part D asks a different question: <strong>how variable is OLS across samples?</strong> That is, what is the variance of <span class="math inline">\(\hat\beta_1\)</span> and <span class="math inline">\(\hat\beta_0\)</span>?<br>
+To get clean formulas, we add a variance assumption (homoskedasticity) and a weak independence condition across observations.</p>
+<p>We maintain the model:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + u_i,
+\qquad \mathbb{E}[u_i\mid X_i]=0.
+\]</span></p>
+<hr>
+<div id="d1.-assumptions-for-the-classical-variance-formulas" class="section level2" number="7.1">
+<h2>
+<span class="header-section-number">7.1</span> D1. Assumptions for the classical variance formulas<a class="anchor" aria-label="anchor" href="#d1.-assumptions-for-the-classical-variance-formulas"><i class="fas fa-link"></i></a>
+</h2>
+<p>To derive simple variance expressions, assume:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Homoskedasticity</strong>
+<span class="math display">\[
+\operatorname{Var}(u_i\mid X_i)=\sigma^2 \quad \text{(constant in } X_i\text{)}.
+\]</span></p></li>
+<li><p><strong>No conditional correlation across observations</strong>
+<span class="math display">\[
+\operatorname{Cov}(u_i,u_j\mid X_1,\dots,X_n)=0 \quad (i\neq j).
+\]</span></p></li>
+</ol>
+<p>Define:
+<span class="math display">\[
+S_{xx} \equiv \sum_{i=1}^n (X_i-\bar X)^2.
+\]</span></p>
+<hr>
+</div>
+<div id="d2.-conditional-variance-of-the-slope" class="section level2" number="7.2">
+<h2>
+<span class="header-section-number">7.2</span> D2. Conditional variance of the slope<a class="anchor" aria-label="anchor" href="#d2.-conditional-variance-of-the-slope"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-10" class="section level3" number="7.2.1">
+<h3>
+<span class="header-section-number">7.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-10"><i class="fas fa-link"></i></a>
+</h3>
+<p>Using the representation from Part C,</p>
+<p><span class="math display">\[
+\hat\beta_1-\beta_1
+=
+\frac{\sum_{i=1}^n (X_i-\bar X)u_i}{S_{xx}},
+\]</span></p>
+<p>show that:</p>
+<p><span class="math display">\[
+\boxed{\operatorname{Var}(\hat\beta_1\mid X_1,\dots,X_n)=\frac{\sigma^2}{S_{xx}}.}
+\]</span></p>
+</div>
+<div id="solution-12" class="section level3" number="7.2.2">
+<h3>
+<span class="header-section-number">7.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-12"><i class="fas fa-link"></i></a>
+</h3>
+<p>Condition on the full regressor sample <span class="math inline">\(X=(X_1,\dots,X_n)\)</span>. Then <span class="math inline">\(S_{xx}\)</span> and <span class="math inline">\((X_i-\bar X)\)</span> are constants. Compute:</p>
+<p><span class="math display">\[
+\operatorname{Var}(\hat\beta_1\mid X)
+=
+\operatorname{Var}\left(\frac{1}{S_{xx}}\sum (X_i-\bar X)u_i \Bigm| X\right)
+=
+\frac{1}{S_{xx}^2}\operatorname{Var}\left(\sum (X_i-\bar X)u_i \Bigm| X\right).
+\]</span></p>
+<p>Using conditional uncorrelatedness across <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+\operatorname{Var}\left(\sum (X_i-\bar X)u_i \mid X\right)
+=
+\sum (X_i-\bar X)^2\operatorname{Var}(u_i\mid X)
+=
+\sum (X_i-\bar X)^2\sigma^2
+=
+\sigma^2 S_{xx}.
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\operatorname{Var}(\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}^2}(\sigma^2 S_{xx})
+=
+\boxed{\frac{\sigma^2}{S_{xx}}.}
+\]</span></p>
+<p><strong>Interpretation.</strong> The slope is more precise when (i) noise is smaller (<span class="math inline">\(\sigma^2\)</span> small) and/or (ii) <span class="math inline">\(X\)</span> has more spread (<span class="math inline">\(S_{xx}\)</span> large).</p>
+<hr>
+</div>
+</div>
+<div id="d3.-conditional-variance-of-the-intercept" class="section level2" number="7.3">
+<h2>
+<span class="header-section-number">7.3</span> D3. Conditional variance of the intercept<a class="anchor" aria-label="anchor" href="#d3.-conditional-variance-of-the-intercept"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-11" class="section level3" number="7.3.1">
+<h3>
+<span class="header-section-number">7.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-11"><i class="fas fa-link"></i></a>
+</h3>
+<p>Show that:</p>
+<p><span class="math display">\[
+\boxed{\operatorname{Var}(\hat\beta_0\mid X)
+=
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).}
+\]</span></p>
+</div>
+<div id="solution-13" class="section level3" number="7.3.2">
+<h3>
+<span class="header-section-number">7.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-13"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use:
+<span class="math display">\[
+\hat\beta_0 = \bar Y - \hat\beta_1\bar X.
+\]</span></p>
+<p>From the model, <span class="math inline">\(\bar Y = \beta_0+\beta_1\bar X+\bar u\)</span>, so:</p>
+<p><span class="math display">\[
+\hat\beta_0-\beta_0 = \bar u - (\hat\beta_1-\beta_1)\bar X.
+\]</span></p>
+<p>Condition on <span class="math inline">\(X\)</span>. Then <span class="math inline">\(\bar X\)</span> is constant, and we compute:</p>
+<p><span class="math display">\[
+\operatorname{Var}(\hat\beta_0\mid X)
+=
+\operatorname{Var}(\bar u\mid X)
++ \bar X^2\operatorname{Var}(\hat\beta_1\mid X)
+-2\bar X\operatorname{Cov}(\bar u,\hat\beta_1\mid X).
+\]</span></p>
+<p>Under the classical assumptions, <span class="math inline">\(\operatorname{Var}(\bar u\mid X)=\sigma^2/n\)</span>. Also we already have <span class="math inline">\(\operatorname{Var}(\hat\beta_1\mid X)=\sigma^2/S_{xx}\)</span>.</p>
+<p>It remains to show the covariance term is zero. Using
+<span class="math display">\[
+\hat\beta_1-\beta_1 = \frac{1}{S_{xx}}\sum (X_i-\bar X)u_i,
+\qquad
+\bar u = \frac{1}{n}\sum u_i,
+\]</span>
+the covariance is proportional to:
+<span class="math display">\[
+\operatorname{Cov}\left(\sum u_i,\ \sum (X_i-\bar X)u_i \mid X\right)
+=
+\sum (X_i-\bar X)\operatorname{Var}(u_i\mid X)
+=
+\sigma^2 \sum (X_i-\bar X)=0.
+\]</span></p>
+<p>Hence:
+<span class="math display">\[
+\operatorname{Var}(\hat\beta_0\mid X)
+=
+\frac{\sigma^2}{n}+\bar X^2\frac{\sigma^2}{S_{xx}}
+=
+\boxed{\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).}
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="d4.-estimating-sigma2-the-residual-variance-estimator" class="section level2" number="7.4">
+<h2>
+<span class="header-section-number">7.4</span> D4. Estimating <span class="math inline">\(\sigma^2\)</span>: the residual variance estimator<a class="anchor" aria-label="anchor" href="#d4.-estimating-sigma2-the-residual-variance-estimator"><i class="fas fa-link"></i></a>
+</h2>
+<p>Define residuals:</p>
+<p><span class="math display">\[
+\hat u_i = Y_i-\hat\beta_0-\hat\beta_1X_i.
+\]</span></p>
+<div id="question-12" class="section level3" number="7.4.1">
+<h3>
+<span class="header-section-number">7.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-12"><i class="fas fa-link"></i></a>
+</h3>
+<p>State the usual estimator for <span class="math inline">\(\sigma^2\)</span> and explain the degrees of freedom.</p>
+</div>
+<div id="solution-14" class="section level3" number="7.4.2">
+<h3>
+<span class="header-section-number">7.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-14"><i class="fas fa-link"></i></a>
+</h3>
+<p>The standard estimator is:</p>
+<p><span class="math display">\[
+\boxed{\hat\sigma^2
+=
+\frac{1}{n-2}\sum_{i=1}^n \hat u_i^2.}
+\]</span></p>
+<p><strong>Why <span class="math inline">\(n-2\)</span>?</strong> Two parameters <span class="math inline">\((\beta_0,\beta_1)\)</span> were estimated. The residuals are constrained by the two normal equations (Part A), so the remaining free variation used to estimate <span class="math inline">\(\sigma^2\)</span> corresponds to <span class="math inline">\(n-2\)</span> degrees of freedom.</p>
+<hr>
+</div>
+</div>
+<div id="d5.-estimated-variance-and-standard-errors-of-ols" class="section level2" number="7.5">
+<h2>
+<span class="header-section-number">7.5</span> D5. Estimated variance and standard errors of OLS<a class="anchor" aria-label="anchor" href="#d5.-estimated-variance-and-standard-errors-of-ols"><i class="fas fa-link"></i></a>
+</h2>
+<p>Plug in <span class="math inline">\(\hat\sigma^2\)</span>:</p>
+<p><span class="math display">\[
+\boxed{\widehat{\operatorname{Var}}(\hat\beta_1\mid X)=\frac{\hat\sigma^2}{S_{xx}}}
+\qquad\Rightarrow\qquad
+\boxed{\text{s.e.}(\hat\beta_1)=\sqrt{\frac{\hat\sigma^2}{S_{xx}}}}.
+\]</span></p>
+<p>and</p>
+<p><span class="math display">\[
+\boxed{\widehat{\operatorname{Var}}(\hat\beta_0\mid X)=\hat\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)}
+\qquad\Rightarrow\qquad
+\boxed{\text{s.e.}(\hat\beta_0)=\sqrt{\hat\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)}}.
+\]</span></p>
+<p><strong>Interpretation.</strong> Standard errors translate sampling variability into a scale that allows inference (confidence intervals and t-tests).</p>
+<hr>
+</div>
+<div id="optional-quick-check-in-r-using" class="section level2" number="7.6">
+<h2>
+<span class="header-section-number">7.6</span> (Optional) Quick check in R using <a class="anchor" aria-label="anchor" href="#optional-quick-check-in-r-using"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1.5</span><span class="op">*</span><span class="va">X</span> <span class="op">+</span> <span class="va">u</span></span>
+<span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Manual pieces for the classical formulas</span></span>
+<span><span class="va">uhat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="va">sigma2_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">uhat</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span><span class="op">/</span><span class="op">(</span><span class="va">n</span><span class="op">-</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">Sxx</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">X</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">se_b1_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">sigma2_hat</span> <span class="op">/</span> <span class="va">Sxx</span><span class="op">)</span></span>
+<span><span class="va">se_b0_manual</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="va">sigma2_hat</span> <span class="op">*</span> <span class="op">(</span><span class="fl">1</span><span class="op">/</span><span class="va">n</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">/</span> <span class="va">Sxx</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  se_b0_lm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">]</span>,</span>
+<span>  se_b0_manual <span class="op">=</span> <span class="va">se_b0_manual</span>,</span>
+<span>  se_b1_lm <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">$</span><span class="va">coef</span><span class="op">[</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">]</span>,</span>
+<span>  se_b1_manual <span class="op">=</span> <span class="va">se_b1_manual</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>##     se_b0_lm se_b0_manual     se_b1_lm se_b1_manual 
+##    0.2437701    0.2437701    0.1000182    0.1000182</code></pre>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></div>
+<div class="next"><a href="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions.html"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
+<li><a class="nav-link" href="#d1.-assumptions-for-the-classical-variance-formulas"><span class="header-section-number">7.1</span> D1. Assumptions for the classical variance formulas</a></li>
+<li>
+<a class="nav-link" href="#d2.-conditional-variance-of-the-slope"><span class="header-section-number">7.2</span> D2. Conditional variance of the slope</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-10"><span class="header-section-number">7.2.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-12"><span class="header-section-number">7.2.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#d3.-conditional-variance-of-the-intercept"><span class="header-section-number">7.3</span> D3. Conditional variance of the intercept</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-11"><span class="header-section-number">7.3.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-13"><span class="header-section-number">7.3.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#d4.-estimating-sigma2-the-residual-variance-estimator"><span class="header-section-number">7.4</span> D4. Estimating \(\sigma^2\): the residual variance estimator</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-12"><span class="header-section-number">7.4.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-14"><span class="header-section-number">7.4.2</span> Solution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#d5.-estimated-variance-and-standard-errors-of-ols"><span class="header-section-number">7.5</span> D5. Estimated variance and standard errors of OLS</a></li>
+<li><a class="nav-link" href="#optional-quick-check-in-r-using"><span class="header-section-number">7.6</span> (Optional) Quick check in R using </a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

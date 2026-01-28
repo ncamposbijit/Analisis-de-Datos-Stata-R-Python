@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 Part A. What residuals are and what OLS forces them to satisfy | Tutorial 3: Understanding Simple linear Regression</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="Narrative idea. OLS picks the “best” line (in squared-error sense). Once the line is chosen, each residual \(\hat u_i\) is the part of \(Y_i\) that the line does not explain. The key point is: OLS...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="5 Part A. What residuals are and what OLS forces them to satisfy | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Narrative idea. OLS picks the “best” line (in squared-error sense). Once the line is chosen, each residual \(\hat u_i\) is the part of \(Y_i\) that the line does not explain. The key point is: OLS...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 Part A. What residuals are and what OLS forces them to satisfy | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:description" content="Narrative idea. OLS picks the “best” line (in squared-error sense). Once the line is chosen, each residual \(\hat u_i\) is the part of \(Y_i\) that the line does not explain. The key point is: OLS...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
+        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="active" href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
+<li><a class="" href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
+<li><a class="" href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
+<li><a class="" href="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions.html"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy<a class="anchor" aria-label="anchor" href="#part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy"><i class="fas fa-link"></i></a>
+</h1>
+<p><strong>Narrative idea.</strong> OLS picks the “best” line (in squared-error sense). Once the line is chosen, each residual <span class="math inline">\(\hat u_i\)</span> is the part of <span class="math inline">\(Y_i\)</span> that the line does not explain. The key point is: OLS does not leave residuals arbitrary. The first-order conditions imply exact <em>sample moment conditions</em>—mechanical identities that hold in any dataset whenever you run OLS with an intercept.</p>
+<p>We will <em>use</em> the normal equations as facts (we derived them last tutorial), and focus on what they imply.</p>
+<hr>
+<div id="a1.-normal-equations-two-sample-moment-conditions" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> A1. Normal equations: two sample moment conditions<a class="anchor" aria-label="anchor" href="#a1.-normal-equations-two-sample-moment-conditions"><i class="fas fa-link"></i></a>
+</h2>
+<p>The OLS normal equations imply:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat u_i = 0}
+\qquad\text{and}\qquad
+\boxed{\sum_{i=1}^n X_i \hat u_i = 0.}
+\]</span></p>
+<p><strong>Interpretation.</strong>
+- <span class="math inline">\(\sum \hat u_i=0\)</span> means residuals average to zero: OLS does not systematically over- or under-predict <span class="math inline">\(Y\)</span> in the sample.
+- <span class="math inline">\(\sum X_i\hat u_i=0\)</span> means residuals are “orthogonal” to <span class="math inline">\(X\)</span> in the sample: once the slope is chosen, there is no remaining linear association between <span class="math inline">\(X\)</span> and the residuals.</p>
+<hr>
+</div>
+<div id="a2.-orthogonality-to-centered-x-what-it-really-means" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> A2. Orthogonality to centered <span class="math inline">\(X\)</span>: what it really means<a class="anchor" aria-label="anchor" href="#a2.-orthogonality-to-centered-x-what-it-really-means"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question"><i class="fas fa-link"></i></a>
+</h3>
+<p>Show that residuals are also orthogonal to deviations of <span class="math inline">\(X\)</span> around its mean:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n (X_i-\bar X)\hat u_i = 0.}
+\]</span></p>
+</div>
+<div id="solution" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution"><i class="fas fa-link"></i></a>
+</h3>
+<p>Start from the identity:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (X_i-\bar X)\hat u_i
+=
+\sum_{i=1}^n X_i\hat u_i
+-
+\bar X\sum_{i=1}^n \hat u_i.
+\]</span></p>
+<p>By the normal equations (A1), <span class="math inline">\(\sum X_i\hat u_i=0\)</span> and <span class="math inline">\(\sum \hat u_i=0\)</span>. Therefore the right-hand side is <span class="math inline">\(0-\bar X\cdot 0=0\)</span>, so:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n (X_i-\bar X)\hat u_i = 0.}
+\]</span></p>
+<p><strong>Interpretation.</strong> After fitting the line, observations with above-average <span class="math inline">\(X\)</span> are not systematically above/below the line relative to observations with below-average <span class="math inline">\(X\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="a3.-the-fitted-line-must-pass-through-bar-xbar-y" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> A3. The fitted line must pass through <span class="math inline">\((\bar X,\bar Y)\)</span><a class="anchor" aria-label="anchor" href="#a3.-the-fitted-line-must-pass-through-bar-xbar-y"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-1" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Show that the average fitted value equals the average outcome:</p>
+<p><span class="math display">\[
+\overline{\hat Y}=\bar Y
+\quad\Rightarrow\quad
+\boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
+\]</span></p>
+</div>
+<div id="solution-1" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>First compute the average fitted value:</p>
+<p><span class="math display">\[
+\overline{\hat Y}
+=
+\frac{1}{n}\sum_{i=1}^n \hat Y_i
+=
+\frac{1}{n}\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)
+=
+\hat\beta_0+\hat\beta_1\bar X.
+\]</span></p>
+<p>Now use the definition <span class="math inline">\(\hat u_i=Y_i-\hat Y_i\)</span>. Taking averages:</p>
+<p><span class="math display">\[
+\bar{\hat u}
+=
+\bar Y - \overline{\hat Y}.
+\]</span></p>
+<p>But A1 implies <span class="math inline">\(\sum \hat u_i=0\)</span>, so <span class="math inline">\(\bar{\hat u}=0\)</span>. Hence:</p>
+<p><span class="math display">\[
+0=\bar{\hat u}=\bar Y-\overline{\hat Y}
+\quad\Rightarrow\quad
+\overline{\hat Y}=\bar Y.
+\]</span></p>
+<p>Combining with <span class="math inline">\(\overline{\hat Y}=\hat\beta_0+\hat\beta_1\bar X\)</span> yields:</p>
+<p><span class="math display">\[
+\boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
+\]</span></p>
+<p><strong>Interpretation.</strong> The OLS line always crosses the sample means.</p>
+<hr>
+</div>
+</div>
+<div id="a4.-residuals-are-orthogonal-to-fitted-values" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> A4. Residuals are orthogonal to fitted values<a class="anchor" aria-label="anchor" href="#a4.-residuals-are-orthogonal-to-fitted-values"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-2" class="section level3" number="5.4.1">
+<h3>
+<span class="header-section-number">5.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Show that:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\]</span></p>
+</div>
+<div id="solution-2" class="section level3" number="5.4.2">
+<h3>
+<span class="header-section-number">5.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-2"><i class="fas fa-link"></i></a>
+</h3>
+<p>Write fitted values as <span class="math inline">\(\hat Y_i=\hat\beta_0+\hat\beta_1X_i\)</span> and expand:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat Y_i\hat u_i
+=
+\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat u_i
+=
+\hat\beta_0\sum_{i=1}^n \hat u_i + \hat\beta_1\sum_{i=1}^n X_i\hat u_i.
+\]</span></p>
+<p>By A1, both sums are zero. Therefore:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\]</span></p>
+<p><strong>Interpretation.</strong> The part OLS explains (<span class="math inline">\(\hat Y\)</span>) and the part it cannot explain (<span class="math inline">\(\hat u\)</span>) do not move together in the sample.</p>
+<hr>
+</div>
+</div>
+<div id="a5.-why-this-matters-the-anova-decomposition-tss-ess-rss" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> A5. Why this matters: the ANOVA decomposition <span class="math inline">\(TSS = ESS + RSS\)</span><a class="anchor" aria-label="anchor" href="#a5.-why-this-matters-the-anova-decomposition-tss-ess-rss"><i class="fas fa-link"></i></a>
+</h2>
+<p>Define:</p>
+<p><span class="math display">\[
+TSS=\sum_{i=1}^n (Y_i-\bar Y)^2,\quad
+ESS=\sum_{i=1}^n (\hat Y_i-\bar Y)^2,\quad
+RSS=\sum_{i=1}^n \hat u_i^2.
+\]</span></p>
+<p>Start from the identity:</p>
+<p><span class="math display">\[
+Y_i-\bar Y = (\hat Y_i-\bar Y) + \hat u_i.
+\]</span></p>
+<div id="question-3" class="section level3" number="5.5.1">
+<h3>
+<span class="header-section-number">5.5.1</span> Question<a class="anchor" aria-label="anchor" href="#question-3"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li><p>Square both sides and sum over <span class="math inline">\(i\)</span>.</p></li>
+<li><p>Use A2 (or A4) to show the cross-term is zero, and conclude:</p></li>
+</ol>
+<p><span class="math display">\[
+\boxed{TSS = ESS + RSS.}
+\]</span></p>
+</div>
+<div id="solution-3" class="section level3" number="5.5.2">
+<h3>
+<span class="header-section-number">5.5.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-3"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: lower-alpha">
+<li>Square and sum:</li>
+</ol>
+<p><span class="math display">\[
+\sum_{i=1}^n (Y_i-\bar Y)^2
+=
+\sum_{i=1}^n (\hat Y_i-\bar Y)^2
++
+\sum_{i=1}^n \hat u_i^2
++
+2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+\]</span></p>
+<p>That is:</p>
+<p><span class="math display">\[
+TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+\]</span></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Show the cross-term is zero. From A3, the line passes through <span class="math inline">\((\bar X,\bar Y)\)</span>, so:</li>
+</ol>
+<p><span class="math display">\[
+\hat Y_i-\bar Y
+=
+(\hat\beta_0+\hat\beta_1X_i)-(\hat\beta_0+\hat\beta_1\bar X)
+=
+\hat\beta_1(X_i-\bar X).
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
+=
+\hat\beta_1\sum_{i=1}^n (X_i-\bar X)\hat u_i.
+\]</span></p>
+<p>By A2, <span class="math inline">\(\sum (X_i-\bar X)\hat u_i=0\)</span>, so the cross-term vanishes. Hence:</p>
+<p><span class="math display">\[
+\boxed{TSS = ESS + RSS.}
+\]</span></p>
+<p><strong>Interpretation.</strong> Total variation in <span class="math inline">\(Y\)</span> equals the part explained by the fitted line plus the leftover variation in residuals.</p>
+<hr>
+</div>
+</div>
+<div id="quick-computational-check-in-r" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Quick computational check in R<a class="anchor" aria-label="anchor" href="#quick-computational-check-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>This chunk verifies the Part A identities numerically in a simulated dataset.</p>
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">80</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">2</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">1.5</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="va">u</span></span>
+<span></span>
+<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X</span><span class="op">)</span></span>
+<span><span class="va">uhat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Decompositions and orthogonality checks</span></span>
+<span><span class="va">TSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">ESS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">yhat</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">RSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">uhat</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  sum_uhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">uhat</span><span class="op">)</span>,</span>
+<span>  sum_Xuhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">X</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
+<span>  sum_centerX_uhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">X</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
+<span>  sum_yhat_uhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">yhat</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
+<span>  TSS_minus_ESS_minus_RSS <span class="op">=</span> <span class="va">TSS</span> <span class="op">-</span> <span class="va">ESS</span> <span class="op">-</span> <span class="va">RSS</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>##                sum_uhat               sum_Xuhat 
+##            6.661338e-16           -8.215650e-15 
+##        sum_centerX_uhat           sum_yhat_uhat 
+##           -6.772360e-15           -2.886580e-14 
+## TSS_minus_ESS_minus_RSS 
+##            0.000000e+00</code></pre>
+<p>You should see values extremely close to zero (up to floating-point rounding), confirming the identities from Part A.</p>
+</div>
+<div id="b1.-the-population-regression-function-prf" class="section level2" number="5.7">
+<h2>
+<span class="header-section-number">5.7</span> B1. The Population Regression Function (PRF)<a class="anchor" aria-label="anchor" href="#b1.-the-population-regression-function-prf"><i class="fas fa-link"></i></a>
+</h2>
+<div id="b1.a-definition-concept" class="section level3" number="5.7.1">
+<h3>
+<span class="header-section-number">5.7.1</span> B1.a Definition (concept)<a class="anchor" aria-label="anchor" href="#b1.a-definition-concept"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>Population Regression Function</strong> is:</p>
+<p><span class="math display">\[
+m(x) \equiv \mathbb{E}[Y\mid X=x].
+\]</span></p>
+<p><strong>Interpretation.</strong> For each value of <span class="math inline">\(x\)</span>, <span class="math inline">\(m(x)\)</span> is the <em>average</em> of <span class="math inline">\(Y\)</span> among units with <span class="math inline">\(X=x\)</span>.</p>
+<p>In many applications we use a linear approximation to this conditional expectation:</p>
+<p><span class="math display">\[
+\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+\]</span></p>
+<p>This is the “linear PRF” assumption.</p>
+<hr>
+</div>
+</div>
+<div id="b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from" class="section level2" number="5.8">
+<h2>
+<span class="header-section-number">5.8</span> B2. Zero conditional mean: what it is and where it comes from<a class="anchor" aria-label="anchor" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-4" class="section level3" number="5.8.1">
+<h3>
+<span class="header-section-number">5.8.1</span> Question<a class="anchor" aria-label="anchor" href="#question-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>Assume the PRF is linear:</p>
+<p><span class="math display">\[
+\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+\]</span></p>
+<p>Define the population error term</p>
+<p><span class="math display">\[
+u \equiv Y - (\beta_0 + \beta_1 X).
+\]</span></p>
+<p>Show that the linear PRF implies the <strong>zero conditional mean</strong> condition:</p>
+<p><span class="math display">\[
+\boxed{\mathbb{E}[u\mid X] = 0.}
+\]</span></p>
+</div>
+<div id="solution-4" class="section level3" number="5.8.2">
+<h3>
+<span class="header-section-number">5.8.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-4"><i class="fas fa-link"></i></a>
+</h3>
+<p>Compute:</p>
+<p><span class="math display">\[
+\mathbb{E}[u\mid X]
+=
+\mathbb{E}[Y-(\beta_0+\beta_1X)\mid X]
+=
+\mathbb{E}[Y\mid X] - (\beta_0+\beta_1X).
+\]</span></p>
+<p>Under the linear PRF, <span class="math inline">\(\mathbb{E}[Y\mid X]=\beta_0+\beta_1X\)</span>, so:</p>
+<p><span class="math display">\[
+\mathbb{E}[u\mid X] = (\beta_0+\beta_1X) - (\beta_0+\beta_1X) = 0.
+\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[
+\boxed{\mathbb{E}[u\mid X]=0.}
+\]</span></p>
+<p><strong>Interpretation.</strong> After controlling for <span class="math inline">\(X\)</span>, the remaining component <span class="math inline">\(u\)</span> has <em>no systematic average pattern</em> left. This is the key assumption that makes OLS unbiased under random sampling.</p>
+<hr>
+</div>
+</div>
+<div id="b3.-what-zero-conditional-mean-implies-useful-corollaries" class="section level2" number="5.9">
+<h2>
+<span class="header-section-number">5.9</span> B3. What zero conditional mean implies (useful corollaries)<a class="anchor" aria-label="anchor" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Narrative idea.</strong> The condition <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span> is a <em>conditional</em> statement. It automatically implies some unconditional statements that are often used in intuition.</p>
+<div id="question-5" class="section level3" number="5.9.1">
+<h3>
+<span class="header-section-number">5.9.1</span> Question<a class="anchor" aria-label="anchor" href="#question-5"><i class="fas fa-link"></i></a>
+</h3>
+<p>Assuming <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, show that:</p>
+<ol style="list-style-type: decimal">
+<li>
+<span class="math inline">\(\boxed{\mathbb{E}[u]=0}\)</span><br>
+</li>
+<li><span class="math inline">\(\boxed{\operatorname{Cov}(X,u)=0}\)</span></li>
+</ol>
+</div>
+<div id="solution-5" class="section level3" number="5.9.2">
+<h3>
+<span class="header-section-number">5.9.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-5"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>By iterated expectations:</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{E}[u] = \mathbb{E}[\mathbb{E}[u\mid X]] = \mathbb{E}[0]=0.
+\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Compute:</li>
+</ol>
+<p><span class="math display">\[
+\operatorname{Cov}(X,u)=\mathbb{E}[Xu]-\mathbb{E}[X]\mathbb{E}[u].
+\]</span></p>
+<p>We already have <span class="math inline">\(\mathbb{E}[u]=0\)</span>, so it is enough to show <span class="math inline">\(\mathbb{E}[Xu]=0\)</span>:</p>
+<p><span class="math display">\[
+\mathbb{E}[Xu]
+=
+\mathbb{E}[\mathbb{E}[Xu\mid X]]
+=
+\mathbb{E}[X\,\mathbb{E}[u\mid X]]
+=
+\mathbb{E}[X\cdot 0] = 0.
+\]</span></p>
+<p>Hence <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>.</p>
+<p><strong>Interpretation.</strong> Zero conditional mean implies that (unconditionally) <span class="math inline">\(u\)</span> has mean zero and is uncorrelated with <span class="math inline">\(X\)</span>. But the reverse is <em>not</em> automatically true.</p>
+<hr>
+</div>
+</div>
+<div id="b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care" class="section level2" number="5.10">
+<h2>
+<span class="header-section-number">5.10</span> B4. Mean independence vs zero conditional mean (and why we care)<a class="anchor" aria-label="anchor" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><i class="fas fa-link"></i></a>
+</h2>
+<div id="b4.a-definitions" class="section level3" number="5.10.1">
+<h3>
+<span class="header-section-number">5.10.1</span> B4.a Definitions<a class="anchor" aria-label="anchor" href="#b4.a-definitions"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li><p><strong>Zero conditional mean:</strong>
+<span class="math display">\[
+\mathbb{E}[u\mid X]=0.
+\]</span></p></li>
+<li><p><strong>Mean independence:</strong>
+<span class="math display">\[
+\mathbb{E}[u\mid X]=\mathbb{E}[u].
+\]</span></p></li>
+</ul>
+<p>Mean independence says the conditional mean of <span class="math inline">\(u\)</span> does not depend on <span class="math inline">\(X\)</span> at all; zero conditional mean says it is specifically zero.</p>
+</div>
+<div id="question-6" class="section level3" number="5.10.2">
+<h3>
+<span class="header-section-number">5.10.2</span> Question<a class="anchor" aria-label="anchor" href="#question-6"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>If <span class="math inline">\(\mathbb{E}[u]=0\)</span>, show that mean independence implies zero conditional mean.<br>
+</li>
+<li>In 2 lines: which is stronger, and why?</li>
+</ol>
+</div>
+<div id="solution-6" class="section level3" number="5.10.3">
+<h3>
+<span class="header-section-number">5.10.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-6"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>If mean independence holds, then <span class="math inline">\(\mathbb{E}[u\mid X]=\mathbb{E}[u]\)</span>. If also <span class="math inline">\(\mathbb{E}[u]=0\)</span>, then:</li>
+</ol>
+<p><span class="math display">\[
+\mathbb{E}[u\mid X]=0,
+\]</span></p>
+<p>which is exactly zero conditional mean.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>
+<strong>Mean independence is stronger</strong> because it requires <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> to be the same constant for every <span class="math inline">\(X\)</span> (and if that constant is zero, we get zero conditional mean). Zero conditional mean is the key restriction needed for unbiased OLS under random sampling; mean independence is a stronger way of ensuring it.</li>
+</ol>
+<hr>
+</div>
+</div>
+<div id="b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept" class="section level2" number="5.11">
+<h2>
+<span class="header-section-number">5.11</span> B5. A cautionary note: uncorrelatedness is not enough (concept)<a class="anchor" aria-label="anchor" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Narrative idea.</strong> Students often think “<span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> means no bias.” That is not the right logic. OLS unbiasedness relies on a <em>conditional</em> statement like <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.</p>
+<div id="question-2-lines" class="section level3" number="5.11.1">
+<h3>
+<span class="header-section-number">5.11.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines"><i class="fas fa-link"></i></a>
+</h3>
+<p>Explain briefly why <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> alone does not guarantee <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.</p>
+</div>
+<div id="solution-7" class="section level3" number="5.11.2">
+<h3>
+<span class="header-section-number">5.11.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-7"><i class="fas fa-link"></i></a>
+</h3>
+<p>Uncorrelatedness is an <em>unconditional</em> moment restriction and can hold even when <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> varies with <span class="math inline">\(X\)</span> in a nonlinear way. OLS unbiasedness needs the conditional restriction <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, not just <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="quick-simulation-intuition-in-r" class="section level2" number="5.12">
+<h2>
+<span class="header-section-number">5.12</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>This chunk is just to build intuition: it shows that when we generate data with <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, sample correlation between <span class="math inline">\(X\)</span> and residual-like noise fluctuates around zero.</p>
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">500</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>                 <span class="co"># independent of X =&gt; E[u|X]=0</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span><span class="va">X</span> <span class="op">+</span> <span class="va">u</span></span>
+<span></span>
+<span><span class="co"># Check sample correlation between X and u (should be close to 0 on average)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">X</span>, <span class="va">u</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] -0.05193691</code></pre>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></div>
+<div class="next"><a href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
+<li><a class="nav-link" href="#a1.-normal-equations-two-sample-moment-conditions"><span class="header-section-number">5.1</span> A1. Normal equations: two sample moment conditions</a></li>
+<li>
+<a class="nav-link" href="#a2.-orthogonality-to-centered-x-what-it-really-means"><span class="header-section-number">5.2</span> A2. Orthogonality to centered \(X\): what it really means</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question"><span class="header-section-number">5.2.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution"><span class="header-section-number">5.2.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#a3.-the-fitted-line-must-pass-through-bar-xbar-y"><span class="header-section-number">5.3</span> A3. The fitted line must pass through \((\bar X,\bar Y)\)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-1"><span class="header-section-number">5.3.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-1"><span class="header-section-number">5.3.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#a4.-residuals-are-orthogonal-to-fitted-values"><span class="header-section-number">5.4</span> A4. Residuals are orthogonal to fitted values</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-2"><span class="header-section-number">5.4.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-2"><span class="header-section-number">5.4.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#a5.-why-this-matters-the-anova-decomposition-tss-ess-rss"><span class="header-section-number">5.5</span> A5. Why this matters: the ANOVA decomposition \(TSS = ESS + RSS\)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-3"><span class="header-section-number">5.5.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-3"><span class="header-section-number">5.5.2</span> Solution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#quick-computational-check-in-r"><span class="header-section-number">5.6</span> Quick computational check in R</a></li>
+<li>
+<a class="nav-link" href="#b1.-the-population-regression-function-prf"><span class="header-section-number">5.7</span> B1. The Population Regression Function (PRF)</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#b1.a-definition-concept"><span class="header-section-number">5.7.1</span> B1.a Definition (concept)</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><span class="header-section-number">5.8</span> B2. Zero conditional mean: what it is and where it comes from</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-4"><span class="header-section-number">5.8.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-4"><span class="header-section-number">5.8.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><span class="header-section-number">5.9</span> B3. What zero conditional mean implies (useful corollaries)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-5"><span class="header-section-number">5.9.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-5"><span class="header-section-number">5.9.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><span class="header-section-number">5.10</span> B4. Mean independence vs zero conditional mean (and why we care)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#b4.a-definitions"><span class="header-section-number">5.10.1</span> B4.a Definitions</a></li>
+<li><a class="nav-link" href="#question-6"><span class="header-section-number">5.10.2</span> Question</a></li>
+<li><a class="nav-link" href="#solution-6"><span class="header-section-number">5.10.3</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><span class="header-section-number">5.11</span> B5. A cautionary note: uncorrelatedness is not enough (concept)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-2-lines"><span class="header-section-number">5.11.1</span> Question (2 lines)</a></li>
+<li><a class="nav-link" href="#solution-7"><span class="header-section-number">5.11.2</span> Solution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#quick-simulation-intuition-in-r"><span class="header-section-number">5.12</span> Quick simulation intuition in R</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

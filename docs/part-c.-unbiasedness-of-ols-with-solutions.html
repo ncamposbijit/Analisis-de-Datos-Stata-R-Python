@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>6 Part C. Unbiasedness of OLS (with solutions) | Tutorial 3: Understanding Simple linear Regression</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="Narrative idea. Part A gave sample identities (orthogonality) that hold mechanically. Part B defined the population object we care about (the PRF) and introduced the key assumption...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="6 Part C. Unbiasedness of OLS (with solutions) | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Narrative idea. Part A gave sample identities (orthogonality) that hold mechanically. Part B defined the population object we care about (the PRF) and introduced the key assumption...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6 Part C. Unbiasedness of OLS (with solutions) | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:description" content="Narrative idea. Part A gave sample identities (orthogonality) that hold mechanically. Part B defined the population object we care about (the PRF) and introduced the key assumption...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
+        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
+<li><a class="active" href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
+<li><a class="" href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
+<li><a class="" href="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions.html"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="part-c.-unbiasedness-of-ols-with-solutions" class="section level1" number="6">
+<h1>
+<span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)<a class="anchor" aria-label="anchor" href="#part-c.-unbiasedness-of-ols-with-solutions"><i class="fas fa-link"></i></a>
+</h1>
+<p><strong>Narrative idea.</strong> Part A gave sample identities (orthogonality) that hold mechanically.<br>
+Part B defined the population object we care about (the PRF) and introduced the key assumption <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.<br>
+Part C connects the two: we use an algebraic representation of the OLS slope and show that under <strong>random sampling</strong> and <strong>zero conditional mean</strong>, OLS is unbiased.</p>
+<p>We work with the population model (for each observation <span class="math inline">\(i\)</span>):</p>
+<p><span class="math display">\[
+Y_i = \beta_0 + \beta_1 X_i + u_i.
+\]</span></p>
+<p>Assume i.i.d. sampling and the <strong>zero conditional mean</strong> assumption:</p>
+<p><span class="math display">\[
+\mathbb{E}[u_i\mid X_i] = 0.
+\]</span></p>
+<hr>
+<div id="c1.-key-representation-of-the-ols-slope" class="section level2" number="6.1">
+<h2>
+<span class="header-section-number">6.1</span> C1. Key representation of the OLS slope<a class="anchor" aria-label="anchor" href="#c1.-key-representation-of-the-ols-slope"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-7" class="section level3" number="6.1.1">
+<h3>
+<span class="header-section-number">6.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-7"><i class="fas fa-link"></i></a>
+</h3>
+<p>Using the known formula for the OLS slope,</p>
+<p><span class="math display">\[
+\hat\beta_1=\frac{\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y)}{\sum_{i=1}^n (X_i-\bar X)^2},
+\]</span></p>
+<p>show that:</p>
+<p><span class="math display">\[
+\boxed{\hat\beta_1
+=
+\beta_1
++
+\frac{\sum_{i=1}^n (X_i-\bar X)u_i}{\sum_{i=1}^n (X_i-\bar X)^2}.}
+\]</span></p>
+</div>
+<div id="solution-8" class="section level3" number="6.1.2">
+<h3>
+<span class="header-section-number">6.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-8"><i class="fas fa-link"></i></a>
+</h3>
+<p>Start from the decomposition:</p>
+<p><span class="math display">\[
+Y_i-\bar Y
+=
+\beta_1(X_i-\bar X) + (u_i-\bar u),
+\]</span></p>
+<p>because <span class="math inline">\(\bar Y=\beta_0+\beta_1\bar X+\bar u\)</span>.</p>
+<p>Multiply both sides by <span class="math inline">\((X_i-\bar X)\)</span> and sum over <span class="math inline">\(i\)</span>:</p>
+<p><span class="math display">\[
+\sum (X_i-\bar X)(Y_i-\bar Y)
+=
+\beta_1\sum (X_i-\bar X)^2 + \sum (X_i-\bar X)(u_i-\bar u).
+\]</span></p>
+<p>But <span class="math inline">\(\sum (X_i-\bar X)\bar u = \bar u\sum (X_i-\bar X)=0\)</span>, so</p>
+<p><span class="math display">\[
+\sum (X_i-\bar X)(u_i-\bar u)=\sum (X_i-\bar X)u_i.
+\]</span></p>
+<p>Divide both sides by <span class="math inline">\(S_{xx}=\sum (X_i-\bar X)^2\)</span>:</p>
+<p><span class="math display">\[
+\hat\beta_1
+=
+\beta_1 + \frac{\sum (X_i-\bar X)u_i}{S_{xx}}.
+\]</span></p>
+<p>Hence the desired representation holds.</p>
+<hr>
+</div>
+</div>
+<div id="c2.-unbiasedness-of-the-slope-conditional-then-unconditional" class="section level2" number="6.2">
+<h2>
+<span class="header-section-number">6.2</span> C2. Unbiasedness of the slope: conditional then unconditional<a class="anchor" aria-label="anchor" href="#c2.-unbiasedness-of-the-slope-conditional-then-unconditional"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Narrative idea.</strong> Unbiasedness is a statement about repeated sampling. We first show unbiasedness <strong>conditional on the observed <span class="math inline">\(X\)</span> sample</strong>, then take expectations again to get unconditional unbiasedness.</p>
+<div id="question-8" class="section level3" number="6.2.1">
+<h3>
+<span class="header-section-number">6.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-8"><i class="fas fa-link"></i></a>
+</h3>
+<p>Show:</p>
+<p><span class="math display">\[
+\boxed{\mathbb{E}[\hat\beta_1\mid X_1,\dots,X_n]=\beta_1}
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_1]=\beta_1.}
+\]</span></p>
+</div>
+<div id="solution-9" class="section level3" number="6.2.2">
+<h3>
+<span class="header-section-number">6.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-9"><i class="fas fa-link"></i></a>
+</h3>
+<p>From C1:</p>
+<p><span class="math display">\[
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)u_i,
+\qquad
+S_{xx}=\sum (X_i-\bar X)^2.
+\]</span></p>
+<p>Condition on <span class="math inline">\(X=(X_1,\dots,X_n)\)</span>. The weights <span class="math inline">\((X_i-\bar X)/S_{xx}\)</span> are constants given <span class="math inline">\(X\)</span>, so</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\beta_1-\beta_1\mid X]
+=
+\frac{1}{S_{xx}}\sum (X_i-\bar X)\,\mathbb{E}[u_i\mid X].
+\]</span></p>
+<p>Under i.i.d. sampling and <span class="math inline">\(\mathbb{E}[u_i\mid X_i]=0\)</span>, we have <span class="math inline">\(\mathbb{E}[u_i\mid X]=0\)</span> for each <span class="math inline">\(i\)</span>. Therefore</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\beta_1-\beta_1\mid X]=0
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_1\mid X]=\beta_1.}
+\]</span></p>
+<p>Finally, apply the Law of Iterated Expectations:</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\beta_1]
+=
+\mathbb{E}[\mathbb{E}[\hat\beta_1\mid X]]
+=
+\mathbb{E}[\beta_1]=\beta_1.
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="c3.-unbiasedness-of-the-intercept" class="section level2" number="6.3">
+<h2>
+<span class="header-section-number">6.3</span> C3. Unbiasedness of the intercept<a class="anchor" aria-label="anchor" href="#c3.-unbiasedness-of-the-intercept"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Narrative idea.</strong> Once we have unbiasedness of the slope, unbiasedness of the intercept follows from the identity <span class="math inline">\(\hat\beta_0=\bar Y-\hat\beta_1\bar X\)</span>.</p>
+<div id="question-9" class="section level3" number="6.3.1">
+<h3>
+<span class="header-section-number">6.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-9"><i class="fas fa-link"></i></a>
+</h3>
+<p>Show:</p>
+<p><span class="math display">\[
+\boxed{\mathbb{E}[\hat\beta_0\mid X_1,\dots,X_n]=\beta_0}
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_0]=\beta_0.}
+\]</span></p>
+</div>
+<div id="solution-10" class="section level3" number="6.3.2">
+<h3>
+<span class="header-section-number">6.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-10"><i class="fas fa-link"></i></a>
+</h3>
+<p>Start from:</p>
+<p><span class="math display">\[
+\hat\beta_0 = \bar Y - \hat\beta_1\bar X.
+\]</span></p>
+<p>Using <span class="math inline">\(\bar Y=\beta_0+\beta_1\bar X+\bar u\)</span>,</p>
+<p><span class="math display">\[
+\hat\beta_0-\beta_0
+=
+\bar u - (\hat\beta_1-\beta_1)\bar X.
+\]</span></p>
+<p>Condition on <span class="math inline">\(X\)</span>:</p>
+<ul>
+<li>By zero conditional mean and iterated expectations, <span class="math inline">\(\mathbb{E}[\bar u\mid X]=0\)</span>.</li>
+<li>From C2, <span class="math inline">\(\mathbb{E}[\hat\beta_1-\beta_1\mid X]=0\)</span>.</li>
+</ul>
+<p>Thus:</p>
+<p><span class="math display">\[
+\mathbb{E}[\hat\beta_0-\beta_0\mid X]=0
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_0\mid X]=\beta_0.}
+\]</span></p>
+<p>Unconditional unbiasedness follows by iterated expectations as before.</p>
+<hr>
+</div>
+</div>
+<div id="c4.-why-uncorrelatedness-is-not-enough-concept-check" class="section level2" number="6.4">
+<h2>
+<span class="header-section-number">6.4</span> C4. Why uncorrelatedness is not enough (concept check)<a class="anchor" aria-label="anchor" href="#c4.-why-uncorrelatedness-is-not-enough-concept-check"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Narrative idea.</strong> Students often confuse the unconditional statement “<span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>” with the conditional statement “<span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>”. OLS unbiasedness needs the <em>conditional</em> restriction.</p>
+<div id="question-2-lines-1" class="section level3" number="6.4.1">
+<h3>
+<span class="header-section-number">6.4.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines-1"><i class="fas fa-link"></i></a>
+</h3>
+<p>Explain briefly why <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> alone does not guarantee OLS unbiasedness.</p>
+</div>
+<div id="solution-11" class="section level3" number="6.4.2">
+<h3>
+<span class="header-section-number">6.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-11"><i class="fas fa-link"></i></a>
+</h3>
+<p><span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> is an unconditional moment condition and can hold even if <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> varies with <span class="math inline">\(X\)</span> (e.g., in a nonlinear way). OLS unbiasedness relies on the conditional restriction <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, which is stronger and rules out systematic dependence of the mean error on <span class="math inline">\(X\)</span>.</p>
+<hr>
+</div>
+</div>
+<div id="optional-quick-simulation-intuition-in-r" class="section level2" number="6.5">
+<h2>
+<span class="header-section-number">6.5</span> (Optional) Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#optional-quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>This chunk illustrates unbiasedness in repeated samples when <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>. The sample average of <span class="math inline">\(\hat\beta_1\)</span> across many simulations should be close to the true <span class="math inline">\(\beta_1\)</span>.</p>
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">2000</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
+<span><span class="va">beta0</span> <span class="op">&lt;-</span> <span class="fl">1</span></span>
+<span><span class="va">beta1</span> <span class="op">&lt;-</span> <span class="fl">2</span></span>
+<span></span>
+<span><span class="va">b1_hat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">numeric</a></span><span class="op">(</span><span class="va">B</span><span class="op">)</span></span>
+<span></span>
+<span><span class="kw">for</span> <span class="op">(</span><span class="va">b</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="va">B</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span></span>
+<span>  <span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span><span class="op">)</span>               <span class="co"># independent =&gt; E[u|X]=0</span></span>
+<span>  <span class="va">Y</span> <span class="op">&lt;-</span> <span class="va">beta0</span> <span class="op">+</span> <span class="va">beta1</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="va">u</span></span>
+<span>  <span class="va">b1_hat</span><span class="op">[</span><span class="va">b</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  mean_b1_hat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">b1_hat</span><span class="op">)</span>,</span>
+<span>  true_beta1 <span class="op">=</span> <span class="va">beta1</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>## mean_b1_hat  true_beta1 
+##    1.999375    2.000000</code></pre>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></div>
+<div class="next"><a href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#part-c.-unbiasedness-of-ols-with-solutions"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
+<li>
+<a class="nav-link" href="#c1.-key-representation-of-the-ols-slope"><span class="header-section-number">6.1</span> C1. Key representation of the OLS slope</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-7"><span class="header-section-number">6.1.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-8"><span class="header-section-number">6.1.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#c2.-unbiasedness-of-the-slope-conditional-then-unconditional"><span class="header-section-number">6.2</span> C2. Unbiasedness of the slope: conditional then unconditional</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-8"><span class="header-section-number">6.2.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-9"><span class="header-section-number">6.2.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#c3.-unbiasedness-of-the-intercept"><span class="header-section-number">6.3</span> C3. Unbiasedness of the intercept</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-9"><span class="header-section-number">6.3.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-10"><span class="header-section-number">6.3.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#c4.-why-uncorrelatedness-is-not-enough-concept-check"><span class="header-section-number">6.4</span> C4. Why uncorrelatedness is not enough (concept check)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-2-lines-1"><span class="header-section-number">6.4.1</span> Question (2 lines)</a></li>
+<li><a class="nav-link" href="#solution-11"><span class="header-section-number">6.4.2</span> Solution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#optional-quick-simulation-intuition-in-r"><span class="header-section-number">6.5</span> (Optional) Quick simulation intuition in R</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

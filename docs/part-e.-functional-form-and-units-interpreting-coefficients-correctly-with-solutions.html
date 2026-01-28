@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Part E. Functional form and units: interpreting coefficients correctly (with solutions) | Tutorial 3: Understanding Simple linear Regression</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="Narrative idea. Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly. A coefficient is a number with units, and the functional form you choose...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="8 Part E. Functional form and units: interpreting coefficients correctly (with solutions) | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Narrative idea. Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly. A coefficient is a number with units, and the functional form you choose...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Part E. Functional form and units: interpreting coefficients correctly (with solutions) | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:description" content="Narrative idea. Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly. A coefficient is a number with units, and the functional form you choose...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
+        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
+<li><a class="" href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
+<li><a class="" href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
+<li><a class="active" href="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions.html"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)<a class="anchor" aria-label="anchor" href="#part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions"><i class="fas fa-link"></i></a>
+</h1>
+<p><strong>Narrative idea.</strong> Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly.<br>
+A coefficient is a <em>number with units</em>, and the functional form you choose (levels vs logs, scaling) determines the meaning of “one unit increase.”</p>
+<p>We use one running example:</p>
+<ul>
+<li>
+<span class="math inline">\(Y\)</span> = weekly earnings (dollars)</li>
+<li>
+<span class="math inline">\(X\)</span> = hours worked per week</li>
+</ul>
+<hr>
+<div id="e1.-units-of-the-slope-in-the-levellevel-model" class="section level2" number="8.1">
+<h2>
+<span class="header-section-number">8.1</span> E1. Units of the slope in the level–level model<a class="anchor" aria-label="anchor" href="#e1.-units-of-the-slope-in-the-levellevel-model"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consider:</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1 X + u.
+\]</span></p>
+<div id="question-13" class="section level3" number="8.1.1">
+<h3>
+<span class="header-section-number">8.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-13"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li>What are the units of <span class="math inline">\(\beta_1\)</span>?<br>
+</li>
+<li>Give the economic interpretation of <span class="math inline">\(\beta_1\)</span> in words.</li>
+</ol>
+</div>
+<div id="solution-15" class="section level3" number="8.1.2">
+<h3>
+<span class="header-section-number">8.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-15"><i class="fas fa-link"></i></a>
+</h3>
+<ol style="list-style-type: decimal">
+<li><p><span class="math inline">\(Y\)</span> is dollars and <span class="math inline">\(X\)</span> is hours, so <span class="math inline">\(\beta_1\)</span> has units <strong>dollars per hour</strong>.</p></li>
+<li><p><span class="math inline">\(\beta_1\)</span> is the change in <em>expected weekly earnings</em> associated with one additional hour worked per week, holding other unobservables in <span class="math inline">\(u\)</span> fixed <em>in the conditional-mean sense</em> (under <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>).</p></li>
+</ol>
+<hr>
+</div>
+</div>
+<div id="e2.-rescaling-regressors-why-coefficients-change-mechanically" class="section level2" number="8.2">
+<h2>
+<span class="header-section-number">8.2</span> E2. Rescaling regressors: why coefficients change mechanically<a class="anchor" aria-label="anchor" href="#e2.-rescaling-regressors-why-coefficients-change-mechanically"><i class="fas fa-link"></i></a>
+</h2>
+<p>Define a rescaled regressor:</p>
+<p><span class="math display">\[
+X^{(10)} \equiv \frac{X}{10}.
+\]</span></p>
+<div id="question-14" class="section level3" number="8.2.1">
+<h3>
+<span class="header-section-number">8.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-14"><i class="fas fa-link"></i></a>
+</h3>
+<p>If we regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X^{(10)}\)</span>, how does the slope change? Relate <span class="math inline">\(\beta_1^{(10)}\)</span> to <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<div id="solution-16" class="section level3" number="8.2.2">
+<h3>
+<span class="header-section-number">8.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-16"><i class="fas fa-link"></i></a>
+</h3>
+<p>Since <span class="math inline">\(X = 10X^{(10)}\)</span>, substitute into the original model:</p>
+<p><span class="math display">\[
+Y = \beta_0 + \beta_1(10X^{(10)}) + u
+= \beta_0 + (10\beta_1)X^{(10)} + u.
+\]</span></p>
+<p>So:</p>
+<p><span class="math display">\[
+\boxed{\beta_1^{(10)} = 10\beta_1.}
+\]</span></p>
+<p><strong>Interpretation.</strong> A one-unit increase in <span class="math inline">\(X^{(10)}\)</span> is a <strong>10-hour</strong> increase in <span class="math inline">\(X\)</span>, so the slope scales accordingly.</p>
+<hr>
+</div>
+</div>
+<div id="e3.-rescaling-outcomes-what-changes-and-what-does-not" class="section level2" number="8.3">
+<h2>
+<span class="header-section-number">8.3</span> E3. Rescaling outcomes: what changes and what does not<a class="anchor" aria-label="anchor" href="#e3.-rescaling-outcomes-what-changes-and-what-does-not"><i class="fas fa-link"></i></a>
+</h2>
+<p>Define <span class="math inline">\(Y^{(1000)} \equiv Y/1000\)</span> (earnings in “thousands of dollars”).</p>
+<div id="question-15" class="section level3" number="8.3.1">
+<h3>
+<span class="header-section-number">8.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-15"><i class="fas fa-link"></i></a>
+</h3>
+<p>If we regress <span class="math inline">\(Y^{(1000)}\)</span> on <span class="math inline">\(X\)</span>, what happens to the slope and intercept?</p>
+</div>
+<div id="solution-17" class="section level3" number="8.3.2">
+<h3>
+<span class="header-section-number">8.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-17"><i class="fas fa-link"></i></a>
+</h3>
+<p>Divide the entire equation by 1000:</p>
+<p><span class="math display">\[
+\frac{Y}{1000} = \frac{\beta_0}{1000} + \frac{\beta_1}{1000}X + \frac{u}{1000}.
+\]</span></p>
+<p>Thus:</p>
+<p><span class="math display">\[
+\boxed{\beta_0^{(1000)} = \beta_0/1000, \quad \beta_1^{(1000)} = \beta_1/1000.}
+\]</span></p>
+<p><strong>Interpretation.</strong> Changing the units of the dependent variable rescales coefficients, but does not change the underlying relationship—only the measurement scale.</p>
+<hr>
+</div>
+</div>
+<div id="e4.-loglevel-model-interpreting-semi-elasticities" class="section level2" number="8.4">
+<h2>
+<span class="header-section-number">8.4</span> E4. Log–level model: interpreting semi-elasticities<a class="anchor" aria-label="anchor" href="#e4.-loglevel-model-interpreting-semi-elasticities"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consider:</p>
+<p><span class="math display">\[
+\ln(Y) = \gamma_0 + \gamma_1 X + v.
+\]</span></p>
+<div id="question-16" class="section level3" number="8.4.1">
+<h3>
+<span class="header-section-number">8.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-16"><i class="fas fa-link"></i></a>
+</h3>
+<p>Interpret <span class="math inline">\(\gamma_1\)</span>. Give a rule-of-thumb interpretation for small <span class="math inline">\(\gamma_1\)</span>.</p>
+</div>
+<div id="solution-18" class="section level3" number="8.4.2">
+<h3>
+<span class="header-section-number">8.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-18"><i class="fas fa-link"></i></a>
+</h3>
+<p><span class="math inline">\(\gamma_1\)</span> is a <strong>semi-elasticity</strong>: it measures the change in log earnings from a one-unit increase in <span class="math inline">\(X\)</span>.</p>
+<p>For small <span class="math inline">\(\gamma_1\)</span>:</p>
+<p><span class="math display">\[
+\Delta \ln(Y) \approx \frac{\Delta Y}{Y}.
+\]</span></p>
+<p>So, approximately:</p>
+<p><span class="math display">\[
+\boxed{\text{A 1-unit increase in }X\text{ is associated with about }100\gamma_1\%\text{ change in }Y.}
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="e5.-loglog-model-interpreting-elasticities" class="section level2" number="8.5">
+<h2>
+<span class="header-section-number">8.5</span> E5. Log–log model: interpreting elasticities<a class="anchor" aria-label="anchor" href="#e5.-loglog-model-interpreting-elasticities"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consider:</p>
+<p><span class="math display">\[
+\ln(Y) = \delta_0 + \delta_1 \ln(X) + e.
+\]</span></p>
+<div id="question-17" class="section level3" number="8.5.1">
+<h3>
+<span class="header-section-number">8.5.1</span> Question<a class="anchor" aria-label="anchor" href="#question-17"><i class="fas fa-link"></i></a>
+</h3>
+<p>Interpret <span class="math inline">\(\delta_1\)</span>.</p>
+</div>
+<div id="solution-19" class="section level3" number="8.5.2">
+<h3>
+<span class="header-section-number">8.5.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-19"><i class="fas fa-link"></i></a>
+</h3>
+<p><span class="math inline">\(\delta_1\)</span> is an <strong>elasticity</strong>:</p>
+<p><span class="math display">\[
+\boxed{\text{A 1\% increase in }X\text{ is associated with a }\delta_1\%\text{ change in }Y.}
+\]</span></p>
+<hr>
+</div>
+</div>
+<div id="e6.-functional-form-as-a-modeling-choice-concept-check" class="section level2" number="8.6">
+<h2>
+<span class="header-section-number">8.6</span> E6. Functional form as a modeling choice (concept check)<a class="anchor" aria-label="anchor" href="#e6.-functional-form-as-a-modeling-choice-concept-check"><i class="fas fa-link"></i></a>
+</h2>
+<div id="question-short" class="section level3" number="8.6.1">
+<h3>
+<span class="header-section-number">8.6.1</span> Question (short)<a class="anchor" aria-label="anchor" href="#question-short"><i class="fas fa-link"></i></a>
+</h3>
+<p>Give <strong>one</strong> reason to prefer logs (log–level or log–log) rather than levels.</p>
+</div>
+<div id="solution-20" class="section level3" number="8.6.2">
+<h3>
+<span class="header-section-number">8.6.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-20"><i class="fas fa-link"></i></a>
+</h3>
+<p>Logs are often preferred when variation in <span class="math inline">\(Y\)</span> is roughly proportional to its level (e.g., earnings), which can make relationships closer to linear in logs and can reduce heteroskedasticity. Logs also lead to percent-change interpretations that are often more meaningful than “dollar changes” across very different income levels.</p>
+<hr>
+</div>
+</div>
+<div id="optional-small-r-demo-same-data-different-scales" class="section level2" number="8.7">
+<h2>
+<span class="header-section-number">8.7</span> (Optional) Small R demo: same data, different scales<a class="anchor" aria-label="anchor" href="#optional-small-r-demo-same-data-different-scales"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
+<span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">40</span>, sd <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>        <span class="co"># hours per week</span></span>
+<span><span class="va">u</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">50</span><span class="op">)</span></span>
+<span><span class="va">Y</span> <span class="op">&lt;-</span> <span class="fl">200</span> <span class="op">+</span> <span class="fl">15</span><span class="op">*</span><span class="va">X</span> <span class="op">+</span> <span class="va">u</span>                     <span class="co"># dollars per week</span></span>
+<span></span>
+<span><span class="va">fit_level</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">X10</span> <span class="op">&lt;-</span> <span class="va">X</span><span class="op">/</span><span class="fl">10</span></span>
+<span><span class="va">fit_rescaleX</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">Yk</span> <span class="op">&lt;-</span> <span class="va">Y</span><span class="op">/</span><span class="fl">1000</span></span>
+<span><span class="va">fit_rescaleY</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Yk</span> <span class="op">~</span> <span class="va">X</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
+<span>  b1_level <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_level</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  b1_rescaleX <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_rescaleX</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>  b1_rescaleY <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">fit_rescaleY</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      b1_level.X b1_rescaleX.X10   b1_rescaleY.X 
+##     14.70745558    147.07455583      0.01470746</code></pre>
+<p>You should see approximately:
+- <code>b1_rescaleX ≈ 10 * b1_level</code>
+- <code>b1_rescaleY ≈ b1_level / 1000</code></p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></li>
+<li>
+<a class="nav-link" href="#e1.-units-of-the-slope-in-the-levellevel-model"><span class="header-section-number">8.1</span> E1. Units of the slope in the level–level model</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-13"><span class="header-section-number">8.1.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-15"><span class="header-section-number">8.1.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#e2.-rescaling-regressors-why-coefficients-change-mechanically"><span class="header-section-number">8.2</span> E2. Rescaling regressors: why coefficients change mechanically</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-14"><span class="header-section-number">8.2.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-16"><span class="header-section-number">8.2.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#e3.-rescaling-outcomes-what-changes-and-what-does-not"><span class="header-section-number">8.3</span> E3. Rescaling outcomes: what changes and what does not</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-15"><span class="header-section-number">8.3.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-17"><span class="header-section-number">8.3.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#e4.-loglevel-model-interpreting-semi-elasticities"><span class="header-section-number">8.4</span> E4. Log–level model: interpreting semi-elasticities</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-16"><span class="header-section-number">8.4.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-18"><span class="header-section-number">8.4.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#e5.-loglog-model-interpreting-elasticities"><span class="header-section-number">8.5</span> E5. Log–log model: interpreting elasticities</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-17"><span class="header-section-number">8.5.1</span> Question</a></li>
+<li><a class="nav-link" href="#solution-19"><span class="header-section-number">8.5.2</span> Solution</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#e6.-functional-form-as-a-modeling-choice-concept-check"><span class="header-section-number">8.6</span> E6. Functional form as a modeling choice (concept check)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#question-short"><span class="header-section-number">8.6.1</span> Question (short)</a></li>
+<li><a class="nav-link" href="#solution-20"><span class="header-section-number">8.6.2</span> Solution</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#optional-small-r-demo-same-data-different-scales"><span class="header-section-number">8.7</span> (Optional) Small R demo: same data, different scales</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

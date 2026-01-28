@@ -4,15 +4,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>3 Tutorial 2: Simple linear Regression | Tutorial 2: Simple Linear Regression (with Intercept)</title>
-<meta name="author" content="">
+<title>3 Tutorial 2: Simple linear Regression | Tutorial 3: Understanding Simple linear Regression</title>
+<meta name="author" content="Nicolás Campos Bijit">
 <meta name="description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
 <meta name="generator" content="bookdown 0.46 with bs4_book()">
-<meta property="og:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 2: Simple Linear Regression (with Intercept)">
+<meta property="og:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 3: Understanding Simple linear Regression">
 <meta property="og:type" content="book">
 <meta property="og:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 2: Simple Linear Regression (with Intercept)">
+<meta name="twitter:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 3: Understanding Simple linear Regression">
 <meta name="twitter:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
@@ -33,8 +33,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="OLS Derivation and Residual Properties">Tutorial 2: Simple Linear Regression (with Intercept)</a>:
-        <small class="text-muted">OLS Derivation and Residual Properties</small>
+        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
+        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -49,6 +49,11 @@
 <li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
 <li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
 <li><a class="active" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy.html"><span class="header-section-number">5</span> Part A. What residuals are and what OLS forces them to satisfy</a></li>
+<li><a class="" href="part-c.-unbiasedness-of-ols-with-solutions.html"><span class="header-section-number">6</span> Part C. Unbiasedness of OLS (with solutions)</a></li>
+<li><a class="" href="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions.html"><span class="header-section-number">7</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a></li>
+<li><a class="" href="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions.html"><span class="header-section-number">8</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a></li>
 </ul>
 
         <div class="book-extra">
@@ -117,7 +122,7 @@ S(\beta_0, \beta_1) = \sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right)^2
 \sum_{i=1}^n X_i \left( Y_i - \beta_0 - \beta_1 X_i \right) = 0
 \]</span></p>
 <p>Derive the Slope in Centered Form:</p>
-<p>Substitute <span class="math inline">\(\beta_0 = \bar{Y} - \beta_1 \bar{X}\)</span> into the residual expression:</p>
+<p>Substitute <span class="math inline">\(\beta_0 = \bar{Y} - \beta_1 \bar{X}\)</span> into the residual <em>expression</em>:</p>
 <p><span class="math display">\[
 Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = (Y_i - \bar{Y}) - \beta_1 (X_i - \bar{X})
 \]</span></p>
@@ -446,9 +451,9 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 ## These packages will be installed into "~/Library/CloudStorage/Dropbox/Nicolas/Cursos/01 Libro - análisis de datos/renv/library/R-4.2/aarch64-apple-darwin20".
 ## 
 ## 
-## # Installing packages --------------------------------------------------------
+## # Installing packages -------------------------------------------
 ## - Installing wooldridge ...                     OK [linked from cache]
-## Successfully installed 1 package in 9.5 milliseconds.</code></pre>
+## Successfully installed 1 package in 7.2 milliseconds.</code></pre>
 <div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
 <span></span>
@@ -461,7 +466,8 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <pre><code>## [1] 1534    8</code></pre>
 <div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "prate"   "mrate"   "totpart" "totelg"  "age"     "totemp"  "sole"    "ltotemp"</code></pre>
+<pre><code>## [1] "prate"   "mrate"   "totpart" "totelg"  "age"     "totemp" 
+## [7] "sole"    "ltotemp"</code></pre>
 </div>
 <div id="i-compute-the-sample-averages-of-participation-and-match-rates" class="section level3" number="3.2.3">
 <h3>
@@ -627,7 +633,7 @@ produce fitted values outside this range, especially under extrapolation.</p>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></div>
-<div class="empty"></div>
+<div class="next"><a href="tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -671,7 +677,7 @@ produce fitted values outside this range, especially under extrapolation.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Tutorial 2: Simple Linear Regression (with Intercept)</strong>: OLS Derivation and Residual Properties" was written by . </p>
+    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

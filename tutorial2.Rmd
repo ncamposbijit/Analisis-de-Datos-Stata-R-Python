@@ -1,6 +1,6 @@
 ---
 title: "Tutorial 2: Simple Linear Regression (with Intercept)"
-subtitle: "OLS Derivation and Residual Properties"
+subtitle: "OLS Derivation"
 author: ""
 date: ""
 output:
@@ -335,8 +335,7 @@ names(df)
 # - prate is the plan participation rate (in percentage points)
 # - mrate is the match rate
 
-mean_prate <- mean(df$3
-                   , na.rm = TRUE)
+mean_prate <- mean(df$prate, na.rm = TRUE)
 mean_mrate <- mean(df$mrate, na.rm = TRUE)
 
 mean_prate

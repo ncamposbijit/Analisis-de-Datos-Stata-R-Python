@@ -1,0 +1,1104 @@
+---
+title: "Tutorial 3: Understanding Simple linear Regression" 
+subtitle: "Residuals, Assumptions, Unbiasedness, Variance, and Interpretation"
+author: "Nicolás Campos Bijit"
+date: "January, 2026"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+
+# Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation
+
+We observe an i.i.d. sample $\{(Y_i, X_i)\}_{i=1}^n$ with
+$\sum_{i=1}^n (X_i-\bar X)^2>0$. The simple linear regression model is
+
+$$
+Y = \beta_0 + \beta_1 X + u.
+$$
+
+In the sample, OLS chooses $(\hat\beta_0,\hat\beta_1)$ to minimize the sum of squared residuals:
+
+$$
+\min_{\beta_0,\beta_1}\ \sum_{i=1}^n (Y_i-\beta_0-\beta_1X_i)^2.
+$$
+
+Define the fitted values and residuals:
+
+$$
+\hat Y_i = \hat\beta_0+\hat\beta_1X_i,
+\qquad
+\hat u_i = Y_i-\hat Y_i.
+$$
+
+---
+
+# Part A. What residuals are and what OLS forces them to satisfy
+
+**Narrative idea.** OLS picks the “best” line (in squared-error sense). Once the line is chosen, each residual $\hat u_i$ is the part of $Y_i$ that the line does not explain. The key point is: OLS does not leave residuals arbitrary. The first-order conditions imply exact *sample moment conditions*—mechanical identities that hold in any dataset whenever you run OLS with an intercept.
+
+We will *use* the normal equations as facts (we derived them last tutorial), and focus on what they imply.
+
+---
+
+## A1. Normal equations: two sample moment conditions
+
+The OLS normal equations imply:
+
+$$
+\boxed{\sum_{i=1}^n \hat u_i = 0}
+\qquad\text{and}\qquad
+\boxed{\sum_{i=1}^n X_i \hat u_i = 0.}
+$$
+
+**Interpretation.**
+- $\sum \hat u_i=0$ means residuals average to zero: OLS does not systematically over- or under-predict $Y$ in the sample.
+- $\sum X_i\hat u_i=0$ means residuals are “orthogonal” to $X$ in the sample: once the slope is chosen, there is no remaining linear association between $X$ and the residuals.
+
+---
+
+## A2. Orthogonality to centered \(X\): what it really means
+
+### Question
+
+Show that residuals are also orthogonal to deviations of $X$ around its mean:
+
+$$
+\boxed{\sum_{i=1}^n (X_i-\bar X)\hat u_i = 0.}
+$$
+
+### Solution
+
+Start from the identity:
+
+$$
+\sum_{i=1}^n (X_i-\bar X)\hat u_i
+=
+\sum_{i=1}^n X_i\hat u_i
+-
+\bar X\sum_{i=1}^n \hat u_i.
+$$
+
+By the normal equations (A1), $\sum X_i\hat u_i=0$ and $\sum \hat u_i=0$. Therefore the right-hand side is $0-\bar X\cdot 0=0$, so:
+
+$$
+\boxed{\sum_{i=1}^n (X_i-\bar X)\hat u_i = 0.}
+$$
+
+**Interpretation.** After fitting the line, observations with above-average $X$ are not systematically above/below the line relative to observations with below-average $X$.
+
+---
+
+## A3. The fitted line must pass through \((\bar X,\bar Y)\)
+
+### Question
+
+Show that the average fitted value equals the average outcome:
+
+$$
+\overline{\hat Y}=\bar Y
+\quad\Rightarrow\quad
+\boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
+$$
+
+### Solution
+
+First compute the average fitted value:
+
+$$
+\overline{\hat Y}
+=
+\frac{1}{n}\sum_{i=1}^n \hat Y_i
+=
+\frac{1}{n}\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)
+=
+\hat\beta_0+\hat\beta_1\bar X.
+$$
+
+Now use the definition $\hat u_i=Y_i-\hat Y_i$. Taking averages:
+
+$$
+\bar{\hat u}
+=
+\bar Y - \overline{\hat Y}.
+$$
+
+But A1 implies $\sum \hat u_i=0$, so $\bar{\hat u}=0$. Hence:
+
+$$
+0=\bar{\hat u}=\bar Y-\overline{\hat Y}
+\quad\Rightarrow\quad
+\overline{\hat Y}=\bar Y.
+$$
+
+Combining with $\overline{\hat Y}=\hat\beta_0+\hat\beta_1\bar X$ yields:
+
+$$
+\boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
+$$
+
+**Interpretation.** The OLS line always crosses the sample means.
+
+---
+
+## A4. Residuals are orthogonal to fitted values
+
+### Question
+
+Show that:
+
+$$
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+$$
+
+### Solution
+
+Write fitted values as $\hat Y_i=\hat\beta_0+\hat\beta_1X_i$ and expand:
+
+$$
+\sum_{i=1}^n \hat Y_i\hat u_i
+=
+\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat u_i
+=
+\hat\beta_0\sum_{i=1}^n \hat u_i + \hat\beta_1\sum_{i=1}^n X_i\hat u_i.
+$$
+
+By A1, both sums are zero. Therefore:
+
+$$
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+$$
+
+**Interpretation.** The part OLS explains ($\hat Y$) and the part it cannot explain ($\hat u$) do not move together in the sample.
+
+---
+
+## A5. Why this matters: the ANOVA decomposition \(TSS = ESS + RSS\)
+
+Define:
+
+$$
+TSS=\sum_{i=1}^n (Y_i-\bar Y)^2,\quad
+ESS=\sum_{i=1}^n (\hat Y_i-\bar Y)^2,\quad
+RSS=\sum_{i=1}^n \hat u_i^2.
+$$
+
+Start from the identity:
+
+$$
+Y_i-\bar Y = (\hat Y_i-\bar Y) + \hat u_i.
+$$
+
+### Question
+
+(a) Square both sides and sum over $i$.
+
+(b) Use A2 (or A4) to show the cross-term is zero, and conclude:
+
+$$
+\boxed{TSS = ESS + RSS.}
+$$
+
+### Solution
+
+(a) Square and sum:
+
+$$
+\sum_{i=1}^n (Y_i-\bar Y)^2
+=
+\sum_{i=1}^n (\hat Y_i-\bar Y)^2
++
+\sum_{i=1}^n \hat u_i^2
++
+2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+$$
+
+That is:
+
+$$
+TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+$$
+
+(b) Show the cross-term is zero. From A3, the line passes through $(\bar X,\bar Y)$, so:
+
+$$
+\hat Y_i-\bar Y
+=
+(\hat\beta_0+\hat\beta_1X_i)-(\hat\beta_0+\hat\beta_1\bar X)
+=
+\hat\beta_1(X_i-\bar X).
+$$
+
+Therefore:
+
+$$
+\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
+=
+\hat\beta_1\sum_{i=1}^n (X_i-\bar X)\hat u_i.
+$$
+
+By A2, $\sum (X_i-\bar X)\hat u_i=0$, so the cross-term vanishes. Hence:
+
+$$
+\boxed{TSS = ESS + RSS.}
+$$
+
+**Interpretation.** Total variation in $Y$ equals the part explained by the fitted line plus the leftover variation in residuals.
+
+---
+
+##  Quick computational check in R
+
+This chunk verifies the Part A identities numerically in a simulated dataset.
+
+```{r check-partA, echo=TRUE}
+set.seed(123)
+
+n <- 80
+X <- rnorm(n, mean = 2, sd = 1)
+u <- rnorm(n, mean = 0, sd = 2)
+Y <- 1 + 1.5 * X + u
+
+fit <- lm(Y ~ X)
+uhat <- resid(fit)
+yhat <- fitted(fit)
+
+# Decompositions and orthogonality checks
+TSS <- sum((Y - mean(Y))^2)
+ESS <- sum((yhat - mean(Y))^2)
+RSS <- sum(uhat^2)
+
+c(
+  sum_uhat = sum(uhat),
+  sum_Xuhat = sum(X * uhat),
+  sum_centerX_uhat = sum((X - mean(X)) * uhat),
+  sum_yhat_uhat = sum(yhat * uhat),
+  TSS_minus_ESS_minus_RSS = TSS - ESS - RSS
+)
+```
+
+You should see values extremely close to zero (up to floating-point rounding), confirming the identities from Part A.
+
+
+## B1. The Population Regression Function (PRF)
+
+### B1.a Definition (concept)
+
+The **Population Regression Function** is:
+
+$$
+m(x) \equiv \mathbb{E}[Y\mid X=x].
+$$
+
+**Interpretation.** For each value of $x$, $m(x)$ is the *average* of $Y$ among units with $X=x$.
+
+In many applications we use a linear approximation to this conditional expectation:
+
+$$
+\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+$$
+
+This is the “linear PRF” assumption.
+
+---
+
+## B2. Zero conditional mean: what it is and where it comes from
+
+### Question
+
+Assume the PRF is linear:
+
+$$
+\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+$$
+
+Define the population error term
+
+$$
+u \equiv Y - (\beta_0 + \beta_1 X).
+$$
+
+Show that the linear PRF implies the **zero conditional mean** condition:
+
+$$
+\boxed{\mathbb{E}[u\mid X] = 0.}
+$$
+
+### Solution
+
+Compute:
+
+$$
+\mathbb{E}[u\mid X]
+=
+\mathbb{E}[Y-(\beta_0+\beta_1X)\mid X]
+=
+\mathbb{E}[Y\mid X] - (\beta_0+\beta_1X).
+$$
+
+Under the linear PRF, $\mathbb{E}[Y\mid X]=\beta_0+\beta_1X$, so:
+
+$$
+\mathbb{E}[u\mid X] = (\beta_0+\beta_1X) - (\beta_0+\beta_1X) = 0.
+$$
+
+Therefore:
+
+$$
+\boxed{\mathbb{E}[u\mid X]=0.}
+$$
+
+**Interpretation.** After controlling for $X$, the remaining component $u$ has *no systematic average pattern* left. This is the key assumption that makes OLS unbiased under random sampling.
+
+---
+
+## B3. What zero conditional mean implies (useful corollaries)
+
+**Narrative idea.** The condition $\mathbb{E}[u\mid X]=0$ is a *conditional* statement. It automatically implies some unconditional statements that are often used in intuition.
+
+### Question
+
+Assuming $\mathbb{E}[u\mid X]=0$, show that:
+
+1. $\boxed{\mathbb{E}[u]=0}$  
+2. $\boxed{\operatorname{Cov}(X,u)=0}$
+
+### Solution
+
+1) By iterated expectations:
+
+$$
+\mathbb{E}[u] = \mathbb{E}[\mathbb{E}[u\mid X]] = \mathbb{E}[0]=0.
+$$
+
+2) Compute:
+
+$$
+\operatorname{Cov}(X,u)=\mathbb{E}[Xu]-\mathbb{E}[X]\mathbb{E}[u].
+$$
+
+We already have $\mathbb{E}[u]=0$, so it is enough to show $\mathbb{E}[Xu]=0$:
+
+$$
+\mathbb{E}[Xu]
+=
+\mathbb{E}[\mathbb{E}[Xu\mid X]]
+=
+\mathbb{E}[X\,\mathbb{E}[u\mid X]]
+=
+\mathbb{E}[X\cdot 0] = 0.
+$$
+
+Hence $\operatorname{Cov}(X,u)=0$.
+
+**Interpretation.** Zero conditional mean implies that (unconditionally) $u$ has mean zero and is uncorrelated with $X$. But the reverse is *not* automatically true.
+
+---
+
+## B4. Mean independence vs zero conditional mean (and why we care)
+
+### B4.a Definitions
+
+- **Zero conditional mean:**
+$$
+\mathbb{E}[u\mid X]=0.
+$$
+
+- **Mean independence:**
+$$
+\mathbb{E}[u\mid X]=\mathbb{E}[u].
+$$
+
+Mean independence says the conditional mean of $u$ does not depend on $X$ at all; zero conditional mean says it is specifically zero.
+
+### Question
+
+1. If $\mathbb{E}[u]=0$, show that mean independence implies zero conditional mean.  
+2. In 2 lines: which is stronger, and why?
+
+### Solution
+
+1) If mean independence holds, then $\mathbb{E}[u\mid X]=\mathbb{E}[u]$. If also $\mathbb{E}[u]=0$, then:
+
+$$
+\mathbb{E}[u\mid X]=0,
+$$
+
+which is exactly zero conditional mean.
+
+2) **Mean independence is stronger** because it requires $\mathbb{E}[u\mid X]$ to be the same constant for every $X$ (and if that constant is zero, we get zero conditional mean). Zero conditional mean is the key restriction needed for unbiased OLS under random sampling; mean independence is a stronger way of ensuring it.
+
+---
+
+## B5. A cautionary note: uncorrelatedness is not enough (concept)
+
+**Narrative idea.** Students often think “$\operatorname{Cov}(X,u)=0$ means no bias.” That is not the right logic. OLS unbiasedness relies on a *conditional* statement like $\mathbb{E}[u\mid X]=0$.
+
+### Question (2 lines)
+
+Explain briefly why $\operatorname{Cov}(X,u)=0$ alone does not guarantee $\mathbb{E}[u\mid X]=0$.
+
+### Solution
+
+Uncorrelatedness is an *unconditional* moment restriction and can hold even when $\mathbb{E}[u\mid X]$ varies with $X$ in a nonlinear way. OLS unbiasedness needs the conditional restriction $\mathbb{E}[u\mid X]=0$, not just $\operatorname{Cov}(X,u)=0$.
+
+---
+
+## Quick simulation intuition in R
+
+This chunk is just to build intuition: it shows that when we generate data with $\mathbb{E}[u\mid X]=0$, sample correlation between $X$ and residual-like noise fluctuates around zero.
+
+```{r optional-sim, echo=TRUE}
+set.seed(123)
+
+n <- 500
+X <- rnorm(n)
+u <- rnorm(n)                 # independent of X => E[u|X]=0
+Y <- 1 + 2*X + u
+
+# Check sample correlation between X and u (should be close to 0 on average)
+cor(X, u)
+```
+
+
+# Part C. Unbiasedness of OLS (with solutions)
+
+**Narrative idea.** Part A gave sample identities (orthogonality) that hold mechanically.  
+Part B defined the population object we care about (the PRF) and introduced the key assumption $\mathbb{E}[u\mid X]=0$.  
+Part C connects the two: we use an algebraic representation of the OLS slope and show that under **random sampling** and **zero conditional mean**, OLS is unbiased.
+
+We work with the population model (for each observation $i$):
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + u_i.
+$$
+
+Assume i.i.d. sampling and the **zero conditional mean** assumption:
+
+$$
+\mathbb{E}[u_i\mid X_i] = 0.
+$$
+
+---
+
+## C1. Key representation of the OLS slope
+
+### Question
+
+Using the known formula for the OLS slope,
+
+$$
+\hat\beta_1=\frac{\sum_{i=1}^n (X_i-\bar X)(Y_i-\bar Y)}{\sum_{i=1}^n (X_i-\bar X)^2},
+$$
+
+show that:
+
+$$
+\boxed{\hat\beta_1
+=
+\beta_1
++
+\frac{\sum_{i=1}^n (X_i-\bar X)u_i}{\sum_{i=1}^n (X_i-\bar X)^2}.}
+$$
+
+### Solution
+
+Start from the decomposition:
+
+$$
+Y_i-\bar Y
+=
+\beta_1(X_i-\bar X) + (u_i-\bar u),
+$$
+
+because $\bar Y=\beta_0+\beta_1\bar X+\bar u$.
+
+Multiply both sides by $(X_i-\bar X)$ and sum over $i$:
+
+$$
+\sum (X_i-\bar X)(Y_i-\bar Y)
+=
+\beta_1\sum (X_i-\bar X)^2 + \sum (X_i-\bar X)(u_i-\bar u).
+$$
+
+But $\sum (X_i-\bar X)\bar u = \bar u\sum (X_i-\bar X)=0$, so
+
+$$
+\sum (X_i-\bar X)(u_i-\bar u)=\sum (X_i-\bar X)u_i.
+$$
+
+Divide both sides by $S_{xx}=\sum (X_i-\bar X)^2$:
+
+$$
+\hat\beta_1
+=
+\beta_1 + \frac{\sum (X_i-\bar X)u_i}{S_{xx}}.
+$$
+
+Hence the desired representation holds.
+
+---
+
+## C2. Unbiasedness of the slope: conditional then unconditional
+
+**Narrative idea.** Unbiasedness is a statement about repeated sampling. We first show unbiasedness **conditional on the observed $X$ sample**, then take expectations again to get unconditional unbiasedness.
+
+### Question
+
+Show:
+
+$$
+\boxed{\mathbb{E}[\hat\beta_1\mid X_1,\dots,X_n]=\beta_1}
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_1]=\beta_1.}
+$$
+
+### Solution
+
+From C1:
+
+$$
+\hat\beta_1-\beta_1
+=
+\frac{1}{S_{xx}}\sum_{i=1}^n (X_i-\bar X)u_i,
+\qquad
+S_{xx}=\sum (X_i-\bar X)^2.
+$$
+
+Condition on $X=(X_1,\dots,X_n)$. The weights $(X_i-\bar X)/S_{xx}$ are constants given $X$, so
+
+$$
+\mathbb{E}[\hat\beta_1-\beta_1\mid X]
+=
+\frac{1}{S_{xx}}\sum (X_i-\bar X)\,\mathbb{E}[u_i\mid X].
+$$
+
+Under i.i.d. sampling and $\mathbb{E}[u_i\mid X_i]=0$, we have $\mathbb{E}[u_i\mid X]=0$ for each $i$. Therefore
+
+$$
+\mathbb{E}[\hat\beta_1-\beta_1\mid X]=0
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_1\mid X]=\beta_1.}
+$$
+
+Finally, apply the Law of Iterated Expectations:
+
+$$
+\mathbb{E}[\hat\beta_1]
+=
+\mathbb{E}[\mathbb{E}[\hat\beta_1\mid X]]
+=
+\mathbb{E}[\beta_1]=\beta_1.
+$$
+
+---
+
+## C3. Unbiasedness of the intercept
+
+**Narrative idea.** Once we have unbiasedness of the slope, unbiasedness of the intercept follows from the identity $\hat\beta_0=\bar Y-\hat\beta_1\bar X$.
+
+### Question
+
+Show:
+
+$$
+\boxed{\mathbb{E}[\hat\beta_0\mid X_1,\dots,X_n]=\beta_0}
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_0]=\beta_0.}
+$$
+
+### Solution
+
+Start from:
+
+$$
+\hat\beta_0 = \bar Y - \hat\beta_1\bar X.
+$$
+
+Using $\bar Y=\beta_0+\beta_1\bar X+\bar u$,
+
+$$
+\hat\beta_0-\beta_0
+=
+\bar u - (\hat\beta_1-\beta_1)\bar X.
+$$
+
+Condition on $X$:
+
+- By zero conditional mean and iterated expectations, $\mathbb{E}[\bar u\mid X]=0$.
+- From C2, $\mathbb{E}[\hat\beta_1-\beta_1\mid X]=0$.
+
+Thus:
+
+$$
+\mathbb{E}[\hat\beta_0-\beta_0\mid X]=0
+\quad\Rightarrow\quad
+\boxed{\mathbb{E}[\hat\beta_0\mid X]=\beta_0.}
+$$
+
+Unconditional unbiasedness follows by iterated expectations as before.
+
+---
+
+## C4. Why uncorrelatedness is not enough (concept check)
+
+**Narrative idea.** Students often confuse the unconditional statement “$\operatorname{Cov}(X,u)=0$” with the conditional statement “$\mathbb{E}[u\mid X]=0$”. OLS unbiasedness needs the *conditional* restriction.
+
+### Question (2 lines)
+
+Explain briefly why $\operatorname{Cov}(X,u)=0$ alone does not guarantee OLS unbiasedness.
+
+### Solution
+
+$\operatorname{Cov}(X,u)=0$ is an unconditional moment condition and can hold even if $\mathbb{E}[u\mid X]$ varies with $X$ (e.g., in a nonlinear way). OLS unbiasedness relies on the conditional restriction $\mathbb{E}[u\mid X]=0$, which is stronger and rules out systematic dependence of the mean error on $X$.
+
+---
+
+## (Optional) Quick simulation intuition in R
+
+This chunk illustrates unbiasedness in repeated samples when $\mathbb{E}[u\mid X]=0$. The sample average of $\hat\beta_1$ across many simulations should be close to the true $\beta_1$.
+
+```{r sim-unbiasedness, echo=TRUE}
+set.seed(123)
+
+B <- 2000
+n <- 200
+beta0 <- 1
+beta1 <- 2
+
+b1_hat <- numeric(B)
+
+for (b in 1:B) {
+  X <- rnorm(n)
+  u <- rnorm(n)               # independent => E[u|X]=0
+  Y <- beta0 + beta1 * X + u
+  b1_hat[b] <- coef(lm(Y ~ X))[2]
+}
+
+c(
+  mean_b1_hat = mean(b1_hat),
+  true_beta1 = beta1
+)
+```
+
+
+# Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)
+
+**Narrative idea.** In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean.  
+Part D asks a different question: **how variable is OLS across samples?** That is, what is the variance of $\hat\beta_1$ and $\hat\beta_0$?  
+To get clean formulas, we add a variance assumption (homoskedasticity) and a weak independence condition across observations.
+
+We maintain the model:
+
+$$
+Y_i = \beta_0 + \beta_1 X_i + u_i,
+\qquad \mathbb{E}[u_i\mid X_i]=0.
+$$
+
+---
+
+## D1. Assumptions for the classical variance formulas
+
+To derive simple variance expressions, assume:
+
+1. **Homoskedasticity**
+$$
+\operatorname{Var}(u_i\mid X_i)=\sigma^2 \quad \text{(constant in } X_i\text{)}.
+$$
+
+2. **No conditional correlation across observations**
+$$
+\operatorname{Cov}(u_i,u_j\mid X_1,\dots,X_n)=0 \quad (i\neq j).
+$$
+
+Define:
+$$
+S_{xx} \equiv \sum_{i=1}^n (X_i-\bar X)^2.
+$$
+
+---
+
+## D2. Conditional variance of the slope
+
+### Question
+
+Using the representation from Part C,
+
+$$
+\hat\beta_1-\beta_1
+=
+\frac{\sum_{i=1}^n (X_i-\bar X)u_i}{S_{xx}},
+$$
+
+show that:
+
+$$
+\boxed{\operatorname{Var}(\hat\beta_1\mid X_1,\dots,X_n)=\frac{\sigma^2}{S_{xx}}.}
+$$
+
+### Solution
+
+Condition on the full regressor sample $X=(X_1,\dots,X_n)$. Then $S_{xx}$ and $(X_i-\bar X)$ are constants. Compute:
+
+$$
+\operatorname{Var}(\hat\beta_1\mid X)
+=
+\operatorname{Var}\left(\frac{1}{S_{xx}}\sum (X_i-\bar X)u_i \Bigm| X\right)
+=
+\frac{1}{S_{xx}^2}\operatorname{Var}\left(\sum (X_i-\bar X)u_i \Bigm| X\right).
+$$
+
+Using conditional uncorrelatedness across $i$:
+
+$$
+\operatorname{Var}\left(\sum (X_i-\bar X)u_i \mid X\right)
+=
+\sum (X_i-\bar X)^2\operatorname{Var}(u_i\mid X)
+=
+\sum (X_i-\bar X)^2\sigma^2
+=
+\sigma^2 S_{xx}.
+$$
+
+Therefore:
+
+$$
+\operatorname{Var}(\hat\beta_1\mid X)
+=
+\frac{1}{S_{xx}^2}(\sigma^2 S_{xx})
+=
+\boxed{\frac{\sigma^2}{S_{xx}}.}
+$$
+
+**Interpretation.** The slope is more precise when (i) noise is smaller ($\sigma^2$ small) and/or (ii) $X$ has more spread ($S_{xx}$ large).
+
+---
+
+## D3. Conditional variance of the intercept
+
+### Question
+
+Show that:
+
+$$
+\boxed{\operatorname{Var}(\hat\beta_0\mid X)
+=
+\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).}
+$$
+
+### Solution
+
+Use:
+$$
+\hat\beta_0 = \bar Y - \hat\beta_1\bar X.
+$$
+
+From the model, $\bar Y = \beta_0+\beta_1\bar X+\bar u$, so:
+
+$$
+\hat\beta_0-\beta_0 = \bar u - (\hat\beta_1-\beta_1)\bar X.
+$$
+
+Condition on $X$. Then $\bar X$ is constant, and we compute:
+
+$$
+\operatorname{Var}(\hat\beta_0\mid X)
+=
+\operatorname{Var}(\bar u\mid X)
++ \bar X^2\operatorname{Var}(\hat\beta_1\mid X)
+-2\bar X\operatorname{Cov}(\bar u,\hat\beta_1\mid X).
+$$
+
+Under the classical assumptions, $\operatorname{Var}(\bar u\mid X)=\sigma^2/n$. Also we already have $\operatorname{Var}(\hat\beta_1\mid X)=\sigma^2/S_{xx}$.
+
+It remains to show the covariance term is zero. Using
+$$
+\hat\beta_1-\beta_1 = \frac{1}{S_{xx}}\sum (X_i-\bar X)u_i,
+\qquad
+\bar u = \frac{1}{n}\sum u_i,
+$$
+the covariance is proportional to:
+$$
+\operatorname{Cov}\left(\sum u_i,\ \sum (X_i-\bar X)u_i \mid X\right)
+=
+\sum (X_i-\bar X)\operatorname{Var}(u_i\mid X)
+=
+\sigma^2 \sum (X_i-\bar X)=0.
+$$
+
+Hence:
+$$
+\operatorname{Var}(\hat\beta_0\mid X)
+=
+\frac{\sigma^2}{n}+\bar X^2\frac{\sigma^2}{S_{xx}}
+=
+\boxed{\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).}
+$$
+
+---
+
+## D4. Estimating \(\sigma^2\): the residual variance estimator
+
+Define residuals:
+
+$$
+\hat u_i = Y_i-\hat\beta_0-\hat\beta_1X_i.
+$$
+
+### Question
+
+State the usual estimator for $\sigma^2$ and explain the degrees of freedom.
+
+### Solution
+
+The standard estimator is:
+
+$$
+\boxed{\hat\sigma^2
+=
+\frac{1}{n-2}\sum_{i=1}^n \hat u_i^2.}
+$$
+
+**Why $n-2$?** Two parameters $(\beta_0,\beta_1)$ were estimated. The residuals are constrained by the two normal equations (Part A), so the remaining free variation used to estimate $\sigma^2$ corresponds to $n-2$ degrees of freedom.
+
+---
+
+## D5. Estimated variance and standard errors of OLS
+
+Plug in $\hat\sigma^2$:
+
+$$
+\boxed{\widehat{\operatorname{Var}}(\hat\beta_1\mid X)=\frac{\hat\sigma^2}{S_{xx}}}
+\qquad\Rightarrow\qquad
+\boxed{\text{s.e.}(\hat\beta_1)=\sqrt{\frac{\hat\sigma^2}{S_{xx}}}}.
+$$
+
+and
+
+$$
+\boxed{\widehat{\operatorname{Var}}(\hat\beta_0\mid X)=\hat\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)}
+\qquad\Rightarrow\qquad
+\boxed{\text{s.e.}(\hat\beta_0)=\sqrt{\hat\sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right)}}.
+$$
+
+**Interpretation.** Standard errors translate sampling variability into a scale that allows inference (confidence intervals and t-tests).
+
+---
+
+## (Optional) Quick check in R using \texttt{lm()}
+
+```{r optional-lm-se, echo=TRUE}
+set.seed(123)
+
+n <- 200
+X <- rnorm(n, mean = 2, sd = 1.5)
+u <- rnorm(n, mean = 0, sd = 2)
+Y <- 1 + 1.5*X + u
+
+fit <- lm(Y ~ X)
+
+# Manual pieces for the classical formulas
+uhat <- resid(fit)
+sigma2_hat <- sum(uhat^2)/(n-2)
+Sxx <- sum((X - mean(X))^2)
+
+se_b1_manual <- sqrt(sigma2_hat / Sxx)
+se_b0_manual <- sqrt(sigma2_hat * (1/n + mean(X)^2 / Sxx))
+
+c(
+  se_b0_lm = summary(fit)$coef[1,2],
+  se_b0_manual = se_b0_manual,
+  se_b1_lm = summary(fit)$coef[2,2],
+  se_b1_manual = se_b1_manual
+)
+```
+
+# Part E. Functional form and units: interpreting coefficients correctly (with solutions)
+
+**Narrative idea.** Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly.  
+A coefficient is a *number with units*, and the functional form you choose (levels vs logs, scaling) determines the meaning of “one unit increase.”
+
+We use one running example:
+
+- $Y$ = weekly earnings (dollars)
+- $X$ = hours worked per week
+
+---
+
+## E1. Units of the slope in the level–level model
+
+Consider:
+
+$$
+Y = \beta_0 + \beta_1 X + u.
+$$
+
+### Question
+
+1. What are the units of $\beta_1$?  
+2. Give the economic interpretation of $\beta_1$ in words.
+
+### Solution
+
+1. $Y$ is dollars and $X$ is hours, so $\beta_1$ has units **dollars per hour**.
+
+2. $\beta_1$ is the change in *expected weekly earnings* associated with one additional hour worked per week, holding other unobservables in $u$ fixed *in the conditional-mean sense* (under $\mathbb{E}[u\mid X]=0$).
+
+---
+
+## E2. Rescaling regressors: why coefficients change mechanically
+
+Define a rescaled regressor:
+
+$$
+X^{(10)} \equiv \frac{X}{10}.
+$$
+
+### Question
+
+If we regress $Y$ on $X^{(10)}$, how does the slope change? Relate $\beta_1^{(10)}$ to $\beta_1$.
+
+### Solution
+
+Since $X = 10X^{(10)}$, substitute into the original model:
+
+$$
+Y = \beta_0 + \beta_1(10X^{(10)}) + u
+= \beta_0 + (10\beta_1)X^{(10)} + u.
+$$
+
+So:
+
+$$
+\boxed{\beta_1^{(10)} = 10\beta_1.}
+$$
+
+**Interpretation.** A one-unit increase in $X^{(10)}$ is a **10-hour** increase in $X$, so the slope scales accordingly.
+
+---
+
+## E3. Rescaling outcomes: what changes and what does not
+
+Define $Y^{(1000)} \equiv Y/1000$ (earnings in “thousands of dollars”).
+
+### Question
+
+If we regress $Y^{(1000)}$ on $X$, what happens to the slope and intercept?
+
+### Solution
+
+Divide the entire equation by 1000:
+
+$$
+\frac{Y}{1000} = \frac{\beta_0}{1000} + \frac{\beta_1}{1000}X + \frac{u}{1000}.
+$$
+
+Thus:
+
+$$
+\boxed{\beta_0^{(1000)} = \beta_0/1000, \quad \beta_1^{(1000)} = \beta_1/1000.}
+$$
+
+**Interpretation.** Changing the units of the dependent variable rescales coefficients, but does not change the underlying relationship—only the measurement scale.
+
+---
+
+## E4. Log–level model: interpreting semi-elasticities
+
+Consider:
+
+$$
+\ln(Y) = \gamma_0 + \gamma_1 X + v.
+$$
+
+### Question
+
+Interpret $\gamma_1$. Give a rule-of-thumb interpretation for small $\gamma_1$.
+
+### Solution
+
+$\gamma_1$ is a **semi-elasticity**: it measures the change in log earnings from a one-unit increase in $X$.
+
+For small $\gamma_1$:
+
+$$
+\Delta \ln(Y) \approx \frac{\Delta Y}{Y}.
+$$
+
+So, approximately:
+
+$$
+\boxed{\text{A 1-unit increase in }X\text{ is associated with about }100\gamma_1\%\text{ change in }Y.}
+$$
+
+---
+
+## E5. Log–log model: interpreting elasticities
+
+Consider:
+
+$$
+\ln(Y) = \delta_0 + \delta_1 \ln(X) + e.
+$$
+
+### Question
+
+Interpret $\delta_1$.
+
+### Solution
+
+$\delta_1$ is an **elasticity**:
+
+$$
+\boxed{\text{A 1\% increase in }X\text{ is associated with a }\delta_1\%\text{ change in }Y.}
+$$
+
+---
+
+## E6. Functional form as a modeling choice (concept check)
+
+### Question (short)
+
+Give **one** reason to prefer logs (log–level or log–log) rather than levels.
+
+### Solution
+
+Logs are often preferred when variation in $Y$ is roughly proportional to its level (e.g., earnings), which can make relationships closer to linear in logs and can reduce heteroskedasticity. Logs also lead to percent-change interpretations that are often more meaningful than “dollar changes” across very different income levels.
+
+---
+
+## (Optional) Small R demo: same data, different scales
+
+```{r optional-scale-demo, echo=TRUE}
+set.seed(123)
+
+n <- 200
+X <- rnorm(n, mean = 40, sd = 5)        # hours per week
+u <- rnorm(n, mean = 0, sd = 50)
+Y <- 200 + 15*X + u                     # dollars per week
+
+fit_level <- lm(Y ~ X)
+
+X10 <- X/10
+fit_rescaleX <- lm(Y ~ X10)
+
+Yk <- Y/1000
+fit_rescaleY <- lm(Yk ~ X)
+
+c(
+  b1_level = coef(fit_level)[2],
+  b1_rescaleX = coef(fit_rescaleX)[2],
+  b1_rescaleY = coef(fit_rescaleY)[2]
+)
+```
+
+You should see approximately:
+- `b1_rescaleX ≈ 10 * b1_level`
+- `b1_rescaleY ≈ b1_level / 1000`
