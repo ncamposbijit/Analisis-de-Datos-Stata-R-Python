@@ -1,13 +1,8 @@
 bookdown::bs4_book:
   theme:
-    primary: "#2D3748"
-    bg: "#FFFFFF"
-    fg: "#1A202C"
-    base_font:
-      google: "Inter"
-    heading_font:
-      google: "Inter"
-    code_font:
-      google: "JetBrains Mono"
+    primary: "#0B3D91"
+    base_font: {google: "Source Sans 3"}
+    heading_font: {google: "Source Sans 3"}
+    code_font: {google: "IBM Plex Mono"}
   css: style4.css
   repo: null
