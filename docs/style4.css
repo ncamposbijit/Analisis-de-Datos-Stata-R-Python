@@ -79,3 +79,72 @@ thead th {
   .container-fluid { max-width: 100%; }
   main { font-size: 17px; line-height: 1.75; }
 }
+
+/* Smoother body */
+body {
+  font-size: 1.05rem;
+  line-height: 1.75;
+  color: #1A202C;
+}
+
+/* Cleaner headings */
+h1, h2, h3 {
+  font-weight: 700;
+  color: #2D3748;
+  margin-top: 2rem;
+}
+
+h1 { border-bottom: 2px solid #E2E8F0; padding-bottom: 0.5rem; }
+
+/* Better code blocks */
+pre {
+  background-color: #F7FAFC;
+  border: 1px solid #E2E8F0;
+  border-radius: 6px;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+code {
+  color: #D53F8C;
+  font-size: 0.9em;
+}
+
+pre code {
+  color: inherit;
+}
+
+/* Sidebar refinements */
+.book-summary {
+  background-color: #F7FAFC;
+  border-right: 1px solid #E2E8F0;
+}
+
+/* Links */
+a {
+  color: #3182CE;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #2B6CB0;
+  text-decoration: underline;
+}
+
+/* Tables */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.5rem 0;
+}
+
+th {
+  background-color: #F7FAFC;
+  font-weight: 600;
+  text-align: left;
+}
+
+th, td {
+  padding: 0.6rem 1rem;
+  border: 1px solid #E2E8F0;
+}
