@@ -120,7 +120,7 @@ iii-interpret-the-intercept-and-the-slope
 iv-predicted-participation-when-mrate-3.5.-is-it-reasonable
 v-how-much-of-the-variation-in-prate-is-explained-by-mrate
 optional-quick-plot
-tutorial-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation
+tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation
 part-a.-what-residuals-are-and-what-ols-forces-them-to-satisfy
 a1.-normal-equations-two-sample-moment-conditions
 a2.-orthogonality-to-centered-x-what-it-really-means
@@ -165,7 +165,7 @@ solution-10
 c4.-why-uncorrelatedness-is-not-enough-concept-check
 question-2-lines-1
 solution-11
-optional-quick-simulation-intuition-in-r
+quick-simulation-intuition-in-r-1
 part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions
 d1.-assumptions-for-the-classical-variance-formulas
 d2.-conditional-variance-of-the-slope
@@ -178,7 +178,7 @@ d4.-estimating-sigma2-the-residual-variance-estimator
 question-12
 solution-14
 d5.-estimated-variance-and-standard-errors-of-ols
-optional-quick-check-in-r-using
+quick-check-in-r-using
 part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions
 e1.-units-of-the-slope-in-the-levellevel-model
 question-13
@@ -198,4 +198,4 @@ solution-19
 e6.-functional-form-as-a-modeling-choice-concept-check
 question-short
 solution-20
-optional-small-r-demo-same-data-different-scales
+small-r-demo-same-data-different-scales

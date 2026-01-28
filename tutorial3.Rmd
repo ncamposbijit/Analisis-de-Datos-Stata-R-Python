@@ -14,8 +14,7 @@ output:
     number_sections: true
 ---
 
-
-# Tutorial: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation
+# Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation
 
 We observe an i.i.d. sample $\{(Y_i, X_i)\}_{i=1}^n$ with
 $\sum_{i=1}^n (X_i-\bar X)^2>0$. The simple linear regression model is
@@ -40,7 +39,7 @@ $$
 
 ---
 
-# Part A. What residuals are and what OLS forces them to satisfy
+## Part A. What residuals are and what OLS forces them to satisfy
 
 **Narrative idea.** OLS picks the “best” line (in squared-error sense). Once the line is chosen, each residual $\hat u_i$ is the part of $Y_i$ that the line does not explain. The key point is: OLS does not leave residuals arbitrary. The first-order conditions imply exact *sample moment conditions*—mechanical identities that hold in any dataset whenever you run OLS with an intercept.
 
@@ -48,7 +47,7 @@ We will *use* the normal equations as facts (we derived them last tutorial), and
 
 ---
 
-## A1. Normal equations: two sample moment conditions
+### A1. Normal equations: two sample moment conditions
 
 The OLS normal equations imply:
 
@@ -64,9 +63,9 @@ $$
 
 ---
 
-## A2. Orthogonality to centered \(X\): what it really means
+### A2. Orthogonality to centered \(X\): what it really means
 
-### Question
+#### Question
 
 Show that residuals are also orthogonal to deviations of $X$ around its mean:
 
@@ -74,7 +73,7 @@ $$
 \boxed{\sum_{i=1}^n (X_i-\bar X)\hat u_i = 0.}
 $$
 
-### Solution
+#### Solution
 
 Start from the identity:
 
@@ -96,9 +95,9 @@ $$
 
 ---
 
-## A3. The fitted line must pass through \((\bar X,\bar Y)\)
+### A3. The fitted line must pass through \((\bar X,\bar Y)\)
 
-### Question
+#### Question
 
 Show that the average fitted value equals the average outcome:
 
@@ -108,7 +107,7 @@ $$
 \boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
 $$
 
-### Solution
+#### Solution
 
 First compute the average fitted value:
 
@@ -148,9 +147,9 @@ $$
 
 ---
 
-## A4. Residuals are orthogonal to fitted values
+### A4. Residuals are orthogonal to fitted values
 
-### Question
+#### Question
 
 Show that:
 
@@ -158,7 +157,7 @@ $$
 \boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
 $$
 
-### Solution
+#### Solution
 
 Write fitted values as $\hat Y_i=\hat\beta_0+\hat\beta_1X_i$ and expand:
 
@@ -180,7 +179,7 @@ $$
 
 ---
 
-## A5. Why this matters: the ANOVA decomposition \(TSS = ESS + RSS\)
+### A5. Why this matters: the ANOVA decomposition \(TSS = ESS + RSS\)
 
 Define:
 
@@ -196,7 +195,7 @@ $$
 Y_i-\bar Y = (\hat Y_i-\bar Y) + \hat u_i.
 $$
 
-### Question
+#### Question
 
 (a) Square both sides and sum over $i$.
 
@@ -206,7 +205,7 @@ $$
 \boxed{TSS = ESS + RSS.}
 $$
 
-### Solution
+#### Solution
 
 (a) Square and sum:
 
@@ -254,7 +253,7 @@ $$
 
 ---
 
-##  Quick computational check in R
+###  Quick computational check in R
 
 This chunk verifies the Part A identities numerically in a simulated dataset.
 
@@ -287,9 +286,9 @@ c(
 You should see values extremely close to zero (up to floating-point rounding), confirming the identities from Part A.
 
 
-## B1. The Population Regression Function (PRF)
+### B1. The Population Regression Function (PRF)
 
-### B1.a Definition (concept)
+#### B1.a Definition (concept)
 
 The **Population Regression Function** is:
 
@@ -309,9 +308,9 @@ This is the “linear PRF” assumption.
 
 ---
 
-## B2. Zero conditional mean: what it is and where it comes from
+### B2. Zero conditional mean: what it is and where it comes from
 
-### Question
+#### Question
 
 Assume the PRF is linear:
 
@@ -331,7 +330,7 @@ $$
 \boxed{\mathbb{E}[u\mid X] = 0.}
 $$
 
-### Solution
+#### Solution
 
 Compute:
 
@@ -359,18 +358,18 @@ $$
 
 ---
 
-## B3. What zero conditional mean implies (useful corollaries)
+### B3. What zero conditional mean implies (useful corollaries)
 
 **Narrative idea.** The condition $\mathbb{E}[u\mid X]=0$ is a *conditional* statement. It automatically implies some unconditional statements that are often used in intuition.
 
-### Question
+#### Question
 
 Assuming $\mathbb{E}[u\mid X]=0$, show that:
 
 1. $\boxed{\mathbb{E}[u]=0}$  
 2. $\boxed{\operatorname{Cov}(X,u)=0}$
 
-### Solution
+#### Solution
 
 1) By iterated expectations:
 
@@ -402,9 +401,9 @@ Hence $\operatorname{Cov}(X,u)=0$.
 
 ---
 
-## B4. Mean independence vs zero conditional mean (and why we care)
+### B4. Mean independence vs zero conditional mean (and why we care)
 
-### B4.a Definitions
+#### B4.a Definitions
 
 - **Zero conditional mean:**
 $$
@@ -418,12 +417,12 @@ $$
 
 Mean independence says the conditional mean of $u$ does not depend on $X$ at all; zero conditional mean says it is specifically zero.
 
-### Question
+#### Question
 
 1. If $\mathbb{E}[u]=0$, show that mean independence implies zero conditional mean.  
 2. In 2 lines: which is stronger, and why?
 
-### Solution
+#### Solution
 
 1) If mean independence holds, then $\mathbb{E}[u\mid X]=\mathbb{E}[u]$. If also $\mathbb{E}[u]=0$, then:
 
@@ -437,21 +436,21 @@ which is exactly zero conditional mean.
 
 ---
 
-## B5. A cautionary note: uncorrelatedness is not enough (concept)
+### B5. A cautionary note: uncorrelatedness is not enough (concept)
 
 **Narrative idea.** Students often think “$\operatorname{Cov}(X,u)=0$ means no bias.” That is not the right logic. OLS unbiasedness relies on a *conditional* statement like $\mathbb{E}[u\mid X]=0$.
 
-### Question (2 lines)
+#### Question (2 lines)
 
 Explain briefly why $\operatorname{Cov}(X,u)=0$ alone does not guarantee $\mathbb{E}[u\mid X]=0$.
 
-### Solution
+#### Solution
 
 Uncorrelatedness is an *unconditional* moment restriction and can hold even when $\mathbb{E}[u\mid X]$ varies with $X$ in a nonlinear way. OLS unbiasedness needs the conditional restriction $\mathbb{E}[u\mid X]=0$, not just $\operatorname{Cov}(X,u)=0$.
 
 ---
 
-## Quick simulation intuition in R
+### Quick simulation intuition in R
 
 This chunk is just to build intuition: it shows that when we generate data with $\mathbb{E}[u\mid X]=0$, sample correlation between $X$ and residual-like noise fluctuates around zero.
 
@@ -468,7 +467,7 @@ cor(X, u)
 ```
 
 
-# Part C. Unbiasedness of OLS (with solutions)
+## Part C. Unbiasedness of OLS (with solutions)
 
 **Narrative idea.** Part A gave sample identities (orthogonality) that hold mechanically.  
 Part B defined the population object we care about (the PRF) and introduced the key assumption $\mathbb{E}[u\mid X]=0$.  
@@ -488,9 +487,9 @@ $$
 
 ---
 
-## C1. Key representation of the OLS slope
+### C1. Key representation of the OLS slope
 
-### Question
+#### Question
 
 Using the known formula for the OLS slope,
 
@@ -508,7 +507,7 @@ $$
 \frac{\sum_{i=1}^n (X_i-\bar X)u_i}{\sum_{i=1}^n (X_i-\bar X)^2}.}
 $$
 
-### Solution
+#### Solution
 
 Start from the decomposition:
 
@@ -546,11 +545,11 @@ Hence the desired representation holds.
 
 ---
 
-## C2. Unbiasedness of the slope: conditional then unconditional
+### C2. Unbiasedness of the slope: conditional then unconditional
 
 **Narrative idea.** Unbiasedness is a statement about repeated sampling. We first show unbiasedness **conditional on the observed $X$ sample**, then take expectations again to get unconditional unbiasedness.
 
-### Question
+#### Question
 
 Show:
 
@@ -560,7 +559,7 @@ $$
 \boxed{\mathbb{E}[\hat\beta_1]=\beta_1.}
 $$
 
-### Solution
+#### Solution
 
 From C1:
 
@@ -600,11 +599,11 @@ $$
 
 ---
 
-## C3. Unbiasedness of the intercept
+### C3. Unbiasedness of the intercept
 
 **Narrative idea.** Once we have unbiasedness of the slope, unbiasedness of the intercept follows from the identity $\hat\beta_0=\bar Y-\hat\beta_1\bar X$.
 
-### Question
+#### Question
 
 Show:
 
@@ -614,7 +613,7 @@ $$
 \boxed{\mathbb{E}[\hat\beta_0]=\beta_0.}
 $$
 
-### Solution
+#### Solution
 
 Start from:
 
@@ -647,21 +646,21 @@ Unconditional unbiasedness follows by iterated expectations as before.
 
 ---
 
-## C4. Why uncorrelatedness is not enough (concept check)
+### C4. Why uncorrelatedness is not enough (concept check)
 
 **Narrative idea.** Students often confuse the unconditional statement “$\operatorname{Cov}(X,u)=0$” with the conditional statement “$\mathbb{E}[u\mid X]=0$”. OLS unbiasedness needs the *conditional* restriction.
 
-### Question (2 lines)
+#### Question (2 lines)
 
 Explain briefly why $\operatorname{Cov}(X,u)=0$ alone does not guarantee OLS unbiasedness.
 
-### Solution
+#### Solution
 
 $\operatorname{Cov}(X,u)=0$ is an unconditional moment condition and can hold even if $\mathbb{E}[u\mid X]$ varies with $X$ (e.g., in a nonlinear way). OLS unbiasedness relies on the conditional restriction $\mathbb{E}[u\mid X]=0$, which is stronger and rules out systematic dependence of the mean error on $X$.
 
 ---
 
-## (Optional) Quick simulation intuition in R
+### Quick simulation intuition in R
 
 This chunk illustrates unbiasedness in repeated samples when $\mathbb{E}[u\mid X]=0$. The sample average of $\hat\beta_1$ across many simulations should be close to the true $\beta_1$.
 
@@ -689,7 +688,7 @@ c(
 ```
 
 
-# Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)
+## Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)
 
 **Narrative idea.** In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean.  
 Part D asks a different question: **how variable is OLS across samples?** That is, what is the variance of $\hat\beta_1$ and $\hat\beta_0$?  
@@ -704,7 +703,7 @@ $$
 
 ---
 
-## D1. Assumptions for the classical variance formulas
+### D1. Assumptions for the classical variance formulas
 
 To derive simple variance expressions, assume:
 
@@ -725,9 +724,9 @@ $$
 
 ---
 
-## D2. Conditional variance of the slope
+### D2. Conditional variance of the slope
 
-### Question
+#### Question
 
 Using the representation from Part C,
 
@@ -743,7 +742,7 @@ $$
 \boxed{\operatorname{Var}(\hat\beta_1\mid X_1,\dots,X_n)=\frac{\sigma^2}{S_{xx}}.}
 $$
 
-### Solution
+#### Solution
 
 Condition on the full regressor sample $X=(X_1,\dots,X_n)$. Then $S_{xx}$ and $(X_i-\bar X)$ are constants. Compute:
 
@@ -781,9 +780,9 @@ $$
 
 ---
 
-## D3. Conditional variance of the intercept
+### D3. Conditional variance of the intercept
 
-### Question
+#### Question
 
 Show that:
 
@@ -793,7 +792,7 @@ $$
 \sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).}
 $$
 
-### Solution
+#### Solution
 
 Use:
 $$
@@ -844,7 +843,7 @@ $$
 
 ---
 
-## D4. Estimating \(\sigma^2\): the residual variance estimator
+### D4. Estimating \(\sigma^2\): the residual variance estimator
 
 Define residuals:
 
@@ -852,11 +851,11 @@ $$
 \hat u_i = Y_i-\hat\beta_0-\hat\beta_1X_i.
 $$
 
-### Question
+#### Question
 
 State the usual estimator for $\sigma^2$ and explain the degrees of freedom.
 
-### Solution
+#### Solution
 
 The standard estimator is:
 
@@ -870,7 +869,7 @@ $$
 
 ---
 
-## D5. Estimated variance and standard errors of OLS
+### D5. Estimated variance and standard errors of OLS
 
 Plug in $\hat\sigma^2$:
 
@@ -892,7 +891,7 @@ $$
 
 ---
 
-## (Optional) Quick check in R using \texttt{lm()}
+### Quick check in R using \texttt{lm()}
 
 ```{r optional-lm-se, echo=TRUE}
 set.seed(123)
@@ -920,7 +919,7 @@ c(
 )
 ```
 
-# Part E. Functional form and units: interpreting coefficients correctly (with solutions)
+## Part E. Functional form and units: interpreting coefficients correctly (with solutions)
 
 **Narrative idea.** Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly.  
 A coefficient is a *number with units*, and the functional form you choose (levels vs logs, scaling) determines the meaning of “one unit increase.”
@@ -932,7 +931,7 @@ We use one running example:
 
 ---
 
-## E1. Units of the slope in the level–level model
+### E1. Units of the slope in the level–level model
 
 Consider:
 
@@ -940,12 +939,12 @@ $$
 Y = \beta_0 + \beta_1 X + u.
 $$
 
-### Question
+#### Question
 
 1. What are the units of $\beta_1$?  
 2. Give the economic interpretation of $\beta_1$ in words.
 
-### Solution
+#### Solution
 
 1. $Y$ is dollars and $X$ is hours, so $\beta_1$ has units **dollars per hour**.
 
@@ -953,7 +952,7 @@ $$
 
 ---
 
-## E2. Rescaling regressors: why coefficients change mechanically
+### E2. Rescaling regressors: why coefficients change mechanically
 
 Define a rescaled regressor:
 
@@ -961,11 +960,11 @@ $$
 X^{(10)} \equiv \frac{X}{10}.
 $$
 
-### Question
+#### Question
 
 If we regress $Y$ on $X^{(10)}$, how does the slope change? Relate $\beta_1^{(10)}$ to $\beta_1$.
 
-### Solution
+#### Solution
 
 Since $X = 10X^{(10)}$, substitute into the original model:
 
@@ -984,15 +983,15 @@ $$
 
 ---
 
-## E3. Rescaling outcomes: what changes and what does not
+### E3. Rescaling outcomes: what changes and what does not
 
 Define $Y^{(1000)} \equiv Y/1000$ (earnings in “thousands of dollars”).
 
-### Question
+#### Question
 
 If we regress $Y^{(1000)}$ on $X$, what happens to the slope and intercept?
 
-### Solution
+#### Solution
 
 Divide the entire equation by 1000:
 
@@ -1010,7 +1009,7 @@ $$
 
 ---
 
-## E4. Log–level model: interpreting semi-elasticities
+### E4. Log–level model: interpreting semi-elasticities
 
 Consider:
 
@@ -1018,11 +1017,11 @@ $$
 \ln(Y) = \gamma_0 + \gamma_1 X + v.
 $$
 
-### Question
+#### Question
 
 Interpret $\gamma_1$. Give a rule-of-thumb interpretation for small $\gamma_1$.
 
-### Solution
+#### Solution
 
 $\gamma_1$ is a **semi-elasticity**: it measures the change in log earnings from a one-unit increase in $X$.
 
@@ -1040,7 +1039,7 @@ $$
 
 ---
 
-## E5. Log–log model: interpreting elasticities
+### E5. Log–log model: interpreting elasticities
 
 Consider:
 
@@ -1048,11 +1047,11 @@ $$
 \ln(Y) = \delta_0 + \delta_1 \ln(X) + e.
 $$
 
-### Question
+#### Question
 
 Interpret $\delta_1$.
 
-### Solution
+#### Solution
 
 $\delta_1$ is an **elasticity**:
 
@@ -1062,19 +1061,19 @@ $$
 
 ---
 
-## E6. Functional form as a modeling choice (concept check)
+### E6. Functional form as a modeling choice (concept check)
 
-### Question (short)
+#### Question (short)
 
 Give **one** reason to prefer logs (log–level or log–log) rather than levels.
 
-### Solution
+#### Solution
 
 Logs are often preferred when variation in $Y$ is roughly proportional to its level (e.g., earnings), which can make relationships closer to linear in logs and can reduce heteroskedasticity. Logs also lead to percent-change interpretations that are often more meaningful than “dollar changes” across very different income levels.
 
 ---
 
-## (Optional) Small R demo: same data, different scales
+### Small R demo: same data, different scales
 
 ```{r optional-scale-demo, echo=TRUE}
 set.seed(123)
