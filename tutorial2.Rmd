@@ -159,6 +159,39 @@ $$
 \boxed{\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0}
 $$
 
+#### Residuals are Orthogonal to fitted values
+
+#### Question
+
+Show that:
+
+$$
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+$$
+
+#### Solution
+
+Write fitted values as $\hat Y_i=\hat\beta_0+\hat\beta_1X_i$ and expand:
+
+$$
+\sum_{i=1}^n \hat Y_i\hat u_i
+=
+\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat u_i
+=
+\hat\beta_0\sum_{i=1}^n \hat u_i + \hat\beta_1\sum_{i=1}^n X_i\hat u_i.
+$$
+
+By A1, both sums are zero. Therefore:
+
+$$
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+$$
+
+**Interpretation.** The part OLS explains ($\hat Y$) and the part it cannot explain ($\hat u$) do not move together in the sample.
+
+---
+
+
 ---
 
 ### Properties of Fitted Values

@@ -165,41 +165,13 @@ That is, when $X$ equals its mean, the line predicts exactly $\bar{Y}$.
 
 
 
-### A4. Residuals are orthogonal to fitted values
+### A4. Prove the ANOVA decomposition: $TSS = ESS + RSS$
 
-#### Question
+#### Context
 
-Show that:
+In regression analysis we want to know **how much of the total variation in $Y$ is explained by the model**. To answer this, we decompose the total variation into two parts: one attributed to the fitted line and one to the residuals. This decomposition is the foundation of the $R^2$ statistic and the $F$-test in regression.
 
-$$
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
-$$
-
-#### Solution
-
-Write fitted values as $\hat Y_i=\hat\beta_0+\hat\beta_1X_i$ and expand:
-
-$$
-\sum_{i=1}^n \hat Y_i\hat u_i
-=
-\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat u_i
-=
-\hat\beta_0\sum_{i=1}^n \hat u_i + \hat\beta_1\sum_{i=1}^n X_i\hat u_i.
-$$
-
-By A1, both sums are zero. Therefore:
-
-$$
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
-$$
-
-**Interpretation.** The part OLS explains ($\hat Y$) and the part it cannot explain ($\hat u$) do not move together in the sample.
-
----
-
-### A5. Why this matters: the ANOVA decomposition \(TSS = ESS + RSS\)
-
-Define:
+We define:
 
 $$
 TSS=\sum_{i=1}^n (Y_i-\bar Y)^2,\quad
@@ -207,17 +179,23 @@ ESS=\sum_{i=1}^n (\hat Y_i-\bar Y)^2,\quad
 RSS=\sum_{i=1}^n \hat u_i^2.
 $$
 
-Start from the identity:
+- **TSS** (Total Sum of Squares): measures the total variability of $Y$ around its mean.
+- **ESS** (Explained Sum of Squares): measures how much of that variability is captured by the fitted values $\hat{Y}_i$.
+- **RSS** (Residual Sum of Squares): measures the leftover variability not captured by the model.
+
+The key identity we start from is:
 
 $$
-Y_i-\bar Y = (\hat Y_i-\bar Y) + \hat u_i.
+Y_i - \bar{Y} = (\hat{Y}_i - \bar{Y}) + \hat{u}_i
 $$
+
+This simply says: the deviation of each observation from the mean equals the deviation explained by the model plus the residual.
 
 #### Question
 
-(a) Square both sides and sum over $i$.
+**(a)** Square both sides of the identity above and sum over all $i = 1, \dots, n$. Write the result in terms of $TSS$, $ESS$, $RSS$, and a cross-term.
 
-(b) Use A2 (or A4) to show the cross-term is zero, and conclude:
+**(b)** Using the result from A2 ($\sum (X_i - \bar{X})\hat{u}_i = 0$) and from A3 ($\hat{Y}_i - \bar{Y} = \hat{\beta}_1(X_i - \bar{X})$), show that the cross-term equals zero and conclude:
 
 $$
 \boxed{TSS = ESS + RSS.}
@@ -225,7 +203,7 @@ $$
 
 #### Solution
 
-(a) Square and sum:
+**(a)** Squaring and summing:
 
 $$
 \sum_{i=1}^n (Y_i-\bar Y)^2
@@ -234,48 +212,61 @@ $$
 +
 \sum_{i=1}^n \hat u_i^2
 +
-2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
 $$
 
 That is:
 
 $$
-TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
 $$
 
-(b) Show the cross-term is zero. From A3, the line passes through $(\bar X,\bar Y)$, so:
+**(b)** We need to show the cross-term is zero.
+
+**Step 1.** From A3, the regression line passes through $(\bar{X}, \bar{Y})$, so:
 
 $$
-\hat Y_i-\bar Y
-=
-(\hat\beta_0+\hat\beta_1X_i)-(\hat\beta_0+\hat\beta_1\bar X)
-=
-\hat\beta_1(X_i-\bar X).
+\hat Y_i - \bar Y
+= (\hat\beta_0 + \hat\beta_1 X_i) - (\hat\beta_0 + \hat\beta_1 \bar X)
+= \hat\beta_1(X_i - \bar X)
 $$
 
-Therefore:
+**Step 2.** Substitute into the cross-term:
 
 $$
-\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
-=
-\hat\beta_1\sum_{i=1}^n (X_i-\bar X)\hat u_i.
+\sum_{i=1}^n (\hat Y_i - \bar Y)\hat u_i
+= \hat\beta_1 \sum_{i=1}^n (X_i - \bar X)\hat u_i
 $$
 
-By A2, $\sum (X_i-\bar X)\hat u_i=0$, so the cross-term vanishes. Hence:
+**Step 3.** By the result from A2, $\sum_{i=1}^n (X_i - \bar X)\hat u_i = 0$, so the entire cross-term vanishes.
+
+**Step 4.** Substituting back:
 
 $$
-\boxed{TSS = ESS + RSS.}
+TSS = ESS + RSS + 2 \cdot 0 = ESS + RSS
 $$
 
-**Interpretation.** Total variation in $Y$ equals the part explained by the fitted line plus the leftover variation in residuals.
+$$
+\boxed{TSS = ESS + RSS}
+$$
+
+#### Interpretation
+
+This result tells us that the total variation in $Y$ can be **cleanly split** into two non-overlapping parts: what the model explains ($ESS$) and what it does not ($RSS$). This clean split is what makes the coefficient of determination meaningful:
+
+$$
+R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
+$$
+
+Without the cross-term being zero, this decomposition would not hold, and $R^2$ would lose its interpretation as the proportion of variance explained.
 
 ---
 
-###  Quick computational check in R
+#### Computational check in R
 
-This chunk verifies the Part A identities numerically in a simulated dataset.
+This chunk verifies the ANOVA decomposition numerically in a simulated dataset.
 
-```{r check-partA, echo=TRUE}
+```{r check-anova, echo=TRUE}
 set.seed(123)
 
 n <- 80
@@ -287,24 +278,19 @@ fit <- lm(Y ~ X)
 uhat <- resid(fit)
 yhat <- fitted(fit)
 
-# Decompositions and orthogonality checks
 TSS <- sum((Y - mean(Y))^2)
 ESS <- sum((yhat - mean(Y))^2)
 RSS <- sum(uhat^2)
 
 c(
-  sum_uhat = sum(uhat),
-  sum_Xuhat = sum(X * uhat),
-  sum_centerX_uhat = sum((X - mean(X)) * uhat),
-  sum_yhat_uhat = sum(yhat * uhat),
-  TSS_minus_ESS_minus_RSS = TSS - ESS - RSS
+  cross_term        = sum((yhat - mean(Y)) * uhat),
+  TSS_minus_ESS_RSS = TSS - ESS - RSS
 )
 ```
 
-You should see values extremely close to zero (up to floating-point rounding), confirming the identities from Part A.
+Both values should be essentially zero (up to floating-point precision), confirming the decomposition.
 
-
-### B1. The Population Regression Function (PRF)
+## Part B . The Population Regression Function (PRF)
 
 #### B1.a Definition (concept)
 

@@ -103,18 +103,18 @@ Y = \beta_0 + \beta_1 X + u.
 <h3>
 <span class="header-section-number">4.1.2</span> A2. Orthogonality to centered <span class="math inline">\(X\)</span>: what it really means<a class="anchor" aria-label="anchor" href="#a2.-orthogonality-to-centered-x-what-it-really-means"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question" class="section level4" number="4.1.2.1">
+<div id="question-1" class="section level4" number="4.1.2.1">
 <h4>
-<span class="header-section-number">4.1.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>Show that residuals are also orthogonal to deviations of <span class="math inline">\(X\)</span> around its mean:</p>
 <p><span class="math display">\[
 \boxed{\sum_{i=1}^n (X_i-\bar X)\hat u_i = 0.}
 \]</span></p>
 </div>
-<div id="solution" class="section level4" number="4.1.2.2">
+<div id="solution-1" class="section level4" number="4.1.2.2">
 <h4>
-<span class="header-section-number">4.1.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>Start from the identity:</p>
 <p><span class="math display">\[
@@ -179,72 +179,50 @@ Y = \beta_0 + \beta_1 X + u.
 <hr>
 <p><strong>Conclusion:</strong> The OLS regression line always passes through the point <span class="math inline">\((\bar{X}, \bar{Y})\)</span>. <span class="math inline">\(\blacksquare\)</span></p>
 </div>
-<div id="a4.-residuals-are-orthogonal-to-fitted-values" class="section level3" number="4.1.4">
+<div id="a4.-prove-the-anova-decomposition-tss-ess-rss" class="section level3" number="4.1.4">
 <h3>
-<span class="header-section-number">4.1.4</span> A4. Residuals are orthogonal to fitted values<a class="anchor" aria-label="anchor" href="#a4.-residuals-are-orthogonal-to-fitted-values"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.4</span> A4. Prove the ANOVA decomposition: <span class="math inline">\(TSS = ESS + RSS\)</span><a class="anchor" aria-label="anchor" href="#a4.-prove-the-anova-decomposition-tss-ess-rss"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-1" class="section level4" number="4.1.4.1">
+<div id="context" class="section level4" number="4.1.4.1">
 <h4>
-<span class="header-section-number">4.1.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.4.1</span> Context<a class="anchor" aria-label="anchor" href="#context"><i class="fas fa-link"></i></a>
 </h4>
-<p>Show that:</p>
-<p><span class="math display">\[
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
-\]</span></p>
-</div>
-<div id="solution-1" class="section level4" number="4.1.4.2">
-<h4>
-<span class="header-section-number">4.1.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-1"><i class="fas fa-link"></i></a>
-</h4>
-<p>Write fitted values as <span class="math inline">\(\hat Y_i=\hat\beta_0+\hat\beta_1X_i\)</span> and expand:</p>
-<p><span class="math display">\[
-\sum_{i=1}^n \hat Y_i\hat u_i
-=
-\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat u_i
-=
-\hat\beta_0\sum_{i=1}^n \hat u_i + \hat\beta_1\sum_{i=1}^n X_i\hat u_i.
-\]</span></p>
-<p>By A1, both sums are zero. Therefore:</p>
-<p><span class="math display">\[
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
-\]</span></p>
-<p><strong>Interpretation.</strong> The part OLS explains (<span class="math inline">\(\hat Y\)</span>) and the part it cannot explain (<span class="math inline">\(\hat u\)</span>) do not move together in the sample.</p>
-<hr>
-</div>
-</div>
-<div id="a5.-why-this-matters-the-anova-decomposition-tss-ess-rss" class="section level3" number="4.1.5">
-<h3>
-<span class="header-section-number">4.1.5</span> A5. Why this matters: the ANOVA decomposition <span class="math inline">\(TSS = ESS + RSS\)</span><a class="anchor" aria-label="anchor" href="#a5.-why-this-matters-the-anova-decomposition-tss-ess-rss"><i class="fas fa-link"></i></a>
-</h3>
-<p>Define:</p>
+<p>In regression analysis we want to know <strong>how much of the total variation in <span class="math inline">\(Y\)</span> is explained by the model</strong>. To answer this, we decompose the total variation into two parts: one attributed to the fitted line and one to the residuals. This decomposition is the foundation of the <span class="math inline">\(R^2\)</span> statistic and the <span class="math inline">\(F\)</span>-test in regression.</p>
+<p>We define:</p>
 <p><span class="math display">\[
 TSS=\sum_{i=1}^n (Y_i-\bar Y)^2,\quad
 ESS=\sum_{i=1}^n (\hat Y_i-\bar Y)^2,\quad
 RSS=\sum_{i=1}^n \hat u_i^2.
 \]</span></p>
-<p>Start from the identity:</p>
+<ul>
+<li>
+<strong>TSS</strong> (Total Sum of Squares): measures the total variability of <span class="math inline">\(Y\)</span> around its mean.</li>
+<li>
+<strong>ESS</strong> (Explained Sum of Squares): measures how much of that variability is captured by the fitted values <span class="math inline">\(\hat{Y}_i\)</span>.</li>
+<li>
+<strong>RSS</strong> (Residual Sum of Squares): measures the leftover variability not captured by the model.</li>
+</ul>
+<p>The key identity we start from is:</p>
 <p><span class="math display">\[
-Y_i-\bar Y = (\hat Y_i-\bar Y) + \hat u_i.
+Y_i - \bar{Y} = (\hat{Y}_i - \bar{Y}) + \hat{u}_i
 \]</span></p>
-<div id="question-2" class="section level4" number="4.1.5.1">
+<p>This simply says: the deviation of each observation from the mean equals the deviation explained by the model plus the residual.</p>
+</div>
+<div id="question-2" class="section level4" number="4.1.4.2">
 <h4>
-<span class="header-section-number">4.1.5.1</span> Question<a class="anchor" aria-label="anchor" href="#question-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.4.2</span> Question<a class="anchor" aria-label="anchor" href="#question-2"><i class="fas fa-link"></i></a>
 </h4>
-<ol style="list-style-type: lower-alpha">
-<li><p>Square both sides and sum over <span class="math inline">\(i\)</span>.</p></li>
-<li><p>Use A2 (or A4) to show the cross-term is zero, and conclude:</p></li>
-</ol>
+<p><strong>(a)</strong> Square both sides of the identity above and sum over all <span class="math inline">\(i = 1, \dots, n\)</span>. Write the result in terms of <span class="math inline">\(TSS\)</span>, <span class="math inline">\(ESS\)</span>, <span class="math inline">\(RSS\)</span>, and a cross-term.</p>
+<p><strong>(b)</strong> Using the result from A2 (<span class="math inline">\(\sum (X_i - \bar{X})\hat{u}_i = 0\)</span>) and from A3 (<span class="math inline">\(\hat{Y}_i - \bar{Y} = \hat{\beta}_1(X_i - \bar{X})\)</span>), show that the cross-term equals zero and conclude:</p>
 <p><span class="math display">\[
 \boxed{TSS = ESS + RSS.}
 \]</span></p>
 </div>
-<div id="solution-2" class="section level4" number="4.1.5.2">
+<div id="solution-2" class="section level4" number="4.1.4.3">
 <h4>
-<span class="header-section-number">4.1.5.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-2"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.1.4.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-2"><i class="fas fa-link"></i></a>
 </h4>
-<ol style="list-style-type: lower-alpha">
-<li>Square and sum:</li>
-</ol>
+<p><strong>(a)</strong> Squaring and summing:</p>
 <p><span class="math display">\[
 \sum_{i=1}^n (Y_i-\bar Y)^2
 =
@@ -252,41 +230,49 @@ Y_i-\bar Y = (\hat Y_i-\bar Y) + \hat u_i.
 +
 \sum_{i=1}^n \hat u_i^2
 +
-2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
 \]</span></p>
 <p>That is:</p>
 <p><span class="math display">\[
-TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
+TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
 \]</span></p>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Show the cross-term is zero. From A3, the line passes through <span class="math inline">\((\bar X,\bar Y)\)</span>, so:</li>
-</ol>
+<p><strong>(b)</strong> We need to show the cross-term is zero.</p>
+<p><strong>Step 1.</strong> From A3, the regression line passes through <span class="math inline">\((\bar{X}, \bar{Y})\)</span>, so:</p>
 <p><span class="math display">\[
-\hat Y_i-\bar Y
-=
-(\hat\beta_0+\hat\beta_1X_i)-(\hat\beta_0+\hat\beta_1\bar X)
-=
-\hat\beta_1(X_i-\bar X).
+\hat Y_i - \bar Y
+= (\hat\beta_0 + \hat\beta_1 X_i) - (\hat\beta_0 + \hat\beta_1 \bar X)
+= \hat\beta_1(X_i - \bar X)
 \]</span></p>
-<p>Therefore:</p>
+<p><strong>Step 2.</strong> Substitute into the cross-term:</p>
 <p><span class="math display">\[
-\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i
-=
-\hat\beta_1\sum_{i=1}^n (X_i-\bar X)\hat u_i.
+\sum_{i=1}^n (\hat Y_i - \bar Y)\hat u_i
+= \hat\beta_1 \sum_{i=1}^n (X_i - \bar X)\hat u_i
 \]</span></p>
-<p>By A2, <span class="math inline">\(\sum (X_i-\bar X)\hat u_i=0\)</span>, so the cross-term vanishes. Hence:</p>
+<p><strong>Step 3.</strong> By the result from A2, <span class="math inline">\(\sum_{i=1}^n (X_i - \bar X)\hat u_i = 0\)</span>, so the entire cross-term vanishes.</p>
+<p><strong>Step 4.</strong> Substituting back:</p>
 <p><span class="math display">\[
-\boxed{TSS = ESS + RSS.}
+TSS = ESS + RSS + 2 \cdot 0 = ESS + RSS
 \]</span></p>
-<p><strong>Interpretation.</strong> Total variation in <span class="math inline">\(Y\)</span> equals the part explained by the fitted line plus the leftover variation in residuals.</p>
+<p><span class="math display">\[
+\boxed{TSS = ESS + RSS}
+\]</span></p>
+</div>
+<div id="interpretation" class="section level4" number="4.1.4.4">
+<h4>
+<span class="header-section-number">4.1.4.4</span> Interpretation<a class="anchor" aria-label="anchor" href="#interpretation"><i class="fas fa-link"></i></a>
+</h4>
+<p>This result tells us that the total variation in <span class="math inline">\(Y\)</span> can be <strong>cleanly split</strong> into two non-overlapping parts: what the model explains (<span class="math inline">\(ESS\)</span>) and what it does not (<span class="math inline">\(RSS\)</span>). This clean split is what makes the coefficient of determination meaningful:</p>
+<p><span class="math display">\[
+R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
+\]</span></p>
+<p>Without the cross-term being zero, this decomposition would not hold, and <span class="math inline">\(R^2\)</span> would lose its interpretation as the proportion of variance explained.</p>
 <hr>
 </div>
-</div>
-<div id="quick-computational-check-in-r" class="section level3" number="4.1.6">
-<h3>
-<span class="header-section-number">4.1.6</span> Quick computational check in R<a class="anchor" aria-label="anchor" href="#quick-computational-check-in-r"><i class="fas fa-link"></i></a>
-</h3>
-<p>This chunk verifies the Part A identities numerically in a simulated dataset.</p>
+<div id="computational-check-in-r" class="section level4" number="4.1.4.5">
+<h4>
+<span class="header-section-number">4.1.4.5</span> Computational check in R<a class="anchor" aria-label="anchor" href="#computational-check-in-r"><i class="fas fa-link"></i></a>
+</h4>
+<p>This chunk verifies the ANOVA decomposition numerically in a simulated dataset.</p>
 <div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
@@ -299,31 +285,27 @@ TSS = ESS + RSS + 2\sum_{i=1}^n (\hat Y_i-\bar Y)\hat u_i.
 <span><span class="va">uhat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span><span class="va">yhat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Decompositions and orthogonality checks</span></span>
 <span><span class="va">TSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">ESS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">yhat</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">RSS</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">uhat</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
-<span>  sum_uhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">uhat</span><span class="op">)</span>,</span>
-<span>  sum_Xuhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">X</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
-<span>  sum_centerX_uhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">X</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
-<span>  sum_yhat_uhat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">yhat</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
-<span>  TSS_minus_ESS_minus_RSS <span class="op">=</span> <span class="va">TSS</span> <span class="op">-</span> <span class="va">ESS</span> <span class="op">-</span> <span class="va">RSS</span></span>
+<span>  cross_term        <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">yhat</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span> <span class="op">*</span> <span class="va">uhat</span><span class="op">)</span>,</span>
+<span>  TSS_minus_ESS_RSS <span class="op">=</span> <span class="va">TSS</span> <span class="op">-</span> <span class="va">ESS</span> <span class="op">-</span> <span class="va">RSS</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<pre><code>##                sum_uhat               sum_Xuhat        sum_centerX_uhat           sum_yhat_uhat 
-##            6.661338e-16           -8.215650e-15           -6.772360e-15           -2.886580e-14 
-## TSS_minus_ESS_minus_RSS 
-##            0.000000e+00</code></pre>
-<p>You should see values extremely close to zero (up to floating-point rounding), confirming the identities from Part A.</p>
+<pre><code>##        cross_term TSS_minus_ESS_RSS 
+##     -6.494805e-15      0.000000e+00</code></pre>
+<p>Both values should be essentially zero (up to floating-point precision), confirming the decomposition.</p>
 </div>
-<div id="b1.-the-population-regression-function-prf" class="section level3" number="4.1.7">
-<h3>
-<span class="header-section-number">4.1.7</span> B1. The Population Regression Function (PRF)<a class="anchor" aria-label="anchor" href="#b1.-the-population-regression-function-prf"><i class="fas fa-link"></i></a>
-</h3>
-<div id="b1.a-definition-concept" class="section level4" number="4.1.7.1">
+</div>
+</div>
+<div id="part-b-.-the-population-regression-function-prf" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> Part B . The Population Regression Function (PRF)<a class="anchor" aria-label="anchor" href="#part-b-.-the-population-regression-function-prf"><i class="fas fa-link"></i></a>
+</h2>
+<div id="b1.a-definition-concept" class="section level4" number="4.2.0.1">
 <h4>
-<span class="header-section-number">4.1.7.1</span> B1.a Definition (concept)<a class="anchor" aria-label="anchor" href="#b1.a-definition-concept"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.0.1</span> B1.a Definition (concept)<a class="anchor" aria-label="anchor" href="#b1.a-definition-concept"><i class="fas fa-link"></i></a>
 </h4>
 <p>The <strong>Population Regression Function</strong> is:</p>
 <p><span class="math display">\[
@@ -337,14 +319,13 @@ m(x) \equiv \mathbb{E}[Y\mid X=x].
 <p>This is the “linear PRF” assumption.</p>
 <hr>
 </div>
-</div>
-<div id="b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from" class="section level3" number="4.1.8">
+<div id="b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from" class="section level3" number="4.2.1">
 <h3>
-<span class="header-section-number">4.1.8</span> B2. Zero conditional mean: what it is and where it comes from<a class="anchor" aria-label="anchor" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1</span> B2. Zero conditional mean: what it is and where it comes from<a class="anchor" aria-label="anchor" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-3" class="section level4" number="4.1.8.1">
+<div id="question-3" class="section level4" number="4.2.1.1">
 <h4>
-<span class="header-section-number">4.1.8.1</span> Question<a class="anchor" aria-label="anchor" href="#question-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>Assume the PRF is linear:</p>
 <p><span class="math display">\[
@@ -359,9 +340,9 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 \boxed{\mathbb{E}[u\mid X] = 0.}
 \]</span></p>
 </div>
-<div id="solution-3" class="section level4" number="4.1.8.2">
+<div id="solution-3" class="section level4" number="4.2.1.2">
 <h4>
-<span class="header-section-number">4.1.8.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>Compute:</p>
 <p><span class="math display">\[
@@ -383,14 +364,14 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <hr>
 </div>
 </div>
-<div id="b3.-what-zero-conditional-mean-implies-useful-corollaries" class="section level3" number="4.1.9">
+<div id="b3.-what-zero-conditional-mean-implies-useful-corollaries" class="section level3" number="4.2.2">
 <h3>
-<span class="header-section-number">4.1.9</span> B3. What zero conditional mean implies (useful corollaries)<a class="anchor" aria-label="anchor" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.2</span> B3. What zero conditional mean implies (useful corollaries)<a class="anchor" aria-label="anchor" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Narrative idea.</strong> The condition <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span> is a <em>conditional</em> statement. It automatically implies some unconditional statements that are often used in intuition.</p>
-<div id="question-4" class="section level4" number="4.1.9.1">
+<div id="question-4" class="section level4" number="4.2.2.1">
 <h4>
-<span class="header-section-number">4.1.9.1</span> Question<a class="anchor" aria-label="anchor" href="#question-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-4"><i class="fas fa-link"></i></a>
 </h4>
 <p>Assuming <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, show that:</p>
 <ol style="list-style-type: decimal">
@@ -400,9 +381,9 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <li><span class="math inline">\(\boxed{\operatorname{Cov}(X,u)=0}\)</span></li>
 </ol>
 </div>
-<div id="solution-4" class="section level4" number="4.1.9.2">
+<div id="solution-4" class="section level4" number="4.2.2.2">
 <h4>
-<span class="header-section-number">4.1.9.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-4"><i class="fas fa-link"></i></a>
 </h4>
 <ol style="list-style-type: decimal">
 <li>By iterated expectations:</li>
@@ -431,13 +412,13 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <hr>
 </div>
 </div>
-<div id="b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care" class="section level3" number="4.1.10">
+<div id="b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care" class="section level3" number="4.2.3">
 <h3>
-<span class="header-section-number">4.1.10</span> B4. Mean independence vs zero conditional mean (and why we care)<a class="anchor" aria-label="anchor" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3</span> B4. Mean independence vs zero conditional mean (and why we care)<a class="anchor" aria-label="anchor" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><i class="fas fa-link"></i></a>
 </h3>
-<div id="b4.a-definitions" class="section level4" number="4.1.10.1">
+<div id="b4.a-definitions" class="section level4" number="4.2.3.1">
 <h4>
-<span class="header-section-number">4.1.10.1</span> B4.a Definitions<a class="anchor" aria-label="anchor" href="#b4.a-definitions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3.1</span> B4.a Definitions<a class="anchor" aria-label="anchor" href="#b4.a-definitions"><i class="fas fa-link"></i></a>
 </h4>
 <ul>
 <li><p><strong>Zero conditional mean:</strong>
@@ -451,9 +432,9 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 </ul>
 <p>Mean independence says the conditional mean of <span class="math inline">\(u\)</span> does not depend on <span class="math inline">\(X\)</span> at all; zero conditional mean says it is specifically zero.</p>
 </div>
-<div id="question-5" class="section level4" number="4.1.10.2">
+<div id="question-5" class="section level4" number="4.2.3.2">
 <h4>
-<span class="header-section-number">4.1.10.2</span> Question<a class="anchor" aria-label="anchor" href="#question-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3.2</span> Question<a class="anchor" aria-label="anchor" href="#question-5"><i class="fas fa-link"></i></a>
 </h4>
 <ol style="list-style-type: decimal">
 <li>If <span class="math inline">\(\mathbb{E}[u]=0\)</span>, show that mean independence implies zero conditional mean.<br>
@@ -461,9 +442,9 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <li>In 2 lines: which is stronger, and why?</li>
 </ol>
 </div>
-<div id="solution-5" class="section level4" number="4.1.10.3">
+<div id="solution-5" class="section level4" number="4.2.3.3">
 <h4>
-<span class="header-section-number">4.1.10.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-5"><i class="fas fa-link"></i></a>
 </h4>
 <ol style="list-style-type: decimal">
 <li>If mean independence holds, then <span class="math inline">\(\mathbb{E}[u\mid X]=\mathbb{E}[u]\)</span>. If also <span class="math inline">\(\mathbb{E}[u]=0\)</span>, then:</li>
@@ -479,28 +460,28 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <hr>
 </div>
 </div>
-<div id="b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept" class="section level3" number="4.1.11">
+<div id="b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept" class="section level3" number="4.2.4">
 <h3>
-<span class="header-section-number">4.1.11</span> B5. A cautionary note: uncorrelatedness is not enough (concept)<a class="anchor" aria-label="anchor" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.4</span> B5. A cautionary note: uncorrelatedness is not enough (concept)<a class="anchor" aria-label="anchor" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Narrative idea.</strong> Students often think “<span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> means no bias.” That is not the right logic. OLS unbiasedness relies on a <em>conditional</em> statement like <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.</p>
-<div id="question-2-lines" class="section level4" number="4.1.11.1">
+<div id="question-2-lines" class="section level4" number="4.2.4.1">
 <h4>
-<span class="header-section-number">4.1.11.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.4.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines"><i class="fas fa-link"></i></a>
 </h4>
 <p>Explain briefly why <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> alone does not guarantee <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.</p>
 </div>
-<div id="solution-6" class="section level4" number="4.1.11.2">
+<div id="solution-6" class="section level4" number="4.2.4.2">
 <h4>
-<span class="header-section-number">4.1.11.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-6"><i class="fas fa-link"></i></a>
 </h4>
 <p>Uncorrelatedness is an <em>unconditional</em> moment restriction and can hold even when <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> varies with <span class="math inline">\(X\)</span> in a nonlinear way. OLS unbiasedness needs the conditional restriction <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, not just <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>.</p>
 <hr>
 </div>
 </div>
-<div id="quick-simulation-intuition-in-r" class="section level3" number="4.1.12">
+<div id="quick-simulation-intuition-in-r" class="section level3" number="4.2.5">
 <h3>
-<span class="header-section-number">4.1.12</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.5</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
 </h3>
 <p>This chunk is just to build intuition: it shows that when we generate data with <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, sample correlation between <span class="math inline">\(X\)</span> and residual-like noise fluctuates around zero.</p>
 <div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
@@ -516,9 +497,9 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <pre><code>## [1] -0.05193691</code></pre>
 </div>
 </div>
-<div id="part-c.-unbiasedness-of-ols-with-solutions" class="section level2" number="4.2">
+<div id="part-c.-unbiasedness-of-ols-with-solutions" class="section level2" number="4.3">
 <h2>
-<span class="header-section-number">4.2</span> Part C. Unbiasedness of OLS (with solutions)<a class="anchor" aria-label="anchor" href="#part-c.-unbiasedness-of-ols-with-solutions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3</span> Part C. Unbiasedness of OLS (with solutions)<a class="anchor" aria-label="anchor" href="#part-c.-unbiasedness-of-ols-with-solutions"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Narrative idea.</strong> Part A gave sample identities (orthogonality) that hold mechanically.<br>
 Part B defined the population object we care about (the PRF) and introduced the key assumption <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.<br>
@@ -532,13 +513,13 @@ Y_i = \beta_0 + \beta_1 X_i + u_i.
 \mathbb{E}[u_i\mid X_i] = 0.
 \]</span></p>
 <hr>
-<div id="c1.-key-representation-of-the-ols-slope" class="section level3" number="4.2.1">
+<div id="c1.-key-representation-of-the-ols-slope" class="section level3" number="4.3.1">
 <h3>
-<span class="header-section-number">4.2.1</span> C1. Key representation of the OLS slope<a class="anchor" aria-label="anchor" href="#c1.-key-representation-of-the-ols-slope"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1</span> C1. Key representation of the OLS slope<a class="anchor" aria-label="anchor" href="#c1.-key-representation-of-the-ols-slope"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-6" class="section level4" number="4.2.1.1">
+<div id="question-6" class="section level4" number="4.3.1.1">
 <h4>
-<span class="header-section-number">4.2.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-6"><i class="fas fa-link"></i></a>
 </h4>
 <p>Using the known formula for the OLS slope,</p>
 <p><span class="math display">\[
@@ -553,9 +534,9 @@ Y_i = \beta_0 + \beta_1 X_i + u_i.
 \frac{\sum_{i=1}^n (X_i-\bar X)u_i}{\sum_{i=1}^n (X_i-\bar X)^2}.}
 \]</span></p>
 </div>
-<div id="solution-7" class="section level4" number="4.2.1.2">
+<div id="solution-7" class="section level4" number="4.3.1.2">
 <h4>
-<span class="header-section-number">4.2.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-7"><i class="fas fa-link"></i></a>
 </h4>
 <p>Start from the decomposition:</p>
 <p><span class="math display">\[
@@ -584,14 +565,14 @@ Y_i-\bar Y
 <hr>
 </div>
 </div>
-<div id="c2.-unbiasedness-of-the-slope-conditional-then-unconditional" class="section level3" number="4.2.2">
+<div id="c2.-unbiasedness-of-the-slope-conditional-then-unconditional" class="section level3" number="4.3.2">
 <h3>
-<span class="header-section-number">4.2.2</span> C2. Unbiasedness of the slope: conditional then unconditional<a class="anchor" aria-label="anchor" href="#c2.-unbiasedness-of-the-slope-conditional-then-unconditional"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.2</span> C2. Unbiasedness of the slope: conditional then unconditional<a class="anchor" aria-label="anchor" href="#c2.-unbiasedness-of-the-slope-conditional-then-unconditional"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Narrative idea.</strong> Unbiasedness is a statement about repeated sampling. We first show unbiasedness <strong>conditional on the observed <span class="math inline">\(X\)</span> sample</strong>, then take expectations again to get unconditional unbiasedness.</p>
-<div id="question-7" class="section level4" number="4.2.2.1">
+<div id="question-7" class="section level4" number="4.3.2.1">
 <h4>
-<span class="header-section-number">4.2.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-7"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-7"><i class="fas fa-link"></i></a>
 </h4>
 <p>Show:</p>
 <p><span class="math display">\[
@@ -600,9 +581,9 @@ Y_i-\bar Y
 \boxed{\mathbb{E}[\hat\beta_1]=\beta_1.}
 \]</span></p>
 </div>
-<div id="solution-8" class="section level4" number="4.2.2.2">
+<div id="solution-8" class="section level4" number="4.3.2.2">
 <h4>
-<span class="header-section-number">4.2.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-8"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-8"><i class="fas fa-link"></i></a>
 </h4>
 <p>From C1:</p>
 <p><span class="math display">\[
@@ -635,14 +616,14 @@ S_{xx}=\sum (X_i-\bar X)^2.
 <hr>
 </div>
 </div>
-<div id="c3.-unbiasedness-of-the-intercept" class="section level3" number="4.2.3">
+<div id="c3.-unbiasedness-of-the-intercept" class="section level3" number="4.3.3">
 <h3>
-<span class="header-section-number">4.2.3</span> C3. Unbiasedness of the intercept<a class="anchor" aria-label="anchor" href="#c3.-unbiasedness-of-the-intercept"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.3</span> C3. Unbiasedness of the intercept<a class="anchor" aria-label="anchor" href="#c3.-unbiasedness-of-the-intercept"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Narrative idea.</strong> Once we have unbiasedness of the slope, unbiasedness of the intercept follows from the identity <span class="math inline">\(\hat\beta_0=\bar Y-\hat\beta_1\bar X\)</span>.</p>
-<div id="question-8" class="section level4" number="4.2.3.1">
+<div id="question-8" class="section level4" number="4.3.3.1">
 <h4>
-<span class="header-section-number">4.2.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-8"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-8"><i class="fas fa-link"></i></a>
 </h4>
 <p>Show:</p>
 <p><span class="math display">\[
@@ -651,9 +632,9 @@ S_{xx}=\sum (X_i-\bar X)^2.
 \boxed{\mathbb{E}[\hat\beta_0]=\beta_0.}
 \]</span></p>
 </div>
-<div id="solution-9" class="section level4" number="4.2.3.2">
+<div id="solution-9" class="section level4" number="4.3.3.2">
 <h4>
-<span class="header-section-number">4.2.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-9"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-9"><i class="fas fa-link"></i></a>
 </h4>
 <p>Start from:</p>
 <p><span class="math display">\[
@@ -680,28 +661,28 @@ S_{xx}=\sum (X_i-\bar X)^2.
 <hr>
 </div>
 </div>
-<div id="c4.-why-uncorrelatedness-is-not-enough-concept-check" class="section level3" number="4.2.4">
+<div id="c4.-why-uncorrelatedness-is-not-enough-concept-check" class="section level3" number="4.3.4">
 <h3>
-<span class="header-section-number">4.2.4</span> C4. Why uncorrelatedness is not enough (concept check)<a class="anchor" aria-label="anchor" href="#c4.-why-uncorrelatedness-is-not-enough-concept-check"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.4</span> C4. Why uncorrelatedness is not enough (concept check)<a class="anchor" aria-label="anchor" href="#c4.-why-uncorrelatedness-is-not-enough-concept-check"><i class="fas fa-link"></i></a>
 </h3>
 <p><strong>Narrative idea.</strong> Students often confuse the unconditional statement “<span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>” with the conditional statement “<span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>”. OLS unbiasedness needs the <em>conditional</em> restriction.</p>
-<div id="question-2-lines-1" class="section level4" number="4.2.4.1">
+<div id="question-2-lines-1" class="section level4" number="4.3.4.1">
 <h4>
-<span class="header-section-number">4.2.4.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.4.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines-1"><i class="fas fa-link"></i></a>
 </h4>
 <p>Explain briefly why <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> alone does not guarantee OLS unbiasedness.</p>
 </div>
-<div id="solution-10" class="section level4" number="4.2.4.2">
+<div id="solution-10" class="section level4" number="4.3.4.2">
 <h4>
-<span class="header-section-number">4.2.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-10"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-10"><i class="fas fa-link"></i></a>
 </h4>
 <p><span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> is an unconditional moment condition and can hold even if <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> varies with <span class="math inline">\(X\)</span> (e.g., in a nonlinear way). OLS unbiasedness relies on the conditional restriction <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, which is stronger and rules out systematic dependence of the mean error on <span class="math inline">\(X\)</span>.</p>
 <hr>
 </div>
 </div>
-<div id="quick-simulation-intuition-in-r-1" class="section level3" number="4.2.5">
+<div id="quick-simulation-intuition-in-r-1" class="section level3" number="4.3.5">
 <h3>
-<span class="header-section-number">4.2.5</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r-1"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.3.5</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>This chunk illustrates unbiasedness in repeated samples when <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>. The sample average of <span class="math inline">\(\hat\beta_1\)</span> across many simulations should be close to the true <span class="math inline">\(\beta_1\)</span>.</p>
 <div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
@@ -729,9 +710,9 @@ S_{xx}=\sum (X_i-\bar X)^2.
 ##    1.999375    2.000000</code></pre>
 </div>
 </div>
-<div id="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions" class="section level2" number="4.3">
+<div id="part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions" class="section level2" number="4.4">
 <h2>
-<span class="header-section-number">4.3</span> Part D. Sampling variance of OLS and estimating <span class="math inline">\(\sigma^2\)</span> (with solutions)<a class="anchor" aria-label="anchor" href="#part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4</span> Part D. Sampling variance of OLS and estimating <span class="math inline">\(\sigma^2\)</span> (with solutions)<a class="anchor" aria-label="anchor" href="#part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Narrative idea.</strong> In Part C we showed OLS is unbiased under i.i.d. sampling and zero conditional mean.<br>
 Part D asks a different question: <strong>how variable is OLS across samples?</strong> That is, what is the variance of <span class="math inline">\(\hat\beta_1\)</span> and <span class="math inline">\(\hat\beta_0\)</span>?<br>
@@ -742,9 +723,9 @@ Y_i = \beta_0 + \beta_1 X_i + u_i,
 \qquad \mathbb{E}[u_i\mid X_i]=0.
 \]</span></p>
 <hr>
-<div id="d1.-assumptions-for-the-classical-variance-formulas" class="section level3" number="4.3.1">
+<div id="d1.-assumptions-for-the-classical-variance-formulas" class="section level3" number="4.4.1">
 <h3>
-<span class="header-section-number">4.3.1</span> D1. Assumptions for the classical variance formulas<a class="anchor" aria-label="anchor" href="#d1.-assumptions-for-the-classical-variance-formulas"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.1</span> D1. Assumptions for the classical variance formulas<a class="anchor" aria-label="anchor" href="#d1.-assumptions-for-the-classical-variance-formulas"><i class="fas fa-link"></i></a>
 </h3>
 <p>To derive simple variance expressions, assume:</p>
 <ol style="list-style-type: decimal">
@@ -763,13 +744,13 @@ S_{xx} \equiv \sum_{i=1}^n (X_i-\bar X)^2.
 \]</span></p>
 <hr>
 </div>
-<div id="d2.-conditional-variance-of-the-slope" class="section level3" number="4.3.2">
+<div id="d2.-conditional-variance-of-the-slope" class="section level3" number="4.4.2">
 <h3>
-<span class="header-section-number">4.3.2</span> D2. Conditional variance of the slope<a class="anchor" aria-label="anchor" href="#d2.-conditional-variance-of-the-slope"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2</span> D2. Conditional variance of the slope<a class="anchor" aria-label="anchor" href="#d2.-conditional-variance-of-the-slope"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-9" class="section level4" number="4.3.2.1">
+<div id="question-9" class="section level4" number="4.4.2.1">
 <h4>
-<span class="header-section-number">4.3.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-9"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-9"><i class="fas fa-link"></i></a>
 </h4>
 <p>Using the representation from Part C,</p>
 <p><span class="math display">\[
@@ -782,9 +763,9 @@ S_{xx} \equiv \sum_{i=1}^n (X_i-\bar X)^2.
 \boxed{\operatorname{Var}(\hat\beta_1\mid X_1,\dots,X_n)=\frac{\sigma^2}{S_{xx}}.}
 \]</span></p>
 </div>
-<div id="solution-11" class="section level4" number="4.3.2.2">
+<div id="solution-11" class="section level4" number="4.4.2.2">
 <h4>
-<span class="header-section-number">4.3.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-11"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-11"><i class="fas fa-link"></i></a>
 </h4>
 <p>Condition on the full regressor sample <span class="math inline">\(X=(X_1,\dots,X_n)\)</span>. Then <span class="math inline">\(S_{xx}\)</span> and <span class="math inline">\((X_i-\bar X)\)</span> are constants. Compute:</p>
 <p><span class="math display">\[
@@ -816,13 +797,13 @@ S_{xx} \equiv \sum_{i=1}^n (X_i-\bar X)^2.
 <hr>
 </div>
 </div>
-<div id="d3.-conditional-variance-of-the-intercept" class="section level3" number="4.3.3">
+<div id="d3.-conditional-variance-of-the-intercept" class="section level3" number="4.4.3">
 <h3>
-<span class="header-section-number">4.3.3</span> D3. Conditional variance of the intercept<a class="anchor" aria-label="anchor" href="#d3.-conditional-variance-of-the-intercept"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.3</span> D3. Conditional variance of the intercept<a class="anchor" aria-label="anchor" href="#d3.-conditional-variance-of-the-intercept"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-10" class="section level4" number="4.3.3.1">
+<div id="question-10" class="section level4" number="4.4.3.1">
 <h4>
-<span class="header-section-number">4.3.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-10"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-10"><i class="fas fa-link"></i></a>
 </h4>
 <p>Show that:</p>
 <p><span class="math display">\[
@@ -831,9 +812,9 @@ S_{xx} \equiv \sum_{i=1}^n (X_i-\bar X)^2.
 \sigma^2\left(\frac{1}{n}+\frac{\bar X^2}{S_{xx}}\right).}
 \]</span></p>
 </div>
-<div id="solution-12" class="section level4" number="4.3.3.2">
+<div id="solution-12" class="section level4" number="4.4.3.2">
 <h4>
-<span class="header-section-number">4.3.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-12"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-12"><i class="fas fa-link"></i></a>
 </h4>
 <p>Use:
 <span class="math display">\[
@@ -877,23 +858,23 @@ the covariance is proportional to:
 <hr>
 </div>
 </div>
-<div id="d4.-estimating-sigma2-the-residual-variance-estimator" class="section level3" number="4.3.4">
+<div id="d4.-estimating-sigma2-the-residual-variance-estimator" class="section level3" number="4.4.4">
 <h3>
-<span class="header-section-number">4.3.4</span> D4. Estimating <span class="math inline">\(\sigma^2\)</span>: the residual variance estimator<a class="anchor" aria-label="anchor" href="#d4.-estimating-sigma2-the-residual-variance-estimator"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.4</span> D4. Estimating <span class="math inline">\(\sigma^2\)</span>: the residual variance estimator<a class="anchor" aria-label="anchor" href="#d4.-estimating-sigma2-the-residual-variance-estimator"><i class="fas fa-link"></i></a>
 </h3>
 <p>Define residuals:</p>
 <p><span class="math display">\[
 \hat u_i = Y_i-\hat\beta_0-\hat\beta_1X_i.
 \]</span></p>
-<div id="question-11" class="section level4" number="4.3.4.1">
+<div id="question-11" class="section level4" number="4.4.4.1">
 <h4>
-<span class="header-section-number">4.3.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-11"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-11"><i class="fas fa-link"></i></a>
 </h4>
 <p>State the usual estimator for <span class="math inline">\(\sigma^2\)</span> and explain the degrees of freedom.</p>
 </div>
-<div id="solution-13" class="section level4" number="4.3.4.2">
+<div id="solution-13" class="section level4" number="4.4.4.2">
 <h4>
-<span class="header-section-number">4.3.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-13"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-13"><i class="fas fa-link"></i></a>
 </h4>
 <p>The standard estimator is:</p>
 <p><span class="math display">\[
@@ -905,9 +886,9 @@ the covariance is proportional to:
 <hr>
 </div>
 </div>
-<div id="d5.-estimated-variance-and-standard-errors-of-ols" class="section level3" number="4.3.5">
+<div id="d5.-estimated-variance-and-standard-errors-of-ols" class="section level3" number="4.4.5">
 <h3>
-<span class="header-section-number">4.3.5</span> D5. Estimated variance and standard errors of OLS<a class="anchor" aria-label="anchor" href="#d5.-estimated-variance-and-standard-errors-of-ols"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.5</span> D5. Estimated variance and standard errors of OLS<a class="anchor" aria-label="anchor" href="#d5.-estimated-variance-and-standard-errors-of-ols"><i class="fas fa-link"></i></a>
 </h3>
 <p>Plug in <span class="math inline">\(\hat\sigma^2\)</span>:</p>
 <p><span class="math display">\[
@@ -924,9 +905,9 @@ the covariance is proportional to:
 <p><strong>Interpretation.</strong> Standard errors translate sampling variability into a scale that allows inference (confidence intervals and t-tests).</p>
 <hr>
 </div>
-<div id="quick-check-in-r-using" class="section level3" number="4.3.6">
+<div id="quick-check-in-r-using" class="section level3" number="4.4.6">
 <h3>
-<span class="header-section-number">4.3.6</span> Quick check in R using <a class="anchor" aria-label="anchor" href="#quick-check-in-r-using"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.4.6</span> Quick check in R using <a class="anchor" aria-label="anchor" href="#quick-check-in-r-using"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -956,9 +937,9 @@ the covariance is proportional to:
 ##    0.2437701    0.2437701    0.1000182    0.1000182</code></pre>
 </div>
 </div>
-<div id="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions" class="section level2" number="4.4">
+<div id="part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions" class="section level2" number="4.5">
 <h2>
-<span class="header-section-number">4.4</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)<a class="anchor" aria-label="anchor" href="#part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)<a class="anchor" aria-label="anchor" href="#part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions"><i class="fas fa-link"></i></a>
 </h2>
 <p><strong>Narrative idea.</strong> Even if OLS is unbiased and we know its variance, we still need to interpret coefficients correctly.<br>
 A coefficient is a <em>number with units</em>, and the functional form you choose (levels vs logs, scaling) determines the meaning of “one unit increase.”</p>
@@ -970,17 +951,17 @@ A coefficient is a <em>number with units</em>, and the functional form you choos
 <span class="math inline">\(X\)</span> = hours worked per week</li>
 </ul>
 <hr>
-<div id="e1.-units-of-the-slope-in-the-levellevel-model" class="section level3" number="4.4.1">
+<div id="e1.-units-of-the-slope-in-the-levellevel-model" class="section level3" number="4.5.1">
 <h3>
-<span class="header-section-number">4.4.1</span> E1. Units of the slope in the level–level model<a class="anchor" aria-label="anchor" href="#e1.-units-of-the-slope-in-the-levellevel-model"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.1</span> E1. Units of the slope in the level–level model<a class="anchor" aria-label="anchor" href="#e1.-units-of-the-slope-in-the-levellevel-model"><i class="fas fa-link"></i></a>
 </h3>
 <p>Consider:</p>
 <p><span class="math display">\[
 Y = \beta_0 + \beta_1 X + u.
 \]</span></p>
-<div id="question-12" class="section level4" number="4.4.1.1">
+<div id="question-12" class="section level4" number="4.5.1.1">
 <h4>
-<span class="header-section-number">4.4.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-12"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-12"><i class="fas fa-link"></i></a>
 </h4>
 <ol style="list-style-type: decimal">
 <li>What are the units of <span class="math inline">\(\beta_1\)</span>?<br>
@@ -988,9 +969,9 @@ Y = \beta_0 + \beta_1 X + u.
 <li>Give the economic interpretation of <span class="math inline">\(\beta_1\)</span> in words.</li>
 </ol>
 </div>
-<div id="solution-14" class="section level4" number="4.4.1.2">
+<div id="solution-14" class="section level4" number="4.5.1.2">
 <h4>
-<span class="header-section-number">4.4.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-14"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-14"><i class="fas fa-link"></i></a>
 </h4>
 <ol style="list-style-type: decimal">
 <li><p><span class="math inline">\(Y\)</span> is dollars and <span class="math inline">\(X\)</span> is hours, so <span class="math inline">\(\beta_1\)</span> has units <strong>dollars per hour</strong>.</p></li>
@@ -999,23 +980,23 @@ Y = \beta_0 + \beta_1 X + u.
 <hr>
 </div>
 </div>
-<div id="e2.-rescaling-regressors-why-coefficients-change-mechanically" class="section level3" number="4.4.2">
+<div id="e2.-rescaling-regressors-why-coefficients-change-mechanically" class="section level3" number="4.5.2">
 <h3>
-<span class="header-section-number">4.4.2</span> E2. Rescaling regressors: why coefficients change mechanically<a class="anchor" aria-label="anchor" href="#e2.-rescaling-regressors-why-coefficients-change-mechanically"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.2</span> E2. Rescaling regressors: why coefficients change mechanically<a class="anchor" aria-label="anchor" href="#e2.-rescaling-regressors-why-coefficients-change-mechanically"><i class="fas fa-link"></i></a>
 </h3>
 <p>Define a rescaled regressor:</p>
 <p><span class="math display">\[
 X^{(10)} \equiv \frac{X}{10}.
 \]</span></p>
-<div id="question-13" class="section level4" number="4.4.2.1">
+<div id="question-13" class="section level4" number="4.5.2.1">
 <h4>
-<span class="header-section-number">4.4.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-13"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-13"><i class="fas fa-link"></i></a>
 </h4>
 <p>If we regress <span class="math inline">\(Y\)</span> on <span class="math inline">\(X^{(10)}\)</span>, how does the slope change? Relate <span class="math inline">\(\beta_1^{(10)}\)</span> to <span class="math inline">\(\beta_1\)</span>.</p>
 </div>
-<div id="solution-15" class="section level4" number="4.4.2.2">
+<div id="solution-15" class="section level4" number="4.5.2.2">
 <h4>
-<span class="header-section-number">4.4.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-15"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-15"><i class="fas fa-link"></i></a>
 </h4>
 <p>Since <span class="math inline">\(X = 10X^{(10)}\)</span>, substitute into the original model:</p>
 <p><span class="math display">\[
@@ -1030,20 +1011,20 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <hr>
 </div>
 </div>
-<div id="e3.-rescaling-outcomes-what-changes-and-what-does-not" class="section level3" number="4.4.3">
+<div id="e3.-rescaling-outcomes-what-changes-and-what-does-not" class="section level3" number="4.5.3">
 <h3>
-<span class="header-section-number">4.4.3</span> E3. Rescaling outcomes: what changes and what does not<a class="anchor" aria-label="anchor" href="#e3.-rescaling-outcomes-what-changes-and-what-does-not"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.3</span> E3. Rescaling outcomes: what changes and what does not<a class="anchor" aria-label="anchor" href="#e3.-rescaling-outcomes-what-changes-and-what-does-not"><i class="fas fa-link"></i></a>
 </h3>
 <p>Define <span class="math inline">\(Y^{(1000)} \equiv Y/1000\)</span> (earnings in “thousands of dollars”).</p>
-<div id="question-14" class="section level4" number="4.4.3.1">
+<div id="question-14" class="section level4" number="4.5.3.1">
 <h4>
-<span class="header-section-number">4.4.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-14"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-14"><i class="fas fa-link"></i></a>
 </h4>
 <p>If we regress <span class="math inline">\(Y^{(1000)}\)</span> on <span class="math inline">\(X\)</span>, what happens to the slope and intercept?</p>
 </div>
-<div id="solution-16" class="section level4" number="4.4.3.2">
+<div id="solution-16" class="section level4" number="4.5.3.2">
 <h4>
-<span class="header-section-number">4.4.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-16"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-16"><i class="fas fa-link"></i></a>
 </h4>
 <p>Divide the entire equation by 1000:</p>
 <p><span class="math display">\[
@@ -1057,23 +1038,23 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <hr>
 </div>
 </div>
-<div id="e4.-loglevel-model-interpreting-semi-elasticities" class="section level3" number="4.4.4">
+<div id="e4.-loglevel-model-interpreting-semi-elasticities" class="section level3" number="4.5.4">
 <h3>
-<span class="header-section-number">4.4.4</span> E4. Log–level model: interpreting semi-elasticities<a class="anchor" aria-label="anchor" href="#e4.-loglevel-model-interpreting-semi-elasticities"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.4</span> E4. Log–level model: interpreting semi-elasticities<a class="anchor" aria-label="anchor" href="#e4.-loglevel-model-interpreting-semi-elasticities"><i class="fas fa-link"></i></a>
 </h3>
 <p>Consider:</p>
 <p><span class="math display">\[
 \ln(Y) = \gamma_0 + \gamma_1 X + v.
 \]</span></p>
-<div id="question-15" class="section level4" number="4.4.4.1">
+<div id="question-15" class="section level4" number="4.5.4.1">
 <h4>
-<span class="header-section-number">4.4.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-15"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.4.1</span> Question<a class="anchor" aria-label="anchor" href="#question-15"><i class="fas fa-link"></i></a>
 </h4>
 <p>Interpret <span class="math inline">\(\gamma_1\)</span>. Give a rule-of-thumb interpretation for small <span class="math inline">\(\gamma_1\)</span>.</p>
 </div>
-<div id="solution-17" class="section level4" number="4.4.4.2">
+<div id="solution-17" class="section level4" number="4.5.4.2">
 <h4>
-<span class="header-section-number">4.4.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-17"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-17"><i class="fas fa-link"></i></a>
 </h4>
 <p><span class="math inline">\(\gamma_1\)</span> is a <strong>semi-elasticity</strong>: it measures the change in log earnings from a one-unit increase in <span class="math inline">\(X\)</span>.</p>
 <p>For small <span class="math inline">\(\gamma_1\)</span>:</p>
@@ -1087,23 +1068,23 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <hr>
 </div>
 </div>
-<div id="e5.-loglog-model-interpreting-elasticities" class="section level3" number="4.4.5">
+<div id="e5.-loglog-model-interpreting-elasticities" class="section level3" number="4.5.5">
 <h3>
-<span class="header-section-number">4.4.5</span> E5. Log–log model: interpreting elasticities<a class="anchor" aria-label="anchor" href="#e5.-loglog-model-interpreting-elasticities"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.5</span> E5. Log–log model: interpreting elasticities<a class="anchor" aria-label="anchor" href="#e5.-loglog-model-interpreting-elasticities"><i class="fas fa-link"></i></a>
 </h3>
 <p>Consider:</p>
 <p><span class="math display">\[
 \ln(Y) = \delta_0 + \delta_1 \ln(X) + e.
 \]</span></p>
-<div id="question-16" class="section level4" number="4.4.5.1">
+<div id="question-16" class="section level4" number="4.5.5.1">
 <h4>
-<span class="header-section-number">4.4.5.1</span> Question<a class="anchor" aria-label="anchor" href="#question-16"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.5.1</span> Question<a class="anchor" aria-label="anchor" href="#question-16"><i class="fas fa-link"></i></a>
 </h4>
 <p>Interpret <span class="math inline">\(\delta_1\)</span>.</p>
 </div>
-<div id="solution-18" class="section level4" number="4.4.5.2">
+<div id="solution-18" class="section level4" number="4.5.5.2">
 <h4>
-<span class="header-section-number">4.4.5.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-18"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.5.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-18"><i class="fas fa-link"></i></a>
 </h4>
 <p><span class="math inline">\(\delta_1\)</span> is an <strong>elasticity</strong>:</p>
 <p><span class="math display">\[
@@ -1112,27 +1093,27 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <hr>
 </div>
 </div>
-<div id="e6.-functional-form-as-a-modeling-choice-concept-check" class="section level3" number="4.4.6">
+<div id="e6.-functional-form-as-a-modeling-choice-concept-check" class="section level3" number="4.5.6">
 <h3>
-<span class="header-section-number">4.4.6</span> E6. Functional form as a modeling choice (concept check)<a class="anchor" aria-label="anchor" href="#e6.-functional-form-as-a-modeling-choice-concept-check"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.6</span> E6. Functional form as a modeling choice (concept check)<a class="anchor" aria-label="anchor" href="#e6.-functional-form-as-a-modeling-choice-concept-check"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-short" class="section level4" number="4.4.6.1">
+<div id="question-short" class="section level4" number="4.5.6.1">
 <h4>
-<span class="header-section-number">4.4.6.1</span> Question (short)<a class="anchor" aria-label="anchor" href="#question-short"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.6.1</span> Question (short)<a class="anchor" aria-label="anchor" href="#question-short"><i class="fas fa-link"></i></a>
 </h4>
 <p>Give <strong>one</strong> reason to prefer logs (log–level or log–log) rather than levels.</p>
 </div>
-<div id="solution-19" class="section level4" number="4.4.6.2">
+<div id="solution-19" class="section level4" number="4.5.6.2">
 <h4>
-<span class="header-section-number">4.4.6.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-19"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.6.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-19"><i class="fas fa-link"></i></a>
 </h4>
 <p>Logs are often preferred when variation in <span class="math inline">\(Y\)</span> is roughly proportional to its level (e.g., earnings), which can make relationships closer to linear in logs and can reduce heteroskedasticity. Logs also lead to percent-change interpretations that are often more meaningful than “dollar changes” across very different income levels.</p>
 <hr>
 </div>
 </div>
-<div id="small-r-demo-same-data-different-scales" class="section level3" number="4.4.7">
+<div id="small-r-demo-same-data-different-scales" class="section level3" number="4.5.7">
 <h3>
-<span class="header-section-number">4.4.7</span> Small R demo: same data, different scales<a class="anchor" aria-label="anchor" href="#small-r-demo-same-data-different-scales"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.5.7</span> Small R demo: same data, different scales<a class="anchor" aria-label="anchor" href="#small-r-demo-same-data-different-scales"><i class="fas fa-link"></i></a>
 </h3>
 <div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
@@ -1176,45 +1157,46 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <li><a class="nav-link" href="#a1.-normal-equations-two-sample-moment-conditions"><span class="header-section-number">4.1.1</span> A1. Normal equations: two sample moment conditions</a></li>
 <li><a class="nav-link" href="#a2.-orthogonality-to-centered-x-what-it-really-means"><span class="header-section-number">4.1.2</span> A2. Orthogonality to centered \(X\): what it really means</a></li>
 <li><a class="nav-link" href="#a3-prove-that-the-ols-regression-line-passes-through-barx-bary"><span class="header-section-number">4.1.3</span> A3 Prove that the OLS regression line passes through \((\bar{X}, \bar{Y})\)</a></li>
-<li><a class="nav-link" href="#a4.-residuals-are-orthogonal-to-fitted-values"><span class="header-section-number">4.1.4</span> A4. Residuals are orthogonal to fitted values</a></li>
-<li><a class="nav-link" href="#a5.-why-this-matters-the-anova-decomposition-tss-ess-rss"><span class="header-section-number">4.1.5</span> A5. Why this matters: the ANOVA decomposition \(TSS = ESS + RSS\)</a></li>
-<li><a class="nav-link" href="#quick-computational-check-in-r"><span class="header-section-number">4.1.6</span> Quick computational check in R</a></li>
-<li><a class="nav-link" href="#b1.-the-population-regression-function-prf"><span class="header-section-number">4.1.7</span> B1. The Population Regression Function (PRF)</a></li>
-<li><a class="nav-link" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><span class="header-section-number">4.1.8</span> B2. Zero conditional mean: what it is and where it comes from</a></li>
-<li><a class="nav-link" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><span class="header-section-number">4.1.9</span> B3. What zero conditional mean implies (useful corollaries)</a></li>
-<li><a class="nav-link" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><span class="header-section-number">4.1.10</span> B4. Mean independence vs zero conditional mean (and why we care)</a></li>
-<li><a class="nav-link" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><span class="header-section-number">4.1.11</span> B5. A cautionary note: uncorrelatedness is not enough (concept)</a></li>
-<li><a class="nav-link" href="#quick-simulation-intuition-in-r"><span class="header-section-number">4.1.12</span> Quick simulation intuition in R</a></li>
+<li><a class="nav-link" href="#a4.-prove-the-anova-decomposition-tss-ess-rss"><span class="header-section-number">4.1.4</span> A4. Prove the ANOVA decomposition: \(TSS = ESS + RSS\)</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#part-c.-unbiasedness-of-ols-with-solutions"><span class="header-section-number">4.2</span> Part C. Unbiasedness of OLS (with solutions)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#c1.-key-representation-of-the-ols-slope"><span class="header-section-number">4.2.1</span> C1. Key representation of the OLS slope</a></li>
-<li><a class="nav-link" href="#c2.-unbiasedness-of-the-slope-conditional-then-unconditional"><span class="header-section-number">4.2.2</span> C2. Unbiasedness of the slope: conditional then unconditional</a></li>
-<li><a class="nav-link" href="#c3.-unbiasedness-of-the-intercept"><span class="header-section-number">4.2.3</span> C3. Unbiasedness of the intercept</a></li>
-<li><a class="nav-link" href="#c4.-why-uncorrelatedness-is-not-enough-concept-check"><span class="header-section-number">4.2.4</span> C4. Why uncorrelatedness is not enough (concept check)</a></li>
-<li><a class="nav-link" href="#quick-simulation-intuition-in-r-1"><span class="header-section-number">4.2.5</span> Quick simulation intuition in R</a></li>
+<a class="nav-link" href="#part-b-.-the-population-regression-function-prf"><span class="header-section-number">4.2</span> Part B . The Population Regression Function (PRF)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><span class="header-section-number">4.2.1</span> B2. Zero conditional mean: what it is and where it comes from</a></li>
+<li><a class="nav-link" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><span class="header-section-number">4.2.2</span> B3. What zero conditional mean implies (useful corollaries)</a></li>
+<li><a class="nav-link" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><span class="header-section-number">4.2.3</span> B4. Mean independence vs zero conditional mean (and why we care)</a></li>
+<li><a class="nav-link" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><span class="header-section-number">4.2.4</span> B5. A cautionary note: uncorrelatedness is not enough (concept)</a></li>
+<li><a class="nav-link" href="#quick-simulation-intuition-in-r"><span class="header-section-number">4.2.5</span> Quick simulation intuition in R</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions"><span class="header-section-number">4.3</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#d1.-assumptions-for-the-classical-variance-formulas"><span class="header-section-number">4.3.1</span> D1. Assumptions for the classical variance formulas</a></li>
-<li><a class="nav-link" href="#d2.-conditional-variance-of-the-slope"><span class="header-section-number">4.3.2</span> D2. Conditional variance of the slope</a></li>
-<li><a class="nav-link" href="#d3.-conditional-variance-of-the-intercept"><span class="header-section-number">4.3.3</span> D3. Conditional variance of the intercept</a></li>
-<li><a class="nav-link" href="#d4.-estimating-sigma2-the-residual-variance-estimator"><span class="header-section-number">4.3.4</span> D4. Estimating \(\sigma^2\): the residual variance estimator</a></li>
-<li><a class="nav-link" href="#d5.-estimated-variance-and-standard-errors-of-ols"><span class="header-section-number">4.3.5</span> D5. Estimated variance and standard errors of OLS</a></li>
-<li><a class="nav-link" href="#quick-check-in-r-using"><span class="header-section-number">4.3.6</span> Quick check in R using </a></li>
+<a class="nav-link" href="#part-c.-unbiasedness-of-ols-with-solutions"><span class="header-section-number">4.3</span> Part C. Unbiasedness of OLS (with solutions)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#c1.-key-representation-of-the-ols-slope"><span class="header-section-number">4.3.1</span> C1. Key representation of the OLS slope</a></li>
+<li><a class="nav-link" href="#c2.-unbiasedness-of-the-slope-conditional-then-unconditional"><span class="header-section-number">4.3.2</span> C2. Unbiasedness of the slope: conditional then unconditional</a></li>
+<li><a class="nav-link" href="#c3.-unbiasedness-of-the-intercept"><span class="header-section-number">4.3.3</span> C3. Unbiasedness of the intercept</a></li>
+<li><a class="nav-link" href="#c4.-why-uncorrelatedness-is-not-enough-concept-check"><span class="header-section-number">4.3.4</span> C4. Why uncorrelatedness is not enough (concept check)</a></li>
+<li><a class="nav-link" href="#quick-simulation-intuition-in-r-1"><span class="header-section-number">4.3.5</span> Quick simulation intuition in R</a></li>
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions"><span class="header-section-number">4.4</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#e1.-units-of-the-slope-in-the-levellevel-model"><span class="header-section-number">4.4.1</span> E1. Units of the slope in the level–level model</a></li>
-<li><a class="nav-link" href="#e2.-rescaling-regressors-why-coefficients-change-mechanically"><span class="header-section-number">4.4.2</span> E2. Rescaling regressors: why coefficients change mechanically</a></li>
-<li><a class="nav-link" href="#e3.-rescaling-outcomes-what-changes-and-what-does-not"><span class="header-section-number">4.4.3</span> E3. Rescaling outcomes: what changes and what does not</a></li>
-<li><a class="nav-link" href="#e4.-loglevel-model-interpreting-semi-elasticities"><span class="header-section-number">4.4.4</span> E4. Log–level model: interpreting semi-elasticities</a></li>
-<li><a class="nav-link" href="#e5.-loglog-model-interpreting-elasticities"><span class="header-section-number">4.4.5</span> E5. Log–log model: interpreting elasticities</a></li>
-<li><a class="nav-link" href="#e6.-functional-form-as-a-modeling-choice-concept-check"><span class="header-section-number">4.4.6</span> E6. Functional form as a modeling choice (concept check)</a></li>
-<li><a class="nav-link" href="#small-r-demo-same-data-different-scales"><span class="header-section-number">4.4.7</span> Small R demo: same data, different scales</a></li>
+<a class="nav-link" href="#part-d.-sampling-variance-of-ols-and-estimating-sigma2-with-solutions"><span class="header-section-number">4.4</span> Part D. Sampling variance of OLS and estimating \(\sigma^2\) (with solutions)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#d1.-assumptions-for-the-classical-variance-formulas"><span class="header-section-number">4.4.1</span> D1. Assumptions for the classical variance formulas</a></li>
+<li><a class="nav-link" href="#d2.-conditional-variance-of-the-slope"><span class="header-section-number">4.4.2</span> D2. Conditional variance of the slope</a></li>
+<li><a class="nav-link" href="#d3.-conditional-variance-of-the-intercept"><span class="header-section-number">4.4.3</span> D3. Conditional variance of the intercept</a></li>
+<li><a class="nav-link" href="#d4.-estimating-sigma2-the-residual-variance-estimator"><span class="header-section-number">4.4.4</span> D4. Estimating \(\sigma^2\): the residual variance estimator</a></li>
+<li><a class="nav-link" href="#d5.-estimated-variance-and-standard-errors-of-ols"><span class="header-section-number">4.4.5</span> D5. Estimated variance and standard errors of OLS</a></li>
+<li><a class="nav-link" href="#quick-check-in-r-using"><span class="header-section-number">4.4.6</span> Quick check in R using </a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#part-e.-functional-form-and-units-interpreting-coefficients-correctly-with-solutions"><span class="header-section-number">4.5</span> Part E. Functional form and units: interpreting coefficients correctly (with solutions)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#e1.-units-of-the-slope-in-the-levellevel-model"><span class="header-section-number">4.5.1</span> E1. Units of the slope in the level–level model</a></li>
+<li><a class="nav-link" href="#e2.-rescaling-regressors-why-coefficients-change-mechanically"><span class="header-section-number">4.5.2</span> E2. Rescaling regressors: why coefficients change mechanically</a></li>
+<li><a class="nav-link" href="#e3.-rescaling-outcomes-what-changes-and-what-does-not"><span class="header-section-number">4.5.3</span> E3. Rescaling outcomes: what changes and what does not</a></li>
+<li><a class="nav-link" href="#e4.-loglevel-model-interpreting-semi-elasticities"><span class="header-section-number">4.5.4</span> E4. Log–level model: interpreting semi-elasticities</a></li>
+<li><a class="nav-link" href="#e5.-loglog-model-interpreting-elasticities"><span class="header-section-number">4.5.5</span> E5. Log–log model: interpreting elasticities</a></li>
+<li><a class="nav-link" href="#e6.-functional-form-as-a-modeling-choice-concept-check"><span class="header-section-number">4.5.6</span> E6. Functional form as a modeling choice (concept check)</a></li>
+<li><a class="nav-link" href="#small-r-demo-same-data-different-scales"><span class="header-section-number">4.5.7</span> Small R demo: same data, different scales</a></li>
 </ul>
 </li>
 </ul>

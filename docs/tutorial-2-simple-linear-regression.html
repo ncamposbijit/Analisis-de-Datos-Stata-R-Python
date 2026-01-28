@@ -181,6 +181,39 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 <p><span class="math display">\[
 \boxed{\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0}
 \]</span></p>
+</div>
+<div id="residuals-are-orthogonal-to-fitted-values" class="section level4" number="3.1.2.4">
+<h4>
+<span class="header-section-number">3.1.2.4</span> Residuals are Orthogonal to fitted values<a class="anchor" aria-label="anchor" href="#residuals-are-orthogonal-to-fitted-values"><i class="fas fa-link"></i></a>
+</h4>
+</div>
+<div id="question" class="section level4" number="3.1.2.5">
+<h4>
+<span class="header-section-number">3.1.2.5</span> Question<a class="anchor" aria-label="anchor" href="#question"><i class="fas fa-link"></i></a>
+</h4>
+<p>Show that:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\]</span></p>
+</div>
+<div id="solution" class="section level4" number="3.1.2.6">
+<h4>
+<span class="header-section-number">3.1.2.6</span> Solution<a class="anchor" aria-label="anchor" href="#solution"><i class="fas fa-link"></i></a>
+</h4>
+<p>Write fitted values as <span class="math inline">\(\hat Y_i=\hat\beta_0+\hat\beta_1X_i\)</span> and expand:</p>
+<p><span class="math display">\[
+\sum_{i=1}^n \hat Y_i\hat u_i
+=
+\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)\hat u_i
+=
+\hat\beta_0\sum_{i=1}^n \hat u_i + \hat\beta_1\sum_{i=1}^n X_i\hat u_i.
+\]</span></p>
+<p>By A1, both sums are zero. Therefore:</p>
+<p><span class="math display">\[
+\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\]</span></p>
+<p><strong>Interpretation.</strong> The part OLS explains (<span class="math inline">\(\hat Y\)</span>) and the part it cannot explain (<span class="math inline">\(\hat u\)</span>) do not move together in the sample.</p>
+<hr>
 <hr>
 </div>
 </div>
@@ -449,7 +482,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 ## 
 ## # Installing packages --------------------------------------------------------
 ## - Installing wooldridge ...                     OK [linked from cache]
-## Successfully installed 1 package in 6.4 milliseconds.</code></pre>
+## Successfully installed 1 package in 7.3 milliseconds.</code></pre>
 <div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
 <span></span>
