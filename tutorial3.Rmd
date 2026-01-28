@@ -95,57 +95,75 @@ $$
 
 ---
 
-### A3. The fitted line must pass through \((\bar X,\bar Y)\)
+### A3 Prove that the OLS regression line passes through $(\bar{X}, \bar{Y})$
 
-#### Question
+**Step 1: Write the fitted value equation**
 
-Show that the average fitted value equals the average outcome:
-
-$$
-\overline{\hat Y}=\bar Y
-\quad\Rightarrow\quad
-\boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
-$$
-
-#### Solution
-
-First compute the average fitted value:
+For each observation $i$, the fitted value is:
 
 $$
-\overline{\hat Y}
-=
-\frac{1}{n}\sum_{i=1}^n \hat Y_i
-=
-\frac{1}{n}\sum_{i=1}^n (\hat\beta_0+\hat\beta_1X_i)
-=
-\hat\beta_0+\hat\beta_1\bar X.
+\hat{Y}_i = \hat{\beta}_0 + \hat{\beta}_1 X_i
 $$
 
-Now use the definition $\hat u_i=Y_i-\hat Y_i$. Taking averages:
+**Step 2: Compute the mean of the fitted values**
+
+Sum all $\hat{Y}_i$ and divide by $n$:
 
 $$
-\bar{\hat u}
-=
-\bar Y - \overline{\hat Y}.
+\bar{\hat{Y}} = \frac{1}{n} \sum_{i=1}^{n} \hat{Y}_i
+= \frac{1}{n} \sum_{i=1}^{n} \left( \hat{\beta}_0 + \hat{\beta}_1 X_i \right)
 $$
 
-But A1 implies $\sum \hat u_i=0$, so $\bar{\hat u}=0$. Hence:
+**Step 3: Split the summation**
 
 $$
-0=\bar{\hat u}=\bar Y-\overline{\hat Y}
-\quad\Rightarrow\quad
-\overline{\hat Y}=\bar Y.
+\bar{\hat{Y}} = \frac{1}{n} \sum_{i=1}^{n} \hat{\beta}_0 + \frac{1}{n} \sum_{i=1}^{n} \hat{\beta}_1 X_i
 $$
 
-Combining with $\overline{\hat Y}=\hat\beta_0+\hat\beta_1\bar X$ yields:
+Since $\hat{\beta}_0$ and $\hat{\beta}_1$ are constants, they factor out:
 
 $$
-\boxed{\hat\beta_0+\hat\beta_1\bar X=\bar Y.}
+\bar{\hat{Y}} = \hat{\beta}_0 + \hat{\beta}_1 \frac{1}{n} \sum_{i=1}^{n} X_i
+= \hat{\beta}_0 + \hat{\beta}_1 \bar{X}
 $$
 
-**Interpretation.** The OLS line always crosses the sample means.
+**Step 4: Substitute $\hat{\beta}_0$**
+
+Recall that the OLS intercept estimator is:
+
+$$
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}
+$$
+
+Substituting:
+
+$$
+\bar{\hat{Y}} = \left( \bar{Y} - \hat{\beta}_1 \bar{X} \right) + \hat{\beta}_1 \bar{X}
+$$
+
+**Step 5: Simplify**
+
+The terms $-\hat{\beta}_1 \bar{X}$ and $+\hat{\beta}_1 \bar{X}$ cancel out:
+
+$$
+\bar{\hat{Y}} = \bar{Y}
+$$
+
+**Step 6: Geometric interpretation**
+
+Evaluating the fitted line at $X = \bar{X}$:
+
+$$
+\hat{Y}(\bar{X}) = \hat{\beta}_0 + \hat{\beta}_1 \bar{X} = \bar{Y}
+$$
+
+That is, when $X$ equals its mean, the line predicts exactly $\bar{Y}$.
 
 ---
+
+**Conclusion:** The OLS regression line always passes through the point $(\bar{X}, \bar{Y})$. $\blacksquare$
+
+
 
 ### A4. Residuals are orthogonal to fitted values
 
