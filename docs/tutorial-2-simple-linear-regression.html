@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>3 Tutorial 2: Simple linear Regression | Tutorial 3: Understanding Simple linear Regression</title>
-<meta name="author" content="Nicolás Campos Bijit">
+<title>3 Tutorial 2: Simple linear Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</title>
+<meta name="author" content="">
 <meta name="description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
 <meta name="generator" content="bookdown 0.46 with bs4_book()">
-<meta property="og:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
 <meta property="og:type" content="book">
 <meta property="og:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
 <meta name="twitter:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
 <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -33,8 +33,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
-        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -50,6 +50,7 @@
 <li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
 <li><a class="active" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
 <li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">5</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -475,14 +476,18 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If you do not have the package installed, uncomment the next line:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"wooldridge"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## The following package(s) will be installed:
+<pre><code>## # Downloading packages -------------------------------------------------------
+## - Downloading wooldridge from CRAN ...          OK [4 Mb in 2.4s]
+## Successfully downloaded 1 package in 2.5 seconds.
+## 
+## The following package(s) will be installed:
 ## - wooldridge [1.4-4]
 ## These packages will be installed into "~/Library/CloudStorage/Dropbox/Nicolas/Cursos/01 Libro - análisis de datos/renv/library/R-4.2/aarch64-apple-darwin20".
 ## 
 ## 
 ## # Installing packages --------------------------------------------------------
-## - Installing wooldridge ...                     OK [linked from cache]
-## Successfully installed 1 package in 7.3 milliseconds.</code></pre>
+## - Installing wooldridge ...                     OK [installed binary and cached]
+## Successfully installed 1 package in 0.14 seconds.</code></pre>
 <div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
 <span></span>
@@ -705,7 +710,7 @@ produce fitted values outside this range, especially under extrapolation.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
+    <p>"<strong>Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</strong>: Introductory Econometrics — TA Session" was written by . </p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

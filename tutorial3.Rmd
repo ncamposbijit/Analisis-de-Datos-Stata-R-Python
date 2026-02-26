@@ -290,169 +290,195 @@ c(
 
 Both values should be essentially zero (up to floating-point precision), confirming the decomposition.
 
-## Part B . The Population Regression Function (PRF)
+## Part B. The Population Regression Function (PRF)
 
-#### B1.a Definition (concept)
+### Why do we need this?
+
+In Part A we worked entirely with **sample data**: we found formulas for $\hat{\beta}_0$ and $\hat{\beta}_1$, proved algebraic properties of residuals, and showed the ANOVA decomposition $TSS = ESS + RSS$. All of that was purely mechanical — it holds for *any* dataset, with no assumptions about where the data came from.
+
+But the ultimate goal of regression is not just to draw a line through a particular sample. We want to **learn something about the underlying population**. This raises fundamental questions:
+
+- What exactly is OLS trying to estimate?
+- Under what conditions do our sample estimates $\hat{\beta}_0, \hat{\beta}_1$ actually tell us something true about the world?
+- When can we trust these estimates, and when might they mislead us?
+
+To answer these questions, we need to define the **population counterpart** of the sample regression — the Population Regression Function. Part B builds the theoretical framework that will allow us, in later sections, to prove that OLS is unbiased and to understand when it can fail.
+
+---
+
+### B1.a Definition (concept)
 
 The **Population Regression Function** is:
 
 $$
-m(x) \equiv \mathbb{E}[Y\mid X=x].
+m(x) \equiv \mathbb{E}[Y \mid X = x].
 $$
 
-**Interpretation.** For each value of $x$, $m(x)$ is the *average* of $Y$ among units with $X=x$.
+**Interpretation.** For each value of $x$, $m(x)$ is the *average* of $Y$ among all units in the population with $X = x$. This is the "true" relationship between $X$ and $Y$ — the signal we are trying to recover from noisy data.
 
-In many applications we use a linear approximation to this conditional expectation:
+In many applications we approximate this conditional expectation with a linear function:
 
 $$
-\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+\mathbb{E}[Y \mid X = x] = \beta_0 + \beta_1 x.
 $$
 
-This is the “linear PRF” assumption.
+This is the **linear PRF assumption**. Here $\beta_0$ and $\beta_1$ are fixed, unknown population parameters — the quantities that the sample estimates $\hat{\beta}_0$ and $\hat{\beta}_1$ from Part A are trying to approximate.
 
 ---
 
 ### B2. Zero conditional mean: what it is and where it comes from
+
+#### Context
+
+In Part A we defined residuals $\hat{u}_i = Y_i - \hat{Y}_i$ and showed they satisfy convenient algebraic properties (summing to zero, being orthogonal to $X$). Those were **sample** properties that hold by construction.
+
+Now we ask: does the **population** error term $u$ satisfy analogous properties? The answer is yes — but not by construction. It follows from the linear PRF assumption. This result, called the **zero conditional mean** condition, is the single most important assumption in OLS theory: it is what makes our estimators unbiased.
 
 #### Question
 
 Assume the PRF is linear:
 
 $$
-\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+\mathbb{E}[Y \mid X = x] = \beta_0 + \beta_1 x.
 $$
 
-Define the population error term
+Define the population error term:
 
 $$
 u \equiv Y - (\beta_0 + \beta_1 X).
 $$
 
-Show that the linear PRF implies the **zero conditional mean** condition:
+Show that the linear PRF implies:
 
 $$
-\boxed{\mathbb{E}[u\mid X] = 0.}
+\boxed{\mathbb{E}[u \mid X] = 0.}
 $$
 
 #### Solution
 
-Compute:
+**Step 1.** Apply the conditional expectation to the definition of $u$:
 
 $$
-\mathbb{E}[u\mid X]
-=
-\mathbb{E}[Y-(\beta_0+\beta_1X)\mid X]
-=
-\mathbb{E}[Y\mid X] - (\beta_0+\beta_1X).
+\mathbb{E}[u \mid X]
+= \mathbb{E}[Y - (\beta_0 + \beta_1 X) \mid X]
+= \mathbb{E}[Y \mid X] - (\beta_0 + \beta_1 X)
 $$
 
-Under the linear PRF, $\mathbb{E}[Y\mid X]=\beta_0+\beta_1X$, so:
+**Step 2.** Substitute the linear PRF, $\mathbb{E}[Y \mid X] = \beta_0 + \beta_1 X$:
 
 $$
-\mathbb{E}[u\mid X] = (\beta_0+\beta_1X) - (\beta_0+\beta_1X) = 0.
+\mathbb{E}[u \mid X] = (\beta_0 + \beta_1 X) - (\beta_0 + \beta_1 X) = 0
 $$
 
-Therefore:
-
 $$
-\boxed{\mathbb{E}[u\mid X]=0.}
+\boxed{\mathbb{E}[u \mid X] = 0}
 $$
 
-**Interpretation.** After controlling for $X$, the remaining component $u$ has *no systematic average pattern* left. This is the key assumption that makes OLS unbiased under random sampling.
+**Interpretation.** After accounting for the linear effect of $X$, the remaining component $u$ has *no systematic pattern* left — on average, it is zero regardless of the value of $X$. Compare this with Part A, where we showed $\sum \hat{u}_i = 0$ and $\sum X_i \hat{u}_i = 0$ by algebra. Here, the analogous population property holds because of the PRF assumption, not by construction.
 
 ---
 
 ### B3. What zero conditional mean implies (useful corollaries)
 
-**Narrative idea.** The condition $\mathbb{E}[u\mid X]=0$ is a *conditional* statement. It automatically implies some unconditional statements that are often used in intuition.
+#### Context
+
+The condition $\mathbb{E}[u \mid X] = 0$ is a **conditional** statement — it says something about $u$ *for every possible value* of $X$. This is a strong requirement, and it automatically implies weaker **unconditional** properties. These unconditional properties connect back to the moment conditions we saw in Part A (recall: $\sum \hat{u}_i = 0$ and $\sum X_i \hat{u}_i = 0$ were the sample analogues).
 
 #### Question
 
-Assuming $\mathbb{E}[u\mid X]=0$, show that:
+Assuming $\mathbb{E}[u \mid X] = 0$, show that:
 
-1. $\boxed{\mathbb{E}[u]=0}$  
-2. $\boxed{\operatorname{Cov}(X,u)=0}$
+1. $\boxed{\mathbb{E}[u] = 0}$
+2. $\boxed{\operatorname{Cov}(X, u) = 0}$
 
 #### Solution
 
-1) By iterated expectations:
+**1)** By the law of iterated expectations:
 
 $$
-\mathbb{E}[u] = \mathbb{E}[\mathbb{E}[u\mid X]] = \mathbb{E}[0]=0.
+\mathbb{E}[u] = \mathbb{E}\big[\mathbb{E}[u \mid X]\big] = \mathbb{E}[0] = 0
 $$
 
-2) Compute:
+**2)** Start from the definition:
 
 $$
-\operatorname{Cov}(X,u)=\mathbb{E}[Xu]-\mathbb{E}[X]\mathbb{E}[u].
+\operatorname{Cov}(X, u) = \mathbb{E}[Xu] - \mathbb{E}[X]\,\mathbb{E}[u]
 $$
 
-We already have $\mathbb{E}[u]=0$, so it is enough to show $\mathbb{E}[Xu]=0$:
+Since $\mathbb{E}[u] = 0$ from part 1, it suffices to show $\mathbb{E}[Xu] = 0$:
 
 $$
 \mathbb{E}[Xu]
-=
-\mathbb{E}[\mathbb{E}[Xu\mid X]]
-=
-\mathbb{E}[X\,\mathbb{E}[u\mid X]]
-=
-\mathbb{E}[X\cdot 0] = 0.
+= \mathbb{E}\big[\mathbb{E}[Xu \mid X]\big]
+= \mathbb{E}\big[X \cdot \mathbb{E}[u \mid X]\big]
+= \mathbb{E}[X \cdot 0] = 0
 $$
 
-Hence $\operatorname{Cov}(X,u)=0$.
+Therefore $\operatorname{Cov}(X, u) = 0$.
 
-**Interpretation.** Zero conditional mean implies that (unconditionally) $u$ has mean zero and is uncorrelated with $X$. But the reverse is *not* automatically true.
+**Interpretation.** These are the **population analogues** of the Part A results:
+
+| Part A (sample, by construction) | Part B (population, by assumption) |
+|---|---|
+| $\sum \hat{u}_i = 0$ | $\mathbb{E}[u] = 0$ |
+| $\sum X_i \hat{u}_i = 0$ | $\operatorname{Cov}(X, u) = 0$ |
+
+The sample properties hold automatically for any OLS fit. The population properties require the zero conditional mean assumption. This parallel is not a coincidence — OLS is *designed* so that its sample moment conditions mimic the population ones.
 
 ---
 
 ### B4. Mean independence vs zero conditional mean (and why we care)
 
+#### Context
+
+Students sometimes encounter different versions of the "no relationship between $u$ and $X$" assumption. Here we clarify the two most common ones and their logical relationship.
+
 #### B4.a Definitions
 
 - **Zero conditional mean:**
 $$
-\mathbb{E}[u\mid X]=0.
+\mathbb{E}[u \mid X] = 0
 $$
 
 - **Mean independence:**
 $$
-\mathbb{E}[u\mid X]=\mathbb{E}[u].
+\mathbb{E}[u \mid X] = \mathbb{E}[u]
 $$
 
-Mean independence says the conditional mean of $u$ does not depend on $X$ at all; zero conditional mean says it is specifically zero.
+Mean independence says the conditional mean of $u$ does not depend on $X$ at all; zero conditional mean additionally pins that constant to zero.
 
 #### Question
 
-1. If $\mathbb{E}[u]=0$, show that mean independence implies zero conditional mean.  
+1. If $\mathbb{E}[u] = 0$, show that mean independence implies zero conditional mean.
 2. In 2 lines: which is stronger, and why?
 
 #### Solution
 
-1) If mean independence holds, then $\mathbb{E}[u\mid X]=\mathbb{E}[u]$. If also $\mathbb{E}[u]=0$, then:
+**1)** If mean independence holds, then $\mathbb{E}[u \mid X] = \mathbb{E}[u]$. If also $\mathbb{E}[u] = 0$:
 
 $$
-\mathbb{E}[u\mid X]=0,
+\mathbb{E}[u \mid X] = 0
 $$
 
-which is exactly zero conditional mean.
-
-2) **Mean independence is stronger** because it requires $\mathbb{E}[u\mid X]$ to be the same constant for every $X$ (and if that constant is zero, we get zero conditional mean). Zero conditional mean is the key restriction needed for unbiased OLS under random sampling; mean independence is a stronger way of ensuring it.
+**2)** **Mean independence is stronger** because it requires $\mathbb{E}[u \mid X]$ to be the same constant for every value of $X$. Zero conditional mean is a special case where that constant is zero — and it is the specific condition needed for OLS unbiasedness.
 
 ---
 
 ### B5. A cautionary note: uncorrelatedness is not enough (concept)
 
-**Narrative idea.** Students often think “$\operatorname{Cov}(X,u)=0$ means no bias.” That is not the right logic. OLS unbiasedness relies on a *conditional* statement like $\mathbb{E}[u\mid X]=0$.
+#### Context
+
+From B3, we know that $\mathbb{E}[u \mid X] = 0$ implies $\operatorname{Cov}(X, u) = 0$. It is tempting to think the reverse is also true — that if $X$ and $u$ are uncorrelated, OLS must be fine. This is a common and dangerous misconception.
 
 #### Question (2 lines)
 
-Explain briefly why $\operatorname{Cov}(X,u)=0$ alone does not guarantee $\mathbb{E}[u\mid X]=0$.
+Explain briefly why $\operatorname{Cov}(X, u) = 0$ alone does not guarantee $\mathbb{E}[u \mid X] = 0$.
 
 #### Solution
 
-Uncorrelatedness is an *unconditional* moment restriction and can hold even when $\mathbb{E}[u\mid X]$ varies with $X$ in a nonlinear way. OLS unbiasedness needs the conditional restriction $\mathbb{E}[u\mid X]=0$, not just $\operatorname{Cov}(X,u)=0$.
+Uncorrelatedness is an *unconditional* moment restriction — it only rules out a **linear** relationship between $X$ and $u$. It can hold even when $\mathbb{E}[u \mid X]$ varies with $X$ in a nonlinear way (e.g., $\mathbb{E}[u \mid X] = X^2 - \mathbb{E}[X^2]$). OLS unbiasedness requires the full conditional restriction $\mathbb{E}[u \mid X] = 0$, not merely $\operatorname{Cov}(X, u) = 0$.
 
----
+
 
 ### Quick simulation intuition in R
 

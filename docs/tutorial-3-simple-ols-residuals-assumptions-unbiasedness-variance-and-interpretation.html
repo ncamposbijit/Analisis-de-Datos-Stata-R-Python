@@ -4,21 +4,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>4 Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 3: Understanding Simple linear Regression</title>
-<meta name="author" content="Nicolás Campos Bijit">
+<title>4 Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</title>
+<meta name="author" content="">
 <meta name="description" content="We observe an i.i.d. sample \(\{(Y_i, X_i)\}_{i=1}^n\) with \(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\). The simple linear regression model is \[ Y = \beta_0 + \beta_1 X + u. \] In the sample, OLS chooses...">
 <meta name="generator" content="bookdown 0.46 with bs4_book()">
-<meta property="og:title" content="4 Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 3: Understanding Simple linear Regression">
+<meta property="og:title" content="4 Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
 <meta property="og:type" content="book">
 <meta property="og:description" content="We observe an i.i.d. sample \(\{(Y_i, X_i)\}_{i=1}^n\) with \(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\). The simple linear regression model is \[ Y = \beta_0 + \beta_1 X + u. \] In the sample, OLS chooses...">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="4 Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 3: Understanding Simple linear Regression">
+<meta name="twitter:title" content="4 Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
 <meta name="twitter:description" content="We observe an i.i.d. sample \(\{(Y_i, X_i)\}_{i=1}^n\) with \(\sum_{i=1}^n (X_i-\bar X)^2&gt;0\). The simple linear regression model is \[ Y = \beta_0 + \beta_1 X + u. \] In the sample, OLS chooses...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
 <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.9.0/transition.js"></script><script src="libs/bs3compat-0.9.0/tabs.js"></script><script src="libs/bs3compat-0.9.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
 <script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
@@ -33,8 +33,8 @@
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
-        <a href="index.html" title="Residuals, Assumptions, Unbiasedness, Variance, and Interpretation">Tutorial 3: Understanding Simple linear Regression</a>:
-        <small class="text-muted">Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</small>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
       </h1>
       <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
@@ -50,6 +50,7 @@
 <li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
 <li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
 <li><a class="active" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">5</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -299,189 +300,227 @@ R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
 </div>
 </div>
 </div>
-<div id="part-b-.-the-population-regression-function-prf" class="section level2" number="4.2">
+<div id="part-b.-the-population-regression-function-prf" class="section level2" number="4.2">
 <h2>
-<span class="header-section-number">4.2</span> Part B . The Population Regression Function (PRF)<a class="anchor" aria-label="anchor" href="#part-b-.-the-population-regression-function-prf"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2</span> Part B. The Population Regression Function (PRF)<a class="anchor" aria-label="anchor" href="#part-b.-the-population-regression-function-prf"><i class="fas fa-link"></i></a>
 </h2>
-<div id="b1.a-definition-concept" class="section level4" number="4.2.0.1">
-<h4>
-<span class="header-section-number">4.2.0.1</span> B1.a Definition (concept)<a class="anchor" aria-label="anchor" href="#b1.a-definition-concept"><i class="fas fa-link"></i></a>
-</h4>
-<p>The <strong>Population Regression Function</strong> is:</p>
-<p><span class="math display">\[
-m(x) \equiv \mathbb{E}[Y\mid X=x].
-\]</span></p>
-<p><strong>Interpretation.</strong> For each value of <span class="math inline">\(x\)</span>, <span class="math inline">\(m(x)\)</span> is the <em>average</em> of <span class="math inline">\(Y\)</span> among units with <span class="math inline">\(X=x\)</span>.</p>
-<p>In many applications we use a linear approximation to this conditional expectation:</p>
-<p><span class="math display">\[
-\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
-\]</span></p>
-<p>This is the “linear PRF” assumption.</p>
+<div id="why-do-we-need-this" class="section level3" number="4.2.1">
+<h3>
+<span class="header-section-number">4.2.1</span> Why do we need this?<a class="anchor" aria-label="anchor" href="#why-do-we-need-this"><i class="fas fa-link"></i></a>
+</h3>
+<p>In Part A we worked entirely with <strong>sample data</strong>: we found formulas for <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>, proved algebraic properties of residuals, and showed the ANOVA decomposition <span class="math inline">\(TSS = ESS + RSS\)</span>. All of that was purely mechanical — it holds for <em>any</em> dataset, with no assumptions about where the data came from.</p>
+<p>But the ultimate goal of regression is not just to draw a line through a particular sample. We want to <strong>learn something about the underlying population</strong>. This raises fundamental questions:</p>
+<ul>
+<li>What exactly is OLS trying to estimate?</li>
+<li>Under what conditions do our sample estimates <span class="math inline">\(\hat{\beta}_0, \hat{\beta}_1\)</span> actually tell us something true about the world?</li>
+<li>When can we trust these estimates, and when might they mislead us?</li>
+</ul>
+<p>To answer these questions, we need to define the <strong>population counterpart</strong> of the sample regression — the Population Regression Function. Part B builds the theoretical framework that will allow us, in later sections, to prove that OLS is unbiased and to understand when it can fail.</p>
 <hr>
 </div>
-<div id="b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from" class="section level3" number="4.2.1">
+<div id="b1.a-definition-concept" class="section level3" number="4.2.2">
 <h3>
-<span class="header-section-number">4.2.1</span> B2. Zero conditional mean: what it is and where it comes from<a class="anchor" aria-label="anchor" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.2</span> B1.a Definition (concept)<a class="anchor" aria-label="anchor" href="#b1.a-definition-concept"><i class="fas fa-link"></i></a>
 </h3>
-<div id="question-3" class="section level4" number="4.2.1.1">
+<p>The <strong>Population Regression Function</strong> is:</p>
+<p><span class="math display">\[
+m(x) \equiv \mathbb{E}[Y \mid X = x].
+\]</span></p>
+<p><strong>Interpretation.</strong> For each value of <span class="math inline">\(x\)</span>, <span class="math inline">\(m(x)\)</span> is the <em>average</em> of <span class="math inline">\(Y\)</span> among all units in the population with <span class="math inline">\(X = x\)</span>. This is the “true” relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> — the signal we are trying to recover from noisy data.</p>
+<p>In many applications we approximate this conditional expectation with a linear function:</p>
+<p><span class="math display">\[
+\mathbb{E}[Y \mid X = x] = \beta_0 + \beta_1 x.
+\]</span></p>
+<p>This is the <strong>linear PRF assumption</strong>. Here <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are fixed, unknown population parameters — the quantities that the sample estimates <span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> from Part A are trying to approximate.</p>
+<hr>
+</div>
+<div id="b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from" class="section level3" number="4.2.3">
+<h3>
+<span class="header-section-number">4.2.3</span> B2. Zero conditional mean: what it is and where it comes from<a class="anchor" aria-label="anchor" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><i class="fas fa-link"></i></a>
+</h3>
+<div id="context-1" class="section level4" number="4.2.3.1">
 <h4>
-<span class="header-section-number">4.2.1.1</span> Question<a class="anchor" aria-label="anchor" href="#question-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3.1</span> Context<a class="anchor" aria-label="anchor" href="#context-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>In Part A we defined residuals <span class="math inline">\(\hat{u}_i = Y_i - \hat{Y}_i\)</span> and showed they satisfy convenient algebraic properties (summing to zero, being orthogonal to <span class="math inline">\(X\)</span>). Those were <strong>sample</strong> properties that hold by construction.</p>
+<p>Now we ask: does the <strong>population</strong> error term <span class="math inline">\(u\)</span> satisfy analogous properties? The answer is yes — but not by construction. It follows from the linear PRF assumption. This result, called the <strong>zero conditional mean</strong> condition, is the single most important assumption in OLS theory: it is what makes our estimators unbiased.</p>
+</div>
+<div id="question-3" class="section level4" number="4.2.3.2">
+<h4>
+<span class="header-section-number">4.2.3.2</span> Question<a class="anchor" aria-label="anchor" href="#question-3"><i class="fas fa-link"></i></a>
 </h4>
 <p>Assume the PRF is linear:</p>
 <p><span class="math display">\[
-\mathbb{E}[Y\mid X=x] = \beta_0 + \beta_1 x.
+\mathbb{E}[Y \mid X = x] = \beta_0 + \beta_1 x.
 \]</span></p>
-<p>Define the population error term</p>
+<p>Define the population error term:</p>
 <p><span class="math display">\[
 u \equiv Y - (\beta_0 + \beta_1 X).
 \]</span></p>
-<p>Show that the linear PRF implies the <strong>zero conditional mean</strong> condition:</p>
+<p>Show that the linear PRF implies:</p>
 <p><span class="math display">\[
-\boxed{\mathbb{E}[u\mid X] = 0.}
+\boxed{\mathbb{E}[u \mid X] = 0.}
 \]</span></p>
 </div>
-<div id="solution-3" class="section level4" number="4.2.1.2">
+<div id="solution-3" class="section level4" number="4.2.3.3">
 <h4>
-<span class="header-section-number">4.2.1.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-3"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.3.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-3"><i class="fas fa-link"></i></a>
 </h4>
-<p>Compute:</p>
+<p><strong>Step 1.</strong> Apply the conditional expectation to the definition of <span class="math inline">\(u\)</span>:</p>
 <p><span class="math display">\[
-\mathbb{E}[u\mid X]
-=
-\mathbb{E}[Y-(\beta_0+\beta_1X)\mid X]
-=
-\mathbb{E}[Y\mid X] - (\beta_0+\beta_1X).
+\mathbb{E}[u \mid X]
+= \mathbb{E}[Y - (\beta_0 + \beta_1 X) \mid X]
+= \mathbb{E}[Y \mid X] - (\beta_0 + \beta_1 X)
 \]</span></p>
-<p>Under the linear PRF, <span class="math inline">\(\mathbb{E}[Y\mid X]=\beta_0+\beta_1X\)</span>, so:</p>
+<p><strong>Step 2.</strong> Substitute the linear PRF, <span class="math inline">\(\mathbb{E}[Y \mid X] = \beta_0 + \beta_1 X\)</span>:</p>
 <p><span class="math display">\[
-\mathbb{E}[u\mid X] = (\beta_0+\beta_1X) - (\beta_0+\beta_1X) = 0.
+\mathbb{E}[u \mid X] = (\beta_0 + \beta_1 X) - (\beta_0 + \beta_1 X) = 0
 \]</span></p>
-<p>Therefore:</p>
 <p><span class="math display">\[
-\boxed{\mathbb{E}[u\mid X]=0.}
+\boxed{\mathbb{E}[u \mid X] = 0}
 \]</span></p>
-<p><strong>Interpretation.</strong> After controlling for <span class="math inline">\(X\)</span>, the remaining component <span class="math inline">\(u\)</span> has <em>no systematic average pattern</em> left. This is the key assumption that makes OLS unbiased under random sampling.</p>
+<p><strong>Interpretation.</strong> After accounting for the linear effect of <span class="math inline">\(X\)</span>, the remaining component <span class="math inline">\(u\)</span> has <em>no systematic pattern</em> left — on average, it is zero regardless of the value of <span class="math inline">\(X\)</span>. Compare this with Part A, where we showed <span class="math inline">\(\sum \hat{u}_i = 0\)</span> and <span class="math inline">\(\sum X_i \hat{u}_i = 0\)</span> by algebra. Here, the analogous population property holds because of the PRF assumption, not by construction.</p>
 <hr>
 </div>
 </div>
-<div id="b3.-what-zero-conditional-mean-implies-useful-corollaries" class="section level3" number="4.2.2">
+<div id="b3.-what-zero-conditional-mean-implies-useful-corollaries" class="section level3" number="4.2.4">
 <h3>
-<span class="header-section-number">4.2.2</span> B3. What zero conditional mean implies (useful corollaries)<a class="anchor" aria-label="anchor" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.4</span> B3. What zero conditional mean implies (useful corollaries)<a class="anchor" aria-label="anchor" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><i class="fas fa-link"></i></a>
 </h3>
-<p><strong>Narrative idea.</strong> The condition <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span> is a <em>conditional</em> statement. It automatically implies some unconditional statements that are often used in intuition.</p>
-<div id="question-4" class="section level4" number="4.2.2.1">
+<div id="context-2" class="section level4" number="4.2.4.1">
 <h4>
-<span class="header-section-number">4.2.2.1</span> Question<a class="anchor" aria-label="anchor" href="#question-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.4.1</span> Context<a class="anchor" aria-label="anchor" href="#context-2"><i class="fas fa-link"></i></a>
 </h4>
-<p>Assuming <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, show that:</p>
+<p>The condition <span class="math inline">\(\mathbb{E}[u \mid X] = 0\)</span> is a <strong>conditional</strong> statement — it says something about <span class="math inline">\(u\)</span> <em>for every possible value</em> of <span class="math inline">\(X\)</span>. This is a strong requirement, and it automatically implies weaker <strong>unconditional</strong> properties. These unconditional properties connect back to the moment conditions we saw in Part A (recall: <span class="math inline">\(\sum \hat{u}_i = 0\)</span> and <span class="math inline">\(\sum X_i \hat{u}_i = 0\)</span> were the sample analogues).</p>
+</div>
+<div id="question-4" class="section level4" number="4.2.4.2">
+<h4>
+<span class="header-section-number">4.2.4.2</span> Question<a class="anchor" aria-label="anchor" href="#question-4"><i class="fas fa-link"></i></a>
+</h4>
+<p>Assuming <span class="math inline">\(\mathbb{E}[u \mid X] = 0\)</span>, show that:</p>
 <ol style="list-style-type: decimal">
-<li>
-<span class="math inline">\(\boxed{\mathbb{E}[u]=0}\)</span><br>
-</li>
-<li><span class="math inline">\(\boxed{\operatorname{Cov}(X,u)=0}\)</span></li>
+<li><span class="math inline">\(\boxed{\mathbb{E}[u] = 0}\)</span></li>
+<li><span class="math inline">\(\boxed{\operatorname{Cov}(X, u) = 0}\)</span></li>
 </ol>
 </div>
-<div id="solution-4" class="section level4" number="4.2.2.2">
+<div id="solution-4" class="section level4" number="4.2.4.3">
 <h4>
-<span class="header-section-number">4.2.2.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-4"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.4.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-4"><i class="fas fa-link"></i></a>
 </h4>
-<ol style="list-style-type: decimal">
-<li>By iterated expectations:</li>
-</ol>
+<p><strong>1)</strong> By the law of iterated expectations:</p>
 <p><span class="math display">\[
-\mathbb{E}[u] = \mathbb{E}[\mathbb{E}[u\mid X]] = \mathbb{E}[0]=0.
+\mathbb{E}[u] = \mathbb{E}\big[\mathbb{E}[u \mid X]\big] = \mathbb{E}[0] = 0
 \]</span></p>
-<ol start="2" style="list-style-type: decimal">
-<li>Compute:</li>
-</ol>
+<p><strong>2)</strong> Start from the definition:</p>
 <p><span class="math display">\[
-\operatorname{Cov}(X,u)=\mathbb{E}[Xu]-\mathbb{E}[X]\mathbb{E}[u].
+\operatorname{Cov}(X, u) = \mathbb{E}[Xu] - \mathbb{E}[X]\,\mathbb{E}[u]
 \]</span></p>
-<p>We already have <span class="math inline">\(\mathbb{E}[u]=0\)</span>, so it is enough to show <span class="math inline">\(\mathbb{E}[Xu]=0\)</span>:</p>
+<p>Since <span class="math inline">\(\mathbb{E}[u] = 0\)</span> from part 1, it suffices to show <span class="math inline">\(\mathbb{E}[Xu] = 0\)</span>:</p>
 <p><span class="math display">\[
 \mathbb{E}[Xu]
-=
-\mathbb{E}[\mathbb{E}[Xu\mid X]]
-=
-\mathbb{E}[X\,\mathbb{E}[u\mid X]]
-=
-\mathbb{E}[X\cdot 0] = 0.
+= \mathbb{E}\big[\mathbb{E}[Xu \mid X]\big]
+= \mathbb{E}\big[X \cdot \mathbb{E}[u \mid X]\big]
+= \mathbb{E}[X \cdot 0] = 0
 \]</span></p>
-<p>Hence <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>.</p>
-<p><strong>Interpretation.</strong> Zero conditional mean implies that (unconditionally) <span class="math inline">\(u\)</span> has mean zero and is uncorrelated with <span class="math inline">\(X\)</span>. But the reverse is <em>not</em> automatically true.</p>
+<p>Therefore <span class="math inline">\(\operatorname{Cov}(X, u) = 0\)</span>.</p>
+<p><strong>Interpretation.</strong> These are the <strong>population analogues</strong> of the Part A results:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Part A (sample, by construction)</th>
+<th>Part B (population, by assumption)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\sum \hat{u}_i = 0\)</span></td>
+<td><span class="math inline">\(\mathbb{E}[u] = 0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\sum X_i \hat{u}_i = 0\)</span></td>
+<td><span class="math inline">\(\operatorname{Cov}(X, u) = 0\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>The sample properties hold automatically for any OLS fit. The population properties require the zero conditional mean assumption. This parallel is not a coincidence — OLS is <em>designed</em> so that its sample moment conditions mimic the population ones.</p>
 <hr>
 </div>
 </div>
-<div id="b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care" class="section level3" number="4.2.3">
+<div id="b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care" class="section level3" number="4.2.5">
 <h3>
-<span class="header-section-number">4.2.3</span> B4. Mean independence vs zero conditional mean (and why we care)<a class="anchor" aria-label="anchor" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.5</span> B4. Mean independence vs zero conditional mean (and why we care)<a class="anchor" aria-label="anchor" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><i class="fas fa-link"></i></a>
 </h3>
-<div id="b4.a-definitions" class="section level4" number="4.2.3.1">
+<div id="context-3" class="section level4" number="4.2.5.1">
 <h4>
-<span class="header-section-number">4.2.3.1</span> B4.a Definitions<a class="anchor" aria-label="anchor" href="#b4.a-definitions"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.5.1</span> Context<a class="anchor" aria-label="anchor" href="#context-3"><i class="fas fa-link"></i></a>
+</h4>
+<p>Students sometimes encounter different versions of the “no relationship between <span class="math inline">\(u\)</span> and <span class="math inline">\(X\)</span>” assumption. Here we clarify the two most common ones and their logical relationship.</p>
+</div>
+<div id="b4.a-definitions" class="section level4" number="4.2.5.2">
+<h4>
+<span class="header-section-number">4.2.5.2</span> B4.a Definitions<a class="anchor" aria-label="anchor" href="#b4.a-definitions"><i class="fas fa-link"></i></a>
 </h4>
 <ul>
 <li><p><strong>Zero conditional mean:</strong>
 <span class="math display">\[
-\mathbb{E}[u\mid X]=0.
+\mathbb{E}[u \mid X] = 0
 \]</span></p></li>
 <li><p><strong>Mean independence:</strong>
 <span class="math display">\[
-\mathbb{E}[u\mid X]=\mathbb{E}[u].
+\mathbb{E}[u \mid X] = \mathbb{E}[u]
 \]</span></p></li>
 </ul>
-<p>Mean independence says the conditional mean of <span class="math inline">\(u\)</span> does not depend on <span class="math inline">\(X\)</span> at all; zero conditional mean says it is specifically zero.</p>
+<p>Mean independence says the conditional mean of <span class="math inline">\(u\)</span> does not depend on <span class="math inline">\(X\)</span> at all; zero conditional mean additionally pins that constant to zero.</p>
 </div>
-<div id="question-5" class="section level4" number="4.2.3.2">
+<div id="question-5" class="section level4" number="4.2.5.3">
 <h4>
-<span class="header-section-number">4.2.3.2</span> Question<a class="anchor" aria-label="anchor" href="#question-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.5.3</span> Question<a class="anchor" aria-label="anchor" href="#question-5"><i class="fas fa-link"></i></a>
 </h4>
 <ol style="list-style-type: decimal">
-<li>If <span class="math inline">\(\mathbb{E}[u]=0\)</span>, show that mean independence implies zero conditional mean.<br>
-</li>
+<li>If <span class="math inline">\(\mathbb{E}[u] = 0\)</span>, show that mean independence implies zero conditional mean.</li>
 <li>In 2 lines: which is stronger, and why?</li>
 </ol>
 </div>
-<div id="solution-5" class="section level4" number="4.2.3.3">
+<div id="solution-5" class="section level4" number="4.2.5.4">
 <h4>
-<span class="header-section-number">4.2.3.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-5"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.5.4</span> Solution<a class="anchor" aria-label="anchor" href="#solution-5"><i class="fas fa-link"></i></a>
 </h4>
-<ol style="list-style-type: decimal">
-<li>If mean independence holds, then <span class="math inline">\(\mathbb{E}[u\mid X]=\mathbb{E}[u]\)</span>. If also <span class="math inline">\(\mathbb{E}[u]=0\)</span>, then:</li>
-</ol>
+<p><strong>1)</strong> If mean independence holds, then <span class="math inline">\(\mathbb{E}[u \mid X] = \mathbb{E}[u]\)</span>. If also <span class="math inline">\(\mathbb{E}[u] = 0\)</span>:</p>
 <p><span class="math display">\[
-\mathbb{E}[u\mid X]=0,
+\mathbb{E}[u \mid X] = 0
 \]</span></p>
-<p>which is exactly zero conditional mean.</p>
-<ol start="2" style="list-style-type: decimal">
-<li>
-<strong>Mean independence is stronger</strong> because it requires <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> to be the same constant for every <span class="math inline">\(X\)</span> (and if that constant is zero, we get zero conditional mean). Zero conditional mean is the key restriction needed for unbiased OLS under random sampling; mean independence is a stronger way of ensuring it.</li>
-</ol>
+<p><strong>2)</strong> <strong>Mean independence is stronger</strong> because it requires <span class="math inline">\(\mathbb{E}[u \mid X]\)</span> to be the same constant for every value of <span class="math inline">\(X\)</span>. Zero conditional mean is a special case where that constant is zero — and it is the specific condition needed for OLS unbiasedness.</p>
 <hr>
 </div>
 </div>
-<div id="b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept" class="section level3" number="4.2.4">
+<div id="b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept" class="section level3" number="4.2.6">
 <h3>
-<span class="header-section-number">4.2.4</span> B5. A cautionary note: uncorrelatedness is not enough (concept)<a class="anchor" aria-label="anchor" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.6</span> B5. A cautionary note: uncorrelatedness is not enough (concept)<a class="anchor" aria-label="anchor" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><i class="fas fa-link"></i></a>
 </h3>
-<p><strong>Narrative idea.</strong> Students often think “<span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> means no bias.” That is not the right logic. OLS unbiasedness relies on a <em>conditional</em> statement like <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.</p>
-<div id="question-2-lines" class="section level4" number="4.2.4.1">
+<div id="context-4" class="section level4" number="4.2.6.1">
 <h4>
-<span class="header-section-number">4.2.4.1</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.6.1</span> Context<a class="anchor" aria-label="anchor" href="#context-4"><i class="fas fa-link"></i></a>
 </h4>
-<p>Explain briefly why <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span> alone does not guarantee <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>.</p>
+<p>From B3, we know that <span class="math inline">\(\mathbb{E}[u \mid X] = 0\)</span> implies <span class="math inline">\(\operatorname{Cov}(X, u) = 0\)</span>. It is tempting to think the reverse is also true — that if <span class="math inline">\(X\)</span> and <span class="math inline">\(u\)</span> are uncorrelated, OLS must be fine. This is a common and dangerous misconception.</p>
 </div>
-<div id="solution-6" class="section level4" number="4.2.4.2">
+<div id="question-2-lines" class="section level4" number="4.2.6.2">
 <h4>
-<span class="header-section-number">4.2.4.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-6"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.6.2</span> Question (2 lines)<a class="anchor" aria-label="anchor" href="#question-2-lines"><i class="fas fa-link"></i></a>
 </h4>
-<p>Uncorrelatedness is an <em>unconditional</em> moment restriction and can hold even when <span class="math inline">\(\mathbb{E}[u\mid X]\)</span> varies with <span class="math inline">\(X\)</span> in a nonlinear way. OLS unbiasedness needs the conditional restriction <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, not just <span class="math inline">\(\operatorname{Cov}(X,u)=0\)</span>.</p>
-<hr>
+<p>Explain briefly why <span class="math inline">\(\operatorname{Cov}(X, u) = 0\)</span> alone does not guarantee <span class="math inline">\(\mathbb{E}[u \mid X] = 0\)</span>.</p>
+</div>
+<div id="solution-6" class="section level4" number="4.2.6.3">
+<h4>
+<span class="header-section-number">4.2.6.3</span> Solution<a class="anchor" aria-label="anchor" href="#solution-6"><i class="fas fa-link"></i></a>
+</h4>
+<p>Uncorrelatedness is an <em>unconditional</em> moment restriction — it only rules out a <strong>linear</strong> relationship between <span class="math inline">\(X\)</span> and <span class="math inline">\(u\)</span>. It can hold even when <span class="math inline">\(\mathbb{E}[u \mid X]\)</span> varies with <span class="math inline">\(X\)</span> in a nonlinear way (e.g., <span class="math inline">\(\mathbb{E}[u \mid X] = X^2 - \mathbb{E}[X^2]\)</span>). OLS unbiasedness requires the full conditional restriction <span class="math inline">\(\mathbb{E}[u \mid X] = 0\)</span>, not merely <span class="math inline">\(\operatorname{Cov}(X, u) = 0\)</span>.</p>
 </div>
 </div>
-<div id="quick-simulation-intuition-in-r" class="section level3" number="4.2.5">
+<div id="quick-simulation-intuition-in-r" class="section level3" number="4.2.7">
 <h3>
-<span class="header-section-number">4.2.5</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
+<span class="header-section-number">4.2.7</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
 </h3>
 <p>This chunk is just to build intuition: it shows that when we generate data with <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, sample correlation between <span class="math inline">\(X\)</span> and residual-like noise fluctuates around zero.</p>
 <div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
@@ -1147,7 +1186,7 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></div>
-<div class="empty"></div>
+<div class="next"><a href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">5</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
@@ -1161,12 +1200,14 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 </ul>
 </li>
 <li>
-<a class="nav-link" href="#part-b-.-the-population-regression-function-prf"><span class="header-section-number">4.2</span> Part B . The Population Regression Function (PRF)</a><ul class="nav navbar-nav">
-<li><a class="nav-link" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><span class="header-section-number">4.2.1</span> B2. Zero conditional mean: what it is and where it comes from</a></li>
-<li><a class="nav-link" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><span class="header-section-number">4.2.2</span> B3. What zero conditional mean implies (useful corollaries)</a></li>
-<li><a class="nav-link" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><span class="header-section-number">4.2.3</span> B4. Mean independence vs zero conditional mean (and why we care)</a></li>
-<li><a class="nav-link" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><span class="header-section-number">4.2.4</span> B5. A cautionary note: uncorrelatedness is not enough (concept)</a></li>
-<li><a class="nav-link" href="#quick-simulation-intuition-in-r"><span class="header-section-number">4.2.5</span> Quick simulation intuition in R</a></li>
+<a class="nav-link" href="#part-b.-the-population-regression-function-prf"><span class="header-section-number">4.2</span> Part B. The Population Regression Function (PRF)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#why-do-we-need-this"><span class="header-section-number">4.2.1</span> Why do we need this?</a></li>
+<li><a class="nav-link" href="#b1.a-definition-concept"><span class="header-section-number">4.2.2</span> B1.a Definition (concept)</a></li>
+<li><a class="nav-link" href="#b2.-zero-conditional-mean-what-it-is-and-where-it-comes-from"><span class="header-section-number">4.2.3</span> B2. Zero conditional mean: what it is and where it comes from</a></li>
+<li><a class="nav-link" href="#b3.-what-zero-conditional-mean-implies-useful-corollaries"><span class="header-section-number">4.2.4</span> B3. What zero conditional mean implies (useful corollaries)</a></li>
+<li><a class="nav-link" href="#b4.-mean-independence-vs-zero-conditional-mean-and-why-we-care"><span class="header-section-number">4.2.5</span> B4. Mean independence vs zero conditional mean (and why we care)</a></li>
+<li><a class="nav-link" href="#b5.-a-cautionary-note-uncorrelatedness-is-not-enough-concept"><span class="header-section-number">4.2.6</span> B5. A cautionary note: uncorrelatedness is not enough (concept)</a></li>
+<li><a class="nav-link" href="#quick-simulation-intuition-in-r"><span class="header-section-number">4.2.7</span> Quick simulation intuition in R</a></li>
 </ul>
 </li>
 <li>
@@ -1215,7 +1256,7 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Tutorial 3: Understanding Simple linear Regression</strong>: Residuals, Assumptions, Unbiasedness, Variance, and Interpretation" was written by Nicolás Campos Bijit. It was last built on January, 2026.</p>
+    <p>"<strong>Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</strong>: Introductory Econometrics — TA Session" was written by . </p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

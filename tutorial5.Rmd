@@ -1,0 +1,451 @@
+---
+title: "Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning"
+subtitle: "Introductory Econometrics — TA Session"
+author: ""
+date: ""
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+# Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning
+
+*Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a*
+
+---
+
+## Block 1: Motivation --- Why Do We Need Potential Outcomes? (5 min)
+
+::: {.bookexample}
+**Causality, Ceteris Paribus, and Counterfactual Reasoning** *(Section 1-4)*
+
+In economics we want to know whether one variable has a **causal effect** on another. This requires **ceteris paribus** reasoning: what happens to an outcome when we change one factor, *holding all other factors fixed*. Since we can rarely hold other factors fixed, we resort to **counterfactual reasoning**: "what *would have happened* under a different state of the world?" The challenge is that we can never observe the same unit in both states simultaneously. This is the **fundamental problem of causal inference**. The textbook illustrates this with four examples:
+
+- **Ex. 1.3 --- Fertilizer on Crop Yield.** A farmer obtains 180 bushels/acre using fertilizer. The counterfactual (yield *without* fertilizer on the same plot, same season) is unobservable. An ideal experiment randomly assigns fertilizer to identical plots. In practice, farmers choose fertilizer based on soil quality --- a **confounding factor** that also affects yield.
+
+- **Ex. 1.4 --- Return to Education.** If a person gets one more year of education, by how much does their wage rise? A social planner could randomly assign education levels, but this is infeasible. People *choose* education based on ability and background, so comparing wages across education levels confounds the education effect with pre-existing differences (**selection bias**).
+
+- **Ex. 1.5 --- Police and Crime.** Does hiring more police reduce crime? Cities with high crime already hire more police, creating a positive correlation even if police *reduce* crime. This is **reverse causality** (simultaneity).
+
+- **Ex. 1.6 --- Minimum Wage and Unemployment.** Political and economic forces that set the minimum wage also affect employment. It is impossible to isolate the causal effect without holding these **confounding forces** fixed.
+
+In each case, the core problem is the same: we observe one state of the world but need to compare it with a counterfactual we cannot see. The **potential outcomes framework** (Section 2-7a) formalizes this problem mathematically, and **random assignment** provides the cleanest solution.
+:::
+
+**Question 1** *(Quick warm-up)*
+
+**(a)** In Example 1.4, why can we *not* simply compare the average wage of people with 16 years of education to that of people with 15 years and call the difference the causal return to education?
+
+::: {.solution}
+Because the two groups differ in many other ways (ability, family background, motivation, etc.). A naive comparison mixes the effect of education with these pre-existing differences. We cannot hold "all other factors fixed" just by comparing different people. This is **selection bias**: the people who *choose* more education are systematically different from those who choose less.
+:::
+
+**(b)** For Examples 1.3--1.6, each describes an ideal experiment that is infeasible. What is the *one* feature all these ideal experiments share that would solve the causal inference problem?
+
+::: {.solution}
+**Random assignment** of the treatment. In every case, the ideal experiment randomly assigns the treatment (fertilizer amounts, education levels, police force sizes, minimum wage levels) so that treatment status is independent of all other characteristics. This eliminates confounding and selection bias, making simple group comparisons valid estimates of causal effects.
+:::
+
+---
+
+## Block 2: Potential Outcomes Notation (13 min)
+
+::: {.bookexample}
+**Section 2-7a --- Counterfactual (or Potential) Outcomes, Causality, and Policy Analysis**
+
+Consider a binary treatment: $x_i = 1$ if unit $i$ is in the treatment group, $x_i = 0$ if in the control group. For each unit $i$ there are two **potential outcomes**: $y_i(1)$ (outcome if treated) and $y_i(0)$ (outcome if not treated). Both exist conceptually, but we only observe one.
+
+The **individual treatment effect** is $\tau_i = y_i(1) - y_i(0)$.
+
+The **Average Treatment Effect (ATE)** and **Average Treatment Effect on the Treated (ATT)** are:
+
+$$ATE = E[y(1)] - E[y(0)] \tag{2.75}$$
+
+$$ATT = E[y(1) - y(0) \mid x = 1] \tag{2.76}$$
+
+The **observed outcome** is given by the "switching equation":
+
+$$y_i = x_i \cdot y_i(1) + (1 - x_i) \cdot y_i(0) \tag{2.77}$$
+
+Given a random sample, we observe only one of $y_i(0)$ and $y_i(1)$: the treatment "switches" which potential outcome we see.
+:::
+
+**Question 2** *(Notation --- Definitions)*
+
+Consider a binary treatment $x_i \in \{0,1\}$ for individual $i$.
+
+**(a)** Define the two **potential outcomes** $y_i(0)$ and $y_i(1)$. What do they represent?
+
+::: {.solution}
+- $y_i(1)$ = the outcome individual $i$ **would** experience **if treated** ($x_i = 1$).
+- $y_i(0)$ = the outcome individual $i$ **would** experience **if not treated** ($x_i = 0$).
+
+These are defined for **every** individual regardless of actual treatment status. For each person, both potential outcomes *exist conceptually*, but we can only observe one of them.
+:::
+
+**(b)** Define the **individual treatment effect** $\tau_i$. Why can we never compute it directly?
+
+::: {.solution}
+$$\tau_i = y_i(1) - y_i(0)$$
+
+We can **never** compute it because we only observe one of $y_i(1)$ or $y_i(0)$, never both. This is the fundamental problem of causal inference restated in potential outcomes notation.
+:::
+
+**(c)** Write the **observed outcome** $y_i$ in terms of $x_i$, $y_i(0)$, and $y_i(1)$ (equation [2.77]). Verify the formula for each value of $x_i$.
+
+::: {.solution}
+$$y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)$$
+
+**Verification:**
+
+- If $x_i = 1$: $y_i = 1 \cdot y_i(1) + 0 \cdot y_i(0) = y_i(1)$ ✓
+- If $x_i = 0$: $y_i = 0 \cdot y_i(1) + 1 \cdot y_i(0) = y_i(0)$ ✓
+
+This is the **switching equation**: treatment "switches" which potential outcome we observe.
+:::
+
+---
+
+**Question 3** *(Math --- Algebraic manipulation)*
+
+Starting from $y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)$:
+
+**(a)** Show that this is equivalent to:
+
+$$y_i = y_i(0) + \bigl[y_i(1) - y_i(0)\bigr]\cdot x_i = y_i(0) + \tau_i \cdot x_i$$
+
+::: {.solution}
+Start with:
+
+$$
+y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)
+= x_i \cdot y_i(1) + y_i(0) - x_i \cdot y_i(0)
+= y_i(0) + x_i\bigl[y_i(1) - y_i(0)\bigr]
+$$
+
+$$\boxed{y_i = y_i(0) + \tau_i \cdot x_i}$$
+
+where $\tau_i = y_i(1) - y_i(0)$. This is equation [2.78] in the book.
+:::
+
+**(b)** Now suppose the treatment effect is **constant**: $\tau_i = \tau$ for all $i$. Let $\beta_0 = E[y(0)]$ and $u_i = y_i(0) - E[y(0)]$. Show that:
+
+$$y_i = \beta_0 + \tau \cdot x_i + u_i$$
+
+What does this equation look like? What is the connection to regression?
+
+::: {.solution}
+From part (a), with constant $\tau$: $y_i = y_i(0) + \tau \cdot x_i$.
+
+Write $y_i(0) = E[y(0)] + [y_i(0) - E[y(0)]] = \beta_0 + u_i$:
+
+$$y_i = \beta_0 + \tau \cdot x_i + u_i$$
+
+This is the **simple linear regression model** $y = \beta_0 + \beta_1 x + u$, where the slope $\beta_1 = \tau$ *is* the causal treatment effect (equation [2.79]). The potential outcomes framework provides the structural foundation for the regression model.
+:::
+
+**(c)** Write the formulas for the **ATE** (eq. [2.75]) and the **ATT** (eq. [2.76]). In one sentence each, explain what population each one refers to.
+
+::: {.solution}
+$$ATE = E[y(1) - y(0)] = E[y(1)] - E[y(0)]$$
+
+The ATE is the average effect across the **entire population** (both treated and untreated).
+
+$$ATT = E[y(1) - y(0) \mid x = 1]$$
+
+The ATT is the average effect among **those who actually received treatment** only.
+
+If treatment effects are heterogeneous and correlated with treatment selection, $ATE \neq ATT$.
+:::
+
+---
+
+## Block 3: ATE vs. ATT and Selection Bias --- Numerical Exercise (13 min)
+
+**Question 4** *(Numerical exercise)*
+
+Suppose we have a population with two types of individuals:
+
+| Type | Fraction of population | $y_i(0)$ | $y_i(1)$ |
+|:----:|:----------------------:|:--------:|:--------:|
+| A    | 0.6                    | 2        | 5        |
+| B    | 0.4                    | 4        | 6        |
+
+**(a)** Compute the individual treatment effect $\tau$ for each type.
+
+::: {.solution}
+- Type A: $\tau_A = 5 - 2 = 3$
+- Type B: $\tau_B = 6 - 4 = 2$
+:::
+
+**(b)** Compute the **ATE**.
+
+::: {.solution}
+$$ATE = E[\tau] = 0.6 \times 3 + 0.4 \times 2 = 1.8 + 0.8 = \boxed{2.6}$$
+:::
+
+**(c)** Now suppose that **only Type A** individuals get treated ($x = 1$ for Type A, $x = 0$ for Type B). Compute the **ATT**. Is it equal to the ATE? Why or why not?
+
+::: {.solution}
+$ATT = E[\tau \mid x = 1] = \tau_A = \boxed{3}$.
+
+$ATT = 3 \neq 2.6 = ATE$ because Type A has a *larger* treatment effect than Type B. Treatment assignment is correlated with the individual treatment effect --- **heterogeneous effects** combined with **selection into treatment**.
+:::
+
+**(d)** Compute the **selection bias** $E[y(0) \mid x=1] - E[y(0) \mid x=0]$. What is its sign? Interpret.
+
+::: {.solution}
+$$\text{Selection Bias} = E[y(0) \mid x=1] - E[y(0) \mid x=0] = y_A(0) - y_B(0) = 2 - 4 = \boxed{-2}$$
+
+The bias is **negative**: treated individuals (Type A) have *lower* baseline outcomes. Intuitively, they are worse off without treatment, which is perhaps why they received it.
+:::
+
+**(e)** Verify the decomposition: compute both sides of
+
+$$E[y \mid x=1] - E[y \mid x=0] = ATT + \text{Selection Bias}$$
+
+::: {.solution}
+**Left side:** $E[y \mid x=1] - E[y \mid x=0] = y_A(1) - y_B(0) = 5 - 4 = 1$.
+
+**Right side:** $ATT + \text{Sel. Bias} = 3 + (-2) = 1$. ✓
+
+The naive comparison ($\bar{y}_1 - \bar{y}_0 = 1$) *understates* the true ATT of 3 because of negative selection bias.
+:::
+
+**(f)** Suppose instead that treatment were **randomly assigned** (each individual gets $x=1$ with probability 0.5, regardless of type). What would $E[\bar{y}_1 - \bar{y}_0]$ estimate?
+
+::: {.solution}
+Under random assignment, $x \perp (y(0), y(1))$, so:
+
+- Selection bias $= E[y(0) \mid x=1] - E[y(0) \mid x=0] = 0$
+- $ATT = ATE = 2.6$
+
+Therefore $E[\bar{y}_1 - \bar{y}_0] = ATE = 2.6$. The simple difference in means is **unbiased** for the ATE.
+:::
+
+---
+
+## Block 4: The Selection Bias Decomposition and Random Assignment (13 min)
+
+**Question 5** *(Key derivation)*
+
+We now prove the result we used numerically in Block 3. Let $\bar{y}_1$ be the average outcome among treated units and $\bar{y}_0$ among untreated.
+
+**(a)** Show that the **population** version of the comparison $\bar{y}_1 - \bar{y}_0$ decomposes as:
+
+$$
+E[y \mid x=1] - E[y \mid x=0]
+= \underbrace{E\bigl[y(1) - y(0) \mid x=1\bigr]}_{ATT}
++ \underbrace{E\bigl[y(0) \mid x=1\bigr] - E\bigl[y(0) \mid x=0\bigr]}_{\text{Selection Bias}}
+$$
+
+*Hint: use the switching equation to write $E[y \mid x=1] = E[y(1) \mid x=1]$ and $E[y \mid x=0] = E[y(0) \mid x=0]$. Then add and subtract $E[y(0) \mid x=1]$.*
+
+::: {.solution}
+From the switching equation [2.77]:
+
+- When $x = 1$: $y = y(1)$, so $E[y \mid x=1] = E[y(1) \mid x=1]$.
+- When $x = 0$: $y = y(0)$, so $E[y \mid x=0] = E[y(0) \mid x=0]$.
+
+Therefore:
+
+$$E[y \mid x=1] - E[y \mid x=0] = E[y(1) \mid x=1] - E[y(0) \mid x=0]$$
+
+**Add and subtract** $E[y(0) \mid x=1]$:
+
+$$
+\begin{align*}
+&= E[y(1) \mid x=1] - E[y(0) \mid x=1] + E[y(0) \mid x=1] - E[y(0) \mid x=0] \\[4pt]
+&= \underbrace{E[y(1) - y(0) \mid x=1]}_{ATT}
+ + \underbrace{E[y(0) \mid x=1] - E[y(0) \mid x=0]}_{\text{Selection Bias}} \quad\square
+\end{align*}
+$$
+:::
+
+**(b)** Explain in words what $E[y(0) \mid x=1] - E[y(0) \mid x=0]$ means. Use the education example (Ex. 1.4) and the job training context to give one example of **positive** and one of **negative** selection bias.
+
+::: {.solution}
+It compares the **baseline outcome** (without treatment) between those who received treatment and those who did not. If treated individuals would have had different outcomes *even without treatment*, the naive comparison confounds pre-existing differences with the treatment effect.
+
+**Positive bias (Education):** More able people self-select into college. They would earn more *even without* the extra schooling, so $E[y(0) \mid x=1] > E[y(0) \mid x=0]$. The naive wage gap *overstates* the return to education.
+
+**Negative bias (Job training):** Workers with worse prospects sign up for training. They would earn less *even without* the program, so $E[y(0) \mid x=1] < E[y(0) \mid x=0]$. The naive comparison *understates* the program's effect.
+:::
+
+**(c)** Now suppose treatment is **randomly assigned**. Before doing the math, let us understand *why* randomization works.
+
+::: {.bookexample}
+**Why does random assignment "work"? --- The mathematical mechanism**
+
+**Step 0: A key property of independence.** Recall that if $X \perp Y$, then
+
+$$E[Y \mid X = x] = E[Y] \quad \text{for all } x$$
+
+Conditioning on an independent variable **does nothing**: the conditional expectation equals the unconditional one. *This single fact is the entire engine.*
+
+**Step 1: Why does randomization create independence?** Before the experiment, each unit $i$ already has *fixed* potential outcomes $(y_i(0), y_i(1))$, determined by that person's characteristics (ability, motivation, health, ...). These exist regardless of what we do.
+
+When we randomly assign treatment, $x_i$ is determined by a coin flip that **knows nothing** about unit $i$. Formally:
+
+$$P(x_i = 1 \mid y_i(0),\, y_i(1)) = P(x_i = 1) = p \quad \text{for all } i$$
+
+A person with $y_i(0) = 100$ has the *same* probability $p$ of being treated as a person with $y_i(0) = 2$. The coin does not look at the potential outcomes. Therefore, **by construction**:
+
+$$\boxed{x \perp (y(0),\; y(1))}$$
+
+**Step 2: Apply the independence property.** Since $x \perp y(0)$:
+
+$$E[y(0) \mid x=1] = E[y(0)] \quad\text{and}\quad E[y(0) \mid x=0] = E[y(0)]$$
+
+The treated group and the control group have **the same average baseline** --- not because they are identical person-by-person, but because the *sorting mechanism* (the coin) is unrelated to individual characteristics. Likewise, $x \perp y(1)$ gives $E[y(1) \mid x=1] = E[y(1)]$.
+
+**Step 3: Why does this fail without randomization?** Without randomization, people choose (or are selected for) treatment based on their characteristics --- the same characteristics that determine $(y_i(0), y_i(1))$. So $P(x_i = 1 \mid y_i(0), y_i(1)) \neq P(x_i = 1)$: the probability of treatment *depends on* potential outcomes. For example, if high-ability people are more likely to go to college, then $E[y(0) \mid x=1] > E[y(0) \mid x=0]$. Conditioning on $x = 1$ selects a non-representative subgroup, and the independence property fails.
+:::
+
+Now use the property $x \perp (y(0), y(1))$ to show three things:
+
+**(i)** Selection bias $= 0$.
+
+**(ii)** $ATT = ATE$.
+
+**(iii)** $\bar{y}_1 - \bar{y}_0$ is unbiased for the ATE.
+
+::: {.solution}
+From the note above, independence gives us:
+
+$$E[y(0) \mid x=1] = E[y(0) \mid x=0] = E[y(0)]
+\quad\text{and}\quad
+E[y(1) \mid x=1] = E[y(1) \mid x=0] = E[y(1)]$$
+
+**(i) Selection bias vanishes:**
+
+$$E[y(0) \mid x=1] - E[y(0) \mid x=0] = E[y(0)] - E[y(0)] = 0$$
+
+**(ii) ATT = ATE:**
+
+$$ATT = E[y(1) - y(0) \mid x=1] = E[y(1)] - E[y(0)] = ATE$$
+
+**(iii) Unbiasedness:** We now prove $E[\bar{y}_1 - \bar{y}_0] = ATE$ step by step.
+
+**Definition.** An estimator $\hat{\theta}$ is **unbiased** for $\theta$ if $E[\hat{\theta}] = \theta$. Here $\hat{\theta} = \bar{y}_1 - \bar{y}_0$ and $\theta = ATE = E[y(1) - y(0)]$.
+
+*Step 1 — What we observe in each group.* Treated individuals reveal $y(1)$; control individuals reveal $y(0)$:
+
+$$E[\bar{y}_1] = E[y \mid x=1] = E[y(1) \mid x=1]$$
+
+$$E[\bar{y}_0] = E[y \mid x=0] = E[y(0) \mid x=0]$$
+
+*Step 2 — Apply random assignment.* Since $x \perp (y(0), y(1))$, conditioning on $x$ does nothing:
+
+$$E[y(1) \mid x=1] = E[y(1)], \qquad E[y(0) \mid x=0] = E[y(0)]$$
+
+*Step 3 — Substitute and conclude.*
+
+$$
+\begin{align*}
+  E[\bar{y}_1 - \bar{y}_0]
+    &= E[y(1) \mid x=1] - E[y(0) \mid x=0] & \text{(Step 1)}\\
+    &= E[y(1)] - E[y(0)]                    & \text{(Step 2)}\\
+    &= E[\,y(1) - y(0)\,]                   & \text{(linearity of expectation)}\\
+    &= ATE                                   & \checkmark
+\end{align*}
+$$
+
+*Intuition.* The fundamental problem of causal inference is that we never observe both $y(1)$ and $y(0)$ for the same person. But with $x \perp (y(0), y(1))$, the treated group is a *random sample* of the population — their average $y(1)$ represents **everyone's** $y(1)$ — and likewise the control group's average $y(0)$ represents **everyone's** $y(0)$. Each group serves as a valid counterfactual for the other, and selection bias cancels exactly. $\square$
+
+This is why **RCTs** are the gold standard. Under random assignment, OLS gives $\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0$, which is unbiased for the ATE (equation [2.82]).
+:::
+
+**(d)** *(Problem 15 from the book)* The **sample average treatment effect** estimator is $\hat{\tau}_{ate} = n^{-1}\sum_{i=1}^{n}[y_i(1) - y_i(0)]$. Show that *if* we could observe both potential outcomes for everyone, $\hat{\tau}_{ate}$ would be unbiased for $\tau_{ate} = E[y(1) - y(0)]$.
+
+::: {.solution}
+$$
+E[\hat{\tau}_{ate}]
+= E\!\left[n^{-1}\sum_{i=1}^{n}[y_i(1) - y_i(0)]\right]
+= n^{-1}\sum_{i=1}^{n} E[y_i(1) - y_i(0)]
+$$
+
+Since the sample is i.i.d.:
+
+$$= n^{-1} \cdot n \cdot E[y(1) - y(0)] = \tau_{ate}$$
+
+So $\hat{\tau}_{ate}$ is **unbiased**. Of course, we can *never* compute it because we don't observe both $y_i(0)$ and $y_i(1)$. But under random assignment, $\bar{y}_1 - \bar{y}_0$ takes its place as an unbiased estimator. $\square$
+:::
+
+**(e)** Explain briefly why $\bar{y}_1$ and $\bar{y}(1) \equiv n^{-1}\sum_{i=1}^{n} y_i(1)$ are *not* the same thing.
+
+::: {.solution}
+$\bar{y}(1)$ averages $y_i(1)$ over **all** $n$ individuals (treated and untreated). $\bar{y}_1$ averages observed outcomes only over the $n_1$ **treated** individuals.
+
+$\bar{y}(1)$ requires knowing $y_i(1)$ for untreated people --- which we never observe. Under random assignment, $\bar{y}_1$ is unbiased for $E[y(1)]$, so it serves as a valid substitute.
+:::
+
+---
+
+## Block 5: Application --- Job Training Program (6 min)
+
+::: {.bookexample}
+**Example 2.14 --- Evaluating a Job Training Program (JTRAIN2)**
+
+The data in JTRAIN2 are from the National Supported Work demonstration, where men were **randomly assigned** to receive job training (9--18 months) or serve as controls. The outcome is `re78`: real earnings in 1978 (thousands of 1982 dollars). The treatment variable is `train` ($= 1$ if trained).
+
+Of 445 men, 185 received training and 260 did not. The simple regression $\widehat{re78} = \hat{\beta}_0 + \hat{\beta}_1 \cdot train$ gives: $\hat{\beta}_0 = 4.555$ (control group average, in thousands), $\hat{\beta}_1 = 1.794$ (treated earned \$1,794 more on average). The $t$-statistic is 1.79, and $R^2 \approx 0.018$.
+
+The small $R^2$ means training explains only 1.8% of earnings variation. But $R^2$ measures **explanatory power**, not causal significance --- under random assignment, $\hat{\beta}_1$ is still unbiased for the ATE.
+:::
+
+**Question 6** *(From Example 2.14 in the book)*
+
+**(a)** Express $\bar{y}_1$, $\bar{y}_0$, and $\hat{\beta}_1$ in terms of each other. Compute $\bar{y}_1$.
+
+::: {.solution}
+$\bar{y}_0 = \hat{\beta}_0 = 4.555$ (control mean). $\bar{y}_1 = \hat{\beta}_0 + \hat{\beta}_1 = 4.555 + 1.794 = 6.349$ (treated mean).
+
+$$\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0 = 1.794$$
+
+This is equation [2.82]: the OLS slope with a binary regressor equals the difference in group means.
+:::
+
+**(b)** Can we interpret $\hat{\beta}_1 = 1.794$ causally? Why? Express the effect as a percentage of the control mean.
+
+::: {.solution}
+**Yes**, because training was **randomly assigned**: $E[y(0) \mid x=1] = E[y(0) \mid x=0]$, so selection bias $= 0$ and $\hat{\beta}_1$ is unbiased for the ATE.
+
+As a percentage: $1.794 / 4.555 \approx 39.4\%$ increase in earnings.
+:::
+
+**(c)** The $R^2$ is 0.018. A student says: "The training had no effect because $R^2$ is tiny." Is this correct?
+
+::: {.solution}
+**No.** $R^2$ measures how much of the *total variation* in earnings is explained by the training dummy alone. Since many factors affect earnings (ability, experience, education, luck), a small $R^2$ is expected. It says nothing about whether the treatment effect is real or economically meaningful. The \$1,794 effect (39% of control earnings) is substantial; the $t$-stat of 1.79 indicates borderline statistical significance.
+:::
+
+**(d)** If workers had **volunteered** instead of being randomly assigned, would you still trust the estimate? Why?
+
+::: {.solution}
+**No.** With self-selection, $E[y(0) \mid x=1] \neq E[y(0) \mid x=0]$. Motivated workers may volunteer (positive selection bias $\Rightarrow$ overestimate), or workers with poor prospects may seek help (negative selection bias $\Rightarrow$ underestimate). The difference in means captures the treatment effect *plus* selection bias, and we cannot separate them.
+:::
+
+---
+
+## Summary of Key Formulas
+
+| Concept | Formula |
+|:--------|:--------|
+| Potential outcomes | $y_i(0)$, $y_i(1)$ |
+| Individual treatment effect | $\tau_i = y_i(1) - y_i(0)$ |
+| Observed outcome [2.77] | $y_i = x_i \cdot y_i(1) + (1-x_i)\cdot y_i(0)$ |
+| Equivalent form [2.78] | $y_i = y_i(0) + \tau_i \cdot x_i$ |
+| ATE [2.75] | $E[y(1)] - E[y(0)]$ |
+| ATT [2.76] | $E[y(1) - y(0) \mid x=1]$ |
+| Selection bias | $E[y(0) \mid x=1] - E[y(0) \mid x=0]$ |
+| Decomposition | $E[y \mid x=1] - E[y \mid x=0] = ATT + \text{Sel. Bias}$ |
+| Random assignment $\Rightarrow$ | Sel. Bias $= 0$, $ATT = ATE$ |
+| Connection to regression [2.79] | $y_i = \beta_0 + \tau\, x_i + u_i$ (constant effects) |
+| OLS estimator [2.82] | $\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0$ |

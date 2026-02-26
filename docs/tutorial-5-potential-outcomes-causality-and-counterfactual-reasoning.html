@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</title>
+<meta name="author" content="">
+<meta name="description" content="Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a  5.1 Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)  Causality, Ceteris Paribus, and Counterfactual Reasoning...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="5 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a  5.1 Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)  Causality, Ceteris Paribus, and Counterfactual Reasoning...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
+<meta name="twitter:description" content="Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a  5.1 Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)  Causality, Ceteris Paribus, and Counterfactual Reasoning...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="active" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">5</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning<a class="anchor" aria-label="anchor" href="#tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning"><i class="fas fa-link"></i></a>
+</h1>
+<p><em>Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a</em></p>
+<hr>
+<div id="block-1-motivation-why-do-we-need-potential-outcomes-5-min" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)<a class="anchor" aria-label="anchor" href="#block-1-motivation-why-do-we-need-potential-outcomes-5-min"><i class="fas fa-link"></i></a>
+</h2>
+<div class="bookexample">
+<p><strong>Causality, Ceteris Paribus, and Counterfactual Reasoning</strong> <em>(Section 1-4)</em></p>
+<p>In economics we want to know whether one variable has a <strong>causal effect</strong> on another. This requires <strong>ceteris paribus</strong> reasoning: what happens to an outcome when we change one factor, <em>holding all other factors fixed</em>. Since we can rarely hold other factors fixed, we resort to <strong>counterfactual reasoning</strong>: “what <em>would have happened</em> under a different state of the world?” The challenge is that we can never observe the same unit in both states simultaneously. This is the <strong>fundamental problem of causal inference</strong>. The textbook illustrates this with four examples:</p>
+<ul>
+<li><p><strong>Ex. 1.3 — Fertilizer on Crop Yield.</strong> A farmer obtains 180 bushels/acre using fertilizer. The counterfactual (yield <em>without</em> fertilizer on the same plot, same season) is unobservable. An ideal experiment randomly assigns fertilizer to identical plots. In practice, farmers choose fertilizer based on soil quality — a <strong>confounding factor</strong> that also affects yield.</p></li>
+<li><p><strong>Ex. 1.4 — Return to Education.</strong> If a person gets one more year of education, by how much does their wage rise? A social planner could randomly assign education levels, but this is infeasible. People <em>choose</em> education based on ability and background, so comparing wages across education levels confounds the education effect with pre-existing differences (<strong>selection bias</strong>).</p></li>
+<li><p><strong>Ex. 1.5 — Police and Crime.</strong> Does hiring more police reduce crime? Cities with high crime already hire more police, creating a positive correlation even if police <em>reduce</em> crime. This is <strong>reverse causality</strong> (simultaneity).</p></li>
+<li><p><strong>Ex. 1.6 — Minimum Wage and Unemployment.</strong> Political and economic forces that set the minimum wage also affect employment. It is impossible to isolate the causal effect without holding these <strong>confounding forces</strong> fixed.</p></li>
+</ul>
+<p>In each case, the core problem is the same: we observe one state of the world but need to compare it with a counterfactual we cannot see. The <strong>potential outcomes framework</strong> (Section 2-7a) formalizes this problem mathematically, and <strong>random assignment</strong> provides the cleanest solution.</p>
+</div>
+<p><strong>Question 1</strong> <em>(Quick warm-up)</em></p>
+<p><strong>(a)</strong> In Example 1.4, why can we <em>not</em> simply compare the average wage of people with 16 years of education to that of people with 15 years and call the difference the causal return to education?</p>
+<div class="solution">
+<p><span id="unlabeled-div-1" class="solution"><em>Solution</em>. </span>Because the two groups differ in many other ways (ability, family background, motivation, etc.). A naive comparison mixes the effect of education with these pre-existing differences. We cannot hold “all other factors fixed” just by comparing different people. This is <strong>selection bias</strong>: the people who <em>choose</em> more education are systematically different from those who choose less.</p>
+</div>
+<p><strong>(b)</strong> For Examples 1.3–1.6, each describes an ideal experiment that is infeasible. What is the <em>one</em> feature all these ideal experiments share that would solve the causal inference problem?</p>
+<div class="solution">
+<p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span><strong>Random assignment</strong> of the treatment. In every case, the ideal experiment randomly assigns the treatment (fertilizer amounts, education levels, police force sizes, minimum wage levels) so that treatment status is independent of all other characteristics. This eliminates confounding and selection bias, making simple group comparisons valid estimates of causal effects.</p>
+</div>
+<hr>
+</div>
+<div id="block-2-potential-outcomes-notation-13-min" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Block 2: Potential Outcomes Notation (13 min)<a class="anchor" aria-label="anchor" href="#block-2-potential-outcomes-notation-13-min"><i class="fas fa-link"></i></a>
+</h2>
+<div class="bookexample">
+<p><strong>Section 2-7a — Counterfactual (or Potential) Outcomes, Causality, and Policy Analysis</strong></p>
+<p>Consider a binary treatment: <span class="math inline">\(x_i = 1\)</span> if unit <span class="math inline">\(i\)</span> is in the treatment group, <span class="math inline">\(x_i = 0\)</span> if in the control group. For each unit <span class="math inline">\(i\)</span> there are two <strong>potential outcomes</strong>: <span class="math inline">\(y_i(1)\)</span> (outcome if treated) and <span class="math inline">\(y_i(0)\)</span> (outcome if not treated). Both exist conceptually, but we only observe one.</p>
+<p>The <strong>individual treatment effect</strong> is <span class="math inline">\(\tau_i = y_i(1) - y_i(0)\)</span>.</p>
+<p>The <strong>Average Treatment Effect (ATE)</strong> and <strong>Average Treatment Effect on the Treated (ATT)</strong> are:</p>
+<p><span class="math display">\[ATE = E[y(1)] - E[y(0)] \tag{2.75}\]</span></p>
+<p><span class="math display">\[ATT = E[y(1) - y(0) \mid x = 1] \tag{2.76}\]</span></p>
+<p>The <strong>observed outcome</strong> is given by the “switching equation”:</p>
+<p><span class="math display">\[y_i = x_i \cdot y_i(1) + (1 - x_i) \cdot y_i(0) \tag{2.77}\]</span></p>
+<p>Given a random sample, we observe only one of <span class="math inline">\(y_i(0)\)</span> and <span class="math inline">\(y_i(1)\)</span>: the treatment “switches” which potential outcome we see.</p>
+</div>
+<p><strong>Question 2</strong> <em>(Notation — Definitions)</em></p>
+<p>Consider a binary treatment <span class="math inline">\(x_i \in \{0,1\}\)</span> for individual <span class="math inline">\(i\)</span>.</p>
+<p><strong>(a)</strong> Define the two <strong>potential outcomes</strong> <span class="math inline">\(y_i(0)\)</span> and <span class="math inline">\(y_i(1)\)</span>. What do they represent?</p>
+<div class="solution">
+<p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span></p>
+<ul>
+<li>
+<span class="math inline">\(y_i(1)\)</span> = the outcome individual <span class="math inline">\(i\)</span> <strong>would</strong> experience <strong>if treated</strong> (<span class="math inline">\(x_i = 1\)</span>).</li>
+<li>
+<span class="math inline">\(y_i(0)\)</span> = the outcome individual <span class="math inline">\(i\)</span> <strong>would</strong> experience <strong>if not treated</strong> (<span class="math inline">\(x_i = 0\)</span>).</li>
+</ul>
+<p>These are defined for <strong>every</strong> individual regardless of actual treatment status. For each person, both potential outcomes <em>exist conceptually</em>, but we can only observe one of them.</p>
+</div>
+<p><strong>(b)</strong> Define the <strong>individual treatment effect</strong> <span class="math inline">\(\tau_i\)</span>. Why can we never compute it directly?</p>
+<div class="solution">
+<p><span id="unlabeled-div-4" class="solution"><em>Solution</em>. </span><span class="math display">\[\tau_i = y_i(1) - y_i(0)\]</span></p>
+<p>We can <strong>never</strong> compute it because we only observe one of <span class="math inline">\(y_i(1)\)</span> or <span class="math inline">\(y_i(0)\)</span>, never both. This is the fundamental problem of causal inference restated in potential outcomes notation.</p>
+</div>
+<p><strong>(c)</strong> Write the <strong>observed outcome</strong> <span class="math inline">\(y_i\)</span> in terms of <span class="math inline">\(x_i\)</span>, <span class="math inline">\(y_i(0)\)</span>, and <span class="math inline">\(y_i(1)\)</span> (equation [2.77]). Verify the formula for each value of <span class="math inline">\(x_i\)</span>.</p>
+<div class="solution">
+<p><span id="unlabeled-div-5" class="solution"><em>Solution</em>. </span><span class="math display">\[y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)\]</span></p>
+<p><strong>Verification:</strong></p>
+<ul>
+<li>If <span class="math inline">\(x_i = 1\)</span>: <span class="math inline">\(y_i = 1 \cdot y_i(1) + 0 \cdot y_i(0) = y_i(1)\)</span> ✓</li>
+<li>If <span class="math inline">\(x_i = 0\)</span>: <span class="math inline">\(y_i = 0 \cdot y_i(1) + 1 \cdot y_i(0) = y_i(0)\)</span> ✓</li>
+</ul>
+<p>This is the <strong>switching equation</strong>: treatment “switches” which potential outcome we observe.</p>
+</div>
+<hr>
+<p><strong>Question 3</strong> <em>(Math — Algebraic manipulation)</em></p>
+<p>Starting from <span class="math inline">\(y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)\)</span>:</p>
+<p><strong>(a)</strong> Show that this is equivalent to:</p>
+<p><span class="math display">\[y_i = y_i(0) + \bigl[y_i(1) - y_i(0)\bigr]\cdot x_i = y_i(0) + \tau_i \cdot x_i\]</span></p>
+<div class="solution">
+<p><span id="unlabeled-div-6" class="solution"><em>Solution</em>. </span>Start with:</p>
+<p><span class="math display">\[
+y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)
+= x_i \cdot y_i(1) + y_i(0) - x_i \cdot y_i(0)
+= y_i(0) + x_i\bigl[y_i(1) - y_i(0)\bigr]
+\]</span></p>
+<p><span class="math display">\[\boxed{y_i = y_i(0) + \tau_i \cdot x_i}\]</span></p>
+<p>where <span class="math inline">\(\tau_i = y_i(1) - y_i(0)\)</span>. This is equation [2.78] in the book.</p>
+</div>
+<p><strong>(b)</strong> Now suppose the treatment effect is <strong>constant</strong>: <span class="math inline">\(\tau_i = \tau\)</span> for all <span class="math inline">\(i\)</span>. Let <span class="math inline">\(\beta_0 = E[y(0)]\)</span> and <span class="math inline">\(u_i = y_i(0) - E[y(0)]\)</span>. Show that:</p>
+<p><span class="math display">\[y_i = \beta_0 + \tau \cdot x_i + u_i\]</span></p>
+<p>What does this equation look like? What is the connection to regression?</p>
+<div class="solution">
+<p><span id="unlabeled-div-7" class="solution"><em>Solution</em>. </span>From part (a), with constant <span class="math inline">\(\tau\)</span>: <span class="math inline">\(y_i = y_i(0) + \tau \cdot x_i\)</span>.</p>
+<p>Write <span class="math inline">\(y_i(0) = E[y(0)] + [y_i(0) - E[y(0)]] = \beta_0 + u_i\)</span>:</p>
+<p><span class="math display">\[y_i = \beta_0 + \tau \cdot x_i + u_i\]</span></p>
+<p>This is the <strong>simple linear regression model</strong> <span class="math inline">\(y = \beta_0 + \beta_1 x + u\)</span>, where the slope <span class="math inline">\(\beta_1 = \tau\)</span> <em>is</em> the causal treatment effect (equation [2.79]). The potential outcomes framework provides the structural foundation for the regression model.</p>
+</div>
+<p><strong>(c)</strong> Write the formulas for the <strong>ATE</strong> (eq. [2.75]) and the <strong>ATT</strong> (eq. [2.76]). In one sentence each, explain what population each one refers to.</p>
+<div class="solution">
+<p><span id="unlabeled-div-8" class="solution"><em>Solution</em>. </span><span class="math display">\[ATE = E[y(1) - y(0)] = E[y(1)] - E[y(0)]\]</span></p>
+<p>The ATE is the average effect across the <strong>entire population</strong> (both treated and untreated).</p>
+<p><span class="math display">\[ATT = E[y(1) - y(0) \mid x = 1]\]</span></p>
+<p>The ATT is the average effect among <strong>those who actually received treatment</strong> only.</p>
+<p>If treatment effects are heterogeneous and correlated with treatment selection, <span class="math inline">\(ATE \neq ATT\)</span>.</p>
+</div>
+<hr>
+</div>
+<div id="block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Block 3: ATE vs. ATT and Selection Bias — Numerical Exercise (13 min)<a class="anchor" aria-label="anchor" href="#block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Question 4</strong> <em>(Numerical exercise)</em></p>
+<p>Suppose we have a population with two types of individuals:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="center">Type</th>
+<th align="center">Fraction of population</th>
+<th align="center"><span class="math inline">\(y_i(0)\)</span></th>
+<th align="center"><span class="math inline">\(y_i(1)\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">A</td>
+<td align="center">0.6</td>
+<td align="center">2</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">B</td>
+<td align="center">0.4</td>
+<td align="center">4</td>
+<td align="center">6</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>(a)</strong> Compute the individual treatment effect <span class="math inline">\(\tau\)</span> for each type.</p>
+<div class="solution">
+<p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span></p>
+<ul>
+<li>Type A: <span class="math inline">\(\tau_A = 5 - 2 = 3\)</span>
+</li>
+<li>Type B: <span class="math inline">\(\tau_B = 6 - 4 = 2\)</span>
+</li>
+</ul>
+</div>
+<p><strong>(b)</strong> Compute the <strong>ATE</strong>.</p>
+<div class="solution">
+<p><span id="unlabeled-div-10" class="solution"><em>Solution</em>. </span><span class="math display">\[ATE = E[\tau] = 0.6 \times 3 + 0.4 \times 2 = 1.8 + 0.8 = \boxed{2.6}\]</span></p>
+</div>
+<p><strong>(c)</strong> Now suppose that <strong>only Type A</strong> individuals get treated (<span class="math inline">\(x = 1\)</span> for Type A, <span class="math inline">\(x = 0\)</span> for Type B). Compute the <strong>ATT</strong>. Is it equal to the ATE? Why or why not?</p>
+<div class="solution">
+<p><span id="unlabeled-div-11" class="solution"><em>Solution</em>. </span><span class="math inline">\(ATT = E[\tau \mid x = 1] = \tau_A = \boxed{3}\)</span>.</p>
+<p><span class="math inline">\(ATT = 3 \neq 2.6 = ATE\)</span> because Type A has a <em>larger</em> treatment effect than Type B. Treatment assignment is correlated with the individual treatment effect — <strong>heterogeneous effects</strong> combined with <strong>selection into treatment</strong>.</p>
+</div>
+<p><strong>(d)</strong> Compute the <strong>selection bias</strong> <span class="math inline">\(E[y(0) \mid x=1] - E[y(0) \mid x=0]\)</span>. What is its sign? Interpret.</p>
+<div class="solution">
+<p><span id="unlabeled-div-12" class="solution"><em>Solution</em>. </span><span class="math display">\[\text{Selection Bias} = E[y(0) \mid x=1] - E[y(0) \mid x=0] = y_A(0) - y_B(0) = 2 - 4 = \boxed{-2}\]</span></p>
+<p>The bias is <strong>negative</strong>: treated individuals (Type A) have <em>lower</em> baseline outcomes. Intuitively, they are worse off without treatment, which is perhaps why they received it.</p>
+</div>
+<p><strong>(e)</strong> Verify the decomposition: compute both sides of</p>
+<p><span class="math display">\[E[y \mid x=1] - E[y \mid x=0] = ATT + \text{Selection Bias}\]</span></p>
+<div class="solution">
+<p><span id="unlabeled-div-13" class="solution"><em>Solution</em>. </span><strong>Left side:</strong> <span class="math inline">\(E[y \mid x=1] - E[y \mid x=0] = y_A(1) - y_B(0) = 5 - 4 = 1\)</span>.</p>
+<p><strong>Right side:</strong> <span class="math inline">\(ATT + \text{Sel. Bias} = 3 + (-2) = 1\)</span>. ✓</p>
+<p>The naive comparison (<span class="math inline">\(\bar{y}_1 - \bar{y}_0 = 1\)</span>) <em>understates</em> the true ATT of 3 because of negative selection bias.</p>
+</div>
+<p><strong>(f)</strong> Suppose instead that treatment were <strong>randomly assigned</strong> (each individual gets <span class="math inline">\(x=1\)</span> with probability 0.5, regardless of type). What would <span class="math inline">\(E[\bar{y}_1 - \bar{y}_0]\)</span> estimate?</p>
+<div class="solution">
+<p><span id="unlabeled-div-14" class="solution"><em>Solution</em>. </span>Under random assignment, <span class="math inline">\(x \perp (y(0), y(1))\)</span>, so:</p>
+<ul>
+<li>Selection bias <span class="math inline">\(= E[y(0) \mid x=1] - E[y(0) \mid x=0] = 0\)</span>
+</li>
+<li><span class="math inline">\(ATT = ATE = 2.6\)</span></li>
+</ul>
+<p>Therefore <span class="math inline">\(E[\bar{y}_1 - \bar{y}_0] = ATE = 2.6\)</span>. The simple difference in means is <strong>unbiased</strong> for the ATE.</p>
+</div>
+<hr>
+</div>
+<div id="block-4-the-selection-bias-decomposition-and-random-assignment-13-min" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Block 4: The Selection Bias Decomposition and Random Assignment (13 min)<a class="anchor" aria-label="anchor" href="#block-4-the-selection-bias-decomposition-and-random-assignment-13-min"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>Question 5</strong> <em>(Key derivation)</em></p>
+<p>We now prove the result we used numerically in Block 3. Let <span class="math inline">\(\bar{y}_1\)</span> be the average outcome among treated units and <span class="math inline">\(\bar{y}_0\)</span> among untreated.</p>
+<p><strong>(a)</strong> Show that the <strong>population</strong> version of the comparison <span class="math inline">\(\bar{y}_1 - \bar{y}_0\)</span> decomposes as:</p>
+<p><span class="math display">\[
+E[y \mid x=1] - E[y \mid x=0]
+= \underbrace{E\bigl[y(1) - y(0) \mid x=1\bigr]}_{ATT}
++ \underbrace{E\bigl[y(0) \mid x=1\bigr] - E\bigl[y(0) \mid x=0\bigr]}_{\text{Selection Bias}}
+\]</span></p>
+<p><em>Hint: use the switching equation to write <span class="math inline">\(E[y \mid x=1] = E[y(1) \mid x=1]\)</span> and <span class="math inline">\(E[y \mid x=0] = E[y(0) \mid x=0]\)</span>. Then add and subtract <span class="math inline">\(E[y(0) \mid x=1]\)</span>.</em></p>
+<div class="solution">
+<p><span id="unlabeled-div-15" class="solution"><em>Solution</em>. </span>From the switching equation [2.77]:</p>
+<ul>
+<li>When <span class="math inline">\(x = 1\)</span>: <span class="math inline">\(y = y(1)\)</span>, so <span class="math inline">\(E[y \mid x=1] = E[y(1) \mid x=1]\)</span>.</li>
+<li>When <span class="math inline">\(x = 0\)</span>: <span class="math inline">\(y = y(0)\)</span>, so <span class="math inline">\(E[y \mid x=0] = E[y(0) \mid x=0]\)</span>.</li>
+</ul>
+<p>Therefore:</p>
+<p><span class="math display">\[E[y \mid x=1] - E[y \mid x=0] = E[y(1) \mid x=1] - E[y(0) \mid x=0]\]</span></p>
+<p><strong>Add and subtract</strong> <span class="math inline">\(E[y(0) \mid x=1]\)</span>:</p>
+<p><span class="math display">\[
+\begin{align*}
+&amp;= E[y(1) \mid x=1] - E[y(0) \mid x=1] + E[y(0) \mid x=1] - E[y(0) \mid x=0] \\[4pt]
+&amp;= \underbrace{E[y(1) - y(0) \mid x=1]}_{ATT}
++ \underbrace{E[y(0) \mid x=1] - E[y(0) \mid x=0]}_{\text{Selection Bias}} \quad\square
+\end{align*}
+\]</span></p>
+</div>
+<p><strong>(b)</strong> Explain in words what <span class="math inline">\(E[y(0) \mid x=1] - E[y(0) \mid x=0]\)</span> means. Use the education example (Ex. 1.4) and the job training context to give one example of <strong>positive</strong> and one of <strong>negative</strong> selection bias.</p>
+<div class="solution">
+<p><span id="unlabeled-div-16" class="solution"><em>Solution</em>. </span>It compares the <strong>baseline outcome</strong> (without treatment) between those who received treatment and those who did not. If treated individuals would have had different outcomes <em>even without treatment</em>, the naive comparison confounds pre-existing differences with the treatment effect.</p>
+<p><strong>Positive bias (Education):</strong> More able people self-select into college. They would earn more <em>even without</em> the extra schooling, so <span class="math inline">\(E[y(0) \mid x=1] &gt; E[y(0) \mid x=0]\)</span>. The naive wage gap <em>overstates</em> the return to education.</p>
+<p><strong>Negative bias (Job training):</strong> Workers with worse prospects sign up for training. They would earn less <em>even without</em> the program, so <span class="math inline">\(E[y(0) \mid x=1] &lt; E[y(0) \mid x=0]\)</span>. The naive comparison <em>understates</em> the program’s effect.</p>
+</div>
+<p><strong>(c)</strong> Now suppose treatment is <strong>randomly assigned</strong>. Before doing the math, let us understand <em>why</em> randomization works.</p>
+<div class="bookexample">
+<p><strong>Why does random assignment “work”? — The mathematical mechanism</strong></p>
+<p><strong>Step 0: A key property of independence.</strong> Recall that if <span class="math inline">\(X \perp Y\)</span>, then</p>
+<p><span class="math display">\[E[Y \mid X = x] = E[Y] \quad \text{for all } x\]</span></p>
+<p>Conditioning on an independent variable <strong>does nothing</strong>: the conditional expectation equals the unconditional one. <em>This single fact is the entire engine.</em></p>
+<p><strong>Step 1: Why does randomization create independence?</strong> Before the experiment, each unit <span class="math inline">\(i\)</span> already has <em>fixed</em> potential outcomes <span class="math inline">\((y_i(0), y_i(1))\)</span>, determined by that person’s characteristics (ability, motivation, health, …). These exist regardless of what we do.</p>
+<p>When we randomly assign treatment, <span class="math inline">\(x_i\)</span> is determined by a coin flip that <strong>knows nothing</strong> about unit <span class="math inline">\(i\)</span>. Formally:</p>
+<p><span class="math display">\[P(x_i = 1 \mid y_i(0),\, y_i(1)) = P(x_i = 1) = p \quad \text{for all } i\]</span></p>
+<p>A person with <span class="math inline">\(y_i(0) = 100\)</span> has the <em>same</em> probability <span class="math inline">\(p\)</span> of being treated as a person with <span class="math inline">\(y_i(0) = 2\)</span>. The coin does not look at the potential outcomes. Therefore, <strong>by construction</strong>:</p>
+<p><span class="math display">\[\boxed{x \perp (y(0),\; y(1))}\]</span></p>
+<p><strong>Step 2: Apply the independence property.</strong> Since <span class="math inline">\(x \perp y(0)\)</span>:</p>
+<p><span class="math display">\[E[y(0) \mid x=1] = E[y(0)] \quad\text{and}\quad E[y(0) \mid x=0] = E[y(0)]\]</span></p>
+<p>The treated group and the control group have <strong>the same average baseline</strong> — not because they are identical person-by-person, but because the <em>sorting mechanism</em> (the coin) is unrelated to individual characteristics. Likewise, <span class="math inline">\(x \perp y(1)\)</span> gives <span class="math inline">\(E[y(1) \mid x=1] = E[y(1)]\)</span>.</p>
+<p><strong>Step 3: Why does this fail without randomization?</strong> Without randomization, people choose (or are selected for) treatment based on their characteristics — the same characteristics that determine <span class="math inline">\((y_i(0), y_i(1))\)</span>. So <span class="math inline">\(P(x_i = 1 \mid y_i(0), y_i(1)) \neq P(x_i = 1)\)</span>: the probability of treatment <em>depends on</em> potential outcomes. For example, if high-ability people are more likely to go to college, then <span class="math inline">\(E[y(0) \mid x=1] &gt; E[y(0) \mid x=0]\)</span>. Conditioning on <span class="math inline">\(x = 1\)</span> selects a non-representative subgroup, and the independence property fails.</p>
+</div>
+<p>Now use the property <span class="math inline">\(x \perp (y(0), y(1))\)</span> to show three things:</p>
+<p><strong>(i)</strong> Selection bias <span class="math inline">\(= 0\)</span>.</p>
+<p><strong>(ii)</strong> <span class="math inline">\(ATT = ATE\)</span>.</p>
+<p><strong>(iii)</strong> <span class="math inline">\(\bar{y}_1 - \bar{y}_0\)</span> is unbiased for the ATE.</p>
+<div class="solution">
+<p><span id="unlabeled-div-17" class="solution"><em>Solution</em>. </span>From the note above, independence gives us:</p>
+<p><span class="math display">\[E[y(0) \mid x=1] = E[y(0) \mid x=0] = E[y(0)]
+\quad\text{and}\quad
+E[y(1) \mid x=1] = E[y(1) \mid x=0] = E[y(1)]\]</span></p>
+<p><strong>(i) Selection bias vanishes:</strong></p>
+<p><span class="math display">\[E[y(0) \mid x=1] - E[y(0) \mid x=0] = E[y(0)] - E[y(0)] = 0\]</span></p>
+<p><strong>(ii) ATT = ATE:</strong></p>
+<p><span class="math display">\[ATT = E[y(1) - y(0) \mid x=1] = E[y(1)] - E[y(0)] = ATE\]</span></p>
+<p><strong>(iii) Unbiasedness:</strong> We now prove <span class="math inline">\(E[\bar{y}_1 - \bar{y}_0] = ATE\)</span> step by step.</p>
+<p><strong>Definition.</strong> An estimator <span class="math inline">\(\hat{\theta}\)</span> is <strong>unbiased</strong> for <span class="math inline">\(\theta\)</span> if <span class="math inline">\(E[\hat{\theta}] = \theta\)</span>. Here <span class="math inline">\(\hat{\theta} = \bar{y}_1 - \bar{y}_0\)</span> and <span class="math inline">\(\theta = ATE = E[y(1) - y(0)]\)</span>.</p>
+<p><em>Step 1 — What we observe in each group.</em> Treated individuals reveal <span class="math inline">\(y(1)\)</span>; control individuals reveal <span class="math inline">\(y(0)\)</span>:</p>
+<p><span class="math display">\[E[\bar{y}_1] = E[y \mid x=1] = E[y(1) \mid x=1]\]</span></p>
+<p><span class="math display">\[E[\bar{y}_0] = E[y \mid x=0] = E[y(0) \mid x=0]\]</span></p>
+<p><em>Step 2 — Apply random assignment.</em> Since <span class="math inline">\(x \perp (y(0), y(1))\)</span>, conditioning on <span class="math inline">\(x\)</span> does nothing:</p>
+<p><span class="math display">\[E[y(1) \mid x=1] = E[y(1)], \qquad E[y(0) \mid x=0] = E[y(0)]\]</span></p>
+<p><em>Step 3 — Substitute and conclude.</em></p>
+<p><span class="math display">\[
+\begin{align*}
+  E[\bar{y}_1 - \bar{y}_0]
+    &amp;= E[y(1) \mid x=1] - E[y(0) \mid x=0] &amp; \text{(Step 1)}\\
+    &amp;= E[y(1)] - E[y(0)]                    &amp; \text{(Step 2)}\\
+    &amp;= E[\,y(1) - y(0)\,]                   &amp; \text{(linearity of expectation)}\\
+    &amp;= ATE                                   &amp; \checkmark
+\end{align*}
+\]</span></p>
+<p><em>Intuition.</em> The fundamental problem of causal inference is that we never observe both <span class="math inline">\(y(1)\)</span> and <span class="math inline">\(y(0)\)</span> for the same person. But with <span class="math inline">\(x \perp (y(0), y(1))\)</span>, the treated group is a <em>random sample</em> of the population — their average <span class="math inline">\(y(1)\)</span> represents <strong>everyone’s</strong> <span class="math inline">\(y(1)\)</span> — and likewise the control group’s average <span class="math inline">\(y(0)\)</span> represents <strong>everyone’s</strong> <span class="math inline">\(y(0)\)</span>. Each group serves as a valid counterfactual for the other, and selection bias cancels exactly. <span class="math inline">\(\square\)</span></p>
+<p>This is why <strong>RCTs</strong> are the gold standard. Under random assignment, OLS gives <span class="math inline">\(\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0\)</span>, which is unbiased for the ATE (equation [2.82]).</p>
+</div>
+<p><strong>(d)</strong> <em>(Problem 15 from the book)</em> The <strong>sample average treatment effect</strong> estimator is <span class="math inline">\(\hat{\tau}_{ate} = n^{-1}\sum_{i=1}^{n}[y_i(1) - y_i(0)]\)</span>. Show that <em>if</em> we could observe both potential outcomes for everyone, <span class="math inline">\(\hat{\tau}_{ate}\)</span> would be unbiased for <span class="math inline">\(\tau_{ate} = E[y(1) - y(0)]\)</span>.</p>
+<div class="solution">
+<p><span id="unlabeled-div-18" class="solution"><em>Solution</em>. </span><span class="math display">\[
+E[\hat{\tau}_{ate}]
+= E\!\left[n^{-1}\sum_{i=1}^{n}[y_i(1) - y_i(0)]\right]
+= n^{-1}\sum_{i=1}^{n} E[y_i(1) - y_i(0)]
+\]</span></p>
+<p>Since the sample is i.i.d.:</p>
+<p><span class="math display">\[= n^{-1} \cdot n \cdot E[y(1) - y(0)] = \tau_{ate}\]</span></p>
+<p>So <span class="math inline">\(\hat{\tau}_{ate}\)</span> is <strong>unbiased</strong>. Of course, we can <em>never</em> compute it because we don’t observe both <span class="math inline">\(y_i(0)\)</span> and <span class="math inline">\(y_i(1)\)</span>. But under random assignment, <span class="math inline">\(\bar{y}_1 - \bar{y}_0\)</span> takes its place as an unbiased estimator. <span class="math inline">\(\square\)</span></p>
+</div>
+<p><strong>(e)</strong> Explain briefly why <span class="math inline">\(\bar{y}_1\)</span> and <span class="math inline">\(\bar{y}(1) \equiv n^{-1}\sum_{i=1}^{n} y_i(1)\)</span> are <em>not</em> the same thing.</p>
+<div class="solution">
+<p><span id="unlabeled-div-19" class="solution"><em>Solution</em>. </span><span class="math inline">\(\bar{y}(1)\)</span> averages <span class="math inline">\(y_i(1)\)</span> over <strong>all</strong> <span class="math inline">\(n\)</span> individuals (treated and untreated). <span class="math inline">\(\bar{y}_1\)</span> averages observed outcomes only over the <span class="math inline">\(n_1\)</span> <strong>treated</strong> individuals.</p>
+<p><span class="math inline">\(\bar{y}(1)\)</span> requires knowing <span class="math inline">\(y_i(1)\)</span> for untreated people — which we never observe. Under random assignment, <span class="math inline">\(\bar{y}_1\)</span> is unbiased for <span class="math inline">\(E[y(1)]\)</span>, so it serves as a valid substitute.</p>
+</div>
+<hr>
+</div>
+<div id="block-5-application-job-training-program-6-min" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Block 5: Application — Job Training Program (6 min)<a class="anchor" aria-label="anchor" href="#block-5-application-job-training-program-6-min"><i class="fas fa-link"></i></a>
+</h2>
+<div class="bookexample">
+<p><strong>Example 2.14 — Evaluating a Job Training Program (JTRAIN2)</strong></p>
+<p>The data in JTRAIN2 are from the National Supported Work demonstration, where men were <strong>randomly assigned</strong> to receive job training (9–18 months) or serve as controls. The outcome is <code>re78</code>: real earnings in 1978 (thousands of 1982 dollars). The treatment variable is <code>train</code> (<span class="math inline">\(= 1\)</span> if trained).</p>
+<p>Of 445 men, 185 received training and 260 did not. The simple regression <span class="math inline">\(\widehat{re78} = \hat{\beta}_0 + \hat{\beta}_1 \cdot train\)</span> gives: <span class="math inline">\(\hat{\beta}_0 = 4.555\)</span> (control group average, in thousands), <span class="math inline">\(\hat{\beta}_1 = 1.794\)</span> (treated earned $1,794 more on average). The <span class="math inline">\(t\)</span>-statistic is 1.79, and <span class="math inline">\(R^2 \approx 0.018\)</span>.</p>
+<p>The small <span class="math inline">\(R^2\)</span> means training explains only 1.8% of earnings variation. But <span class="math inline">\(R^2\)</span> measures <strong>explanatory power</strong>, not causal significance — under random assignment, <span class="math inline">\(\hat{\beta}_1\)</span> is still unbiased for the ATE.</p>
+</div>
+<p><strong>Question 6</strong> <em>(From Example 2.14 in the book)</em></p>
+<p><strong>(a)</strong> Express <span class="math inline">\(\bar{y}_1\)</span>, <span class="math inline">\(\bar{y}_0\)</span>, and <span class="math inline">\(\hat{\beta}_1\)</span> in terms of each other. Compute <span class="math inline">\(\bar{y}_1\)</span>.</p>
+<div class="solution">
+<p><span id="unlabeled-div-20" class="solution"><em>Solution</em>. </span><span class="math inline">\(\bar{y}_0 = \hat{\beta}_0 = 4.555\)</span> (control mean). <span class="math inline">\(\bar{y}_1 = \hat{\beta}_0 + \hat{\beta}_1 = 4.555 + 1.794 = 6.349\)</span> (treated mean).</p>
+<p><span class="math display">\[\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0 = 1.794\]</span></p>
+<p>This is equation [2.82]: the OLS slope with a binary regressor equals the difference in group means.</p>
+</div>
+<p><strong>(b)</strong> Can we interpret <span class="math inline">\(\hat{\beta}_1 = 1.794\)</span> causally? Why? Express the effect as a percentage of the control mean.</p>
+<div class="solution">
+<p><span id="unlabeled-div-21" class="solution"><em>Solution</em>. </span><strong>Yes</strong>, because training was <strong>randomly assigned</strong>: <span class="math inline">\(E[y(0) \mid x=1] = E[y(0) \mid x=0]\)</span>, so selection bias <span class="math inline">\(= 0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span> is unbiased for the ATE.</p>
+<p>As a percentage: <span class="math inline">\(1.794 / 4.555 \approx 39.4\%\)</span> increase in earnings.</p>
+</div>
+<p><strong>(c)</strong> The <span class="math inline">\(R^2\)</span> is 0.018. A student says: “The training had no effect because <span class="math inline">\(R^2\)</span> is tiny.” Is this correct?</p>
+<div class="solution">
+<p><span id="unlabeled-div-22" class="solution"><em>Solution</em>. </span><strong>No.</strong> <span class="math inline">\(R^2\)</span> measures how much of the <em>total variation</em> in earnings is explained by the training dummy alone. Since many factors affect earnings (ability, experience, education, luck), a small <span class="math inline">\(R^2\)</span> is expected. It says nothing about whether the treatment effect is real or economically meaningful. The $1,794 effect (39% of control earnings) is substantial; the <span class="math inline">\(t\)</span>-stat of 1.79 indicates borderline statistical significance.</p>
+</div>
+<p><strong>(d)</strong> If workers had <strong>volunteered</strong> instead of being randomly assigned, would you still trust the estimate? Why?</p>
+<div class="solution">
+<p><span id="unlabeled-div-23" class="solution"><em>Solution</em>. </span><strong>No.</strong> With self-selection, <span class="math inline">\(E[y(0) \mid x=1] \neq E[y(0) \mid x=0]\)</span>. Motivated workers may volunteer (positive selection bias <span class="math inline">\(\Rightarrow\)</span> overestimate), or workers with poor prospects may seek help (negative selection bias <span class="math inline">\(\Rightarrow\)</span> underestimate). The difference in means captures the treatment effect <em>plus</em> selection bias, and we cannot separate them.</p>
+</div>
+<hr>
+</div>
+<div id="summary-of-key-formulas" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Summary of Key Formulas<a class="anchor" aria-label="anchor" href="#summary-of-key-formulas"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Concept</th>
+<th align="left">Formula</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Potential outcomes</td>
+<td align="left">
+<span class="math inline">\(y_i(0)\)</span>, <span class="math inline">\(y_i(1)\)</span>
+</td>
+</tr>
+<tr class="even">
+<td align="left">Individual treatment effect</td>
+<td align="left"><span class="math inline">\(\tau_i = y_i(1) - y_i(0)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Observed outcome [2.77]</td>
+<td align="left"><span class="math inline">\(y_i = x_i \cdot y_i(1) + (1-x_i)\cdot y_i(0)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Equivalent form [2.78]</td>
+<td align="left"><span class="math inline">\(y_i = y_i(0) + \tau_i \cdot x_i\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">ATE [2.75]</td>
+<td align="left"><span class="math inline">\(E[y(1)] - E[y(0)]\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">ATT [2.76]</td>
+<td align="left"><span class="math inline">\(E[y(1) - y(0) \mid x=1]\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Selection bias</td>
+<td align="left"><span class="math inline">\(E[y(0) \mid x=1] - E[y(0) \mid x=0]\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">Decomposition</td>
+<td align="left"><span class="math inline">\(E[y \mid x=1] - E[y \mid x=0] = ATT + \text{Sel. Bias}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">Random assignment <span class="math inline">\(\Rightarrow\)</span>
+</td>
+<td align="left">Sel. Bias <span class="math inline">\(= 0\)</span>, <span class="math inline">\(ATT = ATE\)</span>
+</td>
+</tr>
+<tr class="even">
+<td align="left">Connection to regression [2.79]</td>
+<td align="left">
+<span class="math inline">\(y_i = \beta_0 + \tau\, x_i + u_i\)</span> (constant effects)</td>
+</tr>
+<tr class="odd">
+<td align="left">OLS estimator [2.82]</td>
+<td align="left"><span class="math inline">\(\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0\)</span></td>
+</tr>
+</tbody>
+</table></div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning"><span class="header-section-number">5</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+<li><a class="nav-link" href="#block-1-motivation-why-do-we-need-potential-outcomes-5-min"><span class="header-section-number">5.1</span> Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)</a></li>
+<li><a class="nav-link" href="#block-2-potential-outcomes-notation-13-min"><span class="header-section-number">5.2</span> Block 2: Potential Outcomes Notation (13 min)</a></li>
+<li><a class="nav-link" href="#block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min"><span class="header-section-number">5.3</span> Block 3: ATE vs. ATT and Selection Bias — Numerical Exercise (13 min)</a></li>
+<li><a class="nav-link" href="#block-4-the-selection-bias-decomposition-and-random-assignment-13-min"><span class="header-section-number">5.4</span> Block 4: The Selection Bias Decomposition and Random Assignment (13 min)</a></li>
+<li><a class="nav-link" href="#block-5-application-job-training-program-6-min"><span class="header-section-number">5.5</span> Block 5: Application — Job Training Program (6 min)</a></li>
+<li><a class="nav-link" href="#summary-of-key-formulas"><span class="header-section-number">5.6</span> Summary of Key Formulas</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</strong>: Introductory Econometrics — TA Session" was written by . </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
