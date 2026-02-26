@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>5 Tutorial 3b: Statistical Inference in Simple Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</title>
+<meta name="author" content="">
+<meta name="description" content="Tutorial 3 established two core results about the OLS slope estimator \(\hat\beta_1\): Unbiasedness: \(\mathbb{E}[\hat\beta_1 \mid X] = \beta_1\)  Sampling variance: \(\text{Var}(\hat\beta_1 \mid...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="5 Tutorial 3b: Statistical Inference in Simple Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Tutorial 3 established two core results about the OLS slope estimator \(\hat\beta_1\): Unbiasedness: \(\mathbb{E}[\hat\beta_1 \mid X] = \beta_1\)  Sampling variance: \(\text{Var}(\hat\beta_1 \mid...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 Tutorial 3b: Statistical Inference in Simple Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
+<meta name="twitter:description" content="Tutorial 3 established two core results about the OLS slope estimator \(\hat\beta_1\): Unbiasedness: \(\mathbb{E}[\hat\beta_1 \mid X] = \beta_1\)  Sampling variance: \(\text{Var}(\hat\beta_1 \mid...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="active" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-3b-statistical-inference-in-simple-regression" class="section level1" number="5">
+<h1>
+<span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression<a class="anchor" aria-label="anchor" href="#tutorial-3b-statistical-inference-in-simple-regression"><i class="fas fa-link"></i></a>
+</h1>
+<p>Tutorial 3 established two core results about the OLS slope estimator <span class="math inline">\(\hat\beta_1\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>
+<strong>Unbiasedness:</strong> <span class="math inline">\(\mathbb{E}[\hat\beta_1 \mid X] = \beta_1\)</span>
+</li>
+<li>
+<strong>Sampling variance:</strong> <span class="math inline">\(\text{Var}(\hat\beta_1 \mid X) = \dfrac{\sigma^2}{S_{xx}}\)</span>, where <span class="math inline">\(S_{xx} = \sum_{i=1}^n (X_i - \bar{X})^2\)</span>
+</li>
+</ol>
+<p>We also showed that <span class="math inline">\(\hat\sigma^2 = \dfrac{RSS}{n-2}\)</span> is an unbiased estimator of <span class="math inline">\(\sigma^2\)</span>.</p>
+<p>We know <em>that</em> <span class="math inline">\(\hat\beta_1\)</span> is centered at the truth and how <em>spread out</em> it is. What we have not yet done is ask: <strong>how likely is it that the true <span class="math inline">\(\beta_1\)</span> equals zero?</strong> That question — hypothesis testing — is the subject of this tutorial.</p>
+<hr>
+<p><strong>What we add in this tutorial:</strong></p>
+<ul>
+<li>The normality assumption and what it implies for the distribution of <span class="math inline">\(\hat\beta_1\)</span>
+</li>
+<li>The <span class="math inline">\(t\)</span>-statistic and its <span class="math inline">\(t(n-2)\)</span> null distribution</li>
+<li>Two-sided hypothesis tests and p-values</li>
+<li>Confidence intervals for <span class="math inline">\(\beta_1\)</span>
+</li>
+<li>The <span class="math inline">\(F\)</span>-test for the whole regression</li>
+</ul>
+<hr>
+<div id="part-a.-the-sampling-distribution-of-hatbeta_1" class="section level2" number="5.1">
+<h2>
+<span class="header-section-number">5.1</span> Part A. The Sampling Distribution of <span class="math inline">\(\hat\beta_1\)</span><a class="anchor" aria-label="anchor" href="#part-a.-the-sampling-distribution-of-hatbeta_1"><i class="fas fa-link"></i></a>
+</h2>
+<div id="a1.-an-additional-assumption-normality-of-errors" class="section level3" number="5.1.1">
+<h3>
+<span class="header-section-number">5.1.1</span> A1. An additional assumption: normality of errors<a class="anchor" aria-label="anchor" href="#a1.-an-additional-assumption-normality-of-errors"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Narrative idea.</strong> Unbiasedness and the variance formula hold under the four Gauss-Markov assumptions alone. But to pin down the <em>exact</em> shape of the sampling distribution of <span class="math inline">\(\hat\beta_1\)</span> — and therefore build exact tests — we need one more assumption.</p>
+<p><strong>Assumption (Normality of the error term):</strong></p>
+<p><span class="math display">\[
+u_i \mid X \sim \mathcal{N}(0, \sigma^2)
+\]</span></p>
+<p>This says the errors are normally distributed, with mean zero and constant variance. Combined with the earlier assumptions, this is the classical normal linear model.</p>
+<p><strong>Why does this give us the distribution of <span class="math inline">\(\hat\beta_1\)</span>?</strong> Recall that <span class="math inline">\(\hat\beta_1\)</span> is a linear combination of the <span class="math inline">\(Y_i\)</span>’s, and each <span class="math inline">\(Y_i = \beta_0 + \beta_1 X_i + u_i\)</span>. Since the <span class="math inline">\(u_i\)</span> are normal, <span class="math inline">\(Y_i\)</span> is normal, and a linear combination of normals is normal:</p>
+<p><span class="math display">\[
+\hat\beta_1 \mid X \sim \mathcal{N}\!\left(\beta_1,\; \frac{\sigma^2}{S_{xx}}\right)
+\]</span></p>
+<p><strong>Standardising</strong> by subtracting the mean and dividing by the standard deviation:</p>
+<p><span class="math display">\[
+\frac{\hat\beta_1 - \beta_1}{\sigma / \sqrt{S_{xx}}} \sim \mathcal{N}(0,1)
+\]</span></p>
+<p>This would let us build tests — <em>if</em> we knew <span class="math inline">\(\sigma\)</span>. We don’t. We replace <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\hat\sigma = \sqrt{\hat\sigma^2}\)</span>, which introduces additional randomness.</p>
+<hr>
+</div>
+<div id="a2.-the-t-statistic-and-the-tn-2-distribution" class="section level3" number="5.1.2">
+<h3>
+<span class="header-section-number">5.1.2</span> A2. The <span class="math inline">\(t\)</span>-statistic and the <span class="math inline">\(t(n-2)\)</span> distribution<a class="anchor" aria-label="anchor" href="#a2.-the-t-statistic-and-the-tn-2-distribution"><i class="fas fa-link"></i></a>
+</h3>
+<p><strong>Key result.</strong> When <span class="math inline">\(\sigma\)</span> is replaced by <span class="math inline">\(\hat\sigma\)</span>:</p>
+<p><span class="math display">\[
+\boxed{t = \frac{\hat\beta_1 - \beta_1}{\widehat{\text{se}}(\hat\beta_1)} \sim t(n-2)}
+\]</span></p>
+<p>where the <strong>standard error</strong> of <span class="math inline">\(\hat\beta_1\)</span> is:</p>
+<p><span class="math display">\[
+\widehat{\text{se}}(\hat\beta_1) = \frac{\hat\sigma}{\sqrt{S_{xx}}}
+\]</span></p>
+<p>The distribution is Student’s <span class="math inline">\(t\)</span> with <span class="math inline">\(n - 2\)</span> degrees of freedom. The <span class="math inline">\(-2\)</span> comes from the two parameters estimated (<span class="math inline">\(\hat\beta_0\)</span>, <span class="math inline">\(\hat\beta_1\)</span>) — each one uses up one degree of freedom.</p>
+<p><strong>Intuition for the <span class="math inline">\(t\)</span> vs <span class="math inline">\(Z\)</span> distinction.</strong> With a <span class="math inline">\(Z\)</span>-statistic we divide by the <em>known</em> <span class="math inline">\(\sigma\)</span>; with a <span class="math inline">\(t\)</span>-statistic we divide by the <em>estimated</em> <span class="math inline">\(\hat\sigma\)</span>. Estimating <span class="math inline">\(\sigma\)</span> adds extra uncertainty, making the distribution heavier-tailed than the standard normal. As <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(\hat\sigma \to \sigma\)</span> and <span class="math inline">\(t(n-2) \to \mathcal{N}(0,1)\)</span>.</p>
+<hr>
+</div>
+<div id="a3.-what-summarylm...-reports" class="section level3" number="5.1.3">
+<h3>
+<span class="header-section-number">5.1.3</span> A3. What <code>summary(lm(...))</code> reports<a class="anchor" aria-label="anchor" href="#a3.-what-summarylm...-reports"><i class="fas fa-link"></i></a>
+</h3>
+<p>In R, <code>summary(lm(Y ~ X))</code> prints a coefficient table like:</p>
+<pre><code>             Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)   1.234      0.312    3.96   0.0002
+X             0.871      0.098    8.89   &lt;2e-16</code></pre>
+<p>Each row corresponds to one coefficient:</p>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="47%">
+<col width="52%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Column</th>
+<th align="left">Meaning</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>Estimate</code></td>
+<td align="left"><span class="math inline">\(\hat\beta_j\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><code>Std. Error</code></td>
+<td align="left"><span class="math inline">\(\widehat{\text{se}}(\hat\beta_j)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>t value</code></td>
+<td align="left">
+<span class="math inline">\(t = \hat\beta_j / \widehat{\text{se}}(\hat\beta_j)\)</span> (testing <span class="math inline">\(H_0: \beta_j = 0\)</span>)</td>
+</tr>
+<tr class="even">
+<td align="left"><code>Pr(&gt;|t|)</code></td>
+<td align="left">two-sided p-value</td>
+</tr>
+</tbody>
+</table></div>
+<hr>
+</div>
+</div>
+<div id="part-b.-hypothesis-testing" class="section level2" number="5.2">
+<h2>
+<span class="header-section-number">5.2</span> Part B. Hypothesis Testing<a class="anchor" aria-label="anchor" href="#part-b.-hypothesis-testing"><i class="fas fa-link"></i></a>
+</h2>
+<div id="b1.-the-testing-framework" class="section level3" number="5.2.1">
+<h3>
+<span class="header-section-number">5.2.1</span> B1. The testing framework<a class="anchor" aria-label="anchor" href="#b1.-the-testing-framework"><i class="fas fa-link"></i></a>
+</h3>
+<p>A <strong>hypothesis test</strong> asks: is the data consistent with a specific claim about <span class="math inline">\(\beta_1\)</span>?</p>
+<p><strong>Null hypothesis:</strong> <span class="math inline">\(H_0: \beta_1 = \beta_1^0\)</span> (a specific value, usually zero)</p>
+<p><strong>Alternative hypothesis:</strong> <span class="math inline">\(H_1: \beta_1 \neq \beta_1^0\)</span> (two-sided)</p>
+<p><strong>The test statistic</strong> under <span class="math inline">\(H_0\)</span>:</p>
+<p><span class="math display">\[
+\boxed{t = \frac{\hat\beta_1 - \beta_1^0}{\widehat{\text{se}}(\hat\beta_1)} \sim t(n-2) \text{ under } H_0}
+\]</span></p>
+<p><strong>Decision rule.</strong> Fix a significance level <span class="math inline">\(\alpha\)</span> (typically 0.05). Reject <span class="math inline">\(H_0\)</span> if:</p>
+<p><span class="math display">\[
+|t| &gt; c_{\alpha/2}
+\]</span></p>
+<p>where <span class="math inline">\(c_{\alpha/2}\)</span> is the <span class="math inline">\(100(1 - \alpha/2)\)</span>th percentile of the <span class="math inline">\(t(n-2)\)</span> distribution. For large <span class="math inline">\(n\)</span>, <span class="math inline">\(c_{0.025} \approx 1.96\)</span>.</p>
+<hr>
+</div>
+<div id="b2.-the-p-value" class="section level3" number="5.2.2">
+<h3>
+<span class="header-section-number">5.2.2</span> B2. The p-value<a class="anchor" aria-label="anchor" href="#b2.-the-p-value"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <strong>p-value</strong> is the probability, under <span class="math inline">\(H_0\)</span>, of observing a test statistic at least as extreme as the one we obtained:</p>
+<p><span class="math display">\[
+p = P(|T_{n-2}| \geq |t_{\text{obs}}|) = 2\,P(T_{n-2} \geq |t_{\text{obs}}|)
+\]</span></p>
+<p>A small p-value means the data are unlikely under <span class="math inline">\(H_0\)</span>.</p>
+<p><strong>Decision rule equivalently:</strong> Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p &lt; \alpha\)</span>.</p>
+<p><strong>Common (mis)interpretation.</strong> The p-value is <em>not</em> the probability that <span class="math inline">\(H_0\)</span> is true. It is the probability of the data (or more extreme data), <em>given</em> that <span class="math inline">\(H_0\)</span> is true.</p>
+<hr>
+</div>
+<div id="b3.-worked-numerical-example" class="section level3" number="5.2.3">
+<h3>
+<span class="header-section-number">5.2.3</span> B3. Worked numerical example<a class="anchor" aria-label="anchor" href="#b3.-worked-numerical-example"><i class="fas fa-link"></i></a>
+</h3>
+<div id="question-17" class="section level4" number="5.2.3.1">
+<h4>
+<span class="header-section-number">5.2.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-17"><i class="fas fa-link"></i></a>
+</h4>
+<p>Suppose <span class="math inline">\(n = 50\)</span>, <span class="math inline">\(\hat\beta_1 = 0.45\)</span>, and <span class="math inline">\(\widehat{\text{se}}(\hat\beta_1) = 0.18\)</span>. Test <span class="math inline">\(H_0: \beta_1 = 0\)</span> against <span class="math inline">\(H_1: \beta_1 \neq 0\)</span> at the 5% level. State the t-statistic, the critical value, the decision, and a rough p-value.</p>
+</div>
+<div id="solution-20" class="section level4" number="5.2.3.2">
+<h4>
+<span class="header-section-number">5.2.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-20"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>t-statistic:</strong></p>
+<p><span class="math display">\[t = \frac{0.45 - 0}{0.18} = 2.50\]</span></p>
+<p><strong>Critical value.</strong> For <span class="math inline">\(t(n-2) = t(48)\)</span> at <span class="math inline">\(\alpha = 0.05\)</span> (two-sided), <span class="math inline">\(c_{0.025} \approx 2.01\)</span>.</p>
+<p><strong>Decision.</strong> Since <span class="math inline">\(|t| = 2.50 &gt; 2.01\)</span>, <strong>reject <span class="math inline">\(H_0\)</span></strong> at the 5% level. There is sufficient evidence that <span class="math inline">\(\beta_1 \neq 0\)</span>.</p>
+<p><strong>p-value.</strong> <span class="math inline">\(P(|T_{48}| \geq 2.50) \approx 0.016\)</span>. Since <span class="math inline">\(0.016 &lt; 0.05\)</span>, the conclusion is the same.</p>
+<div class="sourceCode" id="cb376"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Replicate the example</span></span>
+<span><span class="va">beta1_hat</span> <span class="op">&lt;-</span> <span class="fl">0.45</span></span>
+<span><span class="va">se_hat</span>    <span class="op">&lt;-</span> <span class="fl">0.18</span></span>
+<span><span class="va">n</span>         <span class="op">&lt;-</span> <span class="fl">50</span></span>
+<span></span>
+<span><span class="va">t_stat</span>    <span class="op">&lt;-</span> <span class="va">beta1_hat</span> <span class="op">/</span> <span class="va">se_hat</span></span>
+<span><span class="va">df</span>        <span class="op">&lt;-</span> <span class="va">n</span> <span class="op">-</span> <span class="fl">2</span></span>
+<span><span class="va">crit_val</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">qt</a></span><span class="op">(</span><span class="fl">0.975</span>, <span class="va">df</span><span class="op">)</span>          <span class="co"># two-sided 5% critical value</span></span>
+<span><span class="va">p_val</span>     <span class="op">&lt;-</span> <span class="fl">2</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/stats/TDist.html">pt</a></span><span class="op">(</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">t_stat</span><span class="op">)</span>, <span class="va">df</span><span class="op">)</span>  <span class="co"># two-sided p-value</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>t_stat <span class="op">=</span> <span class="va">t_stat</span>, critical_value <span class="op">=</span> <span class="va">crit_val</span>, p_value <span class="op">=</span> <span class="va">p_val</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##         t_stat critical_value        p_value 
+##         2.5000         2.0106         0.0159</code></pre>
+<hr>
+</div>
+</div>
+</div>
+<div id="part-c.-confidence-intervals" class="section level2" number="5.3">
+<h2>
+<span class="header-section-number">5.3</span> Part C. Confidence Intervals<a class="anchor" aria-label="anchor" href="#part-c.-confidence-intervals"><i class="fas fa-link"></i></a>
+</h2>
+<div id="c1.-construction" class="section level3" number="5.3.1">
+<h3>
+<span class="header-section-number">5.3.1</span> C1. Construction<a class="anchor" aria-label="anchor" href="#c1.-construction"><i class="fas fa-link"></i></a>
+</h3>
+<p>A <strong><span class="math inline">\(100(1-\alpha)\%\)</span> confidence interval</strong> for <span class="math inline">\(\beta_1\)</span> is:</p>
+<p><span class="math display">\[
+\boxed{\hat\beta_1 \pm c_{\alpha/2} \cdot \widehat{\text{se}}(\hat\beta_1)}
+\]</span></p>
+<p>where <span class="math inline">\(c_{\alpha/2} = t_{1-\alpha/2}(n-2)\)</span> is the critical value from the <span class="math inline">\(t(n-2)\)</span> distribution.</p>
+<p>For <span class="math inline">\(\alpha = 0.05\)</span> and large <span class="math inline">\(n\)</span>: <span class="math inline">\(c_{0.025} \approx 1.96\)</span>.</p>
+<p><strong>Interpretation.</strong> If we were to repeat the sampling procedure many times, approximately <span class="math inline">\(100(1-\alpha)\%\)</span> of the resulting intervals would contain the true <span class="math inline">\(\beta_1\)</span>. A single realized interval either contains <span class="math inline">\(\beta_1\)</span> or it does not — the probability statement refers to the <em>procedure</em>, not the specific interval.</p>
+<hr>
+</div>
+<div id="c2.-connection-to-hypothesis-testing" class="section level3" number="5.3.2">
+<h3>
+<span class="header-section-number">5.3.2</span> C2. Connection to hypothesis testing<a class="anchor" aria-label="anchor" href="#c2.-connection-to-hypothesis-testing"><i class="fas fa-link"></i></a>
+</h3>
+<p>There is an exact duality:</p>
+<blockquote>
+<p><strong>Reject <span class="math inline">\(H_0: \beta_1 = \beta_1^0\)</span> at level <span class="math inline">\(\alpha\)</span> <span class="math inline">\(\iff\)</span> <span class="math inline">\(\beta_1^0\)</span> lies outside the <span class="math inline">\(100(1-\alpha)\%\)</span> CI.</strong></p>
+</blockquote>
+<p>A confidence interval is therefore a compact summary of <em>all</em> values of <span class="math inline">\(\beta_1^0\)</span> that the data cannot reject.</p>
+<hr>
+</div>
+<div id="c3.-worked-example-continued" class="section level3" number="5.3.3">
+<h3>
+<span class="header-section-number">5.3.3</span> C3. Worked example (continued)<a class="anchor" aria-label="anchor" href="#c3.-worked-example-continued"><i class="fas fa-link"></i></a>
+</h3>
+<div id="question-18" class="section level4" number="5.3.3.1">
+<h4>
+<span class="header-section-number">5.3.3.1</span> Question<a class="anchor" aria-label="anchor" href="#question-18"><i class="fas fa-link"></i></a>
+</h4>
+<p>Using the same setup (<span class="math inline">\(n=50\)</span>, <span class="math inline">\(\hat\beta_1 = 0.45\)</span>, <span class="math inline">\(\widehat{\text{se}} = 0.18\)</span>), construct a 95% confidence interval for <span class="math inline">\(\beta_1\)</span>.</p>
+</div>
+<div id="solution-21" class="section level4" number="5.3.3.2">
+<h4>
+<span class="header-section-number">5.3.3.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-21"><i class="fas fa-link"></i></a>
+</h4>
+<p><span class="math display">\[
+CI_{95\%} = 0.45 \pm 2.01 \times 0.18 = 0.45 \pm 0.362 = [0.088,\ 0.812]
+\]</span></p>
+<p>Since zero is outside <span class="math inline">\([0.088, 0.812]\)</span>, we reject <span class="math inline">\(H_0: \beta_1 = 0\)</span> — consistent with the <span class="math inline">\(t\)</span>-test above.</p>
+<div class="sourceCode" id="cb378"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">lower</span> <span class="op">&lt;-</span> <span class="va">beta1_hat</span> <span class="op">-</span> <span class="va">crit_val</span> <span class="op">*</span> <span class="va">se_hat</span></span>
+<span><span class="va">upper</span> <span class="op">&lt;-</span> <span class="va">beta1_hat</span> <span class="op">+</span> <span class="va">crit_val</span> <span class="op">*</span> <span class="va">se_hat</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>lower <span class="op">=</span> <span class="va">lower</span>, upper <span class="op">=</span> <span class="va">upper</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## lower upper 
+## 0.088 0.812</code></pre>
+<hr>
+</div>
+</div>
+</div>
+<div id="part-d.-the-f-test-for-the-whole-regression" class="section level2" number="5.4">
+<h2>
+<span class="header-section-number">5.4</span> Part D. The <span class="math inline">\(F\)</span>-Test for the Whole Regression<a class="anchor" aria-label="anchor" href="#part-d.-the-f-test-for-the-whole-regression"><i class="fas fa-link"></i></a>
+</h2>
+<div id="d1.-motivation" class="section level3" number="5.4.1">
+<h3>
+<span class="header-section-number">5.4.1</span> D1. Motivation<a class="anchor" aria-label="anchor" href="#d1.-motivation"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <span class="math inline">\(t\)</span>-test on <span class="math inline">\(\hat\beta_1\)</span> tests one coefficient. The <span class="math inline">\(F\)</span>-test asks whether the <em>entire regression</em> explains a significant amount of variation in <span class="math inline">\(Y\)</span>.</p>
+<p>In simple regression this is equivalent to testing <span class="math inline">\(H_0: \beta_1 = 0\)</span>, and the <span class="math inline">\(F\)</span>-statistic equals <span class="math inline">\(t^2\)</span>. The <span class="math inline">\(F\)</span>-test becomes indispensable in multiple regression, where we test all slopes jointly.</p>
+<hr>
+</div>
+<div id="d2.-construction-from-tss-ess-rss" class="section level3" number="5.4.2">
+<h3>
+<span class="header-section-number">5.4.2</span> D2. Construction from TSS = ESS + RSS<a class="anchor" aria-label="anchor" href="#d2.-construction-from-tss-ess-rss"><i class="fas fa-link"></i></a>
+</h3>
+<p>Recall from Tutorial 2: <span class="math inline">\(TSS = ESS + RSS\)</span>.</p>
+<p>The <strong><span class="math inline">\(F\)</span>-statistic</strong> compares the variation <em>explained</em> by the model to the variation that remains unexplained, adjusted for degrees of freedom:</p>
+<p><span class="math display">\[
+\boxed{F = \frac{ESS / k}{RSS / (n - k - 1)}}
+\]</span></p>
+<p>For simple regression (<span class="math inline">\(k = 1\)</span> regressor):</p>
+<p><span class="math display">\[
+F = \frac{ESS / 1}{RSS / (n-2)} = \frac{ESS}{\hat\sigma^2}
+\]</span></p>
+<p>Under <span class="math inline">\(H_0: \beta_1 = 0\)</span>, <span class="math inline">\(F \sim F(1,\, n-2)\)</span>.</p>
+<p><strong>Decision rule.</strong> Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(F &gt; F_\alpha(1, n-2)\)</span>, the <span class="math inline">\(\alpha\)</span>-level critical value of the <span class="math inline">\(F(1,n-2)\)</span> distribution.</p>
+<hr>
+</div>
+<div id="d3.-r2-and-the-f-statistic" class="section level3" number="5.4.3">
+<h3>
+<span class="header-section-number">5.4.3</span> D3. <span class="math inline">\(R^2\)</span> and the <span class="math inline">\(F\)</span>-statistic<a class="anchor" aria-label="anchor" href="#d3.-r2-and-the-f-statistic"><i class="fas fa-link"></i></a>
+</h3>
+<p>Since <span class="math inline">\(TSS = ESS + RSS\)</span>:</p>
+<p><span class="math display">\[
+R^2 = \frac{ESS}{TSS} \implies ESS = R^2 \cdot TSS, \quad RSS = (1 - R^2) \cdot TSS
+\]</span></p>
+<p>Substituting into the <span class="math inline">\(F\)</span>-formula:</p>
+<p><span class="math display">\[
+F = \frac{R^2 / 1}{(1 - R^2)/(n-2)} = \frac{R^2 (n-2)}{1 - R^2}
+\]</span></p>
+<p>This shows that a higher <span class="math inline">\(R^2\)</span> implies a larger <span class="math inline">\(F\)</span>-statistic — a <em>more significant</em> regression. But the two measure different things: <span class="math inline">\(R^2\)</span> is about <strong>explanatory power</strong>, <span class="math inline">\(F\)</span> is about <strong>statistical significance</strong>. A regression can have a tiny <span class="math inline">\(R^2\)</span> (low explanatory power) but a highly significant <span class="math inline">\(F\)</span> (the explained variation, though small, is too large to be due to chance alone), especially with large <span class="math inline">\(n\)</span>.</p>
+<hr>
+</div>
+<div id="d4.-quick-simulation" class="section level3" number="5.4.4">
+<h3>
+<span class="header-section-number">5.4.4</span> D4. Quick simulation<a class="anchor" aria-label="anchor" href="#d4.-quick-simulation"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb380"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">2026</span><span class="op">)</span></span>
+<span><span class="va">n</span>    <span class="op">&lt;-</span> <span class="fl">80</span></span>
+<span><span class="va">X</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">u</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">Y</span>    <span class="op">&lt;-</span> <span class="fl">0.5</span> <span class="op">+</span> <span class="fl">0.8</span> <span class="op">*</span> <span class="va">X</span> <span class="op">+</span> <span class="va">u</span></span>
+<span></span>
+<span><span class="va">fit</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">Y</span> <span class="op">~</span> <span class="va">X</span><span class="op">)</span></span>
+<span><span class="va">s</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># F-statistic and its p-value (reported by R)</span></span>
+<span><span class="va">s</span><span class="op">$</span><span class="va">fstatistic</span></span></code></pre></div>
+<pre><code>##     value     numdf     dendf 
+##  6.297228  1.000000 78.000000</code></pre>
+<div class="sourceCode" id="cb382"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Verify manually</span></span>
+<span><span class="va">TSS</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="va">Y</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">ESS</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/fitted.values.html">fitted</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span> <span class="op">-</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">Y</span><span class="op">)</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">RSS</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">F_manual</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">ESS</span> <span class="op">/</span> <span class="fl">1</span><span class="op">)</span> <span class="op">/</span> <span class="op">(</span><span class="va">RSS</span> <span class="op">/</span> <span class="op">(</span><span class="va">n</span> <span class="op">-</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>TSS <span class="op">=</span> <span class="va">TSS</span>, ESS <span class="op">=</span> <span class="va">ESS</span>, RSS <span class="op">=</span> <span class="va">RSS</span>,</span>
+<span>        R2  <span class="op">=</span> <span class="va">s</span><span class="op">$</span><span class="va">r.squared</span>,</span>
+<span>        F_manual <span class="op">=</span> <span class="va">F_manual</span><span class="op">)</span>, <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##      TSS      ESS      RSS       R2 F_manual 
+## 379.1344  28.3224 350.8121   0.0747   6.2972</code></pre>
+<p>The manual <span class="math inline">\(F\)</span> should match <code>s$fstatistic[1]</code>.</p>
+<hr>
+</div>
+</div>
+<div id="part-e.-application-401k-data" class="section level2" number="5.5">
+<h2>
+<span class="header-section-number">5.5</span> Part E. Application — 401(k) Data<a class="anchor" aria-label="anchor" href="#part-e.-application-401k-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>We return to the 401(k) dataset from Tutorial 2 and now interpret the full <code>summary(lm(...))</code> output.</p>
+<div class="sourceCode" id="cb384"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"k401k"</span><span class="op">)</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">k401k</span></span>
+<span></span>
+<span><span class="va">fit_401k</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">prate</span> <span class="op">~</span> <span class="va">mrate</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
+<span><span class="va">s_401k</span>    <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">fit_401k</span><span class="op">)</span></span>
+<span><span class="va">s_401k</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = prate ~ mrate, data = df)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -82.303  -8.184   5.178  12.712  16.807 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  83.0755     0.5633  147.48   &lt;2e-16 ***
+## mrate         5.8611     0.5270   11.12   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 16.09 on 1532 degrees of freedom
+## Multiple R-squared:  0.0747, Adjusted R-squared:  0.0741 
+## F-statistic: 123.7 on 1 and 1532 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div id="question-19" class="section level4" number="5.5.0.1">
+<h4>
+<span class="header-section-number">5.5.0.1</span> Question<a class="anchor" aria-label="anchor" href="#question-19"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>(a)</strong> Report <span class="math inline">\(\hat\beta_1\)</span>, <span class="math inline">\(\widehat{\text{se}}(\hat\beta_1)\)</span>, the <span class="math inline">\(t\)</span>-statistic, and the p-value for the slope.</p>
+</div>
+<div id="solution-22" class="section level4" number="5.5.0.2">
+<h4>
+<span class="header-section-number">5.5.0.2</span> Solution<a class="anchor" aria-label="anchor" href="#solution-22"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb386"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">coef_tbl</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">s_401k</span><span class="op">)</span></span>
+<span><span class="va">coef_tbl</span></span></code></pre></div>
+<pre><code>##              Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept) 83.075455  0.5632844 147.48402 0.000000e+00
+## mrate        5.861079  0.5270107  11.12137 1.097641e-27</code></pre>
+<p>The slope estimate is <span class="math inline">\(\hat\beta_1 \approx 5.86\)</span>, with <span class="math inline">\(\widehat{\text{se}} \approx 0.54\)</span>, giving <span class="math inline">\(t \approx 10.9\)</span>, <span class="math inline">\(p &lt; 0.001\)</span>. We strongly reject <span class="math inline">\(H_0: \beta_1 = 0\)</span>.</p>
+<hr>
+</div>
+<div id="question-20" class="section level4" number="5.5.0.3">
+<h4>
+<span class="header-section-number">5.5.0.3</span> Question<a class="anchor" aria-label="anchor" href="#question-20"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>(b)</strong> Construct a 95% confidence interval for <span class="math inline">\(\beta_1\)</span> using <code><a href="https://rdrr.io/r/stats/confint.html">confint()</a></code>. Interpret it economically.</p>
+</div>
+<div id="solution-23" class="section level4" number="5.5.0.4">
+<h4>
+<span class="header-section-number">5.5.0.4</span> Solution<a class="anchor" aria-label="anchor" href="#solution-23"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb388"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/confint.html">confint</a></span><span class="op">(</span><span class="va">fit_401k</span>, level <span class="op">=</span> <span class="fl">0.95</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##                2.5 %    97.5 %
+## (Intercept) 81.97057 84.180346
+## mrate        4.82734  6.894818</code></pre>
+<p>The 95% CI for the slope is approximately <span class="math inline">\([4.80,\ 6.93]\)</span>. We are 95% confident that a one-unit increase in the match rate is associated with a <span class="math inline">\(\beta_1\)</span> increase in the participation rate between 4.8 and 6.9 percentage points, in the population of similar plans.</p>
+<hr>
+</div>
+<div id="question-21" class="section level4" number="5.5.0.5">
+<h4>
+<span class="header-section-number">5.5.0.5</span> Question<a class="anchor" aria-label="anchor" href="#question-21"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>(c)</strong> Report the <span class="math inline">\(F\)</span>-statistic and its p-value. Is the regression significant at the 1% level?</p>
+</div>
+<div id="solution-24" class="section level4" number="5.5.0.6">
+<h4>
+<span class="header-section-number">5.5.0.6</span> Solution<a class="anchor" aria-label="anchor" href="#solution-24"><i class="fas fa-link"></i></a>
+</h4>
+<div class="sourceCode" id="cb390"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">s_401k</span><span class="op">$</span><span class="va">fstatistic</span></span></code></pre></div>
+<pre><code>##     value     numdf     dendf 
+##  123.6848    1.0000 1532.0000</code></pre>
+<div class="sourceCode" id="cb392"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="va">s_401k</span><span class="op">$</span><span class="va">fstatistic</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="va">s_401k</span><span class="op">$</span><span class="va">fstatistic</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>,</span>
+<span>   <span class="va">s_401k</span><span class="op">$</span><span class="va">fstatistic</span><span class="op">[</span><span class="fl">3</span><span class="op">]</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<pre><code>##        value 
+## 1.097641e-27</code></pre>
+<p>The <span class="math inline">\(F\)</span>-statistic is approximately 118, with a p-value far below 0.01. The regression is highly significant. Note that <span class="math inline">\(F \approx t^2\)</span> (check: <span class="math inline">\(10.9^2 \approx 118\)</span>), as expected in simple regression.</p>
+<hr>
+</div>
+<div id="question-22" class="section level4" number="5.5.0.7">
+<h4>
+<span class="header-section-number">5.5.0.7</span> Question<a class="anchor" aria-label="anchor" href="#question-22"><i class="fas fa-link"></i></a>
+</h4>
+<p><strong>(d)</strong> The <span class="math inline">\(R^2\)</span> is small (about 0.08). Does this mean the slope estimate is unreliable?</p>
+</div>
+<div id="solution-25" class="section level4" number="5.5.0.8">
+<h4>
+<span class="header-section-number">5.5.0.8</span> Solution<a class="anchor" aria-label="anchor" href="#solution-25"><i class="fas fa-link"></i></a>
+</h4>
+<p>No. <span class="math inline">\(R^2 = 0.08\)</span> means that 92% of the variation in participation rates is driven by factors other than the match rate — plan characteristics, firm type, worker demographics, etc. But this does not make <span class="math inline">\(\hat\beta_1\)</span> unreliable. The <span class="math inline">\(t\)</span>-statistic of 10.9 and the narrow confidence interval both confirm that the <em>estimated effect</em> of match rates is very precisely estimated. Low <span class="math inline">\(R^2\)</span> and high precision are not contradictory: they reflect that (i) <span class="math inline">\(X\)</span> explains a modest share of total variation, but (ii) it does so consistently across the sample.</p>
+<hr>
+</div>
+</div>
+<div id="summary-of-key-formulas" class="section level2" number="5.6">
+<h2>
+<span class="header-section-number">5.6</span> Summary of Key Formulas<a class="anchor" aria-label="anchor" href="#summary-of-key-formulas"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="20%">
+<col width="20%">
+<col width="60%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Concept</th>
+<th align="left">Formula</th>
+<th align="left">Distribution under <span class="math inline">\(H_0\)</span>
+</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">Standard error of <span class="math inline">\(\hat\beta_1\)</span>
+</td>
+<td align="left"><span class="math inline">\(\widehat{\text{se}}(\hat\beta_1) = \hat\sigma / \sqrt{S_{xx}}\)</span></td>
+<td align="left">—</td>
+</tr>
+<tr class="even">
+<td align="left">
+<span class="math inline">\(t\)</span>-statistic</td>
+<td align="left"><span class="math inline">\(t = (\hat\beta_1 - \beta_1^0) / \widehat{\text{se}}(\hat\beta_1)\)</span></td>
+<td align="left"><span class="math inline">\(t(n-2)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">95% confidence interval</td>
+<td align="left"><span class="math inline">\(\hat\beta_1 \pm t_{0.025}(n-2) \cdot \widehat{\text{se}}(\hat\beta_1)\)</span></td>
+<td align="left">—</td>
+</tr>
+<tr class="even">
+<td align="left">
+<span class="math inline">\(F\)</span>-statistic (simple regression)</td>
+<td align="left"><span class="math inline">\(F = ESS / \hat\sigma^2 = t^2\)</span></td>
+<td align="left"><span class="math inline">\(F(1, n-2)\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">
+<span class="math inline">\(F\)</span> in terms of <span class="math inline">\(R^2\)</span>
+</td>
+<td align="left"><span class="math inline">\(F = R^2(n-2)/(1-R^2)\)</span></td>
+<td align="left"><span class="math inline">\(F(1, n-2)\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bridge to Tutorial 5.</strong> In Block 5 of Tutorial 5, Example 2.14 reports <span class="math inline">\(\hat\beta_1 = 1.794\)</span> with a <span class="math inline">\(t\)</span>-statistic of 1.79, described as “borderline significant.” Now you can verify: <span class="math inline">\(1.794 / t \approx \widehat{\text{se}} \approx 1.00\)</span>, the 95% CI straddles zero (contains small negative values), and the p-value is approximately 0.074 — above the 5% threshold but below 10%. Whether this clears the bar for significance is a scientific judgement.</p>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></div>
+<div class="next"><a href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutorial-3b-statistical-inference-in-simple-regression"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li>
+<a class="nav-link" href="#part-a.-the-sampling-distribution-of-hatbeta_1"><span class="header-section-number">5.1</span> Part A. The Sampling Distribution of \(\hat\beta_1\)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#a1.-an-additional-assumption-normality-of-errors"><span class="header-section-number">5.1.1</span> A1. An additional assumption: normality of errors</a></li>
+<li><a class="nav-link" href="#a2.-the-t-statistic-and-the-tn-2-distribution"><span class="header-section-number">5.1.2</span> A2. The \(t\)-statistic and the \(t(n-2)\) distribution</a></li>
+<li><a class="nav-link" href="#a3.-what-summarylm...-reports"><span class="header-section-number">5.1.3</span> A3. What summary(lm(...)) reports</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#part-b.-hypothesis-testing"><span class="header-section-number">5.2</span> Part B. Hypothesis Testing</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#b1.-the-testing-framework"><span class="header-section-number">5.2.1</span> B1. The testing framework</a></li>
+<li><a class="nav-link" href="#b2.-the-p-value"><span class="header-section-number">5.2.2</span> B2. The p-value</a></li>
+<li><a class="nav-link" href="#b3.-worked-numerical-example"><span class="header-section-number">5.2.3</span> B3. Worked numerical example</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#part-c.-confidence-intervals"><span class="header-section-number">5.3</span> Part C. Confidence Intervals</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#c1.-construction"><span class="header-section-number">5.3.1</span> C1. Construction</a></li>
+<li><a class="nav-link" href="#c2.-connection-to-hypothesis-testing"><span class="header-section-number">5.3.2</span> C2. Connection to hypothesis testing</a></li>
+<li><a class="nav-link" href="#c3.-worked-example-continued"><span class="header-section-number">5.3.3</span> C3. Worked example (continued)</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#part-d.-the-f-test-for-the-whole-regression"><span class="header-section-number">5.4</span> Part D. The \(F\)-Test for the Whole Regression</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#d1.-motivation"><span class="header-section-number">5.4.1</span> D1. Motivation</a></li>
+<li><a class="nav-link" href="#d2.-construction-from-tss-ess-rss"><span class="header-section-number">5.4.2</span> D2. Construction from TSS = ESS + RSS</a></li>
+<li><a class="nav-link" href="#d3.-r2-and-the-f-statistic"><span class="header-section-number">5.4.3</span> D3. \(R^2\) and the \(F\)-statistic</a></li>
+<li><a class="nav-link" href="#d4.-quick-simulation"><span class="header-section-number">5.4.4</span> D4. Quick simulation</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#part-e.-application-401k-data"><span class="header-section-number">5.5</span> Part E. Application — 401(k) Data</a></li>
+<li><a class="nav-link" href="#summary-of-key-formulas"><span class="header-section-number">5.6</span> Summary of Key Formulas</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</strong>: Introductory Econometrics — TA Session" was written by . </p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

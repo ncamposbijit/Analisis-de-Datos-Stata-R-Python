@@ -6,14 +6,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>3 Tutorial 2: Simple linear Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</title>
 <meta name="author" content="">
-<meta name="description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
+<meta name="description" content="3.1 Problem 1: Simple Linear Regression with Intercept In Tutorial 1 we ran lm() and got a slope and an intercept. This tutorial asks: where do those numbers come from, and what do they optimize?...">
 <meta name="generator" content="bookdown 0.46 with bs4_book()">
 <meta property="og:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
 <meta property="og:type" content="book">
-<meta property="og:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
+<meta property="og:description" content="3.1 Problem 1: Simple Linear Regression with Intercept In Tutorial 1 we ran lm() and got a slope and an intercept. This tutorial asks: where do those numbers come from, and what do they optimize?...">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3 Tutorial 2: Simple linear Regression | Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning">
-<meta name="twitter:description" content="3.1 Problem 1: Simple Linear Regression with Intercept We study the simple linear regression with an intercept: \[ Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n \] with the...">
+<meta name="twitter:description" content="3.1 Problem 1: Simple Linear Regression with Intercept In Tutorial 1 we ran lm() and got a slope and an intercept. This tutorial asks: where do those numbers come from, and what do they optimize?...">
 <!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
 <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
@@ -50,8 +50,9 @@
 <li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
 <li><a class="active" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
 <li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
-<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">5</span> Tutorial 4: Midterm</a></li>
-<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">6</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+<li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -67,6 +68,18 @@
 <h2>
 <span class="header-section-number">3.1</span> Problem 1: Simple Linear Regression with Intercept<a class="anchor" aria-label="anchor" href="#problem-1-simple-linear-regression-with-intercept"><i class="fas fa-link"></i></a>
 </h2>
+<p>In Tutorial 1 we ran <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code> and got a slope and an intercept. This tutorial asks: <em>where do those numbers come from, and what do they optimize?</em></p>
+<p>The goal of simple linear regression is to summarize the relationship between two variables — education and wages, match rates and 401(k) participation — with a straight line. That line cannot fit every data point perfectly. The question is: <strong>which line is best?</strong> OLS answers this by minimizing the sum of <em>squared</em> prediction errors. Squaring penalizes large mistakes more than small ones, produces a unique closed-form solution, and connects directly to variance decomposition and inference.</p>
+<p>The error term <span class="math inline">\(\varepsilon_i\)</span> (written <span class="math inline">\(u_i\)</span> in Tutorial 3 onward, following Wooldridge — both denote the same object) captures everything that moves <span class="math inline">\(Y\)</span> beyond <span class="math inline">\(X\)</span>: unobserved ability, luck, measurement error.</p>
+<hr>
+<p><strong>A picture of what we are doing.</strong> Each point is one observation. The blue line is a candidate fit. The red segments are the residuals — the vertical gaps between the data and the line. OLS chooses the line that makes those squared gaps as small as possible.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:ols-geometry"></span>
+<img src="bookdownproj_files/figure-html/ols-geometry-1.png" alt="OLS minimizes the sum of squared vertical distances (red segments). The slope and intercept are chosen so no other line achieves a smaller total." width="624"><p class="caption">
+Figure 3.1: OLS minimizes the sum of squared vertical distances (red segments). The slope and intercept are chosen so no other line achieves a smaller total.
+</p>
+</div>
+<hr>
 <p>We study the <strong>simple linear regression with an intercept</strong>:</p>
 <p><span class="math display">\[
 Y_i = \beta_0 + \beta_1 X_i + \varepsilon_i, \qquad i = 1, \ldots, n
@@ -109,7 +122,7 @@ S(\beta_0, \beta_1) = \sum_{i=1}^n \left( Y_i - \beta_0 - \beta_1 X_i \right)^2
 \]</span></p>
 <p>Solving for <span class="math inline">\(\beta_0\)</span>:</p>
 <p><span class="math display">\[
-\boxed{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}}
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}
 \]</span></p>
 <p>First-Order Condition for <span class="math inline">\(\beta_1\)</span>:</p>
 <p><span class="math display">\[
@@ -155,7 +168,7 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 \]</span></p>
 <p>Therefore:</p>
 <p><span class="math display">\[
-\boxed{\sum_{i=1}^n \hat{u}_i = 0}
+\sum_{i=1}^n \hat{u}_i = 0
 \]</span></p>
 </div>
 <div id="residuals-are-orthogonal-to-x" class="section level4" number="3.1.2.2">
@@ -168,7 +181,7 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 \]</span></p>
 <p>Therefore:</p>
 <p><span class="math display">\[
-\boxed{\sum_{i=1}^n X_i \hat{u}_i = 0}
+\sum_{i=1}^n X_i \hat{u}_i = 0
 \]</span></p>
 </div>
 <div id="residuals-are-orthogonal-to-x_i---barx" class="section level4" number="3.1.2.3">
@@ -181,7 +194,7 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 \]</span></p>
 <p>Therefore:</p>
 <p><span class="math display">\[
-\boxed{\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0}
+\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0
 \]</span></p>
 </div>
 <div id="residuals-are-orthogonal-to-fitted-values" class="section level4" number="3.1.2.4">
@@ -195,7 +208,7 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 </h4>
 <p>Show that:</p>
 <p><span class="math display">\[
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\sum_{i=1}^n \hat Y_i \hat u_i = 0
 \]</span></p>
 </div>
 <div id="solution" class="section level4" number="3.1.2.6">
@@ -212,7 +225,7 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 \]</span></p>
 <p>By A1, both sums are zero. Therefore:</p>
 <p><span class="math display">\[
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\sum_{i=1}^n \hat Y_i \hat u_i = 0
 \]</span></p>
 <p><strong>Interpretation.</strong> The part OLS explains (<span class="math inline">\(\hat Y\)</span>) and the part it cannot explain (<span class="math inline">\(\hat u\)</span>) do not move together in the sample.</p>
 <hr>
@@ -247,7 +260,7 @@ Y_i - \beta_0 - \beta_1 X_i = Y_i - (\bar{Y} - \beta_1 \bar{X}) - \beta_1 X_i = 
 </h4>
 <p>Since <span class="math inline">\(\sum_{i=1}^n \hat{u}_i = 0\)</span>:</p>
 <p><span class="math display">\[
-\boxed{\bar{\hat{u}} = \frac{1}{n} \sum_{i=1}^n \hat{u}_i = 0}
+\bar{\hat{u}} = \frac{1}{n} \sum_{i=1}^n \hat{u}_i = 0
 \]</span></p>
 <hr>
 </div>
@@ -336,7 +349,7 @@ Y_i - \bar{Y} = (\hat{Y}_i - \bar{Y}) + (Y_i - \hat{Y}_i) = (\hat{Y}_i - \bar{Y}
 \]</span></p>
 <p>Therefore:</p>
 <p><span class="math display">\[
-\boxed{\widehat{\text{Cov}}(X, \hat{u}) = 0}
+\widehat{\text{Cov}}(X, \hat{u}) = 0
 \]</span></p>
 </div>
 </div>
@@ -349,7 +362,7 @@ Y_i - \bar{Y} = (\hat{Y}_i - \bar{Y}) + (Y_i - \hat{Y}_i) = (\hat{Y}_i - \bar{Y}
 \]</span></p>
 <p>Therefore:</p>
 <p><span class="math display">\[
-\boxed{\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0}
+\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0
 \]</span></p>
 <hr>
 </div>
@@ -484,7 +497,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 ## 
 ## # Installing packages --------------------------------------------------------
 ## - Installing wooldridge ...                     OK [linked from cache]
-## Successfully installed 1 package in 14 milliseconds.</code></pre>
+## Successfully installed 1 package in 15 milliseconds.</code></pre>
 <div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
 <span></span>

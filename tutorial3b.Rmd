@@ -1,0 +1,396 @@
+---
+title: "Tutorial 3b: Statistical Inference in Simple Regression"
+subtitle: "t-Tests, Confidence Intervals, and the F-Test"
+author: "Nicolás Campos Bijit"
+date: "January, 2026"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    number_sections: true
+    theme: flatly
+  pdf_document:
+    toc: true
+    number_sections: true
+---
+
+# Tutorial 3b: Statistical Inference in Simple Regression
+
+Tutorial 3 established two core results about the OLS slope estimator $\hat\beta_1$:
+
+1. **Unbiasedness:** $\mathbb{E}[\hat\beta_1 \mid X] = \beta_1$
+2. **Sampling variance:** $\text{Var}(\hat\beta_1 \mid X) = \dfrac{\sigma^2}{S_{xx}}$, where $S_{xx} = \sum_{i=1}^n (X_i - \bar{X})^2$
+
+We also showed that $\hat\sigma^2 = \dfrac{RSS}{n-2}$ is an unbiased estimator of $\sigma^2$.
+
+We know *that* $\hat\beta_1$ is centered at the truth and how *spread out* it is. What we have not yet done is ask: **how likely is it that the true $\beta_1$ equals zero?** That question — hypothesis testing — is the subject of this tutorial.
+
+---
+
+**What we add in this tutorial:**
+
+- The normality assumption and what it implies for the distribution of $\hat\beta_1$
+- The $t$-statistic and its $t(n-2)$ null distribution
+- Two-sided hypothesis tests and p-values
+- Confidence intervals for $\beta_1$
+- The $F$-test for the whole regression
+
+---
+
+## Part A. The Sampling Distribution of $\hat\beta_1$
+
+### A1. An additional assumption: normality of errors
+
+**Narrative idea.** Unbiasedness and the variance formula hold under the four Gauss-Markov assumptions alone. But to pin down the *exact* shape of the sampling distribution of $\hat\beta_1$ — and therefore build exact tests — we need one more assumption.
+
+**Assumption (Normality of the error term):**
+
+$$
+u_i \mid X \sim \mathcal{N}(0, \sigma^2)
+$$
+
+This says the errors are normally distributed, with mean zero and constant variance. Combined with the earlier assumptions, this is the classical normal linear model.
+
+**Why does this give us the distribution of $\hat\beta_1$?** Recall that $\hat\beta_1$ is a linear combination of the $Y_i$'s, and each $Y_i = \beta_0 + \beta_1 X_i + u_i$. Since the $u_i$ are normal, $Y_i$ is normal, and a linear combination of normals is normal:
+
+$$
+\hat\beta_1 \mid X \sim \mathcal{N}\!\left(\beta_1,\; \frac{\sigma^2}{S_{xx}}\right)
+$$
+
+**Standardising** by subtracting the mean and dividing by the standard deviation:
+
+$$
+\frac{\hat\beta_1 - \beta_1}{\sigma / \sqrt{S_{xx}}} \sim \mathcal{N}(0,1)
+$$
+
+This would let us build tests — *if* we knew $\sigma$. We don't. We replace $\sigma$ with $\hat\sigma = \sqrt{\hat\sigma^2}$, which introduces additional randomness.
+
+---
+
+### A2. The $t$-statistic and the $t(n-2)$ distribution
+
+**Key result.** When $\sigma$ is replaced by $\hat\sigma$:
+
+$$
+\boxed{t = \frac{\hat\beta_1 - \beta_1}{\widehat{\text{se}}(\hat\beta_1)} \sim t(n-2)}
+$$
+
+where the **standard error** of $\hat\beta_1$ is:
+
+$$
+\widehat{\text{se}}(\hat\beta_1) = \frac{\hat\sigma}{\sqrt{S_{xx}}}
+$$
+
+The distribution is Student's $t$ with $n - 2$ degrees of freedom. The $-2$ comes from the two parameters estimated ($\hat\beta_0$, $\hat\beta_1$) — each one uses up one degree of freedom.
+
+**Intuition for the $t$ vs $Z$ distinction.** With a $Z$-statistic we divide by the *known* $\sigma$; with a $t$-statistic we divide by the *estimated* $\hat\sigma$. Estimating $\sigma$ adds extra uncertainty, making the distribution heavier-tailed than the standard normal. As $n \to \infty$, $\hat\sigma \to \sigma$ and $t(n-2) \to \mathcal{N}(0,1)$.
+
+---
+
+### A3. What `summary(lm(...))` reports
+
+In R, `summary(lm(Y ~ X))` prints a coefficient table like:
+
+```
+             Estimate Std. Error t value Pr(>|t|)
+(Intercept)   1.234      0.312    3.96   0.0002
+X             0.871      0.098    8.89   <2e-16
+```
+
+Each row corresponds to one coefficient:
+
+| Column | Meaning |
+|:-------|:--------|
+| `Estimate` | $\hat\beta_j$ |
+| `Std. Error` | $\widehat{\text{se}}(\hat\beta_j)$ |
+| `t value` | $t = \hat\beta_j / \widehat{\text{se}}(\hat\beta_j)$ (testing $H_0: \beta_j = 0$) |
+| `Pr(>|t|)` | two-sided p-value |
+
+---
+
+## Part B. Hypothesis Testing
+
+### B1. The testing framework
+
+A **hypothesis test** asks: is the data consistent with a specific claim about $\beta_1$?
+
+**Null hypothesis:** $H_0: \beta_1 = \beta_1^0$ (a specific value, usually zero)
+
+**Alternative hypothesis:** $H_1: \beta_1 \neq \beta_1^0$ (two-sided)
+
+**The test statistic** under $H_0$:
+
+$$
+\boxed{t = \frac{\hat\beta_1 - \beta_1^0}{\widehat{\text{se}}(\hat\beta_1)} \sim t(n-2) \text{ under } H_0}
+$$
+
+**Decision rule.** Fix a significance level $\alpha$ (typically 0.05). Reject $H_0$ if:
+
+$$
+|t| > c_{\alpha/2}
+$$
+
+where $c_{\alpha/2}$ is the $100(1 - \alpha/2)$th percentile of the $t(n-2)$ distribution. For large $n$, $c_{0.025} \approx 1.96$.
+
+---
+
+### B2. The p-value
+
+The **p-value** is the probability, under $H_0$, of observing a test statistic at least as extreme as the one we obtained:
+
+$$
+p = P(|T_{n-2}| \geq |t_{\text{obs}}|) = 2\,P(T_{n-2} \geq |t_{\text{obs}}|)
+$$
+
+A small p-value means the data are unlikely under $H_0$.
+
+**Decision rule equivalently:** Reject $H_0$ if $p < \alpha$.
+
+**Common (mis)interpretation.** The p-value is *not* the probability that $H_0$ is true. It is the probability of the data (or more extreme data), *given* that $H_0$ is true.
+
+---
+
+### B3. Worked numerical example
+
+#### Question
+
+Suppose $n = 50$, $\hat\beta_1 = 0.45$, and $\widehat{\text{se}}(\hat\beta_1) = 0.18$. Test $H_0: \beta_1 = 0$ against $H_1: \beta_1 \neq 0$ at the 5% level. State the t-statistic, the critical value, the decision, and a rough p-value.
+
+#### Solution
+
+**t-statistic:**
+
+$$t = \frac{0.45 - 0}{0.18} = 2.50$$
+
+**Critical value.** For $t(n-2) = t(48)$ at $\alpha = 0.05$ (two-sided), $c_{0.025} \approx 2.01$.
+
+**Decision.** Since $|t| = 2.50 > 2.01$, **reject $H_0$** at the 5% level. There is sufficient evidence that $\beta_1 \neq 0$.
+
+**p-value.** $P(|T_{48}| \geq 2.50) \approx 0.016$. Since $0.016 < 0.05$, the conclusion is the same.
+
+```{r ttest-example, echo=TRUE}
+# Replicate the example
+beta1_hat <- 0.45
+se_hat    <- 0.18
+n         <- 50
+
+t_stat    <- beta1_hat / se_hat
+df        <- n - 2
+crit_val  <- qt(0.975, df)          # two-sided 5% critical value
+p_val     <- 2 * pt(-abs(t_stat), df)  # two-sided p-value
+
+round(c(t_stat = t_stat, critical_value = crit_val, p_value = p_val), 4)
+```
+
+---
+
+## Part C. Confidence Intervals
+
+### C1. Construction
+
+A **$100(1-\alpha)\%$ confidence interval** for $\beta_1$ is:
+
+$$
+\boxed{\hat\beta_1 \pm c_{\alpha/2} \cdot \widehat{\text{se}}(\hat\beta_1)}
+$$
+
+where $c_{\alpha/2} = t_{1-\alpha/2}(n-2)$ is the critical value from the $t(n-2)$ distribution.
+
+For $\alpha = 0.05$ and large $n$: $c_{0.025} \approx 1.96$.
+
+**Interpretation.** If we were to repeat the sampling procedure many times, approximately $100(1-\alpha)\%$ of the resulting intervals would contain the true $\beta_1$. A single realized interval either contains $\beta_1$ or it does not — the probability statement refers to the *procedure*, not the specific interval.
+
+---
+
+### C2. Connection to hypothesis testing
+
+There is an exact duality:
+
+> **Reject $H_0: \beta_1 = \beta_1^0$ at level $\alpha$ $\iff$ $\beta_1^0$ lies outside the $100(1-\alpha)\%$ CI.**
+
+A confidence interval is therefore a compact summary of *all* values of $\beta_1^0$ that the data cannot reject.
+
+---
+
+### C3. Worked example (continued)
+
+#### Question
+
+Using the same setup ($n=50$, $\hat\beta_1 = 0.45$, $\widehat{\text{se}} = 0.18$), construct a 95% confidence interval for $\beta_1$.
+
+#### Solution
+
+$$
+CI_{95\%} = 0.45 \pm 2.01 \times 0.18 = 0.45 \pm 0.362 = [0.088,\ 0.812]
+$$
+
+Since zero is outside $[0.088, 0.812]$, we reject $H_0: \beta_1 = 0$ — consistent with the $t$-test above.
+
+```{r ci-example, echo=TRUE}
+lower <- beta1_hat - crit_val * se_hat
+upper <- beta1_hat + crit_val * se_hat
+round(c(lower = lower, upper = upper), 3)
+```
+
+---
+
+## Part D. The $F$-Test for the Whole Regression
+
+### D1. Motivation
+
+The $t$-test on $\hat\beta_1$ tests one coefficient. The $F$-test asks whether the *entire regression* explains a significant amount of variation in $Y$.
+
+In simple regression this is equivalent to testing $H_0: \beta_1 = 0$, and the $F$-statistic equals $t^2$. The $F$-test becomes indispensable in multiple regression, where we test all slopes jointly.
+
+---
+
+### D2. Construction from TSS = ESS + RSS
+
+Recall from Tutorial 2: $TSS = ESS + RSS$.
+
+The **$F$-statistic** compares the variation *explained* by the model to the variation that remains unexplained, adjusted for degrees of freedom:
+
+$$
+\boxed{F = \frac{ESS / k}{RSS / (n - k - 1)}}
+$$
+
+For simple regression ($k = 1$ regressor):
+
+$$
+F = \frac{ESS / 1}{RSS / (n-2)} = \frac{ESS}{\hat\sigma^2}
+$$
+
+Under $H_0: \beta_1 = 0$, $F \sim F(1,\, n-2)$.
+
+**Decision rule.** Reject $H_0$ if $F > F_\alpha(1, n-2)$, the $\alpha$-level critical value of the $F(1,n-2)$ distribution.
+
+---
+
+### D3. $R^2$ and the $F$-statistic
+
+Since $TSS = ESS + RSS$:
+
+$$
+R^2 = \frac{ESS}{TSS} \implies ESS = R^2 \cdot TSS, \quad RSS = (1 - R^2) \cdot TSS
+$$
+
+Substituting into the $F$-formula:
+
+$$
+F = \frac{R^2 / 1}{(1 - R^2)/(n-2)} = \frac{R^2 (n-2)}{1 - R^2}
+$$
+
+This shows that a higher $R^2$ implies a larger $F$-statistic — a *more significant* regression. But the two measure different things: $R^2$ is about **explanatory power**, $F$ is about **statistical significance**. A regression can have a tiny $R^2$ (low explanatory power) but a highly significant $F$ (the explained variation, though small, is too large to be due to chance alone), especially with large $n$.
+
+---
+
+### D4. Quick simulation
+
+```{r f-test-sim, echo=TRUE}
+set.seed(2026)
+n    <- 80
+X    <- rnorm(n, 2, 1)
+u    <- rnorm(n, 0, 2)
+Y    <- 0.5 + 0.8 * X + u
+
+fit  <- lm(Y ~ X)
+s    <- summary(fit)
+
+# F-statistic and its p-value (reported by R)
+s$fstatistic
+
+# Verify manually
+TSS  <- sum((Y - mean(Y))^2)
+ESS  <- sum((fitted(fit) - mean(Y))^2)
+RSS  <- sum(resid(fit)^2)
+F_manual <- (ESS / 1) / (RSS / (n - 2))
+
+round(c(TSS = TSS, ESS = ESS, RSS = RSS,
+        R2  = s$r.squared,
+        F_manual = F_manual), 4)
+```
+
+The manual $F$ should match `s$fstatistic[1]`.
+
+---
+
+## Part E. Application — 401(k) Data
+
+We return to the 401(k) dataset from Tutorial 2 and now interpret the full `summary(lm(...))` output.
+
+```{r kload, echo=TRUE, message=FALSE, warning=FALSE}
+library(wooldridge)
+data("k401k")
+df <- k401k
+
+fit_401k  <- lm(prate ~ mrate, data = df)
+s_401k    <- summary(fit_401k)
+s_401k
+```
+
+#### Question
+
+**(a)** Report $\hat\beta_1$, $\widehat{\text{se}}(\hat\beta_1)$, the $t$-statistic, and the p-value for the slope.
+
+#### Solution
+
+```{r k401-inference, echo=TRUE}
+coef_tbl <- coef(s_401k)
+coef_tbl
+```
+
+The slope estimate is $\hat\beta_1 \approx 5.86$, with $\widehat{\text{se}} \approx 0.54$, giving $t \approx 10.9$, $p < 0.001$. We strongly reject $H_0: \beta_1 = 0$.
+
+---
+
+#### Question
+
+**(b)** Construct a 95% confidence interval for $\beta_1$ using `confint()`. Interpret it economically.
+
+#### Solution
+
+```{r k401-ci, echo=TRUE}
+confint(fit_401k, level = 0.95)
+```
+
+The 95% CI for the slope is approximately $[4.80,\ 6.93]$. We are 95% confident that a one-unit increase in the match rate is associated with a $\beta_1$ increase in the participation rate between 4.8 and 6.9 percentage points, in the population of similar plans.
+
+---
+
+#### Question
+
+**(c)** Report the $F$-statistic and its p-value. Is the regression significant at the 1% level?
+
+#### Solution
+
+```{r k401-f, echo=TRUE}
+s_401k$fstatistic
+pf(s_401k$fstatistic[1], s_401k$fstatistic[2],
+   s_401k$fstatistic[3], lower.tail = FALSE)
+```
+
+The $F$-statistic is approximately 118, with a p-value far below 0.01. The regression is highly significant. Note that $F \approx t^2$ (check: $10.9^2 \approx 118$), as expected in simple regression.
+
+---
+
+#### Question
+
+**(d)** The $R^2$ is small (about 0.08). Does this mean the slope estimate is unreliable?
+
+#### Solution
+
+No. $R^2 = 0.08$ means that 92% of the variation in participation rates is driven by factors other than the match rate — plan characteristics, firm type, worker demographics, etc. But this does not make $\hat\beta_1$ unreliable. The $t$-statistic of 10.9 and the narrow confidence interval both confirm that the *estimated effect* of match rates is very precisely estimated. Low $R^2$ and high precision are not contradictory: they reflect that (i) $X$ explains a modest share of total variation, but (ii) it does so consistently across the sample.
+
+---
+
+## Summary of Key Formulas
+
+| Concept | Formula | Distribution under $H_0$ |
+|:--------|:--------|:--------------------------|
+| Standard error of $\hat\beta_1$ | $\widehat{\text{se}}(\hat\beta_1) = \hat\sigma / \sqrt{S_{xx}}$ | — |
+| $t$-statistic | $t = (\hat\beta_1 - \beta_1^0) / \widehat{\text{se}}(\hat\beta_1)$ | $t(n-2)$ |
+| 95% confidence interval | $\hat\beta_1 \pm t_{0.025}(n-2) \cdot \widehat{\text{se}}(\hat\beta_1)$ | — |
+| $F$-statistic (simple regression) | $F = ESS / \hat\sigma^2 = t^2$ | $F(1, n-2)$ |
+| $F$ in terms of $R^2$ | $F = R^2(n-2)/(1-R^2)$ | $F(1, n-2)$ |
+
+**Bridge to Tutorial 5.** In Block 5 of Tutorial 5, Example 2.14 reports $\hat\beta_1 = 1.794$ with a $t$-statistic of 1.79, described as "borderline significant." Now you can verify: $1.794 / t \approx \widehat{\text{se}} \approx 1.00$, the 95% CI straddles zero (contains small negative values), and the p-value is approximately 0.074 — above the 5% threshold but below 10%. Whether this clears the bar for significance is a scientific judgement.

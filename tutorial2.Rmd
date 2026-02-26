@@ -16,6 +16,41 @@ output:
 # Tutorial 2: Simple linear Regression 
 ## Problem 1: Simple Linear Regression with Intercept
 
+In Tutorial 1 we ran `lm()` and got a slope and an intercept. This tutorial asks: *where do those numbers come from, and what do they optimize?*
+
+The goal of simple linear regression is to summarize the relationship between two variables — education and wages, match rates and 401(k) participation — with a straight line. That line cannot fit every data point perfectly. The question is: **which line is best?** OLS answers this by minimizing the sum of *squared* prediction errors. Squaring penalizes large mistakes more than small ones, produces a unique closed-form solution, and connects directly to variance decomposition and inference.
+
+The error term $\varepsilon_i$ (written $u_i$ in Tutorial 3 onward, following Wooldridge — both denote the same object) captures everything that moves $Y$ beyond $X$: unobserved ability, luck, measurement error.
+
+---
+
+**A picture of what we are doing.** Each point is one observation. The blue line is a candidate fit. The red segments are the residuals — the vertical gaps between the data and the line. OLS chooses the line that makes those squared gaps as small as possible.
+
+```{r ols-geometry, echo=FALSE, fig.cap="OLS minimizes the sum of squared vertical distances (red segments). The slope and intercept are chosen so no other line achieves a smaller total.", fig.align='center', fig.width=6.5, fig.height=4}
+set.seed(7)
+n    <- 22
+xv   <- seq(0.5, 5, length.out = n)
+yv   <- 1.2 + 0.9 * xv + rnorm(n, 0, 0.85)
+fit  <- lm(yv ~ xv)
+yhat <- fitted(fit)
+sel  <- c(3, 7, 13, 19)
+
+par(mar = c(4, 4, 1, 1), las = 1)
+plot(xv, yv, pch = 19, col = "#1F2937", cex = 0.9,
+     xlab = expression(X[i]), ylab = expression(Y[i]),
+     bty = "l")
+abline(fit, col = "#0B3D91", lwd = 2)
+segments(xv[sel], yv[sel], xv[sel], yhat[sel],
+         col = "#DC2626", lwd = 1.8)
+points(xv[sel], yhat[sel], pch = 4, col = "#0B3D91",
+       cex = 1.3, lwd = 1.8)
+text(xv[sel[3]] + 0.2, (yv[sel[3]] + yhat[sel[3]]) / 2,
+     expression(hat(u)[i] == Y[i] - hat(Y)[i]),
+     col = "#DC2626", cex = 0.85, adj = 0)
+```
+
+---
+
 We study the **simple linear regression with an intercept**:
 
 $$
@@ -68,7 +103,7 @@ $$
 Solving for $\beta_0$:
 
 $$
-\boxed{\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}}
+\hat{\beta}_0 = \bar{Y} - \hat{\beta}_1 \bar{X}
 $$
 
 First-Order Condition for $\beta_1$: 
@@ -128,7 +163,7 @@ $$
 Therefore:
 
 $$
-\boxed{\sum_{i=1}^n \hat{u}_i = 0}
+\sum_{i=1}^n \hat{u}_i = 0
 $$
 
 #### Residuals are Orthogonal to $X$
@@ -142,7 +177,7 @@ $$
 Therefore:
 
 $$
-\boxed{\sum_{i=1}^n X_i \hat{u}_i = 0}
+\sum_{i=1}^n X_i \hat{u}_i = 0
 $$
 
 #### Residuals are Orthogonal to $(X_i - \bar{X})$
@@ -156,7 +191,7 @@ $$
 Therefore:
 
 $$
-\boxed{\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0}
+\sum_{i=1}^n (X_i - \bar{X}) \hat{u}_i = 0
 $$
 
 #### Residuals are Orthogonal to fitted values
@@ -166,7 +201,7 @@ $$
 Show that:
 
 $$
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\sum_{i=1}^n \hat Y_i \hat u_i = 0
 $$
 
 #### Solution
@@ -184,7 +219,7 @@ $$
 By A1, both sums are zero. Therefore:
 
 $$
-\boxed{\sum_{i=1}^n \hat Y_i \hat u_i = 0.}
+\sum_{i=1}^n \hat Y_i \hat u_i = 0
 $$
 
 **Interpretation.** The part OLS explains ($\hat Y$) and the part it cannot explain ($\hat u$) do not move together in the sample.
@@ -223,7 +258,7 @@ $$
 Since $\sum_{i=1}^n \hat{u}_i = 0$:
 
 $$
-\boxed{\bar{\hat{u}} = \frac{1}{n} \sum_{i=1}^n \hat{u}_i = 0}
+\bar{\hat{u}} = \frac{1}{n} \sum_{i=1}^n \hat{u}_i = 0
 $$
 
 ---
@@ -287,7 +322,7 @@ $$
 Therefore:
 
 $$
-\boxed{\widehat{\text{Cov}}(X, \hat{u}) = 0}
+\widehat{\text{Cov}}(X, \hat{u}) = 0
 $$
 
 ### Fitted Values are Orthogonal to Residuals
@@ -299,7 +334,7 @@ $$
 Therefore:
 
 $$
-\boxed{\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0}
+\sum_{i=1}^n \hat{Y}_i \hat{u}_i = 0
 $$
 
 ---

@@ -8,6 +8,7 @@ rmd_files:
   - tutorial1.Rmd
   - tutorial2.Rmd
   - tutorial3.Rmd
+  - tutorial3b.Rmd
   - tutorial4.Rmd
   - tutorial5.Rmd
 

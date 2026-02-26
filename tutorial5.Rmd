@@ -18,6 +18,8 @@ output:
 
 *Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a*
 
+> **Notation note.** Following Wooldridge Chapter 2, this tutorial uses *lowercase* $y_i$ and $x_i$ for outcomes and treatment. These are the same objects as $Y_i$ and $X_i$ in Tutorials 2 and 3 — the change is purely notational.
+
 ---
 
 ## Block 1: Motivation --- Why Do We Need Potential Outcomes? (5 min)

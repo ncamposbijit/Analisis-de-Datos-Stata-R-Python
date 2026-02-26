@@ -304,6 +304,41 @@ But the ultimate goal of regression is not just to draw a line through a particu
 
 To answer these questions, we need to define the **population counterpart** of the sample regression — the Population Regression Function. Part B builds the theoretical framework that will allow us, in later sections, to prove that OLS is unbiased and to understand when it can fail.
 
+The figure below makes this concrete. The grey cloud is your data. The red bell curves show how $Y$ is distributed *within* each slice of $X$ — these distributions shift as $X$ changes. The blue line connects their centres. That line is the PRF.
+
+```{r prf-diagram, echo=FALSE, fig.cap="The Population Regression Function (blue line) connects the conditional means E[Y|X=x] at every value of x. The red curves show the conditional distribution of Y given X. OLS estimates this line from sample data.", fig.align='center', fig.width=7, fig.height=4.2}
+set.seed(42)
+n       <- 500
+alpha   <- 1.0; beta_pop <- 0.9; sigma <- 1.1
+X_pop   <- rnorm(n, mean = 2.5, sd = 1.2)
+Y_pop   <- alpha + beta_pop * X_pop + rnorm(n, 0, sigma)
+x_vals  <- c(1.2, 3.2)
+mu_vals <- alpha + beta_pop * x_vals
+
+par(mar = c(4, 4, 1, 1), las = 1)
+plot(X_pop, Y_pop,
+     pch = 19, cex = 0.5,
+     col = rgb(100/255, 116/255, 139/255, 0.18),
+     xlab = expression(X), ylab = expression(Y),
+     xlim = c(0, 6), ylim = c(-2.5, 7.5), bty = "l")
+abline(a = alpha, b = beta_pop, col = "#0B3D91", lwd = 2)
+for (i in seq_along(x_vals)) {
+  xv    <- x_vals[i]
+  mu    <- mu_vals[i]
+  y_seq <- seq(mu - 3.3 * sigma, mu + 3.3 * sigma, length.out = 120)
+  dens  <- dnorm(y_seq, mu, sigma) * 0.55
+  abline(v = xv, lty = 2, col = "#94A3B8", lwd = 0.9)
+  lines(xv + dens, y_seq, col = "#DC2626", lwd = 1.5)
+  points(xv, mu, pch = 18, cex = 2.2, col = "#0B3D91")
+}
+text(x_vals[1] + 0.65, mu_vals[1] - 0.2,
+     expression(E~"["~Y~"|"~X==x[1]~"]"),
+     col = "#0B3D91", cex = 0.78, adj = 0)
+text(x_vals[2] + 0.65, mu_vals[2] - 0.2,
+     expression(E~"["~Y~"|"~X==x[2]~"]"),
+     col = "#0B3D91", cex = 0.78, adj = 0)
+```
+
 ---
 
 ### B1.a Definition (concept)

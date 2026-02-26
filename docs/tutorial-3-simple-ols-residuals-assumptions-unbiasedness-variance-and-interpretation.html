@@ -50,8 +50,9 @@
 <li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
 <li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
 <li><a class="active" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
-<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">5</span> Tutorial 4: Midterm</a></li>
-<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">6</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+<li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
 </ul>
 
         <div class="book-extra">
@@ -317,6 +318,13 @@ R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
 <li>When can we trust these estimates, and when might they mislead us?</li>
 </ul>
 <p>To answer these questions, we need to define the <strong>population counterpart</strong> of the sample regression — the Population Regression Function. Part B builds the theoretical framework that will allow us, in later sections, to prove that OLS is unbiased and to understand when it can fail.</p>
+<p>The figure below makes this concrete. The grey cloud is your data. The red bell curves show how <span class="math inline">\(Y\)</span> is distributed <em>within</em> each slice of <span class="math inline">\(X\)</span> — these distributions shift as <span class="math inline">\(X\)</span> changes. The blue line connects their centres. That line is the PRF.</p>
+<div class="figure" style="text-align: center">
+<span style="display:block;" id="fig:prf-diagram"></span>
+<img src="bookdownproj_files/figure-html/prf-diagram-1.png" alt="The Population Regression Function (blue line) connects the conditional means E[Y|X=x] at every value of x. The red curves show the conditional distribution of Y given X. OLS estimates this line from sample data." width="672"><p class="caption">
+Figure 4.1: The Population Regression Function (blue line) connects the conditional means E[Y|X=x] at every value of x. The red curves show the conditional distribution of Y given X. OLS estimates this line from sample data.
+</p>
+</div>
 <hr>
 </div>
 <div id="b1.a-definition-concept" class="section level3" number="4.2.2">
@@ -1187,7 +1195,7 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></div>
-<div class="next"><a href="tutorial-4-midterm.html"><span class="header-section-number">5</span> Tutorial 4: Midterm</a></div>
+<div class="next"><a href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
