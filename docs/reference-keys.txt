@@ -204,6 +204,7 @@ e6.-functional-form-as-a-modeling-choice-concept-check
 question-short
 solution-19
 small-r-demo-same-data-different-scales
+tutorial-4-midterm
 tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning
 block-1-motivation-why-do-we-need-potential-outcomes-5-min
 block-2-potential-outcomes-notation-13-min
