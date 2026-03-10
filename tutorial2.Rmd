@@ -1,19 +1,4 @@
----
-title: "Tutorial 2: Simple Linear Regression (with Intercept)"
-subtitle: "OLS Derivation"
-author: ""
-date: ""
-output:
-  html_document:
-    toc: true
-    toc_float: true
-    number_sections: true
-    theme: flatly
-  pdf_document:
-    toc: true
-    number_sections: true
----
-# Tutorial 2: Simple linear Regression 
+# Tutorial 2: Simple linear Regression
 ## Problem 1: Simple Linear Regression with Intercept
 
 In Tutorial 1 we ran `lm()` and got a slope and an intercept. This tutorial asks: *where do those numbers come from, and what do they optimize?*

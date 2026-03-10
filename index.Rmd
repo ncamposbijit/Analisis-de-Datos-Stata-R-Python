@@ -11,4 +11,4 @@ link-citations: yes
 
 # Introduction
 
-These notes have been updated and adapted for the course ECON 326: Introduction to Econometrics II, at the University of British Columbia (UBC), 2026. 
+These notes have been updated and adapted for the course ECON 326: Introduction to Econometrics II, at the University of British Columbia (UBC), 2026.

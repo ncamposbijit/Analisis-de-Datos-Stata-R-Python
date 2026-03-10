@@ -246,3 +246,10 @@ block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min
 block-4-the-selection-bias-decomposition-and-random-assignment-13-min
 block-5-application-job-training-program-6-min
 summary-of-key-formulas-1
+tutorial-6-varianza-of-the-ols-estimator-and-hypothesis-testing
+block-1-motivation-why-isnt-unbiasedness-enough-3-min
+block-2-deriving-and-computing-textvarhatbeta_1-12-min
+block-3-from-sigma2-to-standard-errors-10-min
+block-4-hypothesis-testing-13-min
+block-5-type-iii-errors-size-and-power-12-min
+summary-of-key-formulas-2

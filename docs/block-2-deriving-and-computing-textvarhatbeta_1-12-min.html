@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>9 Block 2: Deriving and Computing \(\text{Var}(\hat{\beta}_1)\) (12 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</title>
+
+    <meta name="author" content="" />
+  
+   <meta name="description" content="Exercises and concepts for introduction econometrics" />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="9 Block 2: Deriving and Computing \(\text{Var}(\hat{\beta}_1)\) (12 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Exercises and concepts for introduction econometrics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="9 Block 2: Deriving and Computing \(\text{Var}(\hat{\beta}_1)\) (12 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing" />
+  
+  <meta name="twitter:description" content="Exercises and concepts for introduction econometrics" />
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet" />
+    <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet" />
+    <script src="libs/bs3compat-0.10.0/transition.js"></script>
+    <script src="libs/bs3compat-0.10.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.10.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+      <link rel="stylesheet" href="style4.css" />
+  
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="block-2-deriving-and-computing-textvarhatbeta_1-12-min" class="section level1" number="9">
+<h1><span class="header-section-number">9</span> Block 2: Deriving and Computing <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> (12 min)</h1>
+<p><strong>Question 1</strong> (Derivation and numerical computation)</p>
+<p><strong>(a)</strong> Starting from the representation <span class="math inline">\(\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i\)</span>, derive <span class="math inline">\(\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2/\text{SST}_x\)</span>.</p>
+<p><span class="hint">Hint: Follow these steps — (i) Why can you drop <span class="math inline">\(\beta_1\)</span> from the variance? (ii) Expand <span class="math inline">\(\text{Var}(\sum w_i u_i \mid \mathbf{x})\)</span>. Which assumption eliminates the covariance terms? (iii) Which assumption makes <span class="math inline">\(\text{Var}(u_i \mid \mathbf{x})\)</span> the same for all <span class="math inline">\(i\)</span>? (iv) Simplify <span class="math inline">\(\sum w_i^2\)</span>.</span></p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p>We start from:
+<span class="math display">\[\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i \qquad\text{where}\quad w_i = \frac{x_i - \bar{x}}{\text{SST}_x}\]</span></p>
+<p><strong>Step (i): Drop the constant <span class="math inline">\(\beta_1\)</span>.</strong></p>
+<p>By <strong>SLR.1</strong> (Linear in Parameters), the model is <span class="math inline">\(y = \beta_0 + \beta_1 x + u\)</span>, where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are <em>fixed, unknown population parameters</em> — they are constants, not random variables. Since adding a constant to a random variable does not change its variance (recall: <span class="math inline">\(\text{Var}(a + X) = \text{Var}(X)\)</span> for any constant <span class="math inline">\(a\)</span>):</p>
+<p><span class="math display">\[\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \text{Var}\!\left(\beta_1 + \sum_{i=1}^n w_i u_i \;\middle|\; \mathbf{x}\right) = \text{Var}\!\left(\sum_{i=1}^n w_i u_i \;\middle|\; \mathbf{x}\right)\]</span></p>
+<p>Note also that we condition on <span class="math inline">\(\mathbf{x} = (x_1, \ldots, x_n)\)</span>, so the weights <span class="math inline">\(w_i = (x_i - \bar{x})/\text{SST}_x\)</span> are treated as <strong>constants</strong> (they depend only on the <span class="math inline">\(x\)</span>-values). The <strong>only random variables</strong> in this expression are <span class="math inline">\(u_1, \ldots, u_n\)</span>.</p>
+<p><strong>Step (ii): Expand the variance of the weighted sum.</strong></p>
+<p>By the general formula for the variance of a linear combination:</p>
+<p><span class="math display">\[\text{Var}\!\left(\sum_{i=1}^n w_i u_i \;\middle|\; \mathbf{x}\right) = \underbrace{\sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x})}_{\text{variance terms}} + \underbrace{\sum_{\substack{i,j=1 \\ i \ne j}}^{n} w_i w_j\,\text{Cov}(u_i, u_j \mid \mathbf{x})}_{\text{covariance terms}}\]</span></p>
+<p>Now we apply <strong>SLR.2</strong> (Random Sampling): the observations <span class="math inline">\(\{(x_i, y_i)\}_{i=1}^n\)</span> are drawn <em>independently</em> from the population. Since <span class="math inline">\(y_i = \beta_0 + \beta_1 x_i + u_i\)</span>, the errors <span class="math inline">\(u_1, \ldots, u_n\)</span> are also <strong>independent of each other</strong> conditional on <span class="math inline">\(\mathbf{x}\)</span>.</p>
+<p>Independence implies that <span class="math inline">\(\text{Cov}(u_i, u_j \mid \mathbf{x}) = 0\)</span> for all <span class="math inline">\(i \ne j\)</span>. Therefore, <strong>all cross-terms vanish</strong>:</p>
+<p><span class="math display">\[= \sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x}) + 0 = \sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x})\]</span></p>
+<p><strong>Step (iii): Apply homoskedasticity.</strong></p>
+<p>Now apply <strong>SLR.5</strong> (Homoskedasticity): the variance of the error term is the <em>same</em> for all observations, regardless of the value of <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[\text{Var}(u_i \mid \mathbf{x}) = \sigma^2 \quad\text{for all } i = 1, \ldots, n\]</span></p>
+<p>Since <span class="math inline">\(\sigma^2\)</span> does not depend on <span class="math inline">\(i\)</span>, it can be <strong>factored out</strong> of the sum:</p>
+<p><span class="math display">\[\sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x}) = \sum_{i=1}^n w_i^2 \cdot \sigma^2 = \sigma^2 \sum_{i=1}^n w_i^2\]</span></p>
+<p><span class="warn">Why SLR.5 is critical:</span> Without homoskedasticity, each observation could have a different error variance <span class="math inline">\(\text{Var}(u_i \mid x_i) = \sigma_i^2\)</span>, and we could <em>not</em> factor out a single <span class="math inline">\(\sigma^2\)</span>. The formula would become <span class="math inline">\(\sum w_i^2 \sigma_i^2\)</span>, which depends on each individual <span class="math inline">\(\sigma_i^2\)</span> and is much harder to work with. This is exactly the complication that arises under <strong>heteroskedasticity</strong>.</p>
+<p><strong>Step (iv): Simplify <span class="math inline">\(\sum w_i^2\)</span>.</strong></p>
+<p>Recall that <span class="math inline">\(w_i = (x_i - \bar{x})/\text{SST}_x\)</span>. Squaring and summing:</p>
+<p><span class="math display">\[\sum_{i=1}^n w_i^2 = \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{\text{SST}_x^2} = \frac{1}{\text{SST}_x^2} \sum_{i=1}^n (x_i - \bar{x})^2 = \frac{\text{SST}_x}{\text{SST}_x^2} = \frac{1}{\text{SST}_x}\]</span></p>
+<p>In the third equality, we used the definition <span class="math inline">\(\text{SST}_x = \sum_{i=1}^n (x_i - \bar{x})^2\)</span>. Note that <strong>SLR.3</strong> (Sample Variation in <span class="math inline">\(x\)</span>) guarantees <span class="math inline">\(\text{SST}_x &gt; 0\)</span>, so this division is valid.</p>
+<p><strong>Combining all four steps:</strong></p>
+<p><span class="math display">\[\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) \underset{\text{(i)}}{=} \text{Var}\!\left(\sum w_i u_i \mid \mathbf{x}\right) \underset{\text{(ii)}}{=} \sum w_i^2\,\text{Var}(u_i \mid \mathbf{x}) \underset{\text{(iii)}}{=} \sigma^2 \sum w_i^2 \underset{\text{(iv)}}{=} \sigma^2 \cdot \frac{1}{\text{SST}_x}\]</span></p>
+<p><span class="math display">\[\boxed{\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \frac{\sigma^2}{\text{SST}_x}} \qquad\square\]</span></p>
+<p><strong>Summary of assumptions used:</strong></p>
+<ul>
+<li><strong>SLR.1</strong> (Linear in Parameters): <span class="math inline">\(\beta_1\)</span> is a constant, so it drops from the variance.</li>
+<li><strong>SLR.2</strong> (Random Sampling): errors are independent, so covariance terms are zero.</li>
+<li><strong>SLR.3</strong> (Sample Variation): <span class="math inline">\(\text{SST}_x &gt; 0\)</span>, so division is valid.</li>
+<li><strong>SLR.5</strong> (Homoskedasticity): all <span class="math inline">\(\text{Var}(u_i \mid \mathbf{x}) = \sigma^2\)</span>, so <span class="math inline">\(\sigma^2\)</span> factors out.</li>
+</ul>
+Note: SLR.4 (Zero Conditional Mean) is <em>not</em> needed for the variance formula — it was needed for unbiasedness but not here.
+</details>
+<hr />
+<p><strong>(b)</strong> Suppose <span class="math inline">\(n = 5\)</span> observations with <span class="math inline">\(x\)</span>-values <span class="math inline">\(\{1, 3, 5, 7, 9\}\)</span> and <span class="math inline">\(\sigma^2 = 10\)</span>. Compute <span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\text{SST}_x\)</span>, <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span>, and <span class="math inline">\(\text{sd}(\hat{\beta}_1)\)</span>.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>Step 1: Compute <span class="math inline">\(\bar{x}\)</span>.</strong>
+<span class="math display">\[\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{1 + 3 + 5 + 7 + 9}{5} = \frac{25}{5} = 5\]</span></p>
+<p><strong>Step 2: Compute each deviation <span class="math inline">\((x_i - \bar{x})\)</span> and its square.</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center"><span class="math inline">\(x_i\)</span></th>
+<th align="center"><span class="math inline">\(x_i - \bar{x}\)</span></th>
+<th align="center"><span class="math inline">\((x_i - \bar{x})^2\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center"><span class="math inline">\(1 - 5 = -4\)</span></td>
+<td align="center"><span class="math inline">\(16\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center"><span class="math inline">\(3 - 5 = -2\)</span></td>
+<td align="center"><span class="math inline">\(4\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">5</td>
+<td align="center"><span class="math inline">\(5 - 5 = 0\)</span></td>
+<td align="center"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td align="center">7</td>
+<td align="center"><span class="math inline">\(7 - 5 = 2\)</span></td>
+<td align="center"><span class="math inline">\(4\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center">9</td>
+<td align="center"><span class="math inline">\(9 - 5 = 4\)</span></td>
+<td align="center"><span class="math inline">\(16\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><span class="math inline">\(\text{SST}_x = 40\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 3: Apply the formula.</strong>
+<span class="math display">\[\text{Var}(\hat{\beta}_1) = \frac{\sigma^2}{\text{SST}_x} = \frac{10}{40} = \boxed{0.25}\]</span></p>
+<p><span class="math display">\[\text{sd}(\hat{\beta}_1) = \sqrt{\text{Var}(\hat{\beta}_1)} = \sqrt{0.25} = \boxed{0.5}\]</span></p>
+<strong>Interpretation:</strong> Across repeated samples with these same <span class="math inline">\(x\)</span>-values, the OLS slope estimate <span class="math inline">\(\hat{\beta}_1\)</span> would have a standard deviation of <span class="math inline">\(0.5\)</span> — on average, our estimates will be about <span class="math inline">\(0.5\)</span> units away from the true <span class="math inline">\(\beta_1\)</span>.
+</details>
+<hr />
+<p><strong>(c)</strong> Based on the formula <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span>, explain what happens to the precision of <span class="math inline">\(\hat{\beta}_1\)</span> when: (i) the error variance <span class="math inline">\(\sigma^2\)</span> increases; (ii) we add more observations that are spread out (not concentrated at <span class="math inline">\(\bar{x}\)</span>); (iii) we add observations that are all equal to <span class="math inline">\(\bar{x}\)</span>.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p>The formula <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span> has two ingredients: <span class="math inline">\(\sigma^2\)</span> in the numerator and <span class="math inline">\(\text{SST}_x\)</span> in the denominator.</p>
+<p><strong>(i) <span class="math inline">\(\sigma^2\)</span> increases <span class="math inline">\(\Longrightarrow\)</span> Var increases (less precise).</strong></p>
+<p><span class="math inline">\(\sigma^2\)</span> measures the noise in the error term. More noise means the data points are more scattered around the regression line, making it harder to pin down the slope.</p>
+<p><em>Numerical example:</em> With our data (<span class="math inline">\(\text{SST}_x = 40\)</span>), doubling <span class="math inline">\(\sigma^2\)</span> from 10 to 20 doubles <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> from <span class="math inline">\(0.25\)</span> to <span class="math inline">\(0.50\)</span>.</p>
+<p><strong>(ii) Adding spread-out observations increases <span class="math inline">\(\text{SST}_x\)</span> <span class="math inline">\(\Longrightarrow\)</span> Var decreases (more precise).</strong></p>
+<p>Each new observation at <span class="math inline">\(x_i \ne \bar{x}\)</span> contributes <span class="math inline">\((x_i - \bar{x})^2 &gt; 0\)</span> to <span class="math inline">\(\text{SST}_x\)</span>. A larger <span class="math inline">\(\text{SST}_x\)</span> in the denominator shrinks <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span>.</p>
+<p><strong>Intuition:</strong> More variation in <span class="math inline">\(x\)</span> gives us more “leverage” to estimate the slope. Imagine fitting a line through data points that are all bunched together vs. spread far apart — the spread-out data pins the slope down much more precisely.</p>
+<p><strong>(iii) Adding observations at <span class="math inline">\(x = \bar{x}\)</span> does <em>not</em> help.</strong></p>
+<p>If <span class="math inline">\(x_i = \bar{x}\)</span>, then <span class="math inline">\((x_i - \bar{x})^2 = 0\)</span>, so these observations contribute <strong>nothing</strong> to <span class="math inline">\(\text{SST}_x\)</span>. <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> is unchanged.</p>
+<p><em>Numerical example:</em> Adding 100 observations all at <span class="math inline">\(x = 5\)</span> (the mean) keeps <span class="math inline">\(\text{SST}_x = 40\)</span>, so <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> stays at <span class="math inline">\(0.25\)</span>.</p>
+<strong>Intuition:</strong> To estimate a slope, you need to see how <span class="math inline">\(y\)</span> changes as <span class="math inline">\(x\)</span> changes. If all your new data have the same <span class="math inline">\(x\)</span>, you learn nothing new about the slope — you only learn more about the intercept.
+</details>
+<hr />
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</strong>: Introductory Econometrics — TA Session" was written by . It was last built on Duration: 50 minutes | Based on Wooldridge, Theorem 2.2, Sections 2.5 and 4.1–4.2.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+
+</html>

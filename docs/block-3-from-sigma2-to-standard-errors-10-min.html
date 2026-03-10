@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>10 Block 3: From \(\sigma^2\) to Standard Errors (10 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</title>
+
+    <meta name="author" content="" />
+  
+   <meta name="description" content="Exercises and concepts for introduction econometrics" />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="10 Block 3: From \(\sigma^2\) to Standard Errors (10 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Exercises and concepts for introduction econometrics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10 Block 3: From \(\sigma^2\) to Standard Errors (10 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing" />
+  
+  <meta name="twitter:description" content="Exercises and concepts for introduction econometrics" />
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet" />
+    <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet" />
+    <script src="libs/bs3compat-0.10.0/transition.js"></script>
+    <script src="libs/bs3compat-0.10.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.10.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+      <link rel="stylesheet" href="style4.css" />
+  
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="block-3-from-sigma2-to-standard-errors-10-min" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Block 3: From <span class="math inline">\(\sigma^2\)</span> to Standard Errors (10 min)</h1>
+<div class="book-example">
+<div class="header">
+Estimating <span class="math inline">\(\sigma^2\)</span> and the <span class="math inline">\(t\)</span>-Distribution
+</div>
+<p>The formula <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span> involves <span class="math inline">\(\sigma^2 = \text{Var}(u \mid \mathbf{x})\)</span>, which is <strong>unknown</strong> (we never observe the true errors <span class="math inline">\(u_i\)</span>). We estimate it from the <strong>residuals</strong> <span class="math inline">\(\hat{u}_i = y_i - \hat{y}_i\)</span>:</p>
+<p><span class="math display">\[\hat{\sigma}^2 = \frac{1}{n-2}\sum_{i=1}^{n} \hat{u}_i^2 = \frac{\text{SSR}}{n-2}\]</span></p>
+<p><strong>Why <span class="math inline">\(n-2\)</span> and not <span class="math inline">\(n\)</span>?</strong> We estimated two parameters (<span class="math inline">\(\hat{\beta}_0\)</span> and <span class="math inline">\(\hat{\beta}_1\)</span>) to compute the residuals. This “uses up” 2 degrees of freedom. Dividing by <span class="math inline">\(n-2\)</span> corrects for this and makes <span class="math inline">\(\hat{\sigma}^2\)</span> an <strong>unbiased</strong> estimator of <span class="math inline">\(\sigma^2\)</span>: <span class="math inline">\(E[\hat{\sigma}^2] = \sigma^2\)</span>.</p>
+<p>The <strong>standard error</strong> of <span class="math inline">\(\hat{\beta}_1\)</span> replaces <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\hat{\sigma}\)</span>:</p>
+<p><span class="math display">\[\text{SE}(\hat{\beta}_1) = \frac{\hat{\sigma}}{\sqrt{\text{SST}_x}}\]</span></p>
+<p>In R, <span class="math inline">\(\hat{\sigma}\)</span> is reported as <code>Residual standard error</code> and <span class="math inline">\(\text{SE}(\hat{\beta}_1)\)</span> appears in the <code>Std. Error</code> column.</p>
+<p>Adding <strong>SLR.6</strong> (Normality: <span class="math inline">\(u \mid x \sim N(0, \sigma^2)\)</span>), the <span class="math inline">\(t\)</span>-statistic</p>
+<p><span class="math display">\[t = \frac{\hat{\beta}_1 - \beta_1}{\text{SE}(\hat{\beta}_1)} \sim t_{n-2}\]</span></p>
+<p>follows a <strong><span class="math inline">\(t\)</span>-distribution</strong> with <span class="math inline">\(n - 2\)</span> degrees of freedom. The <span class="math inline">\(t\)</span> (not <span class="math inline">\(N(0,1)\)</span>) arises because <span class="math inline">\(\hat{\sigma}\)</span> in the denominator is <em>itself a random variable</em> — it varies from sample to sample, adding extra uncertainty.</p>
+<p><strong>Key distinction:</strong></p>
+<ul>
+<li>If <span class="math inline">\(\sigma\)</span> were <strong>known</strong>: <span class="math inline">\(Z = \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{\text{SST}_x}} \sim N(0,1)\)</span> (standard normal)</li>
+<li>Since <span class="math inline">\(\sigma\)</span> is <strong>unknown</strong>: <span class="math inline">\(t = \frac{\hat{\beta}_1 - \beta_1}{\hat{\sigma}/\sqrt{\text{SST}_x}} \sim t_{n-2}\)</span> (<span class="math inline">\(t\)</span>-distribution, heavier tails)</li>
+</ul>
+<p>As <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(\hat{\sigma} \to \sigma\)</span> and <span class="math inline">\(t_{n-2} \to N(0,1)\)</span>, so the distinction vanishes in large samples.</p>
+</div>
+<p>The following R output will be used for Questions 2 and 3. An econometrician regressed <code>y</code> on <code>x</code> using 22 observations.</p>
+<pre><code>&gt; model &lt;- lm(y ~ x, data = mydata)
+&gt; summary(model)
+...
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)   5.2000     1.3000   4.000 0.000742 ***
+x             2.4000     0.8000       A        B
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 4 on 20 degrees of freedom
+
+&gt; confint(model)
+                2.5 %   97.5 %
+(Intercept)  2.488248 7.911752
+x                   C        D</code></pre>
+<p><strong>Question 2</strong> (Reading R output — variance and standard errors)</p>
+<p><strong>(a)</strong> From the R output, identify <span class="math inline">\(\hat{\sigma}\)</span> (the residual standard error) and the number of observations <span class="math inline">\(n\)</span>. Then compute <span class="math inline">\(\hat{\sigma}^2\)</span> and <span class="math inline">\(\text{SST}_x\)</span>.</p>
+<p><span class="hint">Hint: Use <span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}\)</span> and solve for <span class="math inline">\(\text{SST}_x\)</span>.</span></p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>Reading <span class="math inline">\(\hat{\sigma}\)</span> from the output:</strong> The line <code>Residual standard error: 4 on 20 degrees of freedom</code> tells us two things:</p>
+<ul>
+<li><span class="math inline">\(\hat{\sigma} = 4\)</span> (the estimated standard deviation of the errors)</li>
+<li>Degrees of freedom <span class="math inline">\(= n - 2 = 20\)</span>, which means <span class="math inline">\(n = 22\)</span> observations.</li>
+</ul>
+<p><strong>Computing <span class="math inline">\(\hat{\sigma}^2\)</span>:</strong>
+<span class="math display">\[\hat{\sigma}^2 = 4^2 = \boxed{16}\]</span></p>
+<p><strong>Computing <span class="math inline">\(\text{SST}_x\)</span>:</strong> From the output, the <code>Std. Error</code> column for <code>x</code> gives <span class="math inline">\(\text{SE}(\hat{\beta}_1) = 0.8\)</span>. Using the formula <span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}\)</span>:</p>
+<p><span class="math display">\[0.8 = \frac{4}{\sqrt{\text{SST}_x}} \quad\Longrightarrow\quad \sqrt{\text{SST}_x} = \frac{4}{0.8} = 5 \quad\Longrightarrow\quad \text{SST}_x = 5^2 = \boxed{25}\]</span></p>
+<strong>Verification:</strong> <span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x} = 4/\sqrt{25} = 4/5 = 0.8\)</span> <span class="math inline">\(\checkmark\)</span>
+</details>
+<hr />
+<p><strong>(b)</strong> Explain in one or two sentences why replacing <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\hat{\sigma}\)</span> changes the distribution of the test statistic from standard normal to <span class="math inline">\(t\)</span>.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p>When <span class="math inline">\(\sigma\)</span> is <strong>known</strong>, <span class="math inline">\((\hat{\beta}_1 - \beta_1)/(\sigma/\sqrt{\text{SST}_x})\)</span> is a ratio of a normal random variable (the numerator) over a <em>constant</em> (the denominator), so the ratio is exactly <span class="math inline">\(N(0,1)\)</span>.</p>
+<p>When we <strong>replace</strong> <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\hat{\sigma}\)</span>, the denominator <span class="math inline">\(\hat{\sigma}/\sqrt{\text{SST}_x}\)</span> becomes a <em>random variable</em> — it fluctuates from sample to sample because <span class="math inline">\(\hat{\sigma}\)</span> is computed from the data. The ratio is now a normal random variable divided by a random estimate of its standard deviation. This ratio has <strong>heavier tails</strong> than the normal (sometimes <span class="math inline">\(\hat{\sigma}\)</span> underestimates <span class="math inline">\(\sigma\)</span>, inflating <span class="math inline">\(|t|\)</span>), producing the <span class="math inline">\(t_{n-2}\)</span> distribution.</p>
+<strong>Intuition:</strong> The <span class="math inline">\(t\)</span>-distribution is “wider” than the normal to account for the fact that we <em>don’t know</em> <span class="math inline">\(\sigma\)</span> exactly. As the sample size grows, <span class="math inline">\(\hat{\sigma}\)</span> becomes a better and better estimate of <span class="math inline">\(\sigma\)</span>, the extra uncertainty shrinks, and <span class="math inline">\(t_{n-2} \to N(0,1)\)</span>.
+</details>
+<hr />
+<p><strong>(c)</strong> Find <span class="math inline">\(A\)</span> (the <span class="math inline">\(t\)</span>-value) and <span class="math inline">\(B\)</span> (the <span class="math inline">\(p\)</span>-value) in the output. What null hypothesis does this <span class="math inline">\(t\)</span>-statistic test?</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>What R reports by default:</strong> The <span class="math inline">\(t\)</span>-value and <span class="math inline">\(p\)</span>-value in R’s <code>summary()</code> output always test the null hypothesis</p>
+<p><span class="math display">\[H_0\colon \beta_1 = 0 \quad\text{vs.}\quad H_1\colon \beta_1 \ne 0\]</span></p>
+<p>That is, R tests whether the coefficient is significantly different from <strong>zero</strong> (two-sided).</p>
+<p><strong>Finding <span class="math inline">\(A\)</span> (t-value):</strong> The <span class="math inline">\(t\)</span>-statistic for testing <span class="math inline">\(H_0\colon \beta_1 = 0\)</span> is:</p>
+<p><span class="math display">\[A = t = \frac{\hat{\beta}_1 - 0}{\text{SE}(\hat{\beta}_1)} = \frac{\text{Estimate}}{\text{Std. Error}} = \frac{2.4000}{0.8000} = \boxed{3.000}\]</span></p>
+<p><strong>Finding <span class="math inline">\(B\)</span> (p-value):</strong> The <span class="math inline">\(p\)</span>-value is the probability of observing a <span class="math inline">\(t\)</span>-statistic as extreme as <span class="math inline">\(|t| = 3\)</span> or more, <em>if <span class="math inline">\(H_0\)</span> were true</em>:</p>
+<p><span class="math display">\[B = P(|t_{20}| &gt; 3) = 2 \cdot P(t_{20} &gt; 3)\]</span></p>
+<p>The factor of 2 appears because this is a <strong>two-sided</strong> test (we count both tails). In R: <code>2 * pt(-3, df = 20)</code> <span class="math inline">\(\approx \boxed{0.007}\)</span>.</p>
+<strong>Meaning:</strong> If <span class="math inline">\(\beta_1\)</span> were truly zero, there would be only a <span class="math inline">\(0.7\%\)</span> chance of observing a <span class="math inline">\(t\)</span>-statistic as large as <span class="math inline">\(3\)</span> in absolute value. This is strong evidence against <span class="math inline">\(H_0\)</span>.
+</details>
+<hr />
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</strong>: Introductory Econometrics — TA Session" was written by . It was last built on Duration: 50 minutes | Based on Wooldridge, Theorem 2.2, Sections 2.5 and 4.1–4.2.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+
+</html>

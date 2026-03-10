@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>11 Block 4: Hypothesis Testing (13 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</title>
+
+    <meta name="author" content="" />
+  
+   <meta name="description" content="Exercises and concepts for introduction econometrics" />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="11 Block 4: Hypothesis Testing (13 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Exercises and concepts for introduction econometrics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="11 Block 4: Hypothesis Testing (13 min) | Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing" />
+  
+  <meta name="twitter:description" content="Exercises and concepts for introduction econometrics" />
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet" />
+    <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet" />
+    <script src="libs/bs3compat-0.10.0/transition.js"></script>
+    <script src="libs/bs3compat-0.10.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.10.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+      <link rel="stylesheet" href="style4.css" />
+  
+</head>
+
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="Introductory Econometrics — TA Session">Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</a>:
+        <small class="text-muted">Introductory Econometrics — TA Session</small>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+      </form>
+
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="block-4-hypothesis-testing-13-min" class="section level1" number="11">
+<h1><span class="header-section-number">11</span> Block 4: Hypothesis Testing (13 min)</h1>
+<div class="book-example">
+<div class="header">
+Hypothesis Testing and Confidence Intervals — The Procedure
+</div>
+<p><strong>Two-sided test</strong> of <span class="math inline">\(H_0\colon \beta_1 = \beta_{1,0}\)</span> vs. <span class="math inline">\(H_1\colon \beta_1 \ne \beta_{1,0}\)</span>:</p>
+<ol style="list-style-type: decimal">
+<li>State the hypotheses (<span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span>) and significance level <span class="math inline">\(\alpha\)</span>.</li>
+<li>Compute the test statistic: <span class="math inline">\(t = (\hat{\beta}_1 - \beta_{1,0})/\text{SE}(\hat{\beta}_1)\)</span>.</li>
+<li>Find the critical value: <span class="math inline">\(t_{\alpha/2,\, n-2}\)</span>.</li>
+<li>Decision rule: Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|t| &gt; t_{\alpha/2,\, n-2}\)</span>.</li>
+<li>State the conclusion in context.</li>
+</ol>
+<p><strong>One-sided test</strong> of <span class="math inline">\(H_0\colon \beta_1 \le \beta_{1,0}\)</span> vs. <span class="math inline">\(H_1\colon \beta_1 &gt; \beta_{1,0}\)</span>:</p>
+<ul>
+<li>Same <span class="math inline">\(t\)</span>-statistic.</li>
+<li>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(t &gt; t_{\alpha,\, n-2}\)</span> (entire <span class="math inline">\(\alpha\)</span> in one tail).</li>
+<li>Since <span class="math inline">\(t_{\alpha,\, n-2} &lt; t_{\alpha/2,\, n-2}\)</span>, it is <strong>easier to reject</strong> in the specified direction.</li>
+</ul>
+<p><strong><span class="math inline">\((1-\alpha)\)</span> Confidence interval:</strong> <span class="math inline">\(\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)\)</span>.</p>
+<p><strong>CI–test equivalence (two-sided only):</strong> Reject <span class="math inline">\(H_0\colon \beta_1 = \beta_{1,0}\)</span> at level <span class="math inline">\(\alpha\)</span> if and only if <span class="math inline">\(\beta_{1,0}\)</span> falls <strong>outside</strong> the <span class="math inline">\((1-\alpha)\)</span> CI.</p>
+</div>
+<p><em>Use the R output from Block 3. You may use the following critical values for the <span class="math inline">\(t_{20}\)</span> distribution: <span class="math inline">\(t_{0.025,\, 20} = 2.086\)</span> (in R: <code>qt(0.975, 20)</code>) and <span class="math inline">\(t_{0.05,\, 20} = 1.725\)</span> (in R: <code>qt(0.95, 20)</code>).</em></p>
+<p><strong>Question 3</strong> (Hypothesis testing and confidence intervals)</p>
+<p><strong>(a)</strong> Using <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> from Question 2, test <span class="math inline">\(H_0\colon \beta_1 = 0\)</span> against <span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> at the 5% significance level. State your conclusion.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>Step 1: State hypotheses and significance level.</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\colon \beta_1 = 0\)</span> (the variable <span class="math inline">\(x\)</span> has no effect on <span class="math inline">\(y\)</span>)</li>
+<li><span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> (the variable <span class="math inline">\(x\)</span> has some effect on <span class="math inline">\(y\)</span>)</li>
+<li>This is a <strong>two-sided</strong> test at <span class="math inline">\(\alpha = 0.05\)</span>.</li>
+</ul>
+<p><strong>Step 2: Test statistic.</strong></p>
+<p>From Q2(c): <span class="math inline">\(t = A = 3.000\)</span>.</p>
+<p><strong>Step 3: Critical value.</strong></p>
+<p>For a two-sided test at <span class="math inline">\(\alpha = 0.05\)</span> with <span class="math inline">\(\text{df} = 20\)</span>: <span class="math inline">\(t_{0.025,\, 20} = 2.086\)</span>.</p>
+<p><strong>Step 4: Decision.</strong></p>
+<p>Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(|t| &gt; 2.086\)</span>. Since <span class="math inline">\(|t| = 3.000 &gt; 2.086\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p>
+<p><strong>Alternative (using the <span class="math inline">\(p\)</span>-value):</strong> Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p &lt; \alpha\)</span>. Since <span class="math inline">\(p = B = 0.007 &lt; 0.05 = \alpha\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>. <span class="math inline">\(\checkmark\)</span></p>
+<p><strong>Step 5: Conclusion.</strong></p>
+At the 5% significance level, we reject the null hypothesis that <span class="math inline">\(\beta_1 = 0\)</span>. There is statistically significant evidence that <span class="math inline">\(x\)</span> has an effect on <span class="math inline">\(y\)</span>.
+</details>
+<hr />
+<p><strong>(b)</strong> Find <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> (the 95% confidence interval for <span class="math inline">\(\beta_1\)</span>). Show your work.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>Step 1: Formula.</strong></p>
+<p>The <span class="math inline">\((1-\alpha) = 95\%\)</span> confidence interval for <span class="math inline">\(\beta_1\)</span> is:
+<span class="math display">\[\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)\]</span></p>
+<p><strong>Step 2: Plug in values.</strong></p>
+<ul>
+<li><span class="math inline">\(\hat{\beta}_1 = 2.4\)</span> (from the “Estimate” column)</li>
+<li><span class="math inline">\(t_{0.025,\, 20} = 2.086\)</span> (critical value for 95% CI with 20 df)</li>
+<li><span class="math inline">\(\text{SE}(\hat{\beta}_1) = 0.8\)</span> (from the “Std. Error” column)</li>
+</ul>
+<p><strong>Step 3: Compute the margin of error.</strong>
+<span class="math display">\[\text{Margin of error} = t_{0.025,\, 20} \times \text{SE}(\hat{\beta}_1) = 2.086 \times 0.8 = 1.669\]</span></p>
+<p><strong>Step 4: Compute the bounds.</strong>
+<span class="math display">\[\begin{aligned} C = \text{Lower bound} &amp;= \hat{\beta}_1 - \text{Margin of error} = 2.4 - 1.669 = \boxed{0.731} \\ D = \text{Upper bound} &amp;= \hat{\beta}_1 + \text{Margin of error} = 2.4 + 1.669 = \boxed{4.069} \end{aligned}\]</span></p>
+<p><strong>Step 5: State the interval.</strong></p>
+<p>The 95% CI for <span class="math inline">\(\beta_1\)</span> is <span class="math inline">\([0.731,\; 4.069]\)</span>.</p>
+<p><strong>Interpretation:</strong> We are 95% confident that the true <span class="math inline">\(\beta_1\)</span> lies between <span class="math inline">\(0.731\)</span> and <span class="math inline">\(4.069\)</span>. This means that if we repeated the sampling process many times and computed a 95% CI each time, approximately 95% of those intervals would contain the true <span class="math inline">\(\beta_1\)</span>.</p>
+<strong>Consistency check with part (a):</strong> The CI does not contain <span class="math inline">\(0\)</span>, which is consistent with our rejection of <span class="math inline">\(H_0\colon \beta_1 = 0\)</span> at 5%.
+</details>
+<hr />
+<p><strong>(c)</strong> Using the confidence interval from (b), test <span class="math inline">\(H_0\colon \beta_1 = 1\)</span> against <span class="math inline">\(H_1\colon \beta_1 \ne 1\)</span> at the 5% significance level.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>Step 1: State hypotheses.</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\colon \beta_1 = 1\)</span></li>
+<li><span class="math inline">\(H_1\colon \beta_1 \ne 1\)</span></li>
+<li>Two-sided test at <span class="math inline">\(\alpha = 0.05\)</span>.</li>
+</ul>
+<p><strong>Step 2: Apply the CI–test equivalence.</strong></p>
+<p>For a two-sided test, we reject <span class="math inline">\(H_0\colon \beta_1 = \beta_{1,0}\)</span> at level <span class="math inline">\(\alpha\)</span> if and only if the hypothesized value <span class="math inline">\(\beta_{1,0}\)</span> falls <strong>outside</strong> the <span class="math inline">\((1-\alpha)\)</span> CI. From part (b), the 95% CI is <span class="math inline">\([0.731,\; 4.069]\)</span>.</p>
+<p><strong>Step 3: Check whether <span class="math inline">\(\beta_{1,0} = 1\)</span> is inside or outside the CI.</strong></p>
+<p>Since <span class="math inline">\(0.731 &lt; 1 &lt; 4.069\)</span>, the value <span class="math inline">\(\beta_{1,0} = 1\)</span> is <strong>inside</strong> the 95% CI.</p>
+<p><strong>Step 4: Decision.</strong></p>
+<p>We <strong>fail to reject</strong> <span class="math inline">\(H_0\)</span> at the 5% significance level. There is not enough evidence to conclude that <span class="math inline">\(\beta_1 \ne 1\)</span>.</p>
+<p><strong>Verification via <span class="math inline">\(t\)</span>-test:</strong>
+<span class="math display">\[t = \frac{\hat{\beta}_1 - 1}{\text{SE}(\hat{\beta}_1)} = \frac{2.4 - 1}{0.8} = \frac{1.4}{0.8} = 1.75\]</span></p>
+<p>Decision: <span class="math inline">\(|t| = 1.75 &lt; 2.086 = t_{0.025,20}\)</span>, so we fail to reject. <span class="math inline">\(\checkmark\)</span></p>
+Both methods (CI approach and <span class="math inline">\(t\)</span>-test) give the same answer — they are mathematically equivalent for two-sided tests.
+</details>
+<hr />
+<p><strong>(d)</strong> Now test <span class="math inline">\(H_0\colon \beta_1 \le 1\)</span> against <span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span> at the 5% significance level.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>Step 1: State hypotheses and significance level.</strong></p>
+<ul>
+<li><span class="math inline">\(H_0\colon \beta_1 \le 1\)</span></li>
+<li><span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span></li>
+<li>This is a <strong>one-sided</strong> (right-tailed) test at <span class="math inline">\(\alpha = 0.05\)</span>.</li>
+</ul>
+<p><strong>Step 2: Compute the test statistic.</strong></p>
+<p>The <span class="math inline">\(t\)</span>-statistic uses the boundary value of <span class="math inline">\(H_0\)</span> (i.e., <span class="math inline">\(\beta_{1,0} = 1\)</span>):
+<span class="math display">\[t = \frac{\hat{\beta}_1 - \beta_{1,0}}{\text{SE}(\hat{\beta}_1)} = \frac{2.4 - 1}{0.8} = \frac{1.4}{0.8} = 1.75\]</span></p>
+<p>This is the same <span class="math inline">\(t\)</span>-statistic as in part (c). The difference will be in the critical value.</p>
+<p><strong>Step 3: Find the critical value.</strong></p>
+<p>For a <strong>one-sided</strong> test at <span class="math inline">\(\alpha = 0.05\)</span> with <span class="math inline">\(\text{df} = 20\)</span>: <span class="math inline">\(t_{0.05,\, 20} = 1.725\)</span>.</p>
+<p>Notice this is <em>smaller</em> than the two-sided critical value (<span class="math inline">\(2.086\)</span>). The one-sided test places the entire 5% rejection probability in one tail instead of splitting it as 2.5% in each tail.</p>
+<p><strong>Step 4: Decision rule and decision.</strong></p>
+<p>For a right-tailed test: Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(t &gt; t_{0.05, 20} = 1.725\)</span>.</p>
+<p>Since <span class="math inline">\(t = 1.75 &gt; 1.725\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p>
+<p><strong>Step 5: Conclusion.</strong></p>
+At the 5% significance level, we reject <span class="math inline">\(H_0\colon \beta_1 \le 1\)</span> in favor of <span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span>. There is statistically significant evidence that <span class="math inline">\(\beta_1 &gt; 1\)</span>.
+</details>
+<hr />
+<p><strong>(e)</strong> Parts (c) and (d) test closely related hypotheses about <span class="math inline">\(\beta_1 = 1\)</span>, yet give opposite conclusions. Explain why.</p>
+<details class="solution">
+<summary>
+Solution
+</summary>
+<p><strong>The key: different critical values.</strong></p>
+<table>
+<colgroup>
+<col width="10%" />
+<col width="18%" />
+<col width="29%" />
+<col width="23%" />
+<col width="18%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Test</th>
+<th align="center"><span class="math inline">\(t\)</span>-stat</th>
+<th align="center">Critical value</th>
+<th align="center">Exceeds CV?</th>
+<th align="left">Decision</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Two-sided (c)</td>
+<td align="center"><span class="math inline">\(1.75\)</span></td>
+<td align="center"><span class="math inline">\(t_{0.025,20} = 2.086\)</span></td>
+<td align="center"><span class="math inline">\(1.75 &lt; 2.086\)</span></td>
+<td align="left">Fail to reject</td>
+</tr>
+<tr class="even">
+<td align="left">One-sided (d)</td>
+<td align="center"><span class="math inline">\(1.75\)</span></td>
+<td align="center"><span class="math inline">\(t_{0.05,20} = 1.725\)</span></td>
+<td align="center"><span class="math inline">\(1.75 &gt; 1.725\)</span></td>
+<td align="left">Reject</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why the critical values differ:</strong></p>
+<ul>
+<li><p>The <strong>two-sided test</strong> splits the 5% significance level across <em>both</em> tails: 2.5% in the left tail, 2.5% in the right tail. The critical value <span class="math inline">\(t_{0.025,20} = 2.086\)</span> is large because it must capture only 2.5% in each tail.</p></li>
+<li><p>The <strong>one-sided test</strong> places the <em>entire</em> 5% in the right tail (the direction of <span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span>). The critical value <span class="math inline">\(t_{0.05,20} = 1.725\)</span> is smaller because it captures 5% in one tail.</p></li>
+</ul>
+<p><strong>Since <span class="math inline">\(t = 1.75\)</span> falls between the two critical values</strong> (<span class="math inline">\(1.725 &lt; 1.75 &lt; 2.086\)</span>), it is large enough to reject in the one-sided test but not large enough to reject in the two-sided test.</p>
+<p><strong>The trade-off:</strong></p>
+<ul>
+<li><p>The <strong>one-sided test</strong> has more <strong>power</strong> (higher probability of rejecting <span class="math inline">\(H_0\)</span>) when the true <span class="math inline">\(\beta_1\)</span> lies in the direction of <span class="math inline">\(H_1\)</span> (here, <span class="math inline">\(\beta_1 &gt; 1\)</span>). It achieves this by concentrating all its rejection region on one side.</p></li>
+<li><p>However, the one-sided test has <strong>zero power</strong> against departures in the <em>opposite</em> direction (<span class="math inline">\(\beta_1 &lt; 1\)</span>). If <span class="math inline">\(\beta_1\)</span> were actually much less than 1, the one-sided test would never reject.</p></li>
+<li><p>The <strong>two-sided test</strong> can detect departures in <em>either</em> direction, but at the cost of lower power in any single direction.</p></li>
+</ul>
+<strong>When to use one-sided:</strong> Only when you have strong theoretical reasons to expect the effect in a specific direction <em>before seeing the data</em>. Otherwise, use a two-sided test.
+</details>
+<hr />
+</div>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Tutorial 6 — Variance of the OLS Estimator and Hypothesis Testing</strong>: Introductory Econometrics — TA Session" was written by . It was last built on Duration: 50 minutes | Based on Wooldridge, Theorem 2.2, Sections 2.5 and 4.1–4.2.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+
+</html>

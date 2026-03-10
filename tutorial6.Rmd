@@ -1,0 +1,683 @@
+# Tutorial 6: Varianza of the OLS estimator and hypothesis testing 
+
+## Block 1: Motivation — Why Isn't Unbiasedness Enough? (3 min)
+
+::: {.book-example}
+<div class="header">The Simple Linear Regression Assumptions</div>
+
+We work with the model $y = \beta_0 + \beta_1 x + u$ under the following assumptions. You need to know these by name — each one will be explicitly cited in the derivations below.
+
+| Label | Name | Statement |
+|:------|:-----|:----------|
+| **SLR.1** | Linear in Parameters | $y = \beta_0 + \beta_1 x + u$ |
+| **SLR.2** | Random Sampling | $\{(x_i, y_i)\}_{i=1}^n$ are i.i.d. draws |
+| **SLR.3** | Sample Variation in $x$ | $\text{SST}_x = \sum (x_i - \bar{x})^2 > 0$ |
+| **SLR.4** | Zero Conditional Mean | $E[u \mid x] = 0$ |
+| **SLR.5** | Homoskedasticity | $\text{Var}(u \mid x) = \sigma^2$ (constant) |
+| **SLR.6** | Normality | $u \mid x \sim N(0, \sigma^2)$ |
+
+**What we proved so far:** Under **SLR.1–SLR.4**, the OLS estimator is **unbiased**: $E[\hat{\beta}_1] = \beta_1$. But unbiasedness says only that $\hat{\beta}_1$ is centred at $\beta_1$ *on average* across all possible samples. It says nothing about how far any single estimate might be from the truth.
+
+**What we need now:** To know how *precise* $\hat{\beta}_1$ is, we need its variance. Adding **SLR.5** allows us to derive $\text{Var}(\hat{\beta}_1)$. Adding **SLR.6** on top gives us the exact sampling distribution, which enables hypothesis tests and confidence intervals.
+:::
+
+::: {.book-example}
+<div class="header">Theorem 2.2 (Wooldridge) — Sampling Variance of $\hat{\beta}_1$</div>
+
+Under **SLR.1–SLR.5**:
+
+$$\boxed{\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \frac{\sigma^2}{\text{SST}_x}} \qquad\text{where}\quad \text{SST}_x = \sum_{i=1}^{n}(x_i - \bar{x})^2$$
+
+The proof relies on a key representation of $\hat{\beta}_1$ that isolates the source of randomness. We derive it step by step.
+
+**Step 1: Start from the OLS formula.**
+$$\hat{\beta}_1 = \frac{\sum_{i=1}^{n}(x_i - \bar{x})(y_i - \bar{y})}{\sum_{i=1}^{n}(x_i - \bar{x})^2} = \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\text{SST}_x}$$
+
+**Step 2: Substitute the model (SLR.1).** Since $y_i = \beta_0 + \beta_1 x_i + u_i$, taking the sample mean gives $\bar{y} = \beta_0 + \beta_1 \bar{x} + \bar{u}$. Subtracting:
+$$y_i - \bar{y} = \beta_1(x_i - \bar{x}) + (u_i - \bar{u})$$
+
+**Step 3: Expand the numerator.**
+$$\sum(x_i - \bar{x})(y_i - \bar{y}) = \sum(x_i - \bar{x})\bigl[\beta_1(x_i - \bar{x}) + (u_i - \bar{u})\bigr] = \beta_1 \underbrace{\sum(x_i - \bar{x})^2}_{=\,\text{SST}_x} + \sum(x_i - \bar{x})(u_i - \bar{u})$$
+
+**Step 4: Eliminate $\bar{u}$ from the second term.**
+$$\sum(x_i - \bar{x})(u_i - \bar{u}) = \sum(x_i - \bar{x})\,u_i - \bar{u}\underbrace{\sum(x_i - \bar{x})}_{=\,0} = \sum(x_i - \bar{x})\,u_i$$
+
+The key fact is $\sum(x_i - \bar{x}) = 0$ (deviations from the mean always sum to zero).
+
+**Step 5: Divide by $\text{SST}_x$.**
+$$\hat{\beta}_1 = \frac{\beta_1 \cdot \text{SST}_x + \sum(x_i - \bar{x})\,u_i}{\text{SST}_x} = \beta_1 + \frac{\sum(x_i - \bar{x})\,u_i}{\text{SST}_x}$$
+
+$$\boxed{\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i, \qquad w_i = \frac{x_i - \bar{x}}{\text{SST}_x}}$$
+
+**Interpretation:** $\hat{\beta}_1$ equals the true parameter $\beta_1$ plus a weighted sum of the unobserved errors $u_1, \ldots, u_n$. The weights $w_i$ depend only on the $x$-values, so conditional on $\mathbf{x}$ they are constants. The *only* source of randomness in $\hat{\beta}_1$ is the errors $u_i$.
+:::
+
+---
+
+## Block 2: Deriving and Computing $\text{Var}(\hat{\beta}_1)$ (12 min)
+
+**Question 1** (Derivation and numerical computation)
+
+**(a)** Starting from the representation $\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i$, derive $\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2/\text{SST}_x$.
+
+<span class="hint">Hint: Follow these steps — (i) Why can you drop $\beta_1$ from the variance? (ii) Expand $\text{Var}(\sum w_i u_i \mid \mathbf{x})$. Which assumption eliminates the covariance terms? (iii) Which assumption makes $\text{Var}(u_i \mid \mathbf{x})$ the same for all $i$? (iv) Simplify $\sum w_i^2$.</span>
+
+<details class="solution">
+<summary>Solution</summary>
+
+We start from:
+$$\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i \qquad\text{where}\quad w_i = \frac{x_i - \bar{x}}{\text{SST}_x}$$
+
+**Step (i): Drop the constant $\beta_1$.**
+
+By **SLR.1** (Linear in Parameters), the model is $y = \beta_0 + \beta_1 x + u$, where $\beta_0$ and $\beta_1$ are *fixed, unknown population parameters* — they are constants, not random variables. Since adding a constant to a random variable does not change its variance (recall: $\text{Var}(a + X) = \text{Var}(X)$ for any constant $a$):
+
+$$\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \text{Var}\!\left(\beta_1 + \sum_{i=1}^n w_i u_i \;\middle|\; \mathbf{x}\right) = \text{Var}\!\left(\sum_{i=1}^n w_i u_i \;\middle|\; \mathbf{x}\right)$$
+
+Note also that we condition on $\mathbf{x} = (x_1, \ldots, x_n)$, so the weights $w_i = (x_i - \bar{x})/\text{SST}_x$ are treated as **constants** (they depend only on the $x$-values). The **only random variables** in this expression are $u_1, \ldots, u_n$.
+
+**Step (ii): Expand the variance of the weighted sum.**
+
+By the general formula for the variance of a linear combination:
+
+$$\text{Var}\!\left(\sum_{i=1}^n w_i u_i \;\middle|\; \mathbf{x}\right) = \underbrace{\sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x})}_{\text{variance terms}} + \underbrace{\sum_{\substack{i,j=1 \\ i \ne j}}^{n} w_i w_j\,\text{Cov}(u_i, u_j \mid \mathbf{x})}_{\text{covariance terms}}$$
+
+Now we apply **SLR.2** (Random Sampling): the observations $\{(x_i, y_i)\}_{i=1}^n$ are drawn *independently* from the population. Since $y_i = \beta_0 + \beta_1 x_i + u_i$, the errors $u_1, \ldots, u_n$ are also **independent of each other** conditional on $\mathbf{x}$.
+
+Independence implies that $\text{Cov}(u_i, u_j \mid \mathbf{x}) = 0$ for all $i \ne j$. Therefore, **all cross-terms vanish**:
+
+$$= \sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x}) + 0 = \sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x})$$
+
+**Step (iii): Apply homoskedasticity.**
+
+Now apply **SLR.5** (Homoskedasticity): the variance of the error term is the *same* for all observations, regardless of the value of $x$:
+
+$$\text{Var}(u_i \mid \mathbf{x}) = \sigma^2 \quad\text{for all } i = 1, \ldots, n$$
+
+Since $\sigma^2$ does not depend on $i$, it can be **factored out** of the sum:
+
+$$\sum_{i=1}^n w_i^2\,\text{Var}(u_i \mid \mathbf{x}) = \sum_{i=1}^n w_i^2 \cdot \sigma^2 = \sigma^2 \sum_{i=1}^n w_i^2$$
+
+<span class="warn">Why SLR.5 is critical:</span> Without homoskedasticity, each observation could have a different error variance $\text{Var}(u_i \mid x_i) = \sigma_i^2$, and we could *not* factor out a single $\sigma^2$. The formula would become $\sum w_i^2 \sigma_i^2$, which depends on each individual $\sigma_i^2$ and is much harder to work with. This is exactly the complication that arises under **heteroskedasticity**.
+
+**Step (iv): Simplify $\sum w_i^2$.**
+
+Recall that $w_i = (x_i - \bar{x})/\text{SST}_x$. Squaring and summing:
+
+$$\sum_{i=1}^n w_i^2 = \sum_{i=1}^n \frac{(x_i - \bar{x})^2}{\text{SST}_x^2} = \frac{1}{\text{SST}_x^2} \sum_{i=1}^n (x_i - \bar{x})^2 = \frac{\text{SST}_x}{\text{SST}_x^2} = \frac{1}{\text{SST}_x}$$
+
+In the third equality, we used the definition $\text{SST}_x = \sum_{i=1}^n (x_i - \bar{x})^2$. Note that **SLR.3** (Sample Variation in $x$) guarantees $\text{SST}_x > 0$, so this division is valid.
+
+**Combining all four steps:**
+
+$$\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) \underset{\text{(i)}}{=} \text{Var}\!\left(\sum w_i u_i \mid \mathbf{x}\right) \underset{\text{(ii)}}{=} \sum w_i^2\,\text{Var}(u_i \mid \mathbf{x}) \underset{\text{(iii)}}{=} \sigma^2 \sum w_i^2 \underset{\text{(iv)}}{=} \sigma^2 \cdot \frac{1}{\text{SST}_x}$$
+
+$$\boxed{\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \frac{\sigma^2}{\text{SST}_x}} \qquad\square$$
+
+**Summary of assumptions used:**
+
+- **SLR.1** (Linear in Parameters): $\beta_1$ is a constant, so it drops from the variance.
+- **SLR.2** (Random Sampling): errors are independent, so covariance terms are zero.
+- **SLR.3** (Sample Variation): $\text{SST}_x > 0$, so division is valid.
+- **SLR.5** (Homoskedasticity): all $\text{Var}(u_i \mid \mathbf{x}) = \sigma^2$, so $\sigma^2$ factors out.
+
+Note: SLR.4 (Zero Conditional Mean) is *not* needed for the variance formula — it was needed for unbiasedness but not here.
+</details>
+
+---
+
+**(b)** Suppose $n = 5$ observations with $x$-values $\{1, 3, 5, 7, 9\}$ and $\sigma^2 = 10$. Compute $\bar{x}$, $\text{SST}_x$, $\text{Var}(\hat{\beta}_1)$, and $\text{sd}(\hat{\beta}_1)$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: Compute $\bar{x}$.**
+$$\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{1 + 3 + 5 + 7 + 9}{5} = \frac{25}{5} = 5$$
+
+**Step 2: Compute each deviation $(x_i - \bar{x})$ and its square.**
+
+| $x_i$ | $x_i - \bar{x}$ | $(x_i - \bar{x})^2$ |
+|:------:|:----------------:|:--------------------:|
+| 1 | $1 - 5 = -4$ | $16$ |
+| 3 | $3 - 5 = -2$ | $4$ |
+| 5 | $5 - 5 = 0$ | $0$ |
+| 7 | $7 - 5 = 2$ | $4$ |
+| 9 | $9 - 5 = 4$ | $16$ |
+| | | $\text{SST}_x = 40$ |
+
+**Step 3: Apply the formula.**
+$$\text{Var}(\hat{\beta}_1) = \frac{\sigma^2}{\text{SST}_x} = \frac{10}{40} = \boxed{0.25}$$
+
+$$\text{sd}(\hat{\beta}_1) = \sqrt{\text{Var}(\hat{\beta}_1)} = \sqrt{0.25} = \boxed{0.5}$$
+
+**Interpretation:** Across repeated samples with these same $x$-values, the OLS slope estimate $\hat{\beta}_1$ would have a standard deviation of $0.5$ — on average, our estimates will be about $0.5$ units away from the true $\beta_1$.
+</details>
+
+---
+
+**(c)** Based on the formula $\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x$, explain what happens to the precision of $\hat{\beta}_1$ when: (i) the error variance $\sigma^2$ increases; (ii) we add more observations that are spread out (not concentrated at $\bar{x}$); (iii) we add observations that are all equal to $\bar{x}$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+The formula $\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x$ has two ingredients: $\sigma^2$ in the numerator and $\text{SST}_x$ in the denominator.
+
+**(i) $\sigma^2$ increases $\Longrightarrow$ Var increases (less precise).**
+
+$\sigma^2$ measures the noise in the error term. More noise means the data points are more scattered around the regression line, making it harder to pin down the slope.
+
+*Numerical example:* With our data ($\text{SST}_x = 40$), doubling $\sigma^2$ from 10 to 20 doubles $\text{Var}(\hat{\beta}_1)$ from $0.25$ to $0.50$.
+
+**(ii) Adding spread-out observations increases $\text{SST}_x$ $\Longrightarrow$ Var decreases (more precise).**
+
+Each new observation at $x_i \ne \bar{x}$ contributes $(x_i - \bar{x})^2 > 0$ to $\text{SST}_x$. A larger $\text{SST}_x$ in the denominator shrinks $\text{Var}(\hat{\beta}_1)$.
+
+**Intuition:** More variation in $x$ gives us more "leverage" to estimate the slope. Imagine fitting a line through data points that are all bunched together vs. spread far apart — the spread-out data pins the slope down much more precisely.
+
+**(iii) Adding observations at $x = \bar{x}$ does *not* help.**
+
+If $x_i = \bar{x}$, then $(x_i - \bar{x})^2 = 0$, so these observations contribute **nothing** to $\text{SST}_x$. $\text{Var}(\hat{\beta}_1)$ is unchanged.
+
+*Numerical example:* Adding 100 observations all at $x = 5$ (the mean) keeps $\text{SST}_x = 40$, so $\text{Var}(\hat{\beta}_1)$ stays at $0.25$.
+
+**Intuition:** To estimate a slope, you need to see how $y$ changes as $x$ changes. If all your new data have the same $x$, you learn nothing new about the slope — you only learn more about the intercept.
+</details>
+
+---
+
+## Block 3: From $\sigma^2$ to Standard Errors (10 min)
+
+::: {.book-example}
+<div class="header">Estimating $\sigma^2$ and the $t$-Distribution</div>
+
+The formula $\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x$ involves $\sigma^2 = \text{Var}(u \mid \mathbf{x})$, which is **unknown** (we never observe the true errors $u_i$). We estimate it from the **residuals** $\hat{u}_i = y_i - \hat{y}_i$:
+
+$$\hat{\sigma}^2 = \frac{1}{n-2}\sum_{i=1}^{n} \hat{u}_i^2 = \frac{\text{SSR}}{n-2}$$
+
+**Why $n-2$ and not $n$?** We estimated two parameters ($\hat{\beta}_0$ and $\hat{\beta}_1$) to compute the residuals. This "uses up" 2 degrees of freedom. Dividing by $n-2$ corrects for this and makes $\hat{\sigma}^2$ an **unbiased** estimator of $\sigma^2$: $E[\hat{\sigma}^2] = \sigma^2$.
+
+The **standard error** of $\hat{\beta}_1$ replaces $\sigma$ with $\hat{\sigma}$:
+
+$$\text{SE}(\hat{\beta}_1) = \frac{\hat{\sigma}}{\sqrt{\text{SST}_x}}$$
+
+In R, $\hat{\sigma}$ is reported as `Residual standard error` and $\text{SE}(\hat{\beta}_1)$ appears in the `Std. Error` column.
+
+Adding **SLR.6** (Normality: $u \mid x \sim N(0, \sigma^2)$), the $t$-statistic
+
+$$t = \frac{\hat{\beta}_1 - \beta_1}{\text{SE}(\hat{\beta}_1)} \sim t_{n-2}$$
+
+follows a **$t$-distribution** with $n - 2$ degrees of freedom. The $t$ (not $N(0,1)$) arises because $\hat{\sigma}$ in the denominator is *itself a random variable* — it varies from sample to sample, adding extra uncertainty.
+
+**Key distinction:**
+
+- If $\sigma$ were **known**: $Z = \frac{\hat{\beta}_1 - \beta_1}{\sigma/\sqrt{\text{SST}_x}} \sim N(0,1)$ (standard normal)
+- Since $\sigma$ is **unknown**: $t = \frac{\hat{\beta}_1 - \beta_1}{\hat{\sigma}/\sqrt{\text{SST}_x}} \sim t_{n-2}$ ($t$-distribution, heavier tails)
+
+As $n \to \infty$, $\hat{\sigma} \to \sigma$ and $t_{n-2} \to N(0,1)$, so the distinction vanishes in large samples.
+:::
+
+The following R output will be used for Questions 2 and 3. An econometrician regressed `y` on `x` using 22 observations.
+
+```
+> model <- lm(y ~ x, data = mydata)
+> summary(model)
+...
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   5.2000     1.3000   4.000 0.000742 ***
+x             2.4000     0.8000       A        B
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4 on 20 degrees of freedom
+
+> confint(model)
+                2.5 %   97.5 %
+(Intercept)  2.488248 7.911752
+x                   C        D
+```
+
+**Question 2** (Reading R output — variance and standard errors)
+
+**(a)** From the R output, identify $\hat{\sigma}$ (the residual standard error) and the number of observations $n$. Then compute $\hat{\sigma}^2$ and $\text{SST}_x$.
+
+<span class="hint">Hint: Use $\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}$ and solve for $\text{SST}_x$.</span>
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Reading $\hat{\sigma}$ from the output:** The line `Residual standard error: 4 on 20 degrees of freedom` tells us two things:
+
+- $\hat{\sigma} = 4$ (the estimated standard deviation of the errors)
+- Degrees of freedom $= n - 2 = 20$, which means $n = 22$ observations.
+
+**Computing $\hat{\sigma}^2$:**
+$$\hat{\sigma}^2 = 4^2 = \boxed{16}$$
+
+**Computing $\text{SST}_x$:** From the output, the `Std. Error` column for `x` gives $\text{SE}(\hat{\beta}_1) = 0.8$. Using the formula $\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}$:
+
+$$0.8 = \frac{4}{\sqrt{\text{SST}_x}} \quad\Longrightarrow\quad \sqrt{\text{SST}_x} = \frac{4}{0.8} = 5 \quad\Longrightarrow\quad \text{SST}_x = 5^2 = \boxed{25}$$
+
+**Verification:** $\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x} = 4/\sqrt{25} = 4/5 = 0.8$ $\checkmark$
+</details>
+
+---
+
+**(b)** Explain in one or two sentences why replacing $\sigma$ with $\hat{\sigma}$ changes the distribution of the test statistic from standard normal to $t$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+When $\sigma$ is **known**, $(\hat{\beta}_1 - \beta_1)/(\sigma/\sqrt{\text{SST}_x})$ is a ratio of a normal random variable (the numerator) over a *constant* (the denominator), so the ratio is exactly $N(0,1)$.
+
+When we **replace** $\sigma$ with $\hat{\sigma}$, the denominator $\hat{\sigma}/\sqrt{\text{SST}_x}$ becomes a *random variable* — it fluctuates from sample to sample because $\hat{\sigma}$ is computed from the data. The ratio is now a normal random variable divided by a random estimate of its standard deviation. This ratio has **heavier tails** than the normal (sometimes $\hat{\sigma}$ underestimates $\sigma$, inflating $|t|$), producing the $t_{n-2}$ distribution.
+
+**Intuition:** The $t$-distribution is "wider" than the normal to account for the fact that we *don't know* $\sigma$ exactly. As the sample size grows, $\hat{\sigma}$ becomes a better and better estimate of $\sigma$, the extra uncertainty shrinks, and $t_{n-2} \to N(0,1)$.
+</details>
+
+---
+
+**(c)** Find $A$ (the $t$-value) and $B$ (the $p$-value) in the output. What null hypothesis does this $t$-statistic test?
+
+<details class="solution">
+<summary>Solution</summary>
+
+**What R reports by default:** The $t$-value and $p$-value in R's `summary()` output always test the null hypothesis
+
+$$H_0\colon \beta_1 = 0 \quad\text{vs.}\quad H_1\colon \beta_1 \ne 0$$
+
+That is, R tests whether the coefficient is significantly different from **zero** (two-sided).
+
+**Finding $A$ (t-value):** The $t$-statistic for testing $H_0\colon \beta_1 = 0$ is:
+
+$$A = t = \frac{\hat{\beta}_1 - 0}{\text{SE}(\hat{\beta}_1)} = \frac{\text{Estimate}}{\text{Std. Error}} = \frac{2.4000}{0.8000} = \boxed{3.000}$$
+
+**Finding $B$ (p-value):** The $p$-value is the probability of observing a $t$-statistic as extreme as $|t| = 3$ or more, *if $H_0$ were true*:
+
+$$B = P(|t_{20}| > 3) = 2 \cdot P(t_{20} > 3)$$
+
+The factor of 2 appears because this is a **two-sided** test (we count both tails). In R: `2 * pt(-3, df = 20)` $\approx \boxed{0.007}$.
+
+**Meaning:** If $\beta_1$ were truly zero, there would be only a $0.7\%$ chance of observing a $t$-statistic as large as $3$ in absolute value. This is strong evidence against $H_0$.
+</details>
+
+---
+
+## Block 4: Hypothesis Testing (13 min)
+
+::: {.book-example}
+<div class="header">Hypothesis Testing and Confidence Intervals — The Procedure</div>
+
+**Two-sided test** of $H_0\colon \beta_1 = \beta_{1,0}$ vs. $H_1\colon \beta_1 \ne \beta_{1,0}$:
+
+1. State the hypotheses ($H_0$ and $H_1$) and significance level $\alpha$.
+2. Compute the test statistic: $t = (\hat{\beta}_1 - \beta_{1,0})/\text{SE}(\hat{\beta}_1)$.
+3. Find the critical value: $t_{\alpha/2,\, n-2}$.
+4. Decision rule: Reject $H_0$ if $|t| > t_{\alpha/2,\, n-2}$.
+5. State the conclusion in context.
+
+**One-sided test** of $H_0\colon \beta_1 \le \beta_{1,0}$ vs. $H_1\colon \beta_1 > \beta_{1,0}$:
+
+- Same $t$-statistic.
+- Reject $H_0$ if $t > t_{\alpha,\, n-2}$ (entire $\alpha$ in one tail).
+- Since $t_{\alpha,\, n-2} < t_{\alpha/2,\, n-2}$, it is **easier to reject** in the specified direction.
+
+**$(1-\alpha)$ Confidence interval:** $\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)$.
+
+**CI–test equivalence (two-sided only):** Reject $H_0\colon \beta_1 = \beta_{1,0}$ at level $\alpha$ if and only if $\beta_{1,0}$ falls **outside** the $(1-\alpha)$ CI.
+:::
+
+*Use the R output from Block 3. You may use the following critical values for the $t_{20}$ distribution: $t_{0.025,\, 20} = 2.086$ (in R: `qt(0.975, 20)`) and $t_{0.05,\, 20} = 1.725$ (in R: `qt(0.95, 20)`).*
+
+**Question 3** (Hypothesis testing and confidence intervals)
+
+**(a)** Using $A$ and $B$ from Question 2, test $H_0\colon \beta_1 = 0$ against $H_1\colon \beta_1 \ne 0$ at the 5% significance level. State your conclusion.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: State hypotheses and significance level.**
+
+- $H_0\colon \beta_1 = 0$ (the variable $x$ has no effect on $y$)
+- $H_1\colon \beta_1 \ne 0$ (the variable $x$ has some effect on $y$)
+- This is a **two-sided** test at $\alpha = 0.05$.
+
+**Step 2: Test statistic.**
+
+From Q2(c): $t = A = 3.000$.
+
+**Step 3: Critical value.**
+
+For a two-sided test at $\alpha = 0.05$ with $\text{df} = 20$: $t_{0.025,\, 20} = 2.086$.
+
+**Step 4: Decision.**
+
+Reject $H_0$ if $|t| > 2.086$. Since $|t| = 3.000 > 2.086$, we **reject $H_0$**.
+
+**Alternative (using the $p$-value):** Reject $H_0$ if $p < \alpha$. Since $p = B = 0.007 < 0.05 = \alpha$, we **reject $H_0$**. $\checkmark$
+
+**Step 5: Conclusion.**
+
+At the 5% significance level, we reject the null hypothesis that $\beta_1 = 0$. There is statistically significant evidence that $x$ has an effect on $y$.
+</details>
+
+---
+
+**(b)** Find $C$ and $D$ (the 95% confidence interval for $\beta_1$). Show your work.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: Formula.**
+
+The $(1-\alpha) = 95\%$ confidence interval for $\beta_1$ is:
+$$\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)$$
+
+**Step 2: Plug in values.**
+
+- $\hat{\beta}_1 = 2.4$ (from the "Estimate" column)
+- $t_{0.025,\, 20} = 2.086$ (critical value for 95% CI with 20 df)
+- $\text{SE}(\hat{\beta}_1) = 0.8$ (from the "Std. Error" column)
+
+**Step 3: Compute the margin of error.**
+$$\text{Margin of error} = t_{0.025,\, 20} \times \text{SE}(\hat{\beta}_1) = 2.086 \times 0.8 = 1.669$$
+
+**Step 4: Compute the bounds.**
+$$\begin{aligned} C = \text{Lower bound} &= \hat{\beta}_1 - \text{Margin of error} = 2.4 - 1.669 = \boxed{0.731} \\ D = \text{Upper bound} &= \hat{\beta}_1 + \text{Margin of error} = 2.4 + 1.669 = \boxed{4.069} \end{aligned}$$
+
+**Step 5: State the interval.**
+
+The 95% CI for $\beta_1$ is $[0.731,\; 4.069]$.
+
+**Interpretation:** We are 95% confident that the true $\beta_1$ lies between $0.731$ and $4.069$. This means that if we repeated the sampling process many times and computed a 95% CI each time, approximately 95% of those intervals would contain the true $\beta_1$.
+
+**Consistency check with part (a):** The CI does not contain $0$, which is consistent with our rejection of $H_0\colon \beta_1 = 0$ at 5%.
+</details>
+
+---
+
+**(c)** Using the confidence interval from (b), test $H_0\colon \beta_1 = 1$ against $H_1\colon \beta_1 \ne 1$ at the 5% significance level.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: State hypotheses.**
+
+- $H_0\colon \beta_1 = 1$
+- $H_1\colon \beta_1 \ne 1$
+- Two-sided test at $\alpha = 0.05$.
+
+**Step 2: Apply the CI–test equivalence.**
+
+For a two-sided test, we reject $H_0\colon \beta_1 = \beta_{1,0}$ at level $\alpha$ if and only if the hypothesized value $\beta_{1,0}$ falls **outside** the $(1-\alpha)$ CI. From part (b), the 95% CI is $[0.731,\; 4.069]$.
+
+**Step 3: Check whether $\beta_{1,0} = 1$ is inside or outside the CI.**
+
+Since $0.731 < 1 < 4.069$, the value $\beta_{1,0} = 1$ is **inside** the 95% CI.
+
+**Step 4: Decision.**
+
+We **fail to reject** $H_0$ at the 5% significance level. There is not enough evidence to conclude that $\beta_1 \ne 1$.
+
+**Verification via $t$-test:**
+$$t = \frac{\hat{\beta}_1 - 1}{\text{SE}(\hat{\beta}_1)} = \frac{2.4 - 1}{0.8} = \frac{1.4}{0.8} = 1.75$$
+
+Decision: $|t| = 1.75 < 2.086 = t_{0.025,20}$, so we fail to reject. $\checkmark$
+
+Both methods (CI approach and $t$-test) give the same answer — they are mathematically equivalent for two-sided tests.
+</details>
+
+---
+
+**(d)** Now test $H_0\colon \beta_1 \le 1$ against $H_1\colon \beta_1 > 1$ at the 5% significance level.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: State hypotheses and significance level.**
+
+- $H_0\colon \beta_1 \le 1$
+- $H_1\colon \beta_1 > 1$
+- This is a **one-sided** (right-tailed) test at $\alpha = 0.05$.
+
+**Step 2: Compute the test statistic.**
+
+The $t$-statistic uses the boundary value of $H_0$ (i.e., $\beta_{1,0} = 1$):
+$$t = \frac{\hat{\beta}_1 - \beta_{1,0}}{\text{SE}(\hat{\beta}_1)} = \frac{2.4 - 1}{0.8} = \frac{1.4}{0.8} = 1.75$$
+
+This is the same $t$-statistic as in part (c). The difference will be in the critical value.
+
+**Step 3: Find the critical value.**
+
+For a **one-sided** test at $\alpha = 0.05$ with $\text{df} = 20$: $t_{0.05,\, 20} = 1.725$.
+
+Notice this is *smaller* than the two-sided critical value ($2.086$). The one-sided test places the entire 5% rejection probability in one tail instead of splitting it as 2.5% in each tail.
+
+**Step 4: Decision rule and decision.**
+
+For a right-tailed test: Reject $H_0$ if $t > t_{0.05, 20} = 1.725$.
+
+Since $t = 1.75 > 1.725$, we **reject $H_0$**.
+
+**Step 5: Conclusion.**
+
+At the 5% significance level, we reject $H_0\colon \beta_1 \le 1$ in favor of $H_1\colon \beta_1 > 1$. There is statistically significant evidence that $\beta_1 > 1$.
+</details>
+
+---
+
+**(e)** Parts (c) and (d) test closely related hypotheses about $\beta_1 = 1$, yet give opposite conclusions. Explain why.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**The key: different critical values.**
+
+| Test | $t$-stat | Critical value | Exceeds CV? | Decision |
+|:-----|:--------:|:--------------:|:-----------:|:---------|
+| Two-sided (c) | $1.75$ | $t_{0.025,20} = 2.086$ | $1.75 < 2.086$ | Fail to reject |
+| One-sided (d) | $1.75$ | $t_{0.05,20} = 1.725$ | $1.75 > 1.725$ | Reject |
+
+**Why the critical values differ:**
+
+- The **two-sided test** splits the 5% significance level across *both* tails: 2.5% in the left tail, 2.5% in the right tail. The critical value $t_{0.025,20} = 2.086$ is large because it must capture only 2.5% in each tail.
+
+- The **one-sided test** places the *entire* 5% in the right tail (the direction of $H_1\colon \beta_1 > 1$). The critical value $t_{0.05,20} = 1.725$ is smaller because it captures 5% in one tail.
+
+**Since $t = 1.75$ falls between the two critical values** ($1.725 < 1.75 < 2.086$), it is large enough to reject in the one-sided test but not large enough to reject in the two-sided test.
+
+**The trade-off:**
+
+- The **one-sided test** has more **power** (higher probability of rejecting $H_0$) when the true $\beta_1$ lies in the direction of $H_1$ (here, $\beta_1 > 1$). It achieves this by concentrating all its rejection region on one side.
+
+- However, the one-sided test has **zero power** against departures in the *opposite* direction ($\beta_1 < 1$). If $\beta_1$ were actually much less than 1, the one-sided test would never reject.
+
+- The **two-sided test** can detect departures in *either* direction, but at the cost of lower power in any single direction.
+
+**When to use one-sided:** Only when you have strong theoretical reasons to expect the effect in a specific direction *before seeing the data*. Otherwise, use a two-sided test.
+</details>
+
+---
+
+## Block 5: Type I/II Errors, Size, and Power (12 min)
+
+::: {.book-example}
+<div class="header">Type I and Type II Errors</div>
+
+When we perform a hypothesis test, we make a decision (reject or fail to reject $H_0$) based on sample data. Since the data are random, we can make **mistakes**:
+
+| | **$H_0$ is actually true** | **$H_0$ is actually false** |
+|:---|:---:|:---:|
+| **Reject $H_0$** | <span style="color:red">Type I Error</span> | Correct (Power) |
+| **Fail to reject $H_0$** | Correct | <span style="color:red">Type II Error</span> |
+
+- **Type I Error (false positive):** Rejecting $H_0$ when $H_0$ is *true*. We conclude there is an effect, but in reality there is none.
+
+- **Type II Error (false negative):** Failing to reject $H_0$ when $H_0$ is *false*. We miss a real effect.
+
+**Example 1 — Courtroom trial:**
+
+- $H_0$: The defendant is innocent.
+- $H_1$: The defendant is guilty.
+- **Type I:** Convicting an innocent person. The jury finds them guilty, but they didn't commit the crime.
+- **Type II:** Acquitting a guilty person. The jury finds them not guilty, but they actually did it.
+- The "beyond reasonable doubt" standard sets a very low $\alpha$ — society considers convicting an innocent person (Type I) worse than letting a guilty person go free (Type II).
+
+**Example 2 — Drug trial:**
+
+- $H_0\colon \beta_1 = 0$ (the new drug has no effect on blood pressure).
+- $H_1\colon \beta_1 \ne 0$ (the drug has an effect).
+- **Type I:** The trial concludes the drug works (rejects $H_0$), but in reality it has no effect. A useless drug is marketed.
+- **Type II:** The trial fails to find an effect (fails to reject $H_0$), but the drug actually works. A beneficial drug is never brought to market.
+- $\alpha = 0.05$ means: *if the drug truly has no effect*, there is at most a 5% chance we mistakenly conclude it works.
+:::
+
+::: {.book-example}
+<div class="header">Size and Power of a Test</div>
+
+**Size** $= P(\text{reject } H_0 \mid H_0 \text{ is true}) = P(\text{Type I Error}) = \alpha$.
+
+The size is the probability of making a Type I error. By construction, a test at significance level $\alpha$ has size $\alpha$: we *choose* the critical value to make this probability exactly $\alpha$.
+
+**Power** $= P(\text{reject } H_0 \mid H_0 \text{ is false}) = 1 - P(\text{Type II Error})$.
+
+The power is the probability of *correctly* detecting a real effect. It depends on the **true value** $\beta^*$: the farther $\beta^*$ is from $\beta_0$ (the null value), the higher the power.
+
+**What we want:** Low Type I error ($\alpha$ small) AND high power ($1 - \text{Type II}$ large). But these are in tension: making $\alpha$ smaller (harder to reject) also reduces power. The standard compromise is $\alpha = 0.05$ and hoping for power $\ge 0.80$.
+:::
+
+**Question 4** (Type I/II errors and power — numerical exercise)
+
+*To simplify the calculations, assume $\sigma_{\hat{\beta}}$ is **known**, so the test statistic is $Z = (\hat{\beta} - \beta_0)/\sigma_{\hat{\beta}} \sim N(0,1)$ under $H_0$ (standard normal, not $t$).*
+
+Consider testing $H_0\colon \beta = 0$ vs. $H_1\colon \beta \ne 0$ at $\alpha = 0.05$, with $\sigma_{\hat{\beta}} = 2$.
+
+**(a)** Define Type I and Type II error in the context of this test. Give a concrete interpretation if $\beta$ measures the effect of a job training program on wages (in thousands of dollars).
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Type I Error** $= P(\text{reject } H_0 \mid H_0 \text{ is true})$:
+
+We reject $H_0\colon \beta = 0$ even though $\beta$ is actually zero. In context: we conclude that the job training program raises wages, but in reality the program has **no effect**. We waste resources implementing a useless program.
+
+**Type II Error** $= P(\text{fail to reject } H_0 \mid H_0 \text{ is false})$:
+
+We fail to reject $H_0\colon \beta = 0$ even though $\beta \ne 0$ (the program actually works). In context: we conclude that the job training program has no effect, and we **cancel a program that actually helps workers**. The real benefit goes undetected.
+</details>
+
+---
+
+**(b)** The two-sided test rejects $H_0$ when $|Z| > 1.96$. Show that the **size** of this test is exactly $0.05$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+The size is the probability of rejecting $H_0$ *when $H_0$ is true*. Under $H_0\colon \beta = 0$:
+
+$$Z = \frac{\hat{\beta} - 0}{\sigma_{\hat{\beta}}} = \frac{\hat{\beta}}{2} \sim N(0, 1)$$
+
+The test rejects when $|Z| > 1.96$. So:
+
+$$\begin{aligned} \text{Size} &= P(|Z| > 1.96 \mid H_0) \\ &= P(Z > 1.96) + P(Z < -1.96) & &\text{(split into two tails)}\\ &= (1 - \Phi(1.96)) + \Phi(-1.96) & &\text{(using the normal CDF)} \\ &= 0.025 + 0.025 & &\text{(by symmetry of the normal)} \\ &= \boxed{0.05} \end{aligned}$$
+
+This confirms that the critical value $z_{0.025} = 1.96$ was *chosen* to make the Type I error probability exactly $\alpha = 0.05$. That is the *definition* of a test at significance level $\alpha$.
+</details>
+
+---
+
+**(c)** Compute the **power** of this test when the true value is $\beta^* = 6$ (the program truly raises wages by \$6,000).
+
+<span class="hint">Hint: Under $\beta^* = 6$, $\hat{\beta} \sim N(6, 4)$, so $Z = \hat{\beta}/2 \sim N(3, 1)$. Compute $P(|Z| > 1.96)$ using the substitution $W = Z - 3 \sim N(0,1)$. You may use: $\Phi(1.04) = 0.851$.</span>
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: Distribution of $Z$ under the true $\beta^*$.**
+
+If $\beta^* = 6$, then $\hat{\beta} \sim N(\beta^*, \sigma_{\hat{\beta}}^2) = N(6, 4)$. The test statistic (computed as if $H_0$ were true) is:
+
+$$Z = \frac{\hat{\beta} - 0}{2} = \frac{\hat{\beta}}{2} \sim N\!\left(\frac{6}{2},\, 1\right) = N(3, 1)$$
+
+So under $\beta^* = 6$, $Z$ is not $N(0,1)$ but rather $N(3, 1)$ — it is shifted to the right by $\delta = \beta^*/\sigma_{\hat{\beta}} = 6/2 = 3$.
+
+**Step 2: Compute power $= P(|Z| > 1.96)$ under $Z \sim N(3, 1)$.**
+
+Split into two tails:
+$$\text{Power} = P(Z > 1.96) + P(Z < -1.96)$$
+
+Substitute $W = Z - 3 \sim N(0,1)$, so $Z = W + 3$:
+
+**Right tail:**
+$$P(Z > 1.96) = P(W + 3 > 1.96) = P(W > 1.96 - 3) = P(W > -1.04) = \Phi(1.04) = 0.851$$
+
+**Left tail:**
+$$P(Z < -1.96) = P(W + 3 < -1.96) = P(W < -1.96 - 3) = P(W < -4.96) = \Phi(-4.96) \approx 0.000$$
+
+**Combining:**
+$$\text{Power} = 0.851 + 0.000 = \boxed{0.851}$$
+
+**Interpretation:** If the job training program truly raises wages by \$6,000 (with $\sigma_{\hat{\beta}} = 2$), there is an 85.1% probability that our test will correctly detect the effect and reject $H_0$. This is good power.
+</details>
+
+---
+
+**(d)** Compute the **power** when $\beta^* = 2$ (the program raises wages by only \$2,000). Compare with part (c) and explain.
+
+<span class="hint">Hint: $\delta = 2/2 = 1$, so $Z \sim N(1,1)$. You may use: $\Phi(0.96) = 0.831$.</span>
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: Distribution of $Z$ under $\beta^* = 2$.**
+$$Z = \frac{\hat{\beta}}{2} \sim N\!\left(\frac{2}{2},\, 1\right) = N(1, 1)$$
+
+Now $\delta = 1$ (the shift from the null is smaller).
+
+**Step 2: Compute power.**
+
+With $W = Z - 1 \sim N(0,1)$:
+
+**Right tail:**
+$$P(Z > 1.96) = P(W > 0.96) = 1 - \Phi(0.96) = 1 - 0.831 = 0.169$$
+
+**Left tail:**
+$$P(Z < -1.96) = P(W < -2.96) = \Phi(-2.96) \approx 0.002$$
+
+**Combining:**
+$$\text{Power} = 0.169 + 0.002 = \boxed{0.171}$$
+
+**Comparison:**
+
+| True $\beta^*$ | $\delta = \beta^*/\sigma_{\hat{\beta}}$ | Power | Detect? |
+|:-:|:-:|:-:|:---|
+| $6$ | $3$ | $0.851$ | Likely yes |
+| $2$ | $1$ | $0.171$ | Likely no |
+
+**Why the power is so different:** Power depends on how far the true $\beta^*$ is from the null value ($\beta_0 = 0$), measured in units of $\sigma_{\hat{\beta}}$. This ratio $\delta = \beta^*/\sigma_{\hat{\beta}}$ is the "signal-to-noise ratio."
+
+- When $\beta^* = 6$: the signal ($\delta = 3$) is strong relative to the noise. The distribution of $Z$ is shifted far enough from zero that it almost always exceeds the critical value $1.96$. The test detects the effect 85% of the time.
+
+- When $\beta^* = 2$: the signal ($\delta = 1$) is weak. The distribution of $Z$ overlaps heavily with the rejection region. The test misses the effect about 83% of the time (Type II error probability $= 1 - 0.171 = 0.829$).
+
+**Implication:** Small effects are hard to detect unless $\sigma_{\hat{\beta}}$ is small (which requires large $n$ or large $\text{SST}_x$). This connects back to Block 2: increasing $\text{SST}_x$ reduces $\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x$, which reduces $\sigma_{\hat{\beta}}$, which increases $\delta$, which increases power.
+</details>
+
+---
+
+## Summary of Key Formulas
+
+| Concept | Formula |
+|:--------|:--------|
+| Total variation in $x$ | $\text{SST}_x = \sum_{i=1}^n (x_i - \bar{x})^2$ |
+| Variance of $\hat{\beta}_1$ (Thm. 2.2) | $\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2 / \text{SST}_x$ [uses SLR.1–5] |
+| Estimated error variance | $\hat{\sigma}^2 = \sum \hat{u}_i^2 / (n-2)$ |
+| Standard error of $\hat{\beta}_1$ | $\text{SE}(\hat{\beta}_1) = \hat{\sigma} / \sqrt{\text{SST}_x}$ |
+| $t$-statistic | $t = (\hat{\beta}_1 - \beta_{1,0}) / \text{SE}(\hat{\beta}_1) \sim t_{n-2}$ [uses SLR.1–6] |
+| Two-sided rejection rule | Reject if $\|t\| > t_{\alpha/2,\, n-2}$ |
+| One-sided rejection rule | Reject if $t > t_{\alpha,\, n-2}$ (for $H_1\colon \beta_1 > \beta_{1,0}$) |
+| $(1-\alpha)$ Confidence interval | $\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)$ |
+| CI–test equivalence | Reject two-sided $H_0$ iff $\beta_{1,0} \notin$ CI |
+| Type I Error (size) | $P(\text{reject } H_0 \mid H_0 \text{ true}) = \alpha$ |
+| Type II Error | $P(\text{fail to reject } H_0 \mid H_0 \text{ false})$ |
+| Power | $P(\text{reject } H_0 \mid H_0 \text{ false}) = 1 - P(\text{Type II})$ |

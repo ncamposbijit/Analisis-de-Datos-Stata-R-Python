@@ -11,6 +11,7 @@ rmd_files:
   - tutorial3b.Rmd
   - tutorial4.Rmd
   - tutorial5.Rmd
+  - tutorial6.Rmd 
 
 edit: https://github.com/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/edit/main/%s
 view: https://github.com/ncamposbijit/Analisis-de-Datos-Stata-nivel-avanzado/blob/main/%s
