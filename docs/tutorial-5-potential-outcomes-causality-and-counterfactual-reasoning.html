@@ -1,35 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>7 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Introduction to Econometrics</title>
-<meta name="author" content="Nicolás Campos Bijit">
-<meta name="description" content="Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a Notation note. Following Wooldridge Chapter 2, this tutorial uses lowercase \(y_i\) and \(x_i\) for outcomes and treatment. These...">
-<meta name="generator" content="bookdown 0.46 with bs4_book()">
-<meta property="og:title" content="7 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Introduction to Econometrics">
-<meta property="og:type" content="book">
-<meta property="og:description" content="Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a Notation note. Following Wooldridge Chapter 2, this tutorial uses lowercase \(y_i\) and \(x_i\) for outcomes and treatment. These...">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="7 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Introduction to Econometrics">
-<meta name="twitter:description" content="Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a Notation note. Following Wooldridge Chapter 2, this tutorial uses lowercase \(y_i\) and \(x_i\) for outcomes and treatment. These...">
-<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
-<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
-<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
-<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
-<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>7 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Introduction to Econometrics</title>
+
+    <meta name="author" content="Nicolás Campos Bijit" />
+  
+   <meta name="description" content="Exercises and concepts for introduction econometrics" />
+   <meta name="generator" content="placeholder" />
+  <meta property="og:title" content="7 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Introduction to Econometrics" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Exercises and concepts for introduction econometrics" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7 Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning | Introduction to Econometrics" />
+  
+  <meta name="twitter:description" content="Exercises and concepts for introduction econometrics" />
+  
+  <!-- JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
+    <link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet" />
+    <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet" />
+    <script src="libs/bs3compat-0.10.0/transition.js"></script>
+    <script src="libs/bs3compat-0.10.0/tabs.js"></script>
+    <script src="libs/bs3compat-0.10.0/bs3compat.js"></script>
+    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
+    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-<link rel="stylesheet" href="style4.css">
+      <link rel="stylesheet" href="style4.css" />
+  
 </head>
+
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
+    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -41,40 +65,29 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-</form>
+      </form>
 
-      <nav aria-label="Table of contents"><h2>Table of contents</h2>
-        <ul class="book-toc list-unstyled">
-<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
-<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
-<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
-<li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
-<li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
-<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
-<li><a class="active" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
-<li><a class="" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
-<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
-<li><a class="" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
-</ul>
+      <nav aria-label="Table of contents">
+        <h2>Table of contents</h2>
+        <div id="book-toc"></div>
 
         <div class="book-extra">
-          
+          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
         </div>
       </nav>
-</div>
-  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning" class="section level1" number="7">
-<h1>
-<span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning<a class="anchor" aria-label="anchor" href="#tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning"><i class="fas fa-link"></i></a>
-</h1>
+    </div>
+  </header>
+
+  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
+<div id="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</h1>
 <p><em>Duration: 50 minutes | Based on Wooldridge, Sections 1-4 and 2-7a</em></p>
 <blockquote>
 <p><strong>Notation note.</strong> Following Wooldridge Chapter 2, this tutorial uses <em>lowercase</em> <span class="math inline">\(y_i\)</span> and <span class="math inline">\(x_i\)</span> for outcomes and treatment. These are the same objects as <span class="math inline">\(Y_i\)</span> and <span class="math inline">\(X_i\)</span> in Tutorials 2 and 3 — the change is purely notational.</p>
 </blockquote>
-<hr>
+<hr />
 <div id="block-1-motivation-why-do-we-need-potential-outcomes-5-min" class="section level2" number="7.1">
-<h2>
-<span class="header-section-number">7.1</span> Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)<a class="anchor" aria-label="anchor" href="#block-1-motivation-why-do-we-need-potential-outcomes-5-min"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">7.1</span> Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)</h2>
 <div class="bookexample">
 <p><strong>Causality, Ceteris Paribus, and Counterfactual Reasoning</strong> <em>(Section 1-4)</em></p>
 <p>In economics we want to know whether one variable has a <strong>causal effect</strong> on another. This requires <strong>ceteris paribus</strong> reasoning: what happens to an outcome when we change one factor, <em>holding all other factors fixed</em>. Since we can rarely hold other factors fixed, we resort to <strong>counterfactual reasoning</strong>: “what <em>would have happened</em> under a different state of the world?” The challenge is that we can never observe the same unit in both states simultaneously. This is the <strong>fundamental problem of causal inference</strong>. The textbook illustrates this with four examples:</p>
@@ -95,12 +108,10 @@
 <div class="solution">
 <p><span id="unlabeled-div-2" class="solution"><em>Solution</em>. </span><strong>Random assignment</strong> of the treatment. In every case, the ideal experiment randomly assigns the treatment (fertilizer amounts, education levels, police force sizes, minimum wage levels) so that treatment status is independent of all other characteristics. This eliminates confounding and selection bias, making simple group comparisons valid estimates of causal effects.</p>
 </div>
-<hr>
+<hr />
 </div>
 <div id="block-2-potential-outcomes-notation-13-min" class="section level2" number="7.2">
-<h2>
-<span class="header-section-number">7.2</span> Block 2: Potential Outcomes Notation (13 min)<a class="anchor" aria-label="anchor" href="#block-2-potential-outcomes-notation-13-min"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">7.2</span> Block 2: Potential Outcomes Notation (13 min)</h2>
 <div class="bookexample">
 <p><strong>Section 2-7a — Counterfactual (or Potential) Outcomes, Causality, and Policy Analysis</strong></p>
 <p>Consider a binary treatment: <span class="math inline">\(x_i = 1\)</span> if unit <span class="math inline">\(i\)</span> is in the treatment group, <span class="math inline">\(x_i = 0\)</span> if in the control group. For each unit <span class="math inline">\(i\)</span> there are two <strong>potential outcomes</strong>: <span class="math inline">\(y_i(1)\)</span> (outcome if treated) and <span class="math inline">\(y_i(0)\)</span> (outcome if not treated). Both exist conceptually, but we only observe one.</p>
@@ -118,10 +129,8 @@
 <div class="solution">
 <p><span id="unlabeled-div-3" class="solution"><em>Solution</em>. </span></p>
 <ul>
-<li>
-<span class="math inline">\(y_i(1)\)</span> = the outcome individual <span class="math inline">\(i\)</span> <strong>would</strong> experience <strong>if treated</strong> (<span class="math inline">\(x_i = 1\)</span>).</li>
-<li>
-<span class="math inline">\(y_i(0)\)</span> = the outcome individual <span class="math inline">\(i\)</span> <strong>would</strong> experience <strong>if not treated</strong> (<span class="math inline">\(x_i = 0\)</span>).</li>
+<li><span class="math inline">\(y_i(1)\)</span> = the outcome individual <span class="math inline">\(i\)</span> <strong>would</strong> experience <strong>if treated</strong> (<span class="math inline">\(x_i = 1\)</span>).</li>
+<li><span class="math inline">\(y_i(0)\)</span> = the outcome individual <span class="math inline">\(i\)</span> <strong>would</strong> experience <strong>if not treated</strong> (<span class="math inline">\(x_i = 0\)</span>).</li>
 </ul>
 <p>These are defined for <strong>every</strong> individual regardless of actual treatment status. For each person, both potential outcomes <em>exist conceptually</em>, but we can only observe one of them.</p>
 </div>
@@ -140,7 +149,7 @@
 </ul>
 <p>This is the <strong>switching equation</strong>: treatment “switches” which potential outcome we observe.</p>
 </div>
-<hr>
+<hr />
 <p><strong>Question 3</strong> <em>(Math — Algebraic manipulation)</em></p>
 <p>Starting from <span class="math inline">\(y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)\)</span>:</p>
 <p><strong>(a)</strong> Show that this is equivalent to:</p>
@@ -172,21 +181,21 @@ y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)
 <p>The ATT is the average effect among <strong>those who actually received treatment</strong> only.</p>
 <p>If treatment effects are heterogeneous and correlated with treatment selection, <span class="math inline">\(ATE \neq ATT\)</span>.</p>
 </div>
-<hr>
+<hr />
 </div>
 <div id="block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min" class="section level2" number="7.3">
-<h2>
-<span class="header-section-number">7.3</span> Block 3: ATE vs. ATT and Selection Bias — Numerical Exercise (13 min)<a class="anchor" aria-label="anchor" href="#block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">7.3</span> Block 3: ATE vs. ATT and Selection Bias — Numerical Exercise (13 min)</h2>
 <p><strong>Question 4</strong> <em>(Numerical exercise)</em></p>
 <p>Suppose we have a population with two types of individuals:</p>
-<div class="inline-table"><table class="table table-sm">
-<thead><tr class="header">
+<table>
+<thead>
+<tr class="header">
 <th align="center">Type</th>
 <th align="center">Fraction of population</th>
 <th align="center"><span class="math inline">\(y_i(0)\)</span></th>
 <th align="center"><span class="math inline">\(y_i(1)\)</span></th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td align="center">A</td>
@@ -201,15 +210,13 @@ y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)
 <td align="center">6</td>
 </tr>
 </tbody>
-</table></div>
+</table>
 <p><strong>(a)</strong> Compute the individual treatment effect <span class="math inline">\(\tau\)</span> for each type.</p>
 <div class="solution">
 <p><span id="unlabeled-div-9" class="solution"><em>Solution</em>. </span></p>
 <ul>
-<li>Type A: <span class="math inline">\(\tau_A = 5 - 2 = 3\)</span>
-</li>
-<li>Type B: <span class="math inline">\(\tau_B = 6 - 4 = 2\)</span>
-</li>
+<li>Type A: <span class="math inline">\(\tau_A = 5 - 2 = 3\)</span></li>
+<li>Type B: <span class="math inline">\(\tau_B = 6 - 4 = 2\)</span></li>
 </ul>
 </div>
 <p><strong>(b)</strong> Compute the <strong>ATE</strong>.</p>
@@ -237,18 +244,15 @@ y_i = x_i \cdot y_i(1) + (1 - x_i)\cdot y_i(0)
 <div class="solution">
 <p><span id="unlabeled-div-14" class="solution"><em>Solution</em>. </span>Under random assignment, <span class="math inline">\(x \perp (y(0), y(1))\)</span>, so:</p>
 <ul>
-<li>Selection bias <span class="math inline">\(= E[y(0) \mid x=1] - E[y(0) \mid x=0] = 0\)</span>
-</li>
+<li>Selection bias <span class="math inline">\(= E[y(0) \mid x=1] - E[y(0) \mid x=0] = 0\)</span></li>
 <li><span class="math inline">\(ATT = ATE = 2.6\)</span></li>
 </ul>
 <p>Therefore <span class="math inline">\(E[\bar{y}_1 - \bar{y}_0] = ATE = 2.6\)</span>. The simple difference in means is <strong>unbiased</strong> for the ATE.</p>
 </div>
-<hr>
+<hr />
 </div>
 <div id="block-4-the-selection-bias-decomposition-and-random-assignment-13-min" class="section level2" number="7.4">
-<h2>
-<span class="header-section-number">7.4</span> Block 4: The Selection Bias Decomposition and Random Assignment (13 min)<a class="anchor" aria-label="anchor" href="#block-4-the-selection-bias-decomposition-and-random-assignment-13-min"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">7.4</span> Block 4: The Selection Bias Decomposition and Random Assignment (13 min)</h2>
 <p><strong>Question 5</strong> <em>(Key derivation)</em></p>
 <p>We now prove the result we used numerically in Block 3. Let <span class="math inline">\(\bar{y}_1\)</span> be the average outcome among treated units and <span class="math inline">\(\bar{y}_0\)</span> among untreated.</p>
 <p><strong>(a)</strong> Show that the <strong>population</strong> version of the comparison <span class="math inline">\(\bar{y}_1 - \bar{y}_0\)</span> decomposes as:</p>
@@ -346,12 +350,10 @@ E[\hat{\tau}_{ate}]
 <p><span id="unlabeled-div-19" class="solution"><em>Solution</em>. </span><span class="math inline">\(\bar{y}(1)\)</span> averages <span class="math inline">\(y_i(1)\)</span> over <strong>all</strong> <span class="math inline">\(n\)</span> individuals (treated and untreated). <span class="math inline">\(\bar{y}_1\)</span> averages observed outcomes only over the <span class="math inline">\(n_1\)</span> <strong>treated</strong> individuals.</p>
 <p><span class="math inline">\(\bar{y}(1)\)</span> requires knowing <span class="math inline">\(y_i(1)\)</span> for untreated people — which we never observe. Under random assignment, <span class="math inline">\(\bar{y}_1\)</span> is unbiased for <span class="math inline">\(E[y(1)]\)</span>, so it serves as a valid substitute.</p>
 </div>
-<hr>
+<hr />
 </div>
 <div id="block-5-application-job-training-program-6-min" class="section level2" number="7.5">
-<h2>
-<span class="header-section-number">7.5</span> Block 5: Application — Job Training Program (6 min)<a class="anchor" aria-label="anchor" href="#block-5-application-job-training-program-6-min"><i class="fas fa-link"></i></a>
-</h2>
+<h2><span class="header-section-number">7.5</span> Block 5: Application — Job Training Program (6 min)</h2>
 <div class="bookexample">
 <p><strong>Example 2.14 — Evaluating a Job Training Program (JTRAIN2)</strong></p>
 <p>The data in JTRAIN2 are from the National Supported Work demonstration, where men were <strong>randomly assigned</strong> to receive job training (9–18 months) or serve as controls. The outcome is <code>re78</code>: real earnings in 1978 (thousands of 1982 dollars). The treatment variable is <code>train</code> (<span class="math inline">\(= 1\)</span> if trained).</p>
@@ -378,27 +380,25 @@ E[\hat{\tau}_{ate}]
 <div class="solution">
 <p><span id="unlabeled-div-23" class="solution"><em>Solution</em>. </span><strong>No.</strong> With self-selection, <span class="math inline">\(E[y(0) \mid x=1] \neq E[y(0) \mid x=0]\)</span>. Motivated workers may volunteer (positive selection bias <span class="math inline">\(\Rightarrow\)</span> overestimate), or workers with poor prospects may seek help (negative selection bias <span class="math inline">\(\Rightarrow\)</span> underestimate). The difference in means captures the treatment effect <em>plus</em> selection bias, and we cannot separate them.</p>
 </div>
-<hr>
+<hr />
 </div>
 <div id="summary-of-key-formulas-1" class="section level2" number="7.6">
-<h2>
-<span class="header-section-number">7.6</span> Summary of Key Formulas<a class="anchor" aria-label="anchor" href="#summary-of-key-formulas-1"><i class="fas fa-link"></i></a>
-</h2>
-<div class="inline-table"><table class="table table-sm">
+<h2><span class="header-section-number">7.6</span> Summary of Key Formulas</h2>
+<table>
 <colgroup>
-<col width="50%">
-<col width="50%">
+<col width="50%" />
+<col width="50%" />
 </colgroup>
-<thead><tr class="header">
+<thead>
+<tr class="header">
 <th align="left">Concept</th>
 <th align="left">Formula</th>
-</tr></thead>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
 <td align="left">Potential outcomes</td>
-<td align="left">
-<span class="math inline">\(y_i(0)\)</span>, <span class="math inline">\(y_i(1)\)</span>
-</td>
+<td align="left"><span class="math inline">\(y_i(0)\)</span>, <span class="math inline">\(y_i(1)\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Individual treatment effect</td>
@@ -429,51 +429,43 @@ E[\hat{\tau}_{ate}]
 <td align="left"><span class="math inline">\(E[y \mid x=1] - E[y \mid x=0] = ATT + \text{Sel. Bias}\)</span></td>
 </tr>
 <tr class="odd">
-<td align="left">Random assignment <span class="math inline">\(\Rightarrow\)</span>
-</td>
-<td align="left">Sel. Bias <span class="math inline">\(= 0\)</span>, <span class="math inline">\(ATT = ATE\)</span>
-</td>
+<td align="left">Random assignment <span class="math inline">\(\Rightarrow\)</span></td>
+<td align="left">Sel. Bias <span class="math inline">\(= 0\)</span>, <span class="math inline">\(ATT = ATE\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Connection to regression [2.79]</td>
-<td align="left">
-<span class="math inline">\(y_i = \beta_0 + \tau\, x_i + u_i\)</span> (constant effects)</td>
+<td align="left"><span class="math inline">\(y_i = \beta_0 + \tau\, x_i + u_i\)</span> (constant effects)</td>
 </tr>
 <tr class="odd">
 <td align="left">OLS estimator [2.82]</td>
 <td align="left"><span class="math inline">\(\hat{\beta}_1 = \bar{y}_1 - \bar{y}_0\)</span></td>
 </tr>
 </tbody>
-</table></div>
+</table>
+
 </div>
 </div>
-  <div class="chapter-nav">
-<div class="prev"><a href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></div>
-<div class="next"><a href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></div>
-</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
-      <ul class="nav navbar-nav">
-<li><a class="nav-link" href="#tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
-<li><a class="nav-link" href="#block-1-motivation-why-do-we-need-potential-outcomes-5-min"><span class="header-section-number">7.1</span> Block 1: Motivation — Why Do We Need Potential Outcomes? (5 min)</a></li>
-<li><a class="nav-link" href="#block-2-potential-outcomes-notation-13-min"><span class="header-section-number">7.2</span> Block 2: Potential Outcomes Notation (13 min)</a></li>
-<li><a class="nav-link" href="#block-3-ate-vs.-att-and-selection-bias-numerical-exercise-13-min"><span class="header-section-number">7.3</span> Block 3: ATE vs. ATT and Selection Bias — Numerical Exercise (13 min)</a></li>
-<li><a class="nav-link" href="#block-4-the-selection-bias-decomposition-and-random-assignment-13-min"><span class="header-section-number">7.4</span> Block 4: The Selection Bias Decomposition and Random Assignment (13 min)</a></li>
-<li><a class="nav-link" href="#block-5-application-job-training-program-6-min"><span class="header-section-number">7.5</span> Block 5: Application — Job Training Program (6 min)</a></li>
-<li><a class="nav-link" href="#summary-of-key-formulas-1"><span class="header-section-number">7.6</span> Summary of Key Formulas</a></li>
-</ul>
+  </main>
+
+  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page">
+      <h2>On this page</h2>
+      <div id="book-on-this-page"></div>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          
+          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
         </ul>
-</div>
+      </div>
     </nav>
-</div>
+  </div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5">
+  <div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-26.</p>
@@ -484,7 +476,11 @@ E[\hat{\tau}_{ate}]
   </div>
 
 </div></div>
-</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+</footer>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -496,7 +492,8 @@ E[\hat{\tau}_{ate}]
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script>
+<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -514,4 +511,5 @@ for (let popover of popovers) {
 }
 </script>
 </body>
+
 </html>

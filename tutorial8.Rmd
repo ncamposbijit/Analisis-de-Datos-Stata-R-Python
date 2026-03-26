@@ -91,6 +91,35 @@ The restricted model's feasible set is a *subset* of the unrestricted model's fe
 $$SSR_r \geq SSR_{ur} \quad\text{always.}$$
 
 **Intuition:** giving OLS more freedom (more parameters to optimise) can only help the fit or leave it unchanged. It can never make it worse. If the true $\beta_3$ and $\beta_4$ really are zero, then the unrestricted model will estimate them close to zero anyway, and $SSR_r \approx SSR_{ur}$. If they are not zero, forcing them to be zero will hurt the fit, and $SSR_r > SSR_{ur}$.
+
+**Formal proof.** Write the general case. Let $\mathbf{y}$ be the $n \times 1$ outcome vector, $\mathbf{X}$ the $n \times (k+1)$ regressor matrix for the unrestricted model, and partition the coefficient vector as $\boldsymbol{\beta} = (\boldsymbol{\beta}_1', \boldsymbol{\beta}_2')'$, where $\boldsymbol{\beta}_2$ collects the $q$ coefficients set to zero under $H_0$.
+
+**Step 1.** Define the OLS objective. Both models minimise the same function over different domains:
+
+$$SSR(\boldsymbol{\beta}) = (\mathbf{y} - \mathbf{X}\boldsymbol{\beta})'(\mathbf{y} - \mathbf{X}\boldsymbol{\beta})$$
+
+- Unrestricted: $\hat{\boldsymbol{\beta}}_{ur} = \arg\min_{\boldsymbol{\beta} \in \mathbb{R}^{k+1}} SSR(\boldsymbol{\beta})$
+- Restricted (impose $\boldsymbol{\beta}_2 = \mathbf{0}$): $\hat{\boldsymbol{\beta}}_{r} = \arg\min_{\boldsymbol{\beta} \in \mathbb{R}^{k+1}:\, \boldsymbol{\beta}_2 = \mathbf{0}} SSR(\boldsymbol{\beta})$
+
+**Step 2.** Note the set inclusion. Define the feasible sets:
+
+$$\mathcal{F}_{ur} = \mathbb{R}^{k+1}, \qquad \mathcal{F}_{r} = \{\boldsymbol{\beta} \in \mathbb{R}^{k+1} : \boldsymbol{\beta}_2 = \mathbf{0}\}$$
+
+Since $\mathcal{F}_r \subset \mathcal{F}_{ur}$, the restricted model optimises over a *subset* of the unrestricted model's domain.
+
+**Step 3.** Apply the general principle of constrained optimisation. For any function $f$ and sets $A \subseteq B$:
+
+$$\min_{\mathbf{x} \in B} f(\mathbf{x}) \leq \min_{\mathbf{x} \in A} f(\mathbf{x})$$
+
+This holds because every candidate in $A$ is also a candidate in $B$, so $B$ can do at least as well.
+
+**Step 4.** Apply to our problem. Since $SSR(\cdot)$ is the function and $\mathcal{F}_r \subset \mathcal{F}_{ur}$:
+
+$$SSR_{ur} = \min_{\boldsymbol{\beta} \in \mathcal{F}_{ur}} SSR(\boldsymbol{\beta}) \leq \min_{\boldsymbol{\beta} \in \mathcal{F}_{r}} SSR(\boldsymbol{\beta}) = SSR_r$$
+
+$$\boxed{SSR_r \geq SSR_{ur}}$$
+
+Equality holds if and only if $\hat{\boldsymbol{\beta}}_{2,ur} = \mathbf{0}$ --- that is, when the unrestricted OLS estimates of the constrained coefficients are exactly zero, so that the constraint is not binding. $\blacksquare$
 </details>
 
 ---
