@@ -1,0 +1,566 @@
+---
+title: "Tutorial 7 --- Type I \\& II Errors, Size, and Power"
+author: "Introductory Econometrics --- TA Session"
+date: "Duration: 50 minutes"
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: false
+    number_sections: false
+geometry: margin=2.5cm
+header-includes:
+  - \input{preamble_t7.tex}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo      = TRUE,
+  message   = FALSE,
+  warning   = FALSE,
+  fig.align = "center",
+  fig.width  = 6.3,
+  fig.height = 3.8,
+  out.width  = "\\textwidth"
+)
+library(ggplot2)
+library(dplyr)
+set.seed(42)
+
+theme_tutorial <- function() {
+  theme_minimal(base_size = 11) +
+    theme(
+      plot.title       = element_text(face = "bold", size = 12),
+      plot.subtitle    = element_text(color = "grey40", size = 9),
+      panel.grid.minor = element_blank(),
+      strip.text       = element_text(face = "bold")
+    )
+}
+```
+
+---
+
+# Part 1: Concepts \hfill\normalfont\textit{(25 min)}
+
+---
+
+\section{Block 1: Type I and Type II Errors \textnormal{(10 min)}}
+
+\begin{bookexample}
+\textbf{\color{blockcolor}The Four Possible Outcomes of a Hypothesis Test}
+
+\medskip
+Every hypothesis test makes one binary decision---\textbf{Reject $H_0$} or \textbf{Fail to reject $H_0$}---while the truth is in one of two states. This gives four possible outcomes:
+
+\medskip
+\renewcommand{\arraystretch}{1.6}
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{$H_0$ is actually TRUE} & \textbf{$H_0$ is actually FALSE} \\
+\midrule
+\textbf{Reject $H_0$}          & \textcolor{warncolor}{\textbf{Type I Error}} \,(false positive) & \textbf{Correct!} \,(Power) \\
+\textbf{Fail to reject $H_0$}  & \textbf{Correct!} \,(true negative) & \textcolor{warncolor}{\textbf{Type II Error}} \,(false negative) \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\bigskip
+\textbf{\textcolor{warncolor}{Type I Error ($\alpha$):}} We reject $H_0$ when it is true. We see a pattern that is not there.
+
+\medskip
+\textbf{\textcolor{warncolor}{Type II Error ($\beta$):}} We fail to reject $H_0$ when it is false. A real effect is present but we miss it.
+
+\bigskip
+\textbf{The asymmetry:} In most contexts the two errors are not equally costly. Criminal law (``beyond reasonable doubt'') prioritises minimising Type I---convicting an innocent person---even at the cost of more Type II errors. Medical screening may reverse this priority.
+\end{bookexample}
+
+\bigskip
+
+\textbf{Quick Exercise.} Fill in the table for the following context:
+
+\begin{center}
+\textit{We test whether a job-training programme has an effect on wages.\\
+$H_0$: the programme has \textbf{no effect} on wages.}
+\end{center}
+
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{lp{5.2cm}p{5.2cm}}
+\toprule
+ & \textbf{Type I Error} & \textbf{Type II Error} \\
+\midrule
+\textbf{What happens} & & \\[0.4cm]
+\textbf{In words} & & \\[0.4cm]
+\textbf{Real-world consequence} & & \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\begin{solution}
+\textbf{$H_0$:} The programme has no effect ($\beta_1 = 0$).
+
+\medskip
+\textbf{Type I Error:} We reject $H_0$ and conclude the programme works---but it actually does not. We credit a useless programme and waste public resources.
+
+\medskip
+\textbf{Type II Error:} We fail to reject $H_0$ and conclude the programme is ineffective---but it actually works. A valuable policy is dismissed and workers miss the benefit.
+
+\medskip
+\textbf{Which is worse?} Depends on the stakes. If the programme is cheap to run, Type II is worse (we lose real gains). If funding is scarce, Type I is worse (we fund an ineffective policy).
+\end{solution}
+
+---
+
+\begin{bookexample}
+\textbf{\color{blockcolor}How to read the figure below}
+
+\medskip
+The figure has \textbf{two panels}, one for each state of the world.
+
+\medskip
+\textbf{Left panel --- $H_0$ is true (programme has no effect, $\beta_1 = 0$).}
+The bell curve shows all values of the test statistic $Z = \hat{\beta}_1 / \sigma_{\hat{\beta}_1}$ we could observe across many repeated studies, when there truly is no effect. The curve is centred at zero. The dashed vertical lines at $\pm 1.96$ are the critical values: we reject $H_0$ whenever $Z$ falls outside them.
+
+\begin{itemize}
+  \item \textcolor{warncolor}{\textbf{Red tails (Type I Error, 5\%):}} these are the studies where we \emph{would} reject $H_0$---even though it is true. The programme does nothing, but by bad luck our estimate lands far from zero. This happens 5\% of the time. We cannot eliminate it; we chose $\alpha = 0.05$ precisely to accept it.
+  \item \textbf{White centre (95\%):} the studies where we correctly do not reject $H_0$.
+\end{itemize}
+
+\medskip
+\textbf{Right panel --- $H_0$ is false (programme raises wages by $\beta_1^* = 3$).}
+Now the true effect is non-zero, so the distribution of $Z$ shifts to the right---it is no longer centred at zero but at $\delta = \beta_1^* / \sigma_{\hat{\beta}_1} = 1.5$.
+
+\begin{itemize}
+  \item \textcolor{solcolor}{\textbf{Green area (Power):}} studies where $Z$ exceeds the critical value and we \emph{correctly} reject $H_0$. The programme works, and we detect it.
+  \item \textbf{Grey area (Type II Error):} studies where $Z$ stays inside the critical values and we \emph{fail} to detect the real effect. The distribution has shifted, but not enough for most draws to clear the bar.
+\end{itemize}
+
+\medskip
+\textbf{Key intuition:} the two panels share the same critical values (dashed lines). What changes is the \emph{centre} of the bell curve. When the true effect is small, the right-panel curve barely moves---most of its mass stays inside the critical values, giving low power and high Type II error. A larger true effect shifts the curve further right, putting more mass beyond the threshold.
+\end{bookexample}
+
+```{r error-types-diagram, echo=FALSE, fig.height=4.0}
+# Dense grid of Z values
+z_seq  <- seq(-5, 8, length.out = 1000)
+z_crit <- qnorm(0.975)   # 1.96: the value splitting the central 95% from the tails
+delta  <- 1.5            # delta = beta* / sigma_hat = 3 / 2
+
+# Sampling distribution of Z under H0 (centred at 0) and under H1 (shifted by delta)
+df_h0  <- data.frame(z = z_seq, density = dnorm(z_seq, 0, 1),
+                     scenario = "H0 true  (beta = 0)")
+df_h1  <- data.frame(z = z_seq, density = dnorm(z_seq, delta, 1),
+                     scenario = "H0 false  (beta* = 3, delta = 1.5)")
+df_all <- rbind(df_h0, df_h1)
+
+# Text labels placed inside each coloured region
+labels_df <- data.frame(
+  z        = c(2.7,   0.0,   3.3,   0.5),
+  density  = c(0.06,  0.10,  0.11,  0.09),
+  label    = c("Type I\nError\n(5%)", "Correctly\nnot rejected\n(95%)",
+               "Power\n(32%)", "Type II\nError\n(68%)"),
+  color_lbl = c("#cc2222", "grey30", "#2a7a2a", "grey50"),
+  scenario = c("H0 true  (beta = 0)", "H0 true  (beta = 0)",
+               "H0 false  (beta* = 3, delta = 1.5)",
+               "H0 false  (beta* = 3, delta = 1.5)")
+)
+
+ggplot(df_all, aes(x = z, y = density)) +
+  geom_line(linewidth = 0.9, color = "grey30") +
+  geom_ribbon(data = df_h0 %>% filter(z >  z_crit),
+              aes(ymin = 0, ymax = density), fill = "#cc2222", alpha = 0.5) +
+  geom_ribbon(data = df_h0 %>% filter(z < -z_crit),
+              aes(ymin = 0, ymax = density), fill = "#cc2222", alpha = 0.5) +
+  geom_ribbon(data = df_h1 %>% filter(z > z_crit),
+              aes(ymin = 0, ymax = density), fill = "#2a7a2a", alpha = 0.55) +
+  geom_ribbon(data = df_h1 %>% filter(z <= z_crit & z >= -z_crit),
+              aes(ymin = 0, ymax = density), fill = "grey60", alpha = 0.5) +
+  geom_vline(xintercept = c(-z_crit, z_crit), linetype = "dashed") +
+  geom_text(data = labels_df,
+            aes(x = z, y = density, label = label),
+            color = labels_df$color_lbl, size = 2.6, inherit.aes = FALSE) +
+  facet_wrap(~scenario) +
+  labs(title    = "Type I Error, Type II Error, and Power",
+       subtitle = paste0("Two-sided test, alpha = 0.05  |  critical values: +/-",
+                         round(z_crit, 2), "  |  beta* = 3, sigma_hat = 2, delta = 1.5"),
+       x = "Test statistic  Z = beta_hat / sigma_hat", y = "Density") +
+  theme_tutorial()
+```
+
+---
+
+\section{Block 2: Size \textnormal{(7 min)}}
+
+\begin{bookexample}
+\textbf{\color{blockcolor}Definition of Size}
+
+\[
+  \text{Size} = P(\text{reject } H_0 \mid H_0 \text{ is true}) = \alpha
+\]
+
+The \textbf{size} of a test equals the Type I error probability. When we set $\alpha = 0.05$ and use critical value $z_{0.025} = 1.96$, we construct a procedure that---\textbf{when $H_0$ is true}---rejects exactly 5\% of the time in repeated sampling.
+
+\[
+  P(|Z| > 1.96 \mid H_0) = P(Z > 1.96) + P(Z < -1.96) = 0.025 + 0.025 = 0.05
+\]
+
+\medskip
+\textbf{What $\alpha = 0.05$ means:} if we ran the same experiment 1{,}000 times in a world where $H_0$ is true, we would falsely reject $H_0$ about 50 times---purely by random chance.
+
+\medskip
+\textbf{What $\alpha$ does NOT mean:} it is not the probability that $H_0$ is true. It is a long-run frequency property of the \emph{procedure}, not of any single conclusion.
+\end{bookexample}
+
+---
+
+\section{Block 3: Power \textnormal{(8 min)}}
+
+\begin{bookexample}
+\textbf{\color{blockcolor}Definition of Power}
+
+\[
+  \text{Power}(\beta^*) = P(\text{reject } H_0 \mid \beta = \beta^*)
+                        = 1 - P(\text{Type II Error} \mid \beta = \beta^*)
+\]
+
+Power is the probability of \textbf{correctly} rejecting $H_0$ when the true parameter is $\beta^*$.
+
+\medskip
+\textbf{What makes power high?}
+\begin{enumerate}
+  \item Large true effect $|\beta^*|$: the bigger the signal, the easier to detect.
+  \item Small $\sigma_{\hat{\beta}}$: more precision means larger signal-to-noise ratio.
+  \item Larger $\alpha$: a looser Type I threshold makes rejection easier---at a cost.
+\end{enumerate}
+
+\medskip
+\textbf{Analytical formula.} When $Z = \hat{\beta}/\sigma_{\hat{\beta}}$ and the true value is $\beta^*$:
+\[
+  \text{Power}(\beta^*) = \Phi\!\left(\frac{|\beta^*|}{\sigma_{\hat{\beta}}} - z_{\alpha/2}\right)
+  + \Phi\!\left(-\frac{|\beta^*|}{\sigma_{\hat{\beta}}} - z_{\alpha/2}\right)
+  \approx \Phi\!\left(\delta - 1.96\right)
+  \quad\text{for large }\delta
+\]
+where $\delta = |\beta^*|/\sigma_{\hat{\beta}}$ is the \textbf{signal-to-noise ratio}.
+
+\medskip
+\textbf{Key property:} Power is a \emph{function} of $\beta^*$, not a single number. When $\beta^* = 0$ (i.e., $H_0$ is exactly true), Power $= \alpha$. As $|\beta^*|$ grows, Power increases toward 1.
+\end{bookexample}
+
+\begin{bookexample}
+\textbf{\color{blockcolor}How to read the power curve below}
+
+\medskip
+The x-axis is the \textbf{true effect} $\beta^*$---a value we never observe in practice. The y-axis is the \textbf{probability that our test detects it}.
+
+\medskip
+Read the curve like this: ``\emph{If the true wage effect of the programme were $\beta^*$ dollars/hour, how often would our test correctly reject $H_0$?}''
+
+\begin{itemize}
+  \item \textbf{At $\beta^* = 0$:} $H_0$ is exactly true. Power $= \alpha = 5\%$. We reject only by chance---this is the Type I error floor. The curve never goes below this line.
+  \item \textbf{At $\beta^* = 3$:} The programme raises wages by \$3/hour. Power $\approx 32\%$. We catch the effect only 1 in 3 times---low power because 3 is only 1.5 standard errors from zero.
+  \item \textbf{At $\beta^* = 6$:} Power $\approx 85\%$. The effect is now 3 standard errors from zero---large enough to detect reliably.
+  \item \textbf{The curve is symmetric:} a negative effect of $-3$ is just as hard (or easy) to detect as $+3$.
+  \item \textbf{The 80\% dashed line} is a conventional benchmark for ``adequate power'' used in study design.
+\end{itemize}
+
+\medskip
+\textbf{Why does the curve rise as $|\beta^*|$ grows?} Because a larger true effect shifts the distribution of $Z$ further from zero (larger $\delta = |\beta^*|/\sigma_{\hat\beta}$), placing more probability mass beyond the critical values $\pm 1.96$. In the error-types diagram above, this is equivalent to moving the right-panel bell curve further to the right.
+\end{bookexample}
+
+```{r power-function, echo=FALSE, fig.height=3.8}
+sigma_hat <- 2
+z_crit    <- qnorm(0.975)
+beta_grid <- seq(-8, 8, by = 0.1)
+delta     <- beta_grid / sigma_hat
+
+# Analytical power at each point: P(|Z| > 1.96) when Z ~ N(delta, 1)
+power_analytic <- pnorm(-z_crit - delta) + (1 - pnorm(z_crit - delta))
+df_pw <- data.frame(beta = beta_grid, power = power_analytic)
+
+ggplot(df_pw, aes(x = beta, y = power)) +
+  geom_line(color = "#2255aa", linewidth = 1.1) +
+  geom_hline(yintercept = 0.05, linetype = "dotted", color = "grey50") +
+  geom_hline(yintercept = 0.80, linetype = "dashed", color = "#2a7a2a", linewidth = 0.8) +
+  geom_vline(xintercept = 0, color = "grey40", linewidth = 0.4) +
+  annotate("point", x = c(3, 6), y = c(0.323, 0.851), color = "#cc2222", size = 3) +
+  annotate("text",  x = c(3.3, 6.3), y = c(0.323, 0.851),
+           label = c("beta*=3  =>  Power = 32%", "beta*=6  =>  Power = 85%"),
+           hjust = 0, size = 2.8, color = "#cc2222") +
+  annotate("text", x = 7.8, y = 0.08, label = "floor = alpha = 5%",
+           hjust = 1, size = 2.8, color = "grey50") +
+  annotate("text", x = 7.8, y = 0.83, label = "80% benchmark",
+           hjust = 1, size = 2.8, color = "#2a7a2a") +
+  annotate("text", x = 0.15, y = 0.12, label = "beta*=0:\nPower=alpha",
+           hjust = 0, size = 2.5, color = "grey40") +
+  scale_y_continuous(labels = scales::percent, breaks = seq(0, 1, 0.2)) +
+  labs(title    = "Power function: for each possible true effect, how often do we detect it?",
+       subtitle = "sigma_hat = 2, alpha = 0.05.  Red dots = the two values computed in Exercise 1.",
+       x = "True wage effect  beta*  ($/hour)", y = "Power  =  P(reject H0)") +
+  theme_tutorial()
+```
+
+---
+
+\newpage
+
+# Part 2: Exercises \hfill\normalfont\textit{(25 min)}
+
+---
+
+\section{Exercise: A Complete Example \textnormal{(25 min)}}
+
+\begin{bookexample}
+\textbf{\color{blockcolor}The Setting.}
+
+A researcher wants to know whether a job-training programme raises hourly wages. She estimates the effect with OLS and obtains $\hat{\beta}_1$ (dollars/hour). Under SLR.1--SLR.6 the estimator is normally distributed:
+\[
+  \hat{\beta}_1 \sim N\!\bigl(\beta_1,\; \sigma_{\hat{\beta}_1}^2\bigr)
+  \qquad \text{with known } \sigma_{\hat{\beta}_1} = 2 \text{ \$/hour.}
+\]
+She tests $H_0\colon \beta_1 = 0$ (no effect) against $H_1\colon \beta_1 \neq 0$ at $\alpha = 0.05$.
+
+The test statistic is $Z = \hat{\beta}_1\,/\,2$, which follows $N(0,1)$ under $H_0$.
+\end{bookexample}
+
+\subsection*{Part A --- Theoretical Calculations}
+
+\textbf{(a) Decision rule and critical values.} Derive the values of $\hat{\beta}_1$ that lead to rejection of $H_0$.
+
+\begin{solution}
+Under $H_0$, the test statistic $Z = \hat{\beta}_1 / \sigma_{\hat{\beta}_1}$ follows a standard normal distribution:
+\[
+  Z = \frac{\hat{\beta}_1}{2} \sim N(0,1) \quad \text{when } \beta_1 = 0.
+\]
+We reject $H_0$ at $\alpha = 0.05$ whenever $Z$ falls in the rejection region:
+\[
+  |Z| > z_{\alpha/2} = z_{0.025} = 1.96
+\]
+Translating back to $\hat{\beta}_1$:
+\[
+  \left|\frac{\hat{\beta}_1}{2}\right| > 1.96
+  \;\iff\;
+  |\hat{\beta}_1| > 1.96 \times 2 = 3.92 \text{ \$/hour}
+\]
+\textbf{Decision rule:} reject $H_0$ if $\hat{\beta}_1 > 3.92$ or $\hat{\beta}_1 < -3.92$.
+\end{solution}
+
+\bigskip
+
+\textbf{(b) Size and Type I error.} What is the size of this test? Compute it explicitly and interpret in context.
+
+\begin{solution}
+The size is the probability of Type I error: rejecting $H_0$ when it is true ($\beta_1 = 0$). Since $Z \sim N(0,1)$ under $H_0$:
+\[
+  \text{Size} = P(|Z| > 1.96 \mid \beta_1 = 0)
+              = P(Z > 1.96) + P(Z < -1.96)
+              = 0.025 + 0.025 = \mathbf{0.05}
+\]
+\textit{In context:} if the training programme truly has no effect on wages, and we ran this study 100 times with different random samples, we would wrongly conclude that it works in approximately 5 of those studies---purely due to random variation in the data. We tolerate this 5\% false-positive rate by choice ($\alpha = 0.05$).
+\end{solution}
+
+\bigskip
+
+\textbf{(c) Power and Type II error.} Suppose the programme \emph{actually} raises wages by $\beta_1^* = 3$ \$/hour.
+\begin{enumerate}
+  \item[(i)] Compute the \textbf{power} step by step.
+  \item[(ii)] Compute the \textbf{Type II error probability}.
+  \item[(iii)] Interpret both numbers in context.
+\end{enumerate}
+
+\begin{solution}
+\textbf{(i) Power --- step by step.}
+
+\textit{Step 1.} When the truth is $\beta_1^* = 3$, the OLS estimator has distribution:
+\[
+  \hat{\beta}_1 \sim N(3,\; 4) \quad \Rightarrow \quad
+  Z = \frac{\hat{\beta}_1}{2} \sim N\!\left(\frac{3}{2},\; 1\right) = N(1.5,\;1)
+\]
+The test statistic is no longer centred at zero---it is shifted right by $\delta = \beta_1^*/\sigma_{\hat{\beta}_1} = 3/2 = 1.5$.
+
+\textit{Step 2.} Power is the probability of falling in the rejection region under this shifted distribution:
+\[
+  \text{Power}(\beta_1^* = 3) = P(Z > 1.96 \mid Z \sim N(1.5,1)) + P(Z < -1.96 \mid Z \sim N(1.5,1))
+\]
+
+\textit{Step 3.} Standardise each term. If $Z \sim N(1.5, 1)$, then $W = Z - 1.5 \sim N(0,1)$, so:
+\begin{align*}
+P(Z > 1.96) &= P(W > 1.96 - 1.5) = P(W > 0.46) = 1 - \Phi(0.46) = 1 - 0.677 = 0.323 \\
+P(Z < -1.96) &= P(W < -1.96 - 1.5) = P(W < -3.46) = \Phi(-3.46) \approx 0.0003
+\end{align*}
+
+\textit{Step 4.} Combine:
+\[
+  \text{Power}(3) = 0.323 + 0.0003 \approx \mathbf{0.323 = 32.3\%}
+\]
+
+\medskip
+\textbf{(ii) Type II error.} The Type II error is the complement of power (in the column ``$H_0$ false''):
+\[
+  P(\text{Type II}) = 1 - \text{Power}(3) = 1 - 0.323 = \mathbf{0.677 = 67.7\%}
+\]
+
+\medskip
+\textbf{(iii) Interpretation.} The programme raises wages by \$3/hour, but our test detects this real effect only 32\% of the time. In 68\% of studies we would fail to reject $H_0$ and wrongly conclude the programme is ineffective---a Type II error. The power is low because \$3/hour is only 1.5 standard errors away from zero; the two hypotheses are hard to tell apart with this level of precision.
+\end{solution}
+
+\bigskip
+
+\textbf{(d) Summary table.} Fill in all four cells with the \textbf{probabilities} for this specific example ($\sigma_{\hat{\beta}_1} = 2$, $\alpha = 0.05$, $\beta_1^* = 3$).
+
+\medskip
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{$H_0$ true} \;($\beta_1 = 0$) & \textbf{$H_0$ false} \;($\beta_1^* = 3$) \\
+\midrule
+\textbf{Reject $H_0$}         & \quad\quad & \quad\quad \\
+\textbf{Fail to reject $H_0$} & \quad\quad & \quad\quad \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\begin{solution}
+\renewcommand{\arraystretch}{1.8}
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{$H_0$ true} \;($\beta_1 = 0$) & \textbf{$H_0$ false} \;($\beta_1^* = 3$) \\
+\midrule
+\textbf{Reject $H_0$}         & \textcolor{warncolor}{\textbf{Type I error} $= \alpha = 0.05$} & \textcolor{solcolor}{\textbf{Power} $= 0.323$} \\
+\textbf{Fail to reject $H_0$} & Correct $= 1 - \alpha = 0.95$                                   & \textcolor{warncolor}{\textbf{Type II error} $= 1 - 0.323 = 0.677$} \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\medskip
+\textbf{Key relationship:} each column sums to 1 (the two outcomes are exhaustive). Type I error and Power live in \emph{different columns}---they describe different states of the world. Reducing $\alpha$ (tighter Type I control) pushes the critical values outward, which makes it harder to reject $H_0$ and therefore \emph{increases} Type II error. The only way to reduce both errors simultaneously is to increase the precision of $\hat{\beta}_1$ (i.e., larger sample size $n$).
+\end{solution}
+
+\bigskip
+
+\textbf{(e) What if the true effect were larger?} Compute power when $\beta_1^* = 6$ \$/hour, showing all steps. Explain why power is higher than in (c).
+
+\begin{solution}
+\textit{Step 1.} New signal-to-noise ratio: $\delta = 6/2 = 3$. The distribution of $Z$ is now $N(3, 1)$.
+
+\textit{Step 2--3.} Standardise:
+\begin{align*}
+P(Z > 1.96 \mid Z \sim N(3,1)) &= P(W > 1.96 - 3) = P(W > -1.04) = \Phi(1.04) = 0.851 \\
+P(Z < -1.96 \mid Z \sim N(3,1)) &= P(W < -1.96 - 3) = \Phi(-4.96) \approx 0
+\end{align*}
+
+\textit{Step 4.}
+\[
+  \text{Power}(6) = 0.851 + 0 \approx \mathbf{0.851 = 85.1\%}
+\]
+Type II error $= 1 - 0.851 = 14.9\%$.
+
+\textit{Why is power higher?} When $\beta_1^* = 6$, the distribution of $Z$ is centred at $\delta = 3$---three standard errors from zero. Most of its mass now lies to the right of the critical value $1.96$, making rejection the most likely outcome. Compared to $\beta_1^* = 3$ (where $\delta = 1.5$), the distribution has moved further from the threshold, and detection is much easier.
+\end{solution}
+
+---
+
+\subsection*{Part B --- Simulation}
+
+\begin{bookexample}
+\textbf{Goal.} We verify the numbers from Part A by simulation using the same job-training context.
+
+\medskip
+\textbf{The idea:} imagine running the wage study 10{,}000 times---drawing a new random sample of workers each time and computing $\hat{\beta}_1$. We do this twice: once in a world where the programme has no effect (\textbf{Scenario A}: $\beta_1 = 0$) and once where it truly raises wages by \$3/hour (\textbf{Scenario B}: $\beta_1^* = 3$).
+
+In each simulated study we apply the same decision rule: reject $H_0$ if $|\hat{\beta}_1| > 3.92$.
+
+\begin{itemize}
+  \item In Scenario A, the fraction of rejections estimates the \textbf{size} (should be $\approx 0.05$).
+  \item In Scenario B, the fraction of rejections estimates the \textbf{power} (should be $\approx 0.323$).
+  \item In Scenario B, the fraction of \emph{non}-rejections estimates the \textbf{Type II error} (should be $\approx 0.677$).
+\end{itemize}
+\end{bookexample}
+
+```{r simulation}
+set.seed(42)
+sigma_hat <- 2            # SE of beta_hat (same as Part A)
+z_crit    <- qnorm(0.975) # 1.96  =>  reject when |beta_hat| > 1.96 * 2 = 3.92
+n_sim     <- 10000        # number of simulated studies
+
+# ---------------------------------------------------------------
+# Scenario A: H0 is TRUE -- programme has NO effect (beta_1 = 0)
+# Each draw is one hypothetical study: a new sample of workers,
+# a new OLS estimate.  Here beta_hat ~ N(0, sigma_hat^2).
+# ---------------------------------------------------------------
+bhat_A   <- rnorm(n_sim, mean = 0, sd = sigma_hat)
+reject_A <- abs(bhat_A / sigma_hat) > z_crit   # TRUE = wrongly rejected H0
+
+cat("--- Scenario A: programme has NO effect (beta_1 = 0) ---\n")
+cat("  Reject H0 (Type I error):  ", round(mean(reject_A),  3),
+    "  [theory: 0.050]\n")
+cat("  Do not reject (correct):   ", round(mean(!reject_A), 3),
+    "  [theory: 0.950]\n\n")
+
+# ---------------------------------------------------------------
+# Scenario B: H0 is FALSE -- true effect is beta_1* = 3 $/hour
+# Now beta_hat ~ N(3, sigma_hat^2).  The distribution has shifted.
+# ---------------------------------------------------------------
+bhat_B   <- rnorm(n_sim, mean = 3, sd = sigma_hat)
+reject_B <- abs(bhat_B / sigma_hat) > z_crit   # TRUE = correctly rejected H0
+
+cat("--- Scenario B: programme raises wages by $3/hour (beta_1* = 3) ---\n")
+cat("  Reject H0 (Power):         ", round(mean(reject_B),  3),
+    "  [theory: 0.323]\n")
+cat("  Do not reject (Type II):   ", round(mean(!reject_B), 3),
+    "  [theory: 0.677]\n")
+```
+
+```{r sim-plot, echo=FALSE, fig.height=4.2}
+z_seq   <- seq(-5, 7, length.out = 1000)
+z_crit2 <- qnorm(0.975)
+
+df_A <- data.frame(z = z_seq, dens = dnorm(z_seq, 0,   1),
+                   scenario = "Scenario A: H0 true (beta=0)\nNo wage effect")
+df_B <- data.frame(z = z_seq, dens = dnorm(z_seq, 3/2, 1),
+                   scenario = "Scenario B: H0 false (beta*=3)\nProgramme raises wages $3/hr")
+df_both <- rbind(df_A, df_B)
+
+ldf <- data.frame(
+  z    = c( 2.6,  0.0,  3.5,  0.5),
+  dens = c(0.06, 0.09, 0.11, 0.085),
+  lbl  = c("Type I\nerror\n5%", "Correct\n95%", "Power\n32%", "Type II\nerror\n68%"),
+  col  = c("#cc2222", "grey30", "#2a7a2a", "grey50"),
+  scenario = c(
+    "Scenario A: H0 true (beta=0)\nNo wage effect",
+    "Scenario A: H0 true (beta=0)\nNo wage effect",
+    "Scenario B: H0 false (beta*=3)\nProgramme raises wages $3/hr",
+    "Scenario B: H0 false (beta*=3)\nProgramme raises wages $3/hr"
+  )
+)
+
+ggplot(df_both, aes(x = z, y = dens)) +
+  geom_line(linewidth = 0.9, color = "grey30") +
+  geom_ribbon(data = subset(df_A, z >  z_crit2),
+              aes(ymin=0, ymax=dens), fill="#cc2222", alpha=0.5) +
+  geom_ribbon(data = subset(df_A, z < -z_crit2),
+              aes(ymin=0, ymax=dens), fill="#cc2222", alpha=0.5) +
+  geom_ribbon(data = subset(df_B, z >  z_crit2),
+              aes(ymin=0, ymax=dens), fill="#2a7a2a", alpha=0.55) +
+  geom_ribbon(data = subset(df_B, z >= -z_crit2 & z <= z_crit2),
+              aes(ymin=0, ymax=dens), fill="grey60", alpha=0.5) +
+  geom_vline(xintercept = c(-z_crit2, z_crit2), linetype="dashed") +
+  geom_text(data = ldf, aes(x=z, y=dens, label=lbl),
+            color=ldf$col, size=2.6, inherit.aes=FALSE) +
+  facet_wrap(~scenario) +
+  labs(title    = "Simulation confirms the theory: same numbers, same decision rule",
+       subtitle = "Left: size = 5% (red = false positives).  Right: power = 32% (green) and Type II = 68% (grey).",
+       x = "Test statistic  Z = beta_hat / 2", y = "Density") +
+  theme_tutorial()
+```
+
+\begin{solution}
+\textbf{Reading the results:}
+
+\begin{itemize}
+  \item \textbf{Scenario A --- size $\approx 0.05$:} in 10{,}000 studies where the programme has no effect, we wrongly rejected $H_0$ in about 5\% of them. This is exactly the Type I error rate we chose ($\alpha = 0.05$). The result confirms that our critical value of $\pm 1.96$ is correctly calibrated.
+
+  \item \textbf{Scenario B --- power $\approx 0.323$:} in 10{,}000 studies where the programme genuinely raises wages by \$3/hour, we correctly detected the effect in only about 32\% of them---matching the analytical calculation in Part A(c). This is low power: a real, meaningful wage gain goes undetected most of the time.
+
+  \item \textbf{Scenario B --- Type II error $\approx 0.677$:} in the remaining 68\% of Scenario B studies, we failed to reject $H_0$ even though the programme works. These are false negatives---studies that would lead a policy-maker to cancel a beneficial programme.
+
+  \item \textbf{Connection to the figure:} the two panels of the plot correspond exactly to the two scenarios. The left panel (Scenario A) shows the $N(0,1)$ distribution of $Z$; the red tails are the 5\% false-positive rate. The right panel (Scenario B) shows the shifted $N(1.5,1)$ distribution; the green area is power and the grey area is the Type II error.
+\end{itemize}
+\end{solution}

@@ -52,7 +52,9 @@
 <li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
 <li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
 <li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
-<li><a class="" href="tutorial-6-varianza-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Varianza of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
+<li><a class="" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
 </ul>
 
         <div class="book-extra">
@@ -611,7 +613,7 @@ In R, the imaginary unit is written as <code>i</code>, and complex numbers can b
 <p>Example:</p>
 <div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fl">2i</span><span class="op">+</span><span class="fl">5i</span><span class="op">+</span><span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fl">25i</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] 3.53553+10.53553i</code></pre>
+<pre><code>## [1] 3.535534+10.53553i</code></pre>
 </div>
 <div id="object-creation-assignment-and-functions" class="section level4" number="2.5.0.3">
 <h4>
@@ -819,7 +821,8 @@ In R, the imaginary unit is written as <code>i</code>, and complex numbers can b
 <p>Let’s examine what happens when we add vectors together:</p>
 <div class="sourceCode" id="cb88"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span></code></pre></div>
-<pre><code>## Warning in x + y: longer object length is not a multiple of shorter object length</code></pre>
+<pre><code>## Warning in x + y: longer object length is not a multiple of shorter object
+## length</code></pre>
 <div class="sourceCode" id="cb90"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z</span></span></code></pre></div>
 <pre><code>## [1]  7  9 11 10 12</code></pre>
@@ -837,7 +840,8 @@ In R, the imaginary unit is written as <code>i</code>, and complex numbers can b
 <p>What happens when we try to add vectors of different lengths?</p>
 <div class="sourceCode" id="cb97"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span></span></code></pre></div>
-<pre><code>## Warning in x + y: longer object length is not a multiple of shorter object length</code></pre>
+<pre><code>## Warning in x + y: longer object length is not a multiple of shorter object
+## length</code></pre>
 <div class="sourceCode" id="cb99"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z</span></span></code></pre></div>
 <pre><code>## [1] 2 4 6 5</code></pre>
@@ -915,8 +919,8 @@ In R, the imaginary unit is written as <code>i</code>, and complex numbers can b
 <span>            nrow <span class="op">=</span> <span class="fl">3</span>,</span>
 <span>            ncol <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>            byrow <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning in matrix(data = c(1:4), nrow = 3, ncol = 2, byrow = TRUE): data length [4] is not a sub-multiple or multiple of the number of
-## rows [3]</code></pre>
+<pre><code>## Warning in matrix(data = c(1:4), nrow = 3, ncol = 2, byrow = TRUE): data
+## length [4] is not a sub-multiple or multiple of the number of rows [3]</code></pre>
 <div class="sourceCode" id="cb120"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span></span></code></pre></div>
 <pre><code>##      [,1] [,2]
@@ -942,8 +946,8 @@ In R, the imaginary unit is written as <code>i</code>, and complex numbers can b
 <p>If the vector is shorter than the matrix dimensions, R will recycle the values to fill the matrix:</p>
 <div class="sourceCode" id="cb130"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, nrow <span class="op">=</span> <span class="fl">2</span>, ncol <span class="op">=</span> <span class="fl">3</span>, byrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning in matrix(c(1, 2, 3, 4), nrow = 2, ncol = 3, byrow = 2): data length [4] is not a sub-multiple or multiple of the number of
-## columns [3]</code></pre>
+<pre><code>## Warning in matrix(c(1, 2, 3, 4), nrow = 2, ncol = 3, byrow = 2): data
+## length [4] is not a sub-multiple or multiple of the number of columns [3]</code></pre>
 <div class="sourceCode" id="cb132"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">y</span></span></code></pre></div>
 <pre><code>##      [,1] [,2] [,3]
@@ -1022,7 +1026,8 @@ In R, the imaginary unit is written as <code>i</code>, and complex numbers can b
 <pre><code>## [1] 5 6</code></pre>
 <div class="sourceCode" id="cb151"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## Warning in rbind(x, y): number of columns of result is not a multiple of vector length (arg 2)</code></pre>
+<pre><code>## Warning in rbind(x, y): number of columns of result is not a multiple of
+## vector length (arg 2)</code></pre>
 <div class="sourceCode" id="cb153"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">z</span></span></code></pre></div>
 <pre><code>##   [,1] [,2] [,3]
@@ -1939,12 +1944,12 @@ logical → integer → numeric → complex → character</p>
 <span><span class="va">results_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/do.call.html">do.call</a></span><span class="op">(</span><span class="va">rbind</span>, <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">simulation_results</span>, <span class="va">as.data.frame</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">results_df</span></span></code></pre></div>
 <pre><code>##   effect_size      p_value significant
-## 1           0 0.9947758627       FALSE
-## 2           2 0.4530719650       FALSE
-## 3           4 0.0003337472        TRUE
-## 4           6 0.0554192308       FALSE
-## 5           8 0.0216866335        TRUE
-## 6          10 0.0152752386        TRUE</code></pre>
+## 1           0 0.0330407708        TRUE
+## 2           2 0.4825550352       FALSE
+## 3           4 0.3648947905       FALSE
+## 4           6 0.0078056580        TRUE
+## 5           8 0.2618240342       FALSE
+## 6          10 0.0001524551        TRUE</code></pre>
 </div>
 </div>
 <div id="summary" class="section level2" number="2.17">
@@ -2149,7 +2154,7 @@ logical → integer → numeric → complex → character</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-09.</p>
+    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

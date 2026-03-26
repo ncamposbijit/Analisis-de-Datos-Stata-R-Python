@@ -1,0 +1,210 @@
+
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\setlength{\topmargin}{-1.0in}
+\setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+\def\labelenumi{\arabic{enumi}.}
+\def\theenumi{\arabic{enumi}}
+\def\labelenumii{(\alph{enumii})}
+\def\theenumii{\alph{enumii}}
+\def\p@enumii{\theenumi.}
+\def\labelenumiii{\arabic{enumiii}.}
+\def\theenumiii{\arabic{enumiii}}
+\def\p@enumiii{(\theenumi)(\theenumii)}
+\def\labelenumiv{\arabic{enumiv}.}
+\def\theenumiv{\arabic{enumiv}}
+\def\p@enumiv{\p@enumiii.\theenumiii}
+\pagestyle{plain}
+\setcounter{secnumdepth}{0}
+\parindent=0pt
+\begin{document}
+
+
+\begin{center}
+\textbf{Econ 326}
+
+\textbf{Assignment 6}
+\end{center}
+
+\begin{enumerate}
+
+
+\item An econometrician used R to regress the dependent variable \verb!liver! on the independent variable \verb!alcohol!, where \verb!liver! is the number of liver disease deaths per 100,000 people in a country, and \verb!alcohol! is consumption of alcohol in liters per capita in a country. The following output was obtained:
+\small
+\begin{verbatim}
+> model <- lm(liver ~ alcohol, data = mydata)
+> summary(model)
+...
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  10.8548     2.8024   3.874 0.001030 **
+alcohol       3.5864     0.7541       A        B
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 8.29 on 19 degrees of freedom
+
+
+> confint(model)
+                2.5 %   97.5 %
+(Intercept) 4.989313 16.72033
+alcohol            C        D
+\end{verbatim}
+\normalsize
+\begin{enumerate}
+\item Several entries in the output were replaced with letters. Find A--D. Show your work.
+\item Test at 5\% significance level that the coefficient of \verb!alcohol! is 5 (against the alternative that it is different from 5). \label{it:test}
+\item Test the same hypothesis as in part (b) at 10\% significance level.
+\end{enumerate}
+
+\item An econometrician used R to regress the dependent variable \verb!ln_heart! on the independent variable \verb!ln_alcohol!, where \verb!ln_heart! is the natural logarithm of the number of heart disease deaths per 100,000 people in a country, and \verb!ln_alcohol! is the natural logarithm of consumption of alcohol in liters per capita in a country. The following output was obtained:
+\small
+\begin{verbatim}
+> model <- lm(ln_heart ~ ln_alcohol, data = mydata)
+> summary(model)
+...
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)
+(Intercept)  5.361366   0.132482  40.467   <2e-16 ***
+ln_alcohol          A          B       C        D
+...
+
+> confint(model)
+                  2.5 %     97.5 %
+(Intercept)   5.084078   5.638654
+ln_alcohol   -0.611437  -0.095217
+\end{verbatim}
+\normalsize
+\begin{enumerate}
+\item  Several entries in the output were replaced with letters. Find A--D if the number of observations was 21.
+ Provide careful explanations for your answers.
+\item  What is the interpretation of the coefficient on \verb!ln_alcohol!? Explain.
+\item  Test at 5\% significance level $H_0: \beta \geq 0$ against $H_1: \beta<0$, where $\beta$ is the coefficient on \verb!ln_alcohol!.
+\end{enumerate}
+
+\item An econometrician used R to regress \verb!y! on \verb!x!. The
+following output was obtained:
+\small
+\begin{verbatim}
+> model <- lm(y ~ x, data = mydata)
+> summary(model)
+...
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept) 3.109574   0.182132  17.073   <2e-16 ***
+x           0.304925   0.177374       A        B
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.91 on 23 degrees of freedom
+Multiple R-squared:  0.1139, Adjusted R-squared:  0.0753
+F-statistic: 2.96 on 1 and 23 DF,  p-value: 0.09900
+
+> confint(model)
+                 2.5 %    97.5 %
+(Intercept)  2.732806  3.486343
+x                   C         D
+\end{verbatim}
+\normalsize
+\begin{enumerate}
+\item Find A--D. Provide careful explanations for your answers.
+\item Let $\beta$ denote the coefficient on \verb!x!. Test at
+5\% significance level $H_0:\beta=0$ against $H_1:\beta
+\ne 0$.
+\item Test at 5\% significance level $H_0:\beta \leq 0$ against $H_1:\beta
+> 0$.
+\item Explain the difference between the outcomes in parts (b)
+and (c).
+\end{enumerate}
+
+\item Consider testing the null hypothesis $H_0\colon \beta = 1$ at the 5\% significance level using two different tests:
+\begin{itemize}
+\item \textbf{Two-sided test:} $H_0\colon \beta = 1$ vs.\ $H_1\colon \beta \ne 1$
+\item \textbf{One-sided test:} $H_0\colon \beta = 1$ vs.\ $H_1\colon \beta > 1$
+\end{itemize}
+Suppose that $\text{Var}(\hat{\beta}) = 4$ (known), so $\sigma_{\hat{\beta}} = 2$. Since the variance is known, use the standard normal distribution.
+\begin{enumerate}
+\item Find the rejection regions for both tests in terms of $\hat{\beta}$.
+\item Compute the power of the two-sided test for each of the following true values of $\beta$: $\beta^* \in \{-3,\; 0,\; 2,\; 5\}$.
+\item Compute the power of the one-sided test for each of the same true values: $\beta^* \in \{-3,\; 0,\; 2,\; 5\}$.
+\item Compare the power of the two tests. When does the one-sided test have higher power? When does it have lower power? Explain.
+\end{enumerate}
+
+\item Consider a two-sided test of $H_0\colon \beta = 0$ against
+$H_1\colon \beta \ne 0$ at the 5\% significance level. Assume the
+variance of $\hat{\beta}$ is known, so the standard normal
+distribution applies.
+
+When $\beta^* > 0$, the power of the two-sided test is approximately
+$$
+\text{Power} \approx 1 - \Phi\!\left(z_{0.975} -
+\frac{\beta^*}{\sigma_{\hat{\beta}}}\right),
+$$
+where $\Phi$ is the standard normal CDF and $z_{0.975} = 1.96$.
+This approximation ignores the small probability of rejecting
+in the left tail, which is negligible when $\beta^*>0$.
+
+Suppose a researcher wants the test to have at least 80\% power.
+The smallest value of $|\beta^*|$ for which this holds is called
+the \emph{minimum detectable effect} (MDE): any true effect
+smaller than the MDE is unlikely to be detected by the test.
+
+\medskip
+\textit{Hint:} $\Phi^{-1}(0.20) = -0.84$, equivalently $z_{0.80} = 0.84$.
+
+\begin{enumerate}
+\item Find the MDE when $\sigma_{\hat{\beta}} = 3$.
+\item Find the MDE when $\sigma_{\hat{\beta}} = 1.5$.
+\item Express the MDE as a general formula in terms of
+$\sigma_{\hat{\beta}}$. What does this relationship imply about
+how sample size affects the ability to detect small effects?
+\end{enumerate}
+
+\item 
+
+\begin{enumerate}
+\item Let $X$ be a continuous random variable with a strictly
+increasing CDF~$F$. Show that $U = F(X)$ has a Uniform$(0,1)$ distribution.
+
+\textit{Hints:} (i)~A random variable $U$ has a Uniform$(0,1)$
+distribution if and only if $P(U \le u) = u$ for all
+$u \in (0,1)$.
+(ii)~Because $F$ is strictly increasing, its inverse $F^{-1}$
+exists and satisfies $F(x) \le u \iff x \le F^{-1}(u)$ and
+$F(F^{-1}(u)) = u$.
+
+\item Let $Z \sim N(0,1)$ and define
+$V = 2\bigl(1 - \Phi(|Z|)\bigr)$, where $\Phi$ is the standard
+normal CDF.  Show that $V \sim \text{Uniform}(0,1)$.
+
+\textit{Hints:} (i)~Start by computing $P(V \le v)$ for
+$v \in (0,1)$.
+(ii)~Note that $\Phi^{-1}(1 - v/2) = z_{1-v/2}$ is the critical
+value of a two-sided test at significance level~$v$.
+
+\item Consider testing $H_0\colon \beta = \beta_0$ against
+$H_1\colon \beta \ne \beta_0$ with known variance
+$\sigma_{\hat{\beta}}^2$.  Under $H_0$, the test statistic
+$$
+Z = \frac{\hat{\beta} - \beta_0}{\sigma_{\hat{\beta}}}
+$$
+has a standard normal distribution. The p-value of the two-sided
+test is
+$$
+p = 2\bigl(1 - \Phi(|Z|)\bigr).
+$$
+Using Part~(b), show that the p-value has a Uniform$(0,1)$
+distribution under $H_0$.
+
+\item A test rejects $H_0$ whenever $p < \alpha$, where $\alpha \in (0,1)$. Using the resul from Part~(c),
+show that the size of this test (i.e.,
+$P(\text{reject } H_0 \mid H_0 \text{ is true})$) equals~$\alpha$. 
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

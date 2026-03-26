@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>10 Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests | Introduction to Econometrics</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="10.1 Exercise 1: Deriving the \(F\)-Test Consider the log-wage equation from Lecture 14: \[\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_3 PrevExp_i + \beta_4 PrevExp_i^2 +...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="10 Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests | Introduction to Econometrics">
+<meta property="og:type" content="book">
+<meta property="og:description" content="10.1 Exercise 1: Deriving the \(F\)-Test Consider the log-wage equation from Lecture 14: \[\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_3 PrevExp_i + \beta_4 PrevExp_i^2 +...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="10 Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests | Introduction to Econometrics">
+<meta name="twitter:description" content="10.1 Exercise 1: Deriving the \(F\)-Test Consider the log-wage equation from Lecture 14: \[\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_3 PrevExp_i + \beta_4 PrevExp_i^2 +...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Introduction to Econometrics</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+<li><a class="" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
+<li><a class="active" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests" class="section level1" number="10">
+<h1>
+<span class="header-section-number">10</span> Tutorial 8: The <span class="math inline">\(F\)</span>-Test — Deriving and Computing Joint Hypothesis Tests<a class="anchor" aria-label="anchor" href="#tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests"><i class="fas fa-link"></i></a>
+</h1>
+<div id="exercise-1-deriving-the-f-test" class="section level2" number="10.1">
+<h2>
+<span class="header-section-number">10.1</span> Exercise 1: Deriving the <span class="math inline">\(F\)</span>-Test<a class="anchor" aria-label="anchor" href="#exercise-1-deriving-the-f-test"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consider the log-wage equation from Lecture 14:</p>
+<p><span class="math display">\[\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_3 PrevExp_i + \beta_4 PrevExp_i^2 + \beta_5 Educ_i + U_i\]</span></p>
+<p>where <span class="math inline">\(Exp\)</span> is current job experience, <span class="math inline">\(PrevExp\)</span> is previous experience, and <span class="math inline">\(Educ\)</span> is years of education (<span class="math inline">\(k = 5\)</span> regressors plus intercept). We want to test whether previous experience has <em>any</em> effect on wages. This requires testing <span class="math inline">\(\beta_3\)</span> and <span class="math inline">\(\beta_4\)</span> jointly. You will derive the test statistic that does this correctly.</p>
+<hr>
+<div id="step-1.-hypotheses" class="section level3" number="10.1.1">
+<h3>
+<span class="header-section-number">10.1.1</span> Step 1. Hypotheses<a class="anchor" aria-label="anchor" href="#step-1.-hypotheses"><i class="fas fa-link"></i></a>
+</h3>
+<p>The null imposes <span class="math inline">\(q = 2\)</span> restrictions simultaneously:</p>
+<p><span class="math display">\[H_0: \beta_3 = 0 \text{ and } \beta_4 = 0 \qquad\text{against}\qquad H_1: \beta_3 \neq 0 \text{ or } \beta_4 \neq 0.\]</span></p>
+<p><strong>(a)</strong> Suppose <span class="math inline">\(H_0\)</span> is true. You run two separate size-<span class="math inline">\(\alpha\)</span> <span class="math inline">\(t\)</span>-tests and reject whenever <em>at least one</em> rejects. Using <span class="math inline">\(P(A \cup B) = P(A) + P(B) - P(A \cap B)\)</span>, show that the false rejection probability exceeds <span class="math inline">\(\alpha\)</span>.</p>
+<details class="solution"><summary>
+Solution
+</summary><p>We want to show that using two separate <span class="math inline">\(t\)</span>-tests inflates the Type I error rate — that is, the probability of falsely rejecting <span class="math inline">\(H_0\)</span> when it is true becomes larger than the nominal level <span class="math inline">\(\alpha\)</span>.</p>
+<p><strong>Step 1: Define the events.</strong> Let:</p>
+<ul>
+<li>
+<span class="math inline">\(A = \{|T_3| &gt; t_{n-k-1, 1-\alpha/2}\}\)</span>: the event that the first <span class="math inline">\(t\)</span>-test rejects <span class="math inline">\(\beta_3 = 0\)</span>.</li>
+<li>
+<span class="math inline">\(B = \{|T_4| &gt; t_{n-k-1, 1-\alpha/2}\}\)</span>: the event that the second <span class="math inline">\(t\)</span>-test rejects <span class="math inline">\(\beta_4 = 0\)</span>.</li>
+</ul>
+<p><strong>Step 2: Determine the individual rejection probabilities.</strong> Under <span class="math inline">\(H_0\)</span>, both <span class="math inline">\(\beta_3 = 0\)</span> and <span class="math inline">\(\beta_4 = 0\)</span> are true. Each <span class="math inline">\(t\)</span>-test is designed so that, when its individual null is true, it rejects with probability exactly <span class="math inline">\(\alpha\)</span>. Therefore:</p>
+<p><span class="math display">\[P(A) = \alpha, \qquad P(B) = \alpha.\]</span></p>
+<p><strong>Step 3: Write the probability of the combined procedure.</strong> Our combined procedure rejects <span class="math inline">\(H_0\)</span> whenever <em>at least one</em> of the two <span class="math inline">\(t\)</span>-tests rejects. That is, we reject when event <span class="math inline">\(A \cup B\)</span> (“<span class="math inline">\(A\)</span> or <span class="math inline">\(B\)</span>”) occurs. By the inclusion–exclusion formula from probability theory:</p>
+<p><span class="math display">\[P(A \cup B) = P(A) + P(B) - P(A \cap B).\]</span></p>
+<p>Substituting <span class="math inline">\(P(A) = P(B) = \alpha\)</span>:</p>
+<p><span class="math display">\[P(A \cup B) = \alpha + \alpha - P(A \cap B) = 2\alpha - P(A \cap B).\]</span></p>
+<p><strong>Step 4: Bound <span class="math inline">\(P(A \cap B)\)</span>.</strong> The term <span class="math inline">\(P(A \cap B)\)</span> is the probability that <em>both</em> tests reject simultaneously. We do not know this probability exactly (it depends on the correlation between <span class="math inline">\(T_3\)</span> and <span class="math inline">\(T_4\)</span>), but we can bound it. Since <span class="math inline">\(A \cap B \subseteq A\)</span> (if both reject, then certainly the first one rejects):</p>
+<p><span class="math display">\[P(A \cap B) \leq P(A) = \alpha.\]</span></p>
+<p><strong>Step 5: Combine.</strong> Substituting this upper bound into our expression:</p>
+<p><span class="math display">\[P(A \cup B) = 2\alpha - P(A \cap B) \geq 2\alpha - \alpha = \alpha.\]</span></p>
+<p>This proves that the false rejection probability is <em>at least</em> <span class="math inline">\(\alpha\)</span>. The combined procedure over-rejects.</p>
+<p><strong>How bad can it get?</strong> In the extreme case where <span class="math inline">\(T_3\)</span> and <span class="math inline">\(T_4\)</span> are independent (which happens when <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> are uncorrelated after partialling out the other regressors), <span class="math inline">\(P(A \cap B) = P(A) \cdot P(B) = \alpha^2\)</span>. Then:</p>
+<p><span class="math display">\[P(A \cup B) = 2\alpha - \alpha^2 = 2(0.05) - (0.05)^2 = 0.10 - 0.0025 = 0.0975 \approx 10\%.\]</span></p>
+<p>So a “5% test” actually rejects under <span class="math inline">\(H_0\)</span> almost 10% of the time — roughly double the intended rate.</p>
+<strong>The lesson:</strong> stacking individual <span class="math inline">\(t\)</span>-tests inflates the Type I error. With <span class="math inline">\(q\)</span> separate tests, the false rejection rate can reach <span class="math inline">\(q\alpha\)</span>. We need a <em>single</em> test statistic that handles all <span class="math inline">\(q\)</span> restrictions simultaneously and keeps the Type I error at exactly <span class="math inline">\(\alpha\)</span>. That statistic is the <span class="math inline">\(F\)</span>-statistic.
+</details><hr>
+</div>
+<div id="step-2.-unrestricted-and-restricted-models" class="section level3" number="10.1.2">
+<h3>
+<span class="header-section-number">10.1.2</span> Step 2. Unrestricted and restricted models<a class="anchor" aria-label="anchor" href="#step-2.-unrestricted-and-restricted-models"><i class="fas fa-link"></i></a>
+</h3>
+<p>We compare the fit of two models:</p>
+<ul>
+<li>
+<strong>Unrestricted:</strong> all regressors included <span class="math inline">\(\to\)</span> compute <span class="math inline">\(SSR_{ur} = \sum \hat{U}_i^2\)</span>. Has <span class="math inline">\(k+1 = 6\)</span> parameters; residual df <span class="math inline">\(= n - k - 1\)</span>.</li>
+<li>
+<strong>Restricted</strong> (impose <span class="math inline">\(H_0\)</span>: drop <span class="math inline">\(PrevExp\)</span>, <span class="math inline">\(PrevExp^2\)</span>): <span class="math inline">\(\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_5 Educ_i + U_i\)</span> <span class="math inline">\(\to\)</span> compute <span class="math inline">\(SSR_r\)</span>. Has 4 parameters.</li>
+</ul>
+<p><strong>(b)</strong> Verify that the parameter difference equals <span class="math inline">\(q\)</span>. Explain why <span class="math inline">\(SSR_r \geq SSR_{ur}\)</span> always.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Parameter count:</strong></p>
+<ul>
+<li>
+<strong>Unrestricted model:</strong> 6 free parameters: <span class="math inline">\(\beta_0\)</span> (intercept), <span class="math inline">\(\beta_1\)</span> (<span class="math inline">\(Exp\)</span>), <span class="math inline">\(\beta_2\)</span> (<span class="math inline">\(Exp^2\)</span>), <span class="math inline">\(\beta_3\)</span> (<span class="math inline">\(PrevExp\)</span>), <span class="math inline">\(\beta_4\)</span> (<span class="math inline">\(PrevExp^2\)</span>), <span class="math inline">\(\beta_5\)</span> (<span class="math inline">\(Educ\)</span>).</li>
+<li>
+<strong>Restricted model:</strong> 4 free parameters: <span class="math inline">\(\beta_0\)</span> (intercept), <span class="math inline">\(\beta_1\)</span> (<span class="math inline">\(Exp\)</span>), <span class="math inline">\(\beta_2\)</span> (<span class="math inline">\(Exp^2\)</span>), <span class="math inline">\(\beta_5\)</span> (<span class="math inline">\(Educ\)</span>). We lost <span class="math inline">\(\beta_3\)</span> and <span class="math inline">\(\beta_4\)</span> because <span class="math inline">\(H_0\)</span> forces them to be zero.</li>
+<li>
+<strong>Difference:</strong> <span class="math inline">\(6 - 4 = 2 = q\)</span>. Each restriction removes exactly one free parameter from the model.</li>
+</ul>
+<p><strong>Why <span class="math inline">\(SSR_r \geq SSR_{ur}\)</span> always:</strong></p>
+<p>OLS chooses coefficients to minimise the sum of squared residuals. Think of it as an optimisation problem:</p>
+<ul>
+<li>The <strong>unrestricted</strong> model minimises SSR over <em>all possible values</em> of <span class="math inline">\((\beta_0, \beta_1, \beta_2, \beta_3, \beta_4, \beta_5)\)</span>. It is free to pick any combination.</li>
+<li>The <strong>restricted</strong> model minimises SSR over a <em>smaller set</em>: only values where <span class="math inline">\(\beta_3 = 0\)</span> and <span class="math inline">\(\beta_4 = 0\)</span>. It has fewer levers to pull.</li>
+</ul>
+<p>The restricted model’s feasible set is a <em>subset</em> of the unrestricted model’s feasible set. (Everything the restricted model can do, the unrestricted model can also do — and more.) Therefore, the minimum SSR over the smaller set cannot be lower than the minimum over the larger set:</p>
+<p><span class="math display">\[SSR_r \geq SSR_{ur} \quad\text{always.}\]</span></p>
+<strong>Intuition:</strong> giving OLS more freedom (more parameters to optimise) can only help the fit or leave it unchanged. It can never make it worse. If the true <span class="math inline">\(\beta_3\)</span> and <span class="math inline">\(\beta_4\)</span> really are zero, then the unrestricted model will estimate them close to zero anyway, and <span class="math inline">\(SSR_r \approx SSR_{ur}\)</span>. If they are not zero, forcing them to be zero will hurt the fit, and <span class="math inline">\(SSR_r &gt; SSR_{ur}\)</span>.
+</details><hr>
+</div>
+<div id="step-3.-the-f-statistic" class="section level3" number="10.1.3">
+<h3>
+<span class="header-section-number">10.1.3</span> Step 3. The <span class="math inline">\(F\)</span>-statistic<a class="anchor" aria-label="anchor" href="#step-3.-the-f-statistic"><i class="fas fa-link"></i></a>
+</h3>
+<p>If <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(SSR_r - SSR_{ur}\)</span> should be small (restrictions barely hurt fit). If false, it should be large. The <span class="math inline">\(F\)</span>-statistic formalises this:</p>
+<p><span class="math display">\[\boxed{\; F = \frac{(SSR_r - SSR_{ur})\,/\,q}{SSR_{ur}\,/\,(n - k - 1)} \;}\]</span></p>
+<p><strong>(c)</strong> Interpret the numerator and denominator. Why divide by <span class="math inline">\(q\)</span>? What does <span class="math inline">\(SSR_{ur}/(n-k-1)\)</span> estimate?</p>
+<details class="solution"><summary>
+Solution
+</summary><p>The <span class="math inline">\(F\)</span>-statistic is a ratio with a clear economic interpretation. Let us break it down piece by piece.</p>
+<p><strong>Numerator: <span class="math inline">\((SSR_r - SSR_{ur})/q\)</span></strong></p>
+<ul>
+<li>
+<span class="math inline">\(SSR_r - SSR_{ur}\)</span> is the <strong>total increase in the residual sum of squares</strong> when we impose <span class="math inline">\(H_0\)</span>. It measures the total amount of explanatory power lost by dropping <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> from the model.</li>
+<li>We divide by <span class="math inline">\(q\)</span> (the number of restrictions) to get the <strong>average increase per restriction</strong>. This normalisation is essential: a test with <span class="math inline">\(q = 10\)</span> restrictions will naturally produce a larger total gap <span class="math inline">\(SSR_r - SSR_{ur}\)</span> than a test with <span class="math inline">\(q = 2\)</span>, even if each individual restriction is equally innocuous. Dividing by <span class="math inline">\(q\)</span> puts all <span class="math inline">\(F\)</span>-tests on the same scale, regardless of how many restrictions are being tested.</li>
+<li>In our example: <span class="math inline">\(q = 2\)</span>, so the numerator is the average fit loss per excluded variable (per restriction on previous experience).</li>
+</ul>
+<p><strong>Denominator: <span class="math inline">\(SSR_{ur}/(n - k - 1)\)</span></strong></p>
+<ul>
+<li>This is the <strong>mean squared error</strong> (MSE) from the unrestricted model. Recall from earlier in the course that:</li>
+</ul>
+<p><span class="math display">\[\hat{\sigma}^2 = \frac{SSR_{ur}}{n - k - 1}\]</span></p>
+<p>is an unbiased and consistent estimator of <span class="math inline">\(\sigma^2\)</span>, the variance of the error term <span class="math inline">\(U_i\)</span>.</p>
+<ul>
+<li>Think of it as the <strong>background noise level</strong>: how much residual variation is “normal” for this model. Even if all your regressors are correct, there will always be some residual variation due to unobserved factors captured by <span class="math inline">\(U_i\)</span>. The denominator measures the typical size of this variation.</li>
+<li>We use the <em>unrestricted</em> model’s MSE (not the restricted one’s) because the unrestricted model provides the best available estimate of <span class="math inline">\(\sigma^2\)</span> — it does not impose potentially false restrictions.</li>
+</ul>
+<p><strong>Putting it together: <span class="math inline">\(F\)</span> as a signal-to-noise ratio.</strong></p>
+<p>The <span class="math inline">\(F\)</span>-statistic asks a precise question: “Is the fit loss from imposing <span class="math inline">\(H_0\)</span> (per restriction) large relative to the background noise?”</p>
+<ul>
+<li>If <span class="math inline">\(F\)</span> is <strong>close to zero</strong>: the restrictions barely hurt the fit. The gap <span class="math inline">\(SSR_r - SSR_{ur}\)</span> is small compared to the noise level. This is consistent with <span class="math inline">\(H_0\)</span> being true — the excluded variables were not doing much.</li>
+<li>If <span class="math inline">\(F\)</span> is <strong>large</strong>: the restrictions cause a substantial deterioration in fit that is hard to explain by sampling variation alone. This is evidence against <span class="math inline">\(H_0\)</span> — the excluded variables were genuinely important.</li>
+</ul></details><p><strong>(d)</strong> Compute <span class="math inline">\(F\)</span> using Lecture 14 data: <span class="math inline">\(SSR_{ur} = 96.998\)</span>, <span class="math inline">\(SSR_r = 99.463\)</span>, <span class="math inline">\(n = 526\)</span>, <span class="math inline">\(k = 5\)</span>, <span class="math inline">\(q = 2\)</span>.</p>
+<details class="solution"><summary>
+Solution
+</summary><p>We substitute each value into the formula, computing every intermediate step.</p>
+<p><strong>Step 1: Compute the numerator.</strong></p>
+<p>First, the total fit cost of imposing <span class="math inline">\(H_0\)</span>:</p>
+<p><span class="math display">\[SSR_r - SSR_{ur} = 99.463 - 96.998 = 2.465.\]</span></p>
+<p>This tells us that dropping <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> increased the sum of squared residuals by 2.465. Now divide by the number of restrictions to get the average cost per restriction:</p>
+<p><span class="math display">\[\frac{SSR_r - SSR_{ur}}{q} = \frac{2.465}{2} = 1.2325.\]</span></p>
+<p>On average, each restriction increases the SSR by 1.2325.</p>
+<p><strong>Step 2: Compute the denominator.</strong></p>
+<p>First, the residual degrees of freedom in the unrestricted model:</p>
+<p><span class="math display">\[n - k - 1 = 526 - 5 - 1 = 520.\]</span></p>
+<p>Now the mean squared error:</p>
+<p><span class="math display">\[\frac{SSR_{ur}}{n - k - 1} = \frac{96.998}{520} = 0.18654.\]</span></p>
+<p>This is <span class="math inline">\(\hat{\sigma}^2 = 0.187\)</span>, the estimated variance of the error term in the unrestricted model.</p>
+<p><strong>Step 3: Compute <span class="math inline">\(F\)</span>.</strong></p>
+<p><span class="math display">\[F = \frac{1.2325}{0.18654} \approx 6.61.\]</span></p>
+<strong>Interpretation:</strong> the fit loss per restriction (1.23) is about 6.6 times larger than the background noise level (0.19). This is a substantial ratio — it suggests that dropping <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> hurts the model fit by more than we would expect from sampling variation alone. Whether 6.61 is “large enough” to reject <span class="math inline">\(H_0\)</span> depends on the critical value, which we determine in Step 5.
+</details><hr>
+</div>
+<div id="step-4.-distribution-and-degrees-of-freedom" class="section level3" number="10.1.4">
+<h3>
+<span class="header-section-number">10.1.4</span> Step 4. Distribution and degrees of freedom<a class="anchor" aria-label="anchor" href="#step-4.-distribution-and-degrees-of-freedom"><i class="fas fa-link"></i></a>
+</h3>
+<p>Under <span class="math inline">\(H_0\)</span> and normality (<span class="math inline">\(U_i | X \sim \mathcal{N}(0,\sigma^2)\)</span>): <span class="math inline">\(F \sim F_{q,\, n-k-1}.\)</span></p>
+<p>This follows because <span class="math inline">\((SSR_r - SSR_{ur})/\sigma^2 \sim \chi^2_q\)</span> and <span class="math inline">\(SSR_{ur}/\sigma^2 \sim \chi^2_{n-k-1}\)</span>, independently, and the <span class="math inline">\(F\)</span>-distribution is defined as the ratio of two independent <span class="math inline">\(\chi^2\)</span>’s divided by their df (with <span class="math inline">\(\sigma^2\)</span> cancelling).</p>
+<p><strong>(e)</strong> State the numerator and denominator df for the wage example. Explain why <span class="math inline">\(F \geq 0\)</span> always.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Degrees of freedom:</strong></p>
+<p>The <span class="math inline">\(F_{q, n-k-1}\)</span> distribution has two parameters:</p>
+<ol style="list-style-type: decimal">
+<li><p><strong>Numerator df</strong> <span class="math inline">\(= q = 2\)</span>. This is the number of restrictions being tested. It comes from the <span class="math inline">\(\chi^2_q\)</span> distribution in the numerator of <span class="math inline">\(F\)</span>. In our wage example, we are testing two restrictions (<span class="math inline">\(\beta_3 = 0\)</span> and <span class="math inline">\(\beta_4 = 0\)</span>), so <span class="math inline">\(q = 2\)</span>.</p></li>
+<li><p><strong>Denominator df</strong> <span class="math inline">\(= n - k - 1 = 526 - 5 - 1 = 520\)</span>. This is the residual degrees of freedom from the <strong>unrestricted</strong> model. It comes from the <span class="math inline">\(\chi^2_{n-k-1}\)</span> distribution in the denominator. Here, <span class="math inline">\(k = 5\)</span> is the number of regressors in the <em>unrestricted</em> model.</p></li>
+</ol>
+<p>So in this example: <span class="math inline">\(F \sim F_{2, 520}\)</span> under <span class="math inline">\(H_0\)</span>.</p>
+<p><strong>Common mistake:</strong> students sometimes use the residual df from the <em>restricted</em> model (<span class="math inline">\(n - 3 - 1 = 522\)</span>) instead of the unrestricted model (520). The denominator df <em>always</em> comes from the unrestricted model, because the denominator of the <span class="math inline">\(F\)</span>-statistic uses <span class="math inline">\(SSR_{ur}\)</span> and its degrees of freedom <span class="math inline">\(n - k - 1\)</span>.</p>
+<p><strong>Why <span class="math inline">\(F \geq 0\)</span> always:</strong></p>
+<p>The <span class="math inline">\(F\)</span>-statistic is a ratio. Consider each part separately:</p>
+<ul>
+<li>
+<strong>Numerator:</strong> <span class="math inline">\(SSR_r - SSR_{ur} \geq 0\)</span> because imposing restrictions can never improve the OLS fit (as we showed in part (b)). Dividing by <span class="math inline">\(q &gt; 0\)</span> preserves the sign.</li>
+<li>
+<strong>Denominator:</strong> <span class="math inline">\(SSR_{ur} &gt; 0\)</span> because a perfect fit (every residual exactly zero) is essentially impossible with real data, and <span class="math inline">\(n - k - 1 &gt; 0\)</span> as long as we have more observations than parameters.</li>
+</ul>
+<p>A non-negative number divided by a strictly positive number is non-negative: <span class="math inline">\(F \geq 0\)</span>.</p>
+<p><strong>What does the value of <span class="math inline">\(F\)</span> tell us?</strong></p>
+<ul>
+<li>
+<span class="math inline">\(F = 0\)</span>: the restrictions did not hurt the fit at all — <span class="math inline">\(SSR_r = SSR_{ur}\)</span>. This is the strongest possible evidence <em>in favour</em> of <span class="math inline">\(H_0\)</span>.</li>
+<li>
+<span class="math inline">\(F\)</span> close to zero: the restrictions barely hurt the fit. Consistent with <span class="math inline">\(H_0\)</span>.</li>
+<li>
+<span class="math inline">\(F\)</span> large: the restrictions cause a substantial deterioration. Evidence against <span class="math inline">\(H_0\)</span>.</li>
+</ul></details><hr>
+</div>
+<div id="step-5.-decision-rule" class="section level3" number="10.1.5">
+<h3>
+<span class="header-section-number">10.1.5</span> Step 5. Decision rule<a class="anchor" aria-label="anchor" href="#step-5.-decision-rule"><i class="fas fa-link"></i></a>
+</h3>
+<p>At significance level <span class="math inline">\(\alpha\)</span>: reject <span class="math inline">\(H_0\)</span> when <span class="math inline">\(F &gt; F_{q,n-k-1,1-\alpha}\)</span>.</p>
+<p><strong>The <span class="math inline">\(F\)</span>-test is always one-sided</strong> (reject for large <span class="math inline">\(F\)</span> only) and the denominator df comes from the <strong>unrestricted</strong> model.</p>
+<p><strong>(f)</strong> The critical value is <span class="math inline">\(F_{2,520,0.95} \approx 3.01\)</span> and the <span class="math inline">\(p\)</span>-value <span class="math inline">\(\approx 0.0015\)</span>. Do you reject? Interpret.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Decision using the critical value:</strong></p>
+<p>We compare the observed <span class="math inline">\(F\)</span>-statistic to the critical value of the <span class="math inline">\(F_{2,520}\)</span> distribution at <span class="math inline">\(\alpha = 0.05\)</span>:</p>
+<p><span class="math display">\[F_{\text{obs}} = 6.61 \quad\text{vs.}\quad F_{2,520,0.95} = 3.01.\]</span></p>
+<p>Since <span class="math inline">\(6.61 &gt; 3.01\)</span>, the observed <span class="math inline">\(F\)</span>-statistic falls in the rejection region. We <strong>reject <span class="math inline">\(H_0\)</span></strong> at the 5% significance level.</p>
+<p><strong>Decision using the <span class="math inline">\(p\)</span>-value:</strong></p>
+<p>The <span class="math inline">\(p\)</span>-value is <span class="math inline">\(P(F_{2,520} &gt; 6.61) \approx 0.0015\)</span>. This is the probability of observing an <span class="math inline">\(F\)</span>-statistic as large as 6.61 or larger, <em>if <span class="math inline">\(H_0\)</span> were true</em>. Since <span class="math inline">\(0.0015 &lt; 0.05 = \alpha\)</span>, we reject <span class="math inline">\(H_0\)</span>. In fact, we would reject at any significance level above 0.15% — the evidence is very strong.</p>
+<p><strong>Interpretation in words:</strong></p>
+<p>“At the 5% significance level, we reject the null hypothesis that previous experience has no effect on log-wages. The coefficients on <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> are <em>jointly</em> statistically significant, after controlling for current experience and education. The <span class="math inline">\(p\)</span>-value of 0.0015 means that, if previous experience truly had no effect (<span class="math inline">\(\beta_3 = \beta_4 = 0\)</span>), there would be only a 0.15% chance of observing an <span class="math inline">\(F\)</span>-statistic as large as 6.61 purely due to sampling variation.”</p>
+<p><strong>Why “jointly” matters — a crucial nuance:</strong></p>
+<p>It is entirely possible that the individual <span class="math inline">\(t\)</span>-tests for <span class="math inline">\(\beta_3 = 0\)</span> and <span class="math inline">\(\beta_4 = 0\)</span> fail to reject <em>either</em> coefficient separately. This can happen when <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> are highly correlated with each other (multicollinearity), which inflates their individual standard errors and makes each <span class="math inline">\(t\)</span>-statistic small.</p>
+But the <span class="math inline">\(F\)</span>-test looks at their <em>combined</em> contribution. Even if neither coefficient is individually significant, together they may explain a significant amount of variation in wages. The <span class="math inline">\(F\)</span>-test captures this joint effect that individual <span class="math inline">\(t\)</span>-tests miss. This is precisely the scenario that motivates the <span class="math inline">\(F\)</span>-test in the first place.
+</details><hr>
+</div>
+<div id="step-6.-r2-version" class="section level3" number="10.1.6">
+<h3>
+<span class="header-section-number">10.1.6</span> Step 6. <span class="math inline">\(R^2\)</span> version<a class="anchor" aria-label="anchor" href="#step-6.-r2-version"><i class="fas fa-link"></i></a>
+</h3>
+<p>When both models share the same dependent variable (<span class="math inline">\(SST_r = SST_{ur} = SST\)</span>):</p>
+<p><strong>(g)</strong> Using <span class="math inline">\(SSR = SST(1 - R^2)\)</span>, show that <span class="math inline">\(F = \dfrac{(R^2_{ur} - R^2_r)/q}{(1 - R^2_{ur})/(n-k-1)}\)</span>. Verify with <span class="math inline">\(R^2_{ur} = 0.3461\)</span>, <span class="math inline">\(R^2_r = 0.3294\)</span>.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Derivation, step by step.</strong></p>
+<p><strong>Step 1: Express <span class="math inline">\(SSR\)</span> in terms of <span class="math inline">\(R^2\)</span>.</strong> Recall the definition of <span class="math inline">\(R^2\)</span>:</p>
+<p><span class="math display">\[R^2 = 1 - \frac{SSR}{SST} \qquad\Longrightarrow\qquad SSR = SST(1 - R^2).\]</span></p>
+<p>This gives us expressions for both models:</p>
+<p><span class="math display">\[SSR_r = SST(1 - R^2_r), \qquad SSR_{ur} = SST(1 - R^2_{ur}).\]</span></p>
+<p>Crucially, both models have the same dependent variable (<span class="math inline">\(\ln(Wage)\)</span>), so they share the same total sum of squares <span class="math inline">\(SST\)</span>. This is what makes the substitution work.</p>
+<p><strong>Step 2: Substitute into the <span class="math inline">\(F\)</span>-formula.</strong></p>
+<p><span class="math display">\[\begin{aligned}
+F &amp;= \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n-k-1)} \\[8pt]
+  &amp;= \frac{\bigl[SST(1 - R^2_r) - SST(1 - R^2_{ur})\bigr]/q}{SST(1 - R^2_{ur})/(n-k-1)}.
+\end{aligned}\]</span></p>
+<p><strong>Step 3: Factor out <span class="math inline">\(SST\)</span>.</strong> Since <span class="math inline">\(SST\)</span> appears in every term, factor it out:</p>
+<p><span class="math display">\[F = \frac{SST\bigl[(1 - R^2_r) - (1 - R^2_{ur})\bigr]/q}{SST(1 - R^2_{ur})/(n-k-1)}.\]</span></p>
+<p>The <span class="math inline">\(SST\)</span> in the numerator and the <span class="math inline">\(SST\)</span> in the denominator cancel:</p>
+<p><span class="math display">\[F = \frac{[(1 - R^2_r) - (1 - R^2_{ur})]/q}{(1 - R^2_{ur})/(n-k-1)}.\]</span></p>
+<p><strong>Step 4: Simplify the numerator.</strong></p>
+<p><span class="math display">\[(1 - R^2_r) - (1 - R^2_{ur}) = 1 - R^2_r - 1 + R^2_{ur} = R^2_{ur} - R^2_r.\]</span></p>
+<p>Therefore:</p>
+<p><span class="math display">\[\boxed{\;F = \frac{(R^2_{ur} - R^2_r)/q}{(1 - R^2_{ur})/(n-k-1)}\;}\]</span></p>
+<p><strong>Verification with Lecture 14 data.</strong></p>
+<p><strong>Numerator:</strong></p>
+<p><span class="math display">\[R^2_{ur} - R^2_r = 0.3461 - 0.3294 = 0.0167.\]</span></p>
+<p>This tells us that adding <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> increased the <span class="math inline">\(R^2\)</span> by 0.0167 (about 1.7 percentage points). Dividing by <span class="math inline">\(q = 2\)</span>:</p>
+<p><span class="math display">\[\frac{R^2_{ur} - R^2_r}{q} = \frac{0.0167}{2} = 0.00835.\]</span></p>
+<p><strong>Denominator:</strong></p>
+<p><span class="math display">\[1 - R^2_{ur} = 1 - 0.3461 = 0.6539.\]</span></p>
+<p>This is the fraction of variation in <span class="math inline">\(\ln(Wage)\)</span> that the unrestricted model does <em>not</em> explain. Dividing by <span class="math inline">\(n - k - 1 = 520\)</span>:</p>
+<p><span class="math display">\[\frac{1 - R^2_{ur}}{n-k-1} = \frac{0.6539}{520} = 0.001258.\]</span></p>
+<p><strong><span class="math inline">\(F\)</span>-statistic:</strong></p>
+<p><span class="math display">\[F = \frac{0.00835}{0.001258} \approx 6.64.\]</span></p>
+<p>(The small difference from 6.61 computed in part (d) is due to rounding <span class="math inline">\(R^2\)</span> to four decimal places. With exact values, both formulas give identical results.)</p>
+<p><strong>Why this version is useful:</strong></p>
+<p>The <span class="math inline">\(R^2\)</span> formula makes the <span class="math inline">\(F\)</span>-statistic particularly intuitive:</p>
+<ul>
+<li>
+<strong>Numerator:</strong> How much does <span class="math inline">\(R^2\)</span> <em>drop per restriction</em> when you impose <span class="math inline">\(H_0\)</span>? If <span class="math inline">\(R^2_{ur} \approx R^2_r\)</span> (the excluded variables barely increase <span class="math inline">\(R^2\)</span>), the numerator is close to zero and <span class="math inline">\(F\)</span> is small.</li>
+<li>
+<strong>Denominator:</strong> How much unexplained variation is there per degree of freedom in the unrestricted model? This is the “noise floor.”</li>
+<li>
+<strong>Ratio:</strong> Is the <span class="math inline">\(R^2\)</span> improvement from including <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span> large relative to the noise? If so, these variables genuinely help explain wages and we should reject <span class="math inline">\(H_0\)</span>.</li>
+</ul></details><hr>
+</div>
+</div>
+<div id="exercise-2-the-f-test-in-r" class="section level2" number="10.2">
+<h2>
+<span class="header-section-number">10.2</span> Exercise 2: The <span class="math inline">\(F\)</span>-Test in R<a class="anchor" aria-label="anchor" href="#exercise-2-the-f-test-in-r"><i class="fas fa-link"></i></a>
+</h2>
+<p>In Exercise 1 you derived the <span class="math inline">\(F\)</span>-statistic on paper. Now you will compute it from scratch in R, verify it against built-in functions, and see the test make the right decision.</p>
+<p>We simulate data from the same wage equation as Lecture 14. The key advantage of simulation: because we choose the true parameters, we <em>know</em> whether <span class="math inline">\(H_0\)</span> is true or false — something we never know with real data. This lets us check whether the test behaves as the theory predicts.</p>
+<hr>
+<div id="step-1.-generate-the-data" class="section level3" number="10.2.1">
+<h3>
+<span class="header-section-number">10.2.1</span> Step 1. Generate the data<a class="anchor" aria-label="anchor" href="#step-1.-generate-the-data"><i class="fas fa-link"></i></a>
+</h3>
+<p>We create a dataset of <span class="math inline">\(n = 500\)</span> workers with the same variables as the Lecture 14 wage equation.</p>
+<div class="sourceCode" id="cb592"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/rm.html">rm</a></span><span class="op">(</span>list <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>       <span class="co"># start with a clean environment</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">326</span><span class="op">)</span>         <span class="co"># fix the random seed so results are reproducible</span></span>
+<span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">500</span>              <span class="co"># sample size: 500 workers</span></span></code></pre></div>
+<p>First, we generate the regressors. Each line creates one variable for all <span class="math inline">\(n\)</span> individuals at once:</p>
+<div class="sourceCode" id="cb593"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># runif(n, a, b) draws n values uniformly between a and b</span></span>
+<span><span class="va">Exp</span>      <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">1</span>, <span class="fl">30</span><span class="op">)</span>       <span class="co"># current job experience: between 1 and 30 years</span></span>
+<span><span class="va">Exp2</span>     <span class="op">&lt;-</span> <span class="va">Exp</span><span class="op">^</span><span class="fl">2</span>                  <span class="co"># experience squared (for diminishing returns)</span></span>
+<span></span>
+<span><span class="va">PrevExp</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="va">n</span>, <span class="fl">0</span>, <span class="fl">20</span><span class="op">)</span>       <span class="co"># previous experience: between 0 and 20 years</span></span>
+<span><span class="va">PrevExp2</span> <span class="op">&lt;-</span> <span class="va">PrevExp</span><span class="op">^</span><span class="fl">2</span>              <span class="co"># previous experience squared</span></span>
+<span></span>
+<span><span class="co"># sample(x, n, replace = TRUE) draws n integers from the set x with replacement</span></span>
+<span><span class="va">Educ</span>     <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">8</span><span class="op">:</span><span class="fl">20</span>, <span class="va">n</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>   <span class="co"># education: 8 to 20 years</span></span></code></pre></div>
+<p>Next, we set the <strong>true population parameters</strong>. This is the “God’s-eye view” — we decide exactly how wages are determined. In real research you never know these; here we choose them so we can verify the test.</p>
+<div class="sourceCode" id="cb594"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">b0</span> <span class="op">&lt;-</span> <span class="fl">0.5</span>             <span class="co"># intercept</span></span>
+<span><span class="va">b1</span> <span class="op">&lt;-</span> <span class="fl">0.04</span>            <span class="co"># return to current experience (positive)</span></span>
+<span><span class="va">b2</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.0008</span>         <span class="co"># diminishing returns to experience (negative quadratic)</span></span>
+<span><span class="va">b3</span> <span class="op">&lt;-</span> <span class="fl">0</span>               <span class="co"># &lt;-- previous experience linear effect: ZERO</span></span>
+<span><span class="va">b4</span> <span class="op">&lt;-</span> <span class="fl">0</span>               <span class="co"># &lt;-- previous experience quadratic effect: ZERO</span></span>
+<span><span class="va">b5</span> <span class="op">&lt;-</span> <span class="fl">0.09</span>            <span class="co"># return to education</span></span>
+<span><span class="va">sigma</span> <span class="op">&lt;-</span> <span class="fl">0.4</span>          <span class="co"># standard deviation of the error term</span></span></code></pre></div>
+<div class="book-example">
+<div class="header">
+Design choice: <span class="math inline">\(H_0\)</span> is TRUE by construction
+</div>
+<p>We set <span class="math inline">\(\beta_3 = 0\)</span> and <span class="math inline">\(\beta_4 = 0\)</span>. This means previous experience has <strong>no effect whatsoever</strong> on wages in the population. The null hypothesis <span class="math inline">\(H_0: \beta_3 = 0,\; \beta_4 = 0\)</span> is true.</p>
+<p><strong>What should we expect?</strong> If the <span class="math inline">\(F\)</span>-test works correctly, it should <em>fail to reject</em> <span class="math inline">\(H_0\)</span> about 95% of the time (at <span class="math inline">\(\alpha = 0.05\)</span>). The other 5% of the time, it will reject even though <span class="math inline">\(H_0\)</span> is true — that is a Type I error, and it happens by design. The whole point of setting <span class="math inline">\(\alpha = 0.05\)</span> is accepting a 5% false rejection rate.</p>
+</div>
+<p>Finally, generate the outcome variable:</p>
+<div class="sourceCode" id="cb595"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># rnorm(n, mean, sd) draws n values from a normal distribution N(mean, sd^2)</span></span>
+<span><span class="co"># Each draw represents the unobserved factors affecting worker i's wage</span></span>
+<span><span class="va">U</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="va">n</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="va">sigma</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># The data-generating process: this is the TRUE model</span></span>
+<span><span class="co"># Since b3 = b4 = 0, the PrevExp terms contribute nothing</span></span>
+<span><span class="va">lnWage</span> <span class="op">&lt;-</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">b1</span><span class="op">*</span><span class="va">Exp</span> <span class="op">+</span> <span class="va">b2</span><span class="op">*</span><span class="va">Exp2</span> <span class="op">+</span> <span class="va">b3</span><span class="op">*</span><span class="va">PrevExp</span> <span class="op">+</span> <span class="va">b4</span><span class="op">*</span><span class="va">PrevExp2</span> <span class="op">+</span> <span class="va">b5</span><span class="op">*</span><span class="va">Educ</span> <span class="op">+</span> <span class="va">U</span></span>
+<span></span>
+<span><span class="co"># Combine everything into a data frame for use with lm()</span></span>
+<span><span class="va">wages</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">lnWage</span>, <span class="va">Exp</span>, <span class="va">Exp2</span>, <span class="va">PrevExp</span>, <span class="va">PrevExp2</span>, <span class="va">Educ</span><span class="op">)</span></span></code></pre></div>
+<hr>
+</div>
+<div id="step-2.-estimate-the-unrestricted-model-and-extract-ssr_ur" class="section level3" number="10.2.2">
+<h3>
+<span class="header-section-number">10.2.2</span> Step 2. Estimate the unrestricted model and extract <span class="math inline">\(SSR_{ur}\)</span><a class="anchor" aria-label="anchor" href="#step-2.-estimate-the-unrestricted-model-and-extract-ssr_ur"><i class="fas fa-link"></i></a>
+</h3>
+<p>The unrestricted model includes all five regressors — it does not impose <span class="math inline">\(H_0\)</span>. This is the full model from Exercise 1, Step 2.</p>
+<div class="sourceCode" id="cb596"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">unrestricted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lnWage</span> <span class="op">~</span> <span class="va">Exp</span> <span class="op">+</span> <span class="va">Exp2</span> <span class="op">+</span> <span class="va">PrevExp</span> <span class="op">+</span> <span class="va">PrevExp2</span> <span class="op">+</span> <span class="va">Educ</span>,</span>
+<span>                   data <span class="op">=</span> <span class="va">wages</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">unrestricted</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = lnWage ~ Exp + Exp2 + PrevExp + PrevExp2 + Educ, 
+##     data = wages)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.45814 -0.26095 -0.00492  0.26473  1.17865 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.6004039  0.1048667   5.725 1.79e-08 ***
+## Exp          0.0275052  0.0089785   3.063  0.00231 ** 
+## Exp2        -0.0005383  0.0002824  -1.906  0.05724 .  
+## PrevExp     -0.0174051  0.0127518  -1.365  0.17290    
+## PrevExp2     0.0006716  0.0006089   1.103  0.27057    
+## Educ         0.0969909  0.0048850  19.855  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.3853 on 494 degrees of freedom
+## Multiple R-squared:  0.4757, Adjusted R-squared:  0.4704 
+## F-statistic: 89.66 on 5 and 494 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="book-example">
+<div class="header">
+Reading the output
+</div>
+<p>Look at the coefficients on <code>PrevExp</code> and <code>PrevExp2</code>. Since <span class="math inline">\(\beta_3 = \beta_4 = 0\)</span> in the DGP, their estimated coefficients should be close to zero (but not exactly zero — there is always sampling noise). Their individual <span class="math inline">\(p\)</span>-values may or may not be below 0.05. Remember from Exercise 1, part (a): individual <span class="math inline">\(t\)</span>-tests are <em>not</em> the right way to test a joint hypothesis.</p>
+</div>
+<p>Now extract <span class="math inline">\(SSR_{ur}\)</span>. The function <code><a href="https://rdrr.io/r/stats/residuals.html">resid()</a></code> returns the vector of OLS residuals <span class="math inline">\(\hat{U}_i = Y_i - \hat{Y}_i\)</span> for each observation. Squaring each one and summing gives <span class="math inline">\(SSR_{ur} = \sum_{i=1}^{n} \hat{U}_i^2\)</span>:</p>
+<div class="sourceCode" id="cb598"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">SSR_ur</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">unrestricted</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span>     <span class="co"># sum of squared residuals</span></span>
+<span><span class="va">df_ur</span>  <span class="op">&lt;-</span> <span class="va">unrestricted</span><span class="op">$</span><span class="va">df.residual</span>       <span class="co"># residual df = n - k - 1 = 500 - 5 - 1 = 494</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"SSR_ur ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">SSR_ur</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## SSR_ur = 73.3532</code></pre>
+<div class="sourceCode" id="cb600"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Residual df (n - k - 1) ="</span>, <span class="va">df_ur</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Residual df (n - k - 1) = 494</code></pre>
+<hr>
+</div>
+<div id="step-3.-estimate-the-restricted-model-and-extract-ssr_r" class="section level3" number="10.2.3">
+<h3>
+<span class="header-section-number">10.2.3</span> Step 3. Estimate the restricted model and extract <span class="math inline">\(SSR_r\)</span><a class="anchor" aria-label="anchor" href="#step-3.-estimate-the-restricted-model-and-extract-ssr_r"><i class="fas fa-link"></i></a>
+</h3>
+<p>Under <span class="math inline">\(H_0: \beta_3 = 0,\; \beta_4 = 0\)</span>, we drop <code>PrevExp</code> and <code>PrevExp2</code> from the model. This is the restricted model from Exercise 1, Step 2.</p>
+<div class="sourceCode" id="cb602"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">restricted</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">lnWage</span> <span class="op">~</span> <span class="va">Exp</span> <span class="op">+</span> <span class="va">Exp2</span> <span class="op">+</span> <span class="va">Educ</span>, data <span class="op">=</span> <span class="va">wages</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">SSR_r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/residuals.html">resid</a></span><span class="op">(</span><span class="va">restricted</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"SSR_r ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">SSR_r</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## SSR_r = 73.7413</code></pre>
+<p>Now verify the key property from Exercise 1, part (b): imposing restrictions can never improve the fit.</p>
+<div class="sourceCode" id="cb604"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"SSR_r &gt;= SSR_ur?"</span>, <span class="va">SSR_r</span> <span class="op">&gt;=</span> <span class="va">SSR_ur</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## SSR_r &gt;= SSR_ur? TRUE</code></pre>
+<div class="sourceCode" id="cb606"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Fit cost (SSR_r - SSR_ur) ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">SSR_r</span> <span class="op">-</span> <span class="va">SSR_ur</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Fit cost (SSR_r - SSR_ur) = 0.3881</code></pre>
+<div class="book-example">
+<div class="header">
+Interpreting the fit cost
+</div>
+<p>The number <span class="math inline">\(SSR_r - SSR_{ur}\)</span> is the <strong>total increase in the sum of squared residuals</strong> when we drop <span class="math inline">\(PrevExp\)</span> and <span class="math inline">\(PrevExp^2\)</span>. Since <span class="math inline">\(H_0\)</span> is true in our DGP (these variables genuinely have zero coefficients), the fit cost should be <strong>small</strong> — just sampling noise. If this number were large, it would suggest the excluded variables were genuinely important.</p>
+</div>
+<hr>
+</div>
+<div id="step-4.-compute-the-f-statistic-by-hand" class="section level3" number="10.2.4">
+<h3>
+<span class="header-section-number">10.2.4</span> Step 4. Compute the <span class="math inline">\(F\)</span>-statistic by hand<a class="anchor" aria-label="anchor" href="#step-4.-compute-the-f-statistic-by-hand"><i class="fas fa-link"></i></a>
+</h3>
+<p>Now we apply the formula from Exercise 1, Step 3:</p>
+<p><span class="math display">\[F = \frac{(SSR_r - SSR_{ur})\,/\,q}{SSR_{ur}\,/\,(n - k - 1)}\]</span></p>
+<div class="sourceCode" id="cb608"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">q</span> <span class="op">&lt;-</span> <span class="fl">2</span>    <span class="co"># number of restrictions (beta_3 = 0 AND beta_4 = 0)</span></span>
+<span></span>
+<span><span class="co"># Numerator: average fit cost per restriction</span></span>
+<span><span class="va">numerator</span> <span class="op">&lt;-</span> <span class="op">(</span><span class="va">SSR_r</span> <span class="op">-</span> <span class="va">SSR_ur</span><span class="op">)</span> <span class="op">/</span> <span class="va">q</span></span>
+<span></span>
+<span><span class="co"># Denominator: mean squared error from unrestricted model (estimate of sigma^2)</span></span>
+<span><span class="va">denominator</span> <span class="op">&lt;-</span> <span class="va">SSR_ur</span> <span class="op">/</span> <span class="va">df_ur</span></span>
+<span></span>
+<span><span class="co"># F-statistic: signal-to-noise ratio</span></span>
+<span><span class="va">F_manual</span> <span class="op">&lt;-</span> <span class="va">numerator</span> <span class="op">/</span> <span class="va">denominator</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Numerator (fit cost per restriction):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">numerator</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Numerator (fit cost per restriction): 0.1941</code></pre>
+<div class="sourceCode" id="cb610"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Denominator (MSE, estimate of sigma^2):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">denominator</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Denominator (MSE, estimate of sigma^2): 0.1485</code></pre>
+<div class="sourceCode" id="cb612"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"F-statistic:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_manual</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## F-statistic: 1.3069</code></pre>
+<div class="book-example">
+<div class="header">
+What does this number mean?
+</div>
+<p>The <span class="math inline">\(F\)</span>-statistic tells you how many times larger the fit loss per restriction is compared to the background noise. If <span class="math inline">\(F \approx 1\)</span>, the fit loss is about what you would expect from random variation alone — no evidence against <span class="math inline">\(H_0\)</span>. If <span class="math inline">\(F\)</span> is much larger than 1, the fit loss is too big to be explained by chance. In our DGP where <span class="math inline">\(H_0\)</span> is true, <span class="math inline">\(F\)</span> should be modest (close to 1 on average).</p>
+</div>
+<hr>
+</div>
+<div id="step-5.-compute-the-p-value-and-make-a-decision" class="section level3" number="10.2.5">
+<h3>
+<span class="header-section-number">10.2.5</span> Step 5. Compute the <span class="math inline">\(p\)</span>-value and make a decision<a class="anchor" aria-label="anchor" href="#step-5.-compute-the-p-value-and-make-a-decision"><i class="fas fa-link"></i></a>
+</h3>
+<p>We need two R functions for the <span class="math inline">\(F\)</span>-distribution. They work exactly like <code>pnorm</code>/<code>qnorm</code> from Tutorial 7, but for the <span class="math inline">\(F\)</span>-distribution instead of the normal:</p>
+<div class="book-example">
+<div class="header">
+Two essential R functions
+</div>
+<p><strong><code>qf(p, df1, df2)</code></strong> answers: “what <span class="math inline">\(F\)</span>-value has fraction <span class="math inline">\(p\)</span> of the <span class="math inline">\(F_{df1, df2}\)</span> distribution below it?” This gives the <strong>critical value</strong>.</p>
+<p>Example: <code>qf(0.95, df1 = 2, df2 = 494)</code> returns the value such that 95% of the <span class="math inline">\(F_{2,494}\)</span> distribution lies below it. If your <span class="math inline">\(F\)</span>-statistic exceeds this value, you reject <span class="math inline">\(H_0\)</span> at <span class="math inline">\(\alpha = 0.05\)</span>.</p>
+<p><strong><code>pf(x, df1, df2, lower.tail = FALSE)</code></strong> answers: “what fraction of the <span class="math inline">\(F_{df1, df2}\)</span> distribution lies <em>above</em> <span class="math inline">\(x\)</span>?” This gives the <strong><span class="math inline">\(p\)</span>-value</strong>.</p>
+<p><strong>Always use <code>lower.tail = FALSE</code>.</strong> Without it, <code><a href="https://rdrr.io/r/stats/Fdist.html">pf()</a></code> returns the area <em>below</em> <span class="math inline">\(x\)</span>, which is the wrong tail. A large <span class="math inline">\(F\)</span> would give a <span class="math inline">\(p\)</span>-value near 1 instead of near 0.</p>
+</div>
+<div class="sourceCode" id="cb614"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">alpha</span>  <span class="op">&lt;-</span> <span class="fl">0.05</span></span>
+<span></span>
+<span><span class="co"># Critical value: the 95th percentile of the F(2, 494) distribution</span></span>
+<span><span class="va">F_crit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">qf</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">alpha</span>, df1 <span class="op">=</span> <span class="va">q</span>, df2 <span class="op">=</span> <span class="va">df_ur</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># p-value: probability of observing F &gt;= F_manual under H0</span></span>
+<span><span class="co"># lower.tail = FALSE gives the UPPER tail probability</span></span>
+<span><span class="va">p_val</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Fdist.html">pf</a></span><span class="op">(</span><span class="va">F_manual</span>, df1 <span class="op">=</span> <span class="va">q</span>, df2 <span class="op">=</span> <span class="va">df_ur</span>, lower.tail <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Critical value (5%):"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_crit</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Critical value (5%): 3.014</code></pre>
+<div class="sourceCode" id="cb616"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"p-value:            "</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">p_val</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## p-value:             0.2716</code></pre>
+<p>Now make the decision — exactly as described in Exercise 1, Step 5:</p>
+<div class="sourceCode" id="cb618"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"F-statistic:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_manual</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## F-statistic: 1.3069</code></pre>
+<div class="sourceCode" id="cb620"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Critical value:"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_crit</span>, <span class="fl">4</span><span class="op">)</span>, <span class="st">"\n\n"</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## Critical value: 3.014</code></pre>
+<div class="sourceCode" id="cb622"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="va">F_manual</span> <span class="op">&gt;</span> <span class="va">F_crit</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"DECISION: Reject H0 (F ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_manual</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>      <span class="st">"&gt; critical value ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_crit</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">")\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Since H0 is TRUE in our DGP, this is a Type I error.\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"This happens about 5% of the time --- exactly what alpha = 0.05 means.\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"DECISION: Fail to reject H0 (F ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_manual</span>, <span class="fl">3</span><span class="op">)</span>,</span>
+<span>      <span class="st">"&lt;= critical value ="</span>, <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">F_crit</span>, <span class="fl">3</span><span class="op">)</span>, <span class="st">")\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"Correct decision --- H0 is indeed true in our DGP.\n"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">"The test correctly concluded that PrevExp does not affect wages.\n"</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
+<pre><code>## DECISION: Fail to reject H0 (F = 1.307 &lt;= critical value = 3.014 )
+## Correct decision --- H0 is indeed true in our DGP.
+## The test correctly concluded that PrevExp does not affect wages.</code></pre>
+<hr>
+</div>
+<div id="step-6.-verify-against-linearhypothesis" class="section level3" number="10.2.6">
+<h3>
+<span class="header-section-number">10.2.6</span> Step 6. Verify against <code>linearHypothesis()</code><a class="anchor" aria-label="anchor" href="#step-6.-verify-against-linearhypothesis"><i class="fas fa-link"></i></a>
+</h3>
+<p>The <code>car</code> package provides <code><a href="https://rdrr.io/pkg/car/man/linearHypothesis.html">linearHypothesis()</a></code>, which computes the <span class="math inline">\(F\)</span>-statistic automatically from the unrestricted model. Your manual calculation from Steps 4–5 should match exactly.</p>
+<div class="sourceCode" id="cb624"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bprice2652/car_repo">car</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># IMPORTANT: check what names R assigned to the coefficients</span></span>
+<span><span class="co"># The names you pass to linearHypothesis() must match these EXACTLY</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">unrestricted</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## [1] "(Intercept)" "Exp"         "Exp2"        "PrevExp"     "PrevExp2"   
+## [6] "Educ"</code></pre>
+<div class="sourceCode" id="cb626"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Test H0: beta_3 = 0 AND beta_4 = 0</span></span>
+<span><span class="fu"><a href="https://rdrr.io/pkg/car/man/linearHypothesis.html">linearHypothesis</a></span><span class="op">(</span><span class="va">unrestricted</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"PrevExp = 0"</span>, <span class="st">"PrevExp2 = 0"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<pre><code>## 
+## Linear hypothesis test:
+## PrevExp = 0
+## PrevExp2 = 0
+## 
+## Model 1: restricted model
+## Model 2: lnWage ~ Exp + Exp2 + PrevExp + PrevExp2 + Educ
+## 
+##   Res.Df    RSS Df Sum of Sq      F Pr(&gt;F)
+## 1    496 73.741                           
+## 2    494 73.353  2   0.38811 1.3069 0.2716</code></pre>
+<div class="book-example">
+<div class="header">
+Reading the <code><a href="https://rdrr.io/pkg/car/man/linearHypothesis.html">linearHypothesis()</a></code> output
+</div>
+<p>The output shows a table with two rows:</p>
+<ul>
+<li>
+<strong>Row 1</strong> (Model 1): the <em>restricted</em> model. <code>Res.Df</code> <span class="math inline">\(= 496\)</span> is the residual df (<span class="math inline">\(n - 3 - 1\)</span>). <code>RSS</code> <span class="math inline">\(= SSR_r\)</span>.</li>
+<li>
+<strong>Row 2</strong> (Model 2): the <em>unrestricted</em> model. <code>Res.Df</code> <span class="math inline">\(= 494\)</span> is the residual df (<span class="math inline">\(n - 5 - 1\)</span>). <code>RSS</code> <span class="math inline">\(= SSR_{ur}\)</span>.</li>
+</ul>
+<p><strong>Check three things:</strong></p>
+<ol style="list-style-type: decimal">
+<li>The <code>F</code> value matches your <code>F_manual</code> from Step 4.</li>
+<li>The <code>Pr(&gt;F)</code> value matches your <code>p_val</code> from Step 5.</li>
+<li>The difference in <code>Res.Df</code> is <span class="math inline">\(496 - 494 = 2 = q\)</span>, the number of restrictions.</li>
+</ol>
+<p><strong>Common mistake:</strong> the variable names inside <code>c("PrevExp = 0", ...)</code> must <em>exactly</em> match the names from <code>names(coef(unrestricted))</code>. If your data frame used different column names (e.g., <code>prev_exp</code> instead of <code>PrevExp</code>), R would use those names instead, and you would need to match them. A typo produces an error, not a wrong answer — so read the error message carefully.</p>
+</div>
+<hr>
+</div>
+<div id="step-7-take-home.-what-happens-when-h_0-is-false" class="section level3" number="10.2.7">
+<h3>
+<span class="header-section-number">10.2.7</span> Step 7 (take-home). What happens when <span class="math inline">\(H_0\)</span> is false?<a class="anchor" aria-label="anchor" href="#step-7-take-home.-what-happens-when-h_0-is-false"><i class="fas fa-link"></i></a>
+</h3>
+<p>Go back to Step 1 and change the true parameters so that previous experience matters:</p>
+<div class="sourceCode" id="cb628"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">b3</span> <span class="op">&lt;-</span> <span class="fl">0.015</span>       <span class="co"># positive linear effect (was 0)</span></span>
+<span><span class="va">b4</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">0.0003</span>     <span class="co"># diminishing returns (was 0)</span></span></code></pre></div>
+<p>Then re-run Steps 2–6. You should observe:</p>
+<ul>
+<li>
+<span class="math inline">\(SSR_r - SSR_{ur}\)</span> is now <strong>much larger</strong> (dropping relevant variables hurts the fit substantially).</li>
+<li>The <span class="math inline">\(F\)</span>-statistic is <strong>large</strong> (well above the critical value).</li>
+<li>The <span class="math inline">\(p\)</span>-value is <strong>tiny</strong> (<span class="math inline">\(p \ll 0.05\)</span>).</li>
+<li>The test <strong>correctly rejects</strong> <span class="math inline">\(H_0\)</span>.</li>
+</ul>
+<p>This is the <strong>power</strong> of the test: its ability to detect a false null. The larger the true effect (<span class="math inline">\(\beta_3\)</span>, <span class="math inline">\(\beta_4\)</span>), the larger <span class="math inline">\(F\)</span> becomes and the more likely we are to reject. Try different values of <code>b3</code> and <code>b4</code> to see how the <span class="math inline">\(F\)</span>-statistic responds.</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
+<li>
+<a class="nav-link" href="#exercise-1-deriving-the-f-test"><span class="header-section-number">10.1</span> Exercise 1: Deriving the \(F\)-Test</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1.-hypotheses"><span class="header-section-number">10.1.1</span> Step 1. Hypotheses</a></li>
+<li><a class="nav-link" href="#step-2.-unrestricted-and-restricted-models"><span class="header-section-number">10.1.2</span> Step 2. Unrestricted and restricted models</a></li>
+<li><a class="nav-link" href="#step-3.-the-f-statistic"><span class="header-section-number">10.1.3</span> Step 3. The \(F\)-statistic</a></li>
+<li><a class="nav-link" href="#step-4.-distribution-and-degrees-of-freedom"><span class="header-section-number">10.1.4</span> Step 4. Distribution and degrees of freedom</a></li>
+<li><a class="nav-link" href="#step-5.-decision-rule"><span class="header-section-number">10.1.5</span> Step 5. Decision rule</a></li>
+<li><a class="nav-link" href="#step-6.-r2-version"><span class="header-section-number">10.1.6</span> Step 6. \(R^2\) version</a></li>
+</ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-2-the-f-test-in-r"><span class="header-section-number">10.2</span> Exercise 2: The \(F\)-Test in R</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#step-1.-generate-the-data"><span class="header-section-number">10.2.1</span> Step 1. Generate the data</a></li>
+<li><a class="nav-link" href="#step-2.-estimate-the-unrestricted-model-and-extract-ssr_ur"><span class="header-section-number">10.2.2</span> Step 2. Estimate the unrestricted model and extract \(SSR_{ur}\)</a></li>
+<li><a class="nav-link" href="#step-3.-estimate-the-restricted-model-and-extract-ssr_r"><span class="header-section-number">10.2.3</span> Step 3. Estimate the restricted model and extract \(SSR_r\)</a></li>
+<li><a class="nav-link" href="#step-4.-compute-the-f-statistic-by-hand"><span class="header-section-number">10.2.4</span> Step 4. Compute the \(F\)-statistic by hand</a></li>
+<li><a class="nav-link" href="#step-5.-compute-the-p-value-and-make-a-decision"><span class="header-section-number">10.2.5</span> Step 5. Compute the \(p\)-value and make a decision</a></li>
+<li><a class="nav-link" href="#step-6.-verify-against-linearhypothesis"><span class="header-section-number">10.2.6</span> Step 6. Verify against linearHypothesis()</a></li>
+<li><a class="nav-link" href="#step-7-take-home.-what-happens-when-h_0-is-false"><span class="header-section-number">10.2.7</span> Step 7 (take-home). What happens when \(H_0\) is false?</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-26.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -52,7 +52,9 @@
 <li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
 <li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
 <li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
-<li><a class="" href="tutorial-6-varianza-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Varianza of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
+<li><a class="" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
 </ul>
 
         <div class="book-extra">
@@ -276,7 +278,7 @@ R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
 <span class="header-section-number">4.1.4.5</span> Computational check in R<a class="anchor" aria-label="anchor" href="#computational-check-in-r"><i class="fas fa-link"></i></a>
 </h4>
 <p>This chunk verifies the ANOVA decomposition numerically in a simulated dataset.</p>
-<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb363"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">80</span></span>
@@ -297,7 +299,7 @@ R^2 = \frac{ESS}{TSS} = 1 - \frac{RSS}{TSS}
 <span>  TSS_minus_ESS_RSS <span class="op">=</span> <span class="va">TSS</span> <span class="op">-</span> <span class="va">ESS</span> <span class="op">-</span> <span class="va">RSS</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <pre><code>##        cross_term TSS_minus_ESS_RSS 
-##     -6.494805e-15      0.000000e+00</code></pre>
+##      2.914335e-15      1.136868e-13</code></pre>
 <p>Both values should be essentially zero (up to floating-point precision), confirming the decomposition.</p>
 </div>
 </div>
@@ -532,7 +534,7 @@ u \equiv Y - (\beta_0 + \beta_1 X).
 <span class="header-section-number">4.2.7</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r"><i class="fas fa-link"></i></a>
 </h3>
 <p>This chunk is just to build intuition: it shows that when we generate data with <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>, sample correlation between <span class="math inline">\(X\)</span> and residual-like noise fluctuates around zero.</p>
-<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb365"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">500</span></span>
@@ -733,7 +735,7 @@ S_{xx}=\sum (X_i-\bar X)^2.
 <span class="header-section-number">4.3.5</span> Quick simulation intuition in R<a class="anchor" aria-label="anchor" href="#quick-simulation-intuition-in-r-1"><i class="fas fa-link"></i></a>
 </h3>
 <p>This chunk illustrates unbiasedness in repeated samples when <span class="math inline">\(\mathbb{E}[u\mid X]=0\)</span>. The sample average of <span class="math inline">\(\hat\beta_1\)</span> across many simulations should be close to the true <span class="math inline">\(\beta_1\)</span>.</p>
-<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb367"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fl">2000</span></span>
@@ -957,7 +959,7 @@ the covariance is proportional to:
 <h3>
 <span class="header-section-number">4.4.6</span> Quick check in R using <a class="anchor" aria-label="anchor" href="#quick-check-in-r-using"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb369"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
@@ -1163,7 +1165,7 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <h3>
 <span class="header-section-number">4.5.7</span> Small R demo: same data, different scales<a class="anchor" aria-label="anchor" href="#small-r-demo-same-data-different-scales"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb373"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb371"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">123</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">200</span></span>
@@ -1265,7 +1267,7 @@ Y = \beta_0 + \beta_1(10X^{(10)}) + u
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-09.</p>
+    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

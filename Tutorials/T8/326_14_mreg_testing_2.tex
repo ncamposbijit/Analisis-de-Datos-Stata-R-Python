@@ -1,0 +1,1759 @@
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc}
+%\usepackage{concrete}
+%\usepackage{eulervm}
+%\usefonttheme[onlymath]{serif}
+%\usefonttheme{professionalfonts}
+%\usecolortheme[named=black]{structure}
+%\definecolor{red}{rgb}{0,0,0}
+%\definecolor{blue}{rgb}{0,0,0}
+
+
+\documentclass[notes=show,compress,beamer]{beamer}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{multimedia}
+\usepackage{harvard}
+\usepackage{color}
+\usepackage{bibentry}
+
+\setcounter{MaxMatrixCols}{10}
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2953}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=BibTeX}
+%TCIDATA{Created=Tuesday, December 04, 2007 18:43:18}
+%TCIDATA{LastRevised=Monday, May 03, 2010 13:01:25}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Other Documents\SW\Slides - Beamer">}
+%TCIDATA{Language=American English}
+%TCIDATA{CSTFile=beamer.cst}
+
+\newenvironment{stepenumerate}{\begin{enumerate}[<+->]}{\end{enumerate}}
+\newenvironment{stepitemize}{\begin{itemize}[<+->]}{\end{itemize} }
+\newenvironment{stepenumeratewithalert}{\begin{enumerate}[<+-| alert@+>]}{\end{enumerate}}
+\newenvironment{stepitemizewithalert}{\begin{itemize}[<+-| alert@+>]}{\end{itemize} }
+\useoutertheme{shadow}
+\usetheme{boxes}
+\addheadbox{structure}{ }
+\addfootbox{structure}{ }
+\addfootbox{structure}{ }
+\addfootbox{structure}{  \hspace{1in} \color{gray} \scriptsize \insertframenumber /\inserttotalframenumber}
+\useoutertheme[footline=empty,subsection=false]{miniframes}
+\addtobeamertemplate{headline}
+{}
+{
+\vskip1pt
+}
+\setbeamertemplate{navigation symbols}{}
+\input{tcilatex}
+\let\cite=\citeasnoun
+\hypersetup{pdfpagemode=UseNone}
+
+\begin{document}
+
+
+%TCIMACRO{%
+%\TeXButton{TITLE}{\title{
+%Economics 326 \\
+%Methods of Empirical Research in Economics\\
+%\bigskip
+%Lecture 14: Hypothesis testing in the multiple regression model, Part 2
+%}}}%
+%BeginExpansion
+\title{
+Economics 326 \\
+Methods of Empirical Research in Economics\\
+\bigskip
+Lecture 14: Hypothesis testing in the multiple regression model, Part 2
+}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{AUTHORS AND AFFILIATION}{\author{Vadim Marmer\\
+%University of British Columbia
+%}}}%
+%BeginExpansion
+\author{Vadim Marmer\\
+University of British Columbia
+}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{CREATES THE TITLE PAGE}{\setbeamertemplate{blocks}[rounded][shadow=true]
+%\setbeamercolor{titlepg}{fg=white,bg=blue!50!gray}
+%\setbeamercolor{title}{fg=white,bg=blue!50!gray}
+%\setbeamerfont{title}{size=\Large}
+%\setbeamerfont{inst}{size=\small}
+%
+%\frame[plain]{
+%
+%\begin{beamercolorbox}[center,shadow=true,rounded=true,sep=.05cm]{titlepg}
+%\usebeamerfont{title}
+%\center
+%\inserttitle
+%\end{beamercolorbox}
+%
+%\bigskip
+%\bigskip
+%\center{\insertauthor}
+%\center{\insertdate}
+%
+%}}}%
+%BeginExpansion
+\setbeamertemplate{blocks}[rounded][shadow=true]
+\setbeamercolor{titlepg}{fg=white,bg=blue!50!gray}
+\setbeamercolor{title}{fg=white,bg=blue!50!gray}
+\setbeamerfont{title}{size=\Large}
+\setbeamerfont{inst}{size=\small}
+
+\frame[plain]{
+
+\begin{beamercolorbox}[center,shadow=true,rounded=true,sep=.05cm]{titlepg}
+\usebeamerfont{title}
+\center
+\inserttitle
+\end{beamercolorbox}
+
+\bigskip
+\bigskip
+\center{\insertauthor}
+\center{\insertdate}
+
+}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{\addtocounter{framenumber}{-1}}{\addtocounter{framenumber}{-1}}}%
+%BeginExpansion
+\addtocounter{framenumber}{-1}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}[shrink]}}%
+%BeginExpansion
+\begin{frame}[shrink]%
+%EndExpansion
+
+\QTR{frametitle}{Multiple restrictions}
+
+\begin{itemize}
+\item Consider the model:%
+\begin{multline*}
+\ln \left( Wage_{i}\right) =\beta _{0}+\beta _{1}Experience_{i}+\beta
+_{2}Experience_{i}^{2}+ \\
++\beta _{3}PrevExperience_{i}+\beta _{4}PrevExperience_{i}^{2}+\beta
+_{5}Education_{i}+U_{i},
+\end{multline*}%
+where $Experience$ is the experience at current job, and $PrevExperience$ is
+the previous experience.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Suppose that we want to test the null hypothesis that, after
+controlling for the experience at current job and education, the previous
+experience has no effect on wage:%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+\begin{equation*}
+H_{0}:\beta _{3}=0,\beta _{4}=0.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item We have 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+two 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}} }%
+%BeginExpansion
+\color{black}
+%EndExpansion
+restrictions on the model parameters.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The alternative hypothesis is that at least one of the coefficients, $%
+\beta _{3}$ or $\beta _{4},$ is different from zero%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+:%
+\begin{equation*}
+H_{1}:\beta _{3}\neq 0\text{ or }\beta _{4}\neq 0.
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$t$}{$t$}}%
+%BeginExpansion
+$t$%
+%EndExpansion
+-statistics and multiple restrictions}
+
+\begin{itemize}
+\item Let $T_{3}$ and $T_{4}$ be the $t$-statistics associated with the
+coefficients of $PrevExperience$ and $PrevExperience^{2}:$%
+\begin{equation*}
+T_{3}=\frac{\hat{\beta}_{3}}{SE\left( \hat{\beta}_{3}\right) }\text{ and }%
+T_{4}=\frac{\hat{\beta}_{4}}{SE\left( \hat{\beta}_{4}\right) }.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item We can use $T_{3}$ and $T_{4}$ to test significance of $\beta _{3}$
+and $\beta _{4}$ 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+separately 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+by using two separate 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+size $\alpha $ 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+tests:%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item Reject $H_{0,3}:\beta _{3}=0$ in favor of $H_{1,3}:\beta _{3}\neq 0$
+when $\left\vert T_{3}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Reject $H_{0,4}:\beta _{4}=0$ in favor of $H_{1,4}:\beta _{4}\neq 0$
+when $\left\vert T_{4}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}.$
+\end{itemize}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$t$}{$t$}}%
+%BeginExpansion
+$t$%
+%EndExpansion
+-statistics and multiple restrictions}
+
+\begin{itemize}
+\item Rejecting $H_{0}:\beta _{3}=0,\beta _{4}=0$ in favor of $H_{1}:\beta
+_{3}\neq 0$ or $\beta _{4}\neq 0$ when 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+at least 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+one of the two coefficients is significant at 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+level $\alpha $ 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+, i.e. when%
+\begin{equation*}
+\left\vert T_{3}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\text{ or }\left\vert T_{4}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2},
+\end{equation*}%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+is not 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+a 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+size $\alpha $ test%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+! 
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item Recall that if $A$ and $B$ are two sets 
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+then $\left( A\cap B\right) \subset A$ 
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+and therefore $P\left( A\cap B\right) \leq P\left( A\right) .$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+When $\beta _{3}=\beta _{4}=0$ 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+:%
+\begin{eqnarray*}
+&&P\left( \text{Reject }H_{0,3}\text{ or }H_{0,4}\right) = \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&P\left( \left\vert T_{3}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\text{ }%
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+\text{or }%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+\left\vert T_{4}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\right) \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&P\left( \left\vert T_{3}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\right) +P\left( \left\vert T_{4}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\right) \\
+&&-P\left( \left\vert T_{3}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\text{ }%
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+\text{and }%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+\left\vert T_{4}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\right) \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&\alpha +\alpha -P\left( \left\vert T_{3}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\text{ }%
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+\text{and }%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+\left\vert T_{4}\right\vert >t_{n-k-1,1-%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+/2}\right) \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&\geq &\alpha .
+\end{eqnarray*}
+\end{itemize}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Testing multiple exclusion restrictions}
+
+\begin{itemize}
+\item Consider the model%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{1}X_{1,i}+\ldots +\beta _{q}X_{q,i}+\beta
+_{q+1}X_{q+1,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+Suppose that we want to test that the first $q$ regressors have no effect on 
+$Y$ (after controlling for other regressors).%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The null hypothesis has $q$ 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+exclusion 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}} }%
+%BeginExpansion
+\color{black}
+%EndExpansion
+restrictions:%
+\begin{equation*}
+H_{0}:\beta _{1}=0,\beta _{2}=0,\ldots ,\beta _{q}=0.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The alternative hypothesis is that at least one of the restrictions in 
+$H_{0}$ is false:%
+\begin{equation*}
+H_{1}:\beta _{1}\neq 0\text{ or }\beta _{2}\neq 0\text{ or \ldots\ or }\beta
+_{q}\neq 0.
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}[shrink]}}%
+%BeginExpansion
+\begin{frame}[shrink]%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$}}%
+%BeginExpansion
+$F$%
+%EndExpansion
+-statistic}
+
+\begin{itemize}
+\item The idea of the test is to compare the \textbf{fit} of the 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+unrestricted model 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}} }%
+%BeginExpansion
+\color{black}
+%EndExpansion
+with that of the 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+null-restricted model%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Let%
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}} }%
+%BeginExpansion
+\color{blue}
+%EndExpansion
+$SSR_{ur}$ 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+denote the Residual Sum-of-Squares of the 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+unrestricted model 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{1}X_{1,i}+\ldots +\beta _{q}X_{q,i}+\beta
+_{q+1}X_{q+1,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+restricted model 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+given $H_{0}:\beta _{1}=0,\ldots ,\beta _{q}=0$ is%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{q+1}X_{q+1,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item Let%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}} }%
+%BeginExpansion
+\color{red}
+%EndExpansion
+$SSR_{r}$ 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+denote the Residual Sum-of-Squares of the 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+restricted model 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.
+\end{itemize}
+
+\item Consider the following statistic:%
+\begin{equation*}
+F=\frac{\left( 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+SSR_{r}%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+-%
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+SSR_{ur}%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+\right) /q}{SSR_{ur}/\left( n-k-1\right) }.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item Note that $q$\textbf{\ }=\textbf{\ number of restrictions};
+
+\item $n-k-1$ = \textbf{unrestricted residual df, }where $k$ is the number
+of regressors in the \textbf{unrestricted model.}
+\end{itemize}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$}}%
+%BeginExpansion
+$F$%
+%EndExpansion
+-statistic }%
+\begin{equation*}
+F=\frac{\left( SSR_{r}-SSR_{ur}\right) /q}{SSR_{ur}/\left( n-k-1\right) }.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item Since SSR can only increase when you drop some regressors,%
+\begin{equation*}
+SSR_{r}-SSR_{ur}\geq 0,
+\end{equation*}%
+and therefore 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+$F\geq 0$%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item If the null restrictions are 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+true%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+, the excluded variables do not contribute to explaining $Y$ (in
+population), and therefore we should expect that $SSR_{r}-SSR_{ur}$ is small
+and 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+$F$ is close to zero%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item If the null restriction are 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+false%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+, the imposed restriction should substantially worsen the fit, and we should
+expect that $SSR_{r}-SSR_{ur}$ is large and 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+$F$ is far from zero%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Thus, we should reject $H_{0}$ when $F>c$ where $c$ is some positive
+constant.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+test}
+
+\begin{equation*}
+F=\frac{\left( SSR_{r}-SSR_{ur}\right) /q}{SSR_{ur}/\left( n-k-1\right) }.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item We should reject $H_{0}$ when $F>c.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item There is a probability that $F>c$ even when $H_{0}$ is true, thus we
+need to choose $c$ so that $P\left( F>c|H_{0}\text{ is true}\right) =\alpha
+. $%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item It turns out that when $H_{0}$ is true, the $F$-statistic has $F$
+distribution with two parameters: the numerator df ($q$) and the denominator
+df ($n-k-1$)%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+:%
+\begin{equation*}
+F\sim F_{q,n-k-1}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Similarly to the standard normal and $t$ distributions, the $F$
+distribution has been tabulated and its critical values are available in
+statistical tables and statistical software such as Stata.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+test}
+
+When $H_{0}$ is true,
+
+\begin{equation*}
+F=\frac{\left( SSR_{r}-SSR_{ur}\right) /q}{SSR_{ur}/\left( n-k-1\right) }%
+\sim F_{q,n-k-1}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{itemize}
+\item Let $F_{q,n-k-1,\tau }$ be the $\tau $-quantile of the $F_{q,n-k-1}$
+distribution.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item A size $\alpha $ test $H_{0}:\beta _{1}=0,\ldots ,\beta _{q}=0$
+against $H_{1}:\beta _{1}\neq 0$ or \ldots\ or $\beta _{q}\neq 0$ is%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+\begin{equation*}
+\text{Reject }H_{0}\text{ when }F>F_{q,n-k-1,1-\alpha }.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item One can find the $p$-value by finding $\tau $ such that $%
+F=F_{q,n-k-1,1-\tau }.$ The $p$-value is equal to $\tau .$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+distribution in Stata}
+
+\begin{itemize}
+\item To compute $F$ critical values use 
+\begin{equation*}
+\text{disp invFtail}(q,n-k-1,%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+\alpha 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+).
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item To compute $p$-values from $F$ distribution use 
+\begin{equation*}
+\text{disp Ftail}(q,n-k-1,%
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+F%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+).
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Example}
+
+\begin{itemize}
+\item Consider the model:%
+\begin{multline*}
+\ln \left( Wage_{i}\right) =\beta _{0}+\beta _{1}Experience_{i}+\beta
+_{2}Experience_{i}^{2}+ \\
++\beta _{3}PrevExperience_{i}+\beta _{4}PrevExperience_{i}^{2}+\beta
+_{5}Education_{i}+U_{i}.
+\end{multline*}
+
+\item We test%
+\begin{equation*}
+H_{0}:\beta _{3}=0,\beta _{4}=0\text{ against }H_{1}:\beta _{3}\neq 0\text{
+or }\beta _{4}\neq 0.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item $q=2.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item $\alpha =0.05.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{BeginFrame}{\begin{frame}[fragile=singleslide,shrink=30]}}%
+%BeginExpansion
+\begin{frame}[fragile=singleslide,shrink=30]%
+%EndExpansion
+
+\QTR{frametitle}{Example: the unrestricted model}
+\begin{verbatim}
+. regress lnWage Experience Experience2 PrevExperience PrevExperience2 Education
+ 
+      Source |       SS       df       MS              Number of obs =     526
+-------------+------------------------------           F(  5,   520) =   55.04
+       Model |  51.3318741     5  10.2663748           Prob > F      =  0.0000
+    Residual |  96.9978773   520  .186534379           R-squared     =  0.3461
+-------------+------------------------------           Adj R-squared =  0.3398
+       Total |  148.329751   525   .28253286           Root MSE      =   .4319
+ 
+------------------------------------------------------------------------------
+      lnWage |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  Experience |   .0471914   .0068074     6.93   0.000     .0338179    .0605649
+ Experience2 |  -.0008518   .0002472    -3.45   0.001    -.0013374   -.0003662
+PrevExperi~e |   .0168997   .0047331     3.57   0.000     .0076013    .0261981
+PrevExperi~2 |  -.0003727   .0001208    -3.09   0.002      -.00061   -.0001354
+   Education |   .0887704   .0072131    12.31   0.000     .0745999    .1029408
+       _cons |   .2368427     .10287     2.30   0.022     .0347509    .4389346
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{itemize}
+\item $SSR_{ur}=$96.9978773.
+
+\item $n-k-1=$526-5-1=520.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{BeginFrame}{\begin{frame}[fragile=singleslide,shrink=30]}}%
+%BeginExpansion
+\begin{frame}[fragile=singleslide,shrink=30]%
+%EndExpansion
+
+\QTR{frametitle}{Example: the restricted model}
+\begin{verbatim}
+. regress lnWage Experience Experience2  Education
+ 
+      Source |       SS       df       MS              Number of obs =     526
+-------------+------------------------------           F(  3,   522) =   85.49
+       Model |  48.8668114     3  16.2889371           Prob > F      =  0.0000
+    Residual |    99.46294   522  .190542031           R-squared     =  0.3294
+-------------+------------------------------           Adj R-squared =  0.3256
+       Total |  148.329751   525   .28253286           Root MSE      =  .43651
+ 
+------------------------------------------------------------------------------
+      lnWage |      Coef.   Std. Err.      t    P>|t|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  Experience |   .0510784   .0067937     7.52   0.000      .037732    .0644248
+ Experience2 |  -.0009941   .0002463    -4.04   0.000     -.001478   -.0005103
+   Education |   .0852822   .0068978    12.36   0.000     .0717313    .0988331
+       _cons |   .3688491   .0908138     4.06   0.000     .1904437    .5472544
+------------------------------------------------------------------------------
+\end{verbatim}
+
+\begin{itemize}
+\item $SSR_{r}=$99.46294.
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}[squeeze]}}%
+%BeginExpansion
+\begin{frame}[squeeze]%
+%EndExpansion
+
+\QTR{frametitle}{Example: 
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+statistic and test}
+
+\begin{itemize}
+\item To compute the statistic:%
+\begin{equation*}
+F=\frac{\left( SSR_{r}-SSR_{ur}\right) /q}{SSR_{ur}/\left( n-k-1\right) }=%
+\frac{\left( 99.46294-96.9978773\right) /2}{96.9978773/\left( 526-5-1\right) 
+}\approx 6.61.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The critical value:
+
+%TCIMACRO{\TeXButton{\begin{semiverbatim}}{\begin{semiverbatim}}}%
+%BeginExpansion
+\begin{semiverbatim}%
+%EndExpansion
+.\ disp\ invFtail(2,520,0.05)
+
+3.0130572%
+%TCIMACRO{\TeXButton{\end{semiverbatim}}{\end{semiverbatim}}}%
+%BeginExpansion
+\end{semiverbatim}%
+%EndExpansion
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The test: $6.61>$3.0130572 and at 5\% significance level we reject $%
+H_{0}$ that previous experience has no effect on wage.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The $p$-value:
+
+%TCIMACRO{\TeXButton{\begin{semiverbatim}}{\begin{semiverbatim}}}%
+%BeginExpansion
+\begin{semiverbatim}%
+%EndExpansion
+.\ disp\ Ftail(2,520,6.61)
+
+.00146284%
+%TCIMACRO{\TeXButton{\end{semiverbatim}}{\end{semiverbatim}}}%
+%BeginExpansion
+\end{semiverbatim}%
+%EndExpansion
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+$\Longrightarrow $ We reject $H_{0}$ for any $\alpha >0.00146284.$
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{BeginFrame}{\begin{frame}
+%}}%
+%BeginExpansion
+\begin{frame}
+%
+%EndExpansion
+
+\QTR{frametitle}{Example: Stata test command}
+
+\begin{itemize}
+\item Instead of running two models, restricted and unrestricted, one can
+use the Stata 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+test 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+command after estimation of the 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+unrestricted model%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item To test that previous experience has no effect:\medskip 
+%TCIMACRO{\TeXButton{\begin{semiverbatim}}{\begin{semiverbatim}}}%
+%BeginExpansion
+\begin{semiverbatim}%
+%EndExpansion
+
+. test (PrevExperience=0) (PrevExperience2=0)%
+%TCIMACRO{\TeXButton{\end{semiverbatim}}{\end{semiverbatim}}}%
+%BeginExpansion
+\end{semiverbatim}%
+%EndExpansion
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The output of this command is:\medskip 
+%TCIMACRO{\TeXButton{\begin{semiverbatim}}{\begin{semiverbatim}}}%
+%BeginExpansion
+\begin{semiverbatim}%
+%EndExpansion
+
+( 1) PrevExperience = 0
+
+( 2) PrevExperience2 = 0
+
+F( 2, 520) = 6.61
+
+Prob \TEXTsymbol{>} F = 0.0015
+
+%TCIMACRO{\TeXButton{\end{semiverbatim}}{\end{semiverbatim}}}%
+%BeginExpansion
+\end{semiverbatim}%
+%EndExpansion
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}[fragile=singleslide]}}%
+%BeginExpansion
+\begin{frame}[fragile=singleslide]%
+%EndExpansion
+
+\QTR{frametitle}{Example: Stata test command}
+
+\begin{itemize}
+\item To test that the coefficient on previous experience equal to the
+coefficient on experience and the coefficient on previous experience squared
+is zero:\medskip
+
+.\ test\ (Experience==PrevExperience2)\ (PrevExperience2=0)
+
+\medskip
+
+\item The output is:\medskip
+
+\ (\ 1)\ \ Experience\ -\ PrevExperience2\ =\ 0
+
+\ (\ 2)\ \ PrevExperience2\ =\ 0
+
+\ \ \ \ \ \ \ F(\ \ 2,\ \ \ 520)\ =\ \ \ 31.94
+
+\ \ \ \ \ \ \ \ \ \ \ \ Prob\ \TEXTsymbol{>}\ F\ =\ \ \ \ 0.0000
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+and 
+%TCIMACRO{\TeXButton{$R^2$}{$R^2$}}%
+%BeginExpansion
+$R^2$%
+%EndExpansion
+}
+
+\begin{itemize}
+\item Let $R_{ur}^{2}$ denote the $R^{2}$ corresponding to the unrestricted
+model:%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{1}X_{1,i}+\ldots +\beta _{q}X_{q,i}+\beta
+_{q+1}X_{q+1,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Let $R_{r}^{2}$ denote the $R^{2}$ corresponding to the restricted
+model:%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{q+1}X_{q+1,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The two models have the same dependent variable and therefore the same
+Total Sum-of-Squares:%
+\begin{equation*}
+SST=\sum_{i=1}^{n}\left( Y_{i}-\bar{Y}\right) ^{2}=SST_{ur}=SST_{r}.
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+and 
+%TCIMACRO{\TeXButton{$R^2$}{$R^2$}}%
+%BeginExpansion
+$R^2$%
+%EndExpansion
+}
+
+\begin{itemize}
+\item In this case, we can write then%
+\begin{eqnarray*}
+F &=&\frac{\left( SSR_{r}-SSR_{ur}\right) /q}{SSR_{ur}/\left( n-k-1\right) }
+\\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&\frac{\left( \frac{SSR_{r}}{SST}-\frac{SSR_{ur}}{SST}\right) /q}{\frac{%
+SSR_{ur}}{SST}/\left( n-k-1\right) } \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&\frac{\left( 1-R_{r}^{2}-\left( 1-R_{ur}^{2}\right) \right) /q}{\left(
+1-R_{ur}^{2}\right) /\left( n-k-1\right) } \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&%
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+\frac{\left( R_{ur}^{2}-R_{r}^{2}\right) /q}{\left( 1-R_{ur}^{2}\right)
+/\left( n-k-1\right) }%
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+.
+\end{eqnarray*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+test: more examples}
+
+\begin{itemize}
+\item Suppose that you want to test $H_{0}:\beta _{1}=1$ against $%
+H_{1}:\beta _{1}\neq 1$ in%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{1}X_{1,i}+\beta _{2}X_{2,i}+\ldots +\beta
+_{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+restricted 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+model is%
+\begin{equation*}
+Y_{i}=\beta _{0}+X_{1,i}+\beta _{2}X_{2,i}+\ldots +\beta _{k}X_{k,i}+U_{i},
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+or%
+\begin{equation*}
+Y_{i}-X_{1,i}=\beta _{0}+\beta _{2}X_{2,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{enumerate}
+\item Generate a new dependent variable $Y_{i}^{\ast }=Y_{i}-X_{1,i}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Regress $Y^{\ast }$ against a constant, $X_{2},\ldots ,X_{k}$ to
+obtain $SSR_{r}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Estimate the unrestricted model to obtain $SSR_{ur}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Compute $F=\frac{\left( SSR_{r}-SSR_{ur}\right) /1}{SSR_{ur}/\left(
+n-k-1\right) }.$
+\end{enumerate}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{%
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+test: more examples}
+
+\begin{itemize}
+\item Suppose that you want to test $H_{0}:\beta _{1}+\beta _{2}=1$ against $%
+H_{1}:\beta _{1}+\beta _{2}\neq 1$ in%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{1}X_{1,i}+\beta _{2}X_{2,i}+\ldots +\beta
+_{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The 
+%TCIMACRO{\TeXButton{\color{red} CTRL+ cr}{\color{red}}}%
+%BeginExpansion
+\color{red}%
+%EndExpansion
+restricted 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+model is%
+\begin{equation*}
+Y_{i}=\beta _{0}+\left( 1-\beta _{2}\right) X_{1,i}+\beta _{2}X_{2,i}+\ldots
++\beta _{k}X_{k,i}+U_{i},
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+or%
+\begin{equation*}
+Y_{i}-X_{1,i}=\beta _{0}+\beta _{2}\left( X_{2,i}-X_{1,i}\right) +\ldots
++\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\begin{enumerate}
+\item Generate a new dependent variable $Y_{i}^{\ast }=Y_{i}-X_{1,i}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Generate a new regressor $X_{2}^{\ast }=X_{2,i}-X_{1,i}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Regress $Y^{\ast }$ against a constant, $X_{2}^{\ast },X_{3},\ldots
+,X_{k}$ to obtain $SSR_{r}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Estimate the unrestricted model to obtain $SSR_{ur}.$%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Compute $F=\frac{\left( SSR_{r}-SSR_{ur}\right) /1}{SSR_{ur}/\left(
+n-k-1\right) }.$
+\end{enumerate}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Relationship between 
+%TCIMACRO{\TeXButton{$F$}{$F$} }%
+%BeginExpansion
+$F$
+%EndExpansion
+and 
+%TCIMACRO{\TeXButton{$t$}{$t$} }%
+%BeginExpansion
+$t$
+%EndExpansion
+statistics}
+
+\begin{itemize}
+\item The $F$ statistic can also be used for testing a single restriction.%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item In the case of a single restriction, the $F$ test and $t$ test lead to
+the 
+%TCIMACRO{\TeXButton{\color{blue} CTRL+cbl}{\color{blue}}}%
+%BeginExpansion
+\color{blue}%
+%EndExpansion
+same outcome 
+%TCIMACRO{\TeXButton{\color{black} CTRL+cb}{\color{black}}}%
+%BeginExpansion
+\color{black}%
+%EndExpansion
+because 
+\begin{equation*}
+t_{n-k-1}^{2}=F_{1,n-k-1}.
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Test of model significance}
+
+\begin{itemize}
+\item Consider the model%
+\begin{equation*}
+Y_{i}=\beta _{0}+\beta _{1}X_{1,i}+\ldots +\beta _{k}X_{k,i}+U_{i}.
+\end{equation*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item Suppose that you want to test that none of the regressors explain $Y:$%
+\begin{eqnarray*}
+H_{0} &:&\beta _{1}=\beta _{2}=\ldots =\beta _{k}=0\text{ (}k\text{
+restrictions) against } \\
+H_{1} &:&\beta _{j}\neq 0\text{ for some }j=1,\ldots ,k.
+\end{eqnarray*}%
+%TCIMACRO{\TeXButton{pause}{\pause}}%
+%BeginExpansion
+\pause%
+%EndExpansion
+
+\item The restricted model is given by%
+\begin{equation*}
+Y_{i}=\beta _{0}+U_{i},
+\end{equation*}%
+and since $\hat{\beta}_{0}=\bar{Y}$ in this model,%
+\begin{equation*}
+SSR_{r}=\sum_{i=1}^{n}\left( Y_{i}-\bar{Y}\right) ^{2}=SST\text{ and }%
+SSR_{ur}=SSR.
+\end{equation*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{\TeXButton{BeginFrame}{\begin{frame}}}%
+%BeginExpansion
+\begin{frame}%
+%EndExpansion
+
+\QTR{frametitle}{Test of model significance}
+
+\begin{itemize}
+\item The $F$ statistic for model significance test is%
+\begin{eqnarray*}
+F &=&\frac{\left( SSR_{r}-SSR_{ur}\right) /k}{SSR_{ur}/\left( n-k-1\right) }
+\\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&\frac{\left( SST-SSR\right) /k}{SSR/\left( n-k-1\right) } \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&\frac{SSE/k}{SSR/\left( n-k-1\right) } \\
+%TCIMACRO{\TeXButton{pause}{\pause} }%
+%BeginExpansion
+\pause
+%EndExpansion
+&=&\frac{R^{2}/k}{\left( 1-R^{2}\right) /\left( n-k-1\right) }.
+\end{eqnarray*}
+\end{itemize}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+%TCIMACRO{%
+%\TeXButton{BeginFrame}{\begin{frame}[fragile=singleslide,shrink=30]}}%
+%BeginExpansion
+\begin{frame}[fragile=singleslide,shrink=30]%
+%EndExpansion
+
+\QTR{frametitle}{Test of model significance}
+
+\begin{itemize}
+\item The $F$ statistic for the model significance test and its $p$-value is
+reported by Stata as in the top part of the regression output.\medskip
+\end{itemize}
+
+\begin{verbatim}
+ 
+      Source |       SS       df       MS              Number of obs =     526
+-------------+------------------------------           F(  5,   520) =   55.04
+       Model |  51.3318741     5  10.2663748           Prob > F      =  0.0000
+    Residual |  96.9978773   520  .186534379           R-squared     =  0.3461
+-------------+------------------------------           Adj R-squared =  0.3398
+       Total |  148.329751   525   .28253286           Root MSE      =   .4319
+ 
+\end{verbatim}
+
+%TCIMACRO{\TeXButton{EndFrame}{\end{frame}}}%
+%BeginExpansion
+\end{frame}%
+%EndExpansion
+
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+
+\title{Why $\bar{y}_1 - \bar{y}_0$ is Unbiased for the ATE under Random Assignment}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\textbf{Claim.} Under random assignment, $E[\bar{y}_1 - \bar{y}_0] = ATE$.
+
+\bigskip
+
+\textbf{Definition of unbiased.} An estimator $\hat{\theta}$ is \textbf{unbiased}
+for parameter $\theta$ if:
+\[
+  E[\hat{\theta}] = \theta
+\]
+Here $\hat{\theta} = \bar{y}_1 - \bar{y}_0$ and $\theta = ATE = E[y(1) - y(0)]$.
+
+\bigskip
+
+\textbf{Step 1: What do we observe in each group?}
+
+\medskip
+Treated individuals reveal $y(1)$; control individuals reveal $y(0)$:
+\[
+  E[\bar{y}_1] = E[y \mid x=1] = E[y(1) \mid x=1]
+\]
+\[
+  E[\bar{y}_0] = E[y \mid x=0] = E[y(0) \mid x=0]
+\]
+
+\bigskip
+
+\textbf{Step 2: Apply random assignment.}
+
+\medskip
+Random assignment means $x \perp \bigl(y(0),\, y(1)\bigr)$: knowing whether
+someone was treated tells you nothing about their potential outcomes. Therefore:
+\[
+  E[y(1) \mid x=1] = E[y(1)], \qquad E[y(0) \mid x=0] = E[y(0)]
+\]
+
+\bigskip
+
+\textbf{Step 3: Substitute and conclude.}
+
+\begin{align*}
+  E[\bar{y}_1 - \bar{y}_0]
+    &= E[y(1) \mid x=1] - E[y(0) \mid x=0] & \text{(Step 1)}\\
+    &= E[y(1)] - E[y(0)]                    & \text{(Step 2)}\\
+    &= E[\,y(1) - y(0)\,]                   & \text{(linearity of expectation)}\\
+    &= ATE                                   & \checkmark
+\end{align*}
+
+\bigskip
+
+\textbf{Intuition.} The fundamental problem of causal inference is that we never
+observe both $y(1)$ and $y(0)$ for the same person. But with
+$x \perp (y(0), y(1))$:
+\begin{itemize}
+  \item The treated group is a \emph{random sample} of the population
+        $\Rightarrow$ their average $y(1)$ represents \textbf{everyone's} $y(1)$.
+  \item The control group is a \emph{random sample} of the population
+        $\Rightarrow$ their average $y(0)$ represents \textbf{everyone's} $y(0)$.
+\end{itemize}
+Each group serves as a valid counterfactual for the other, and selection bias
+cancels exactly.
+
+\end{document}

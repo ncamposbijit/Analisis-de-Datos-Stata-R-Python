@@ -1,0 +1,376 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---- Packages ----
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{enumitem}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{mdframed}
+
+\geometry{margin=2.5cm}
+
+% ---- Colours ----
+\definecolor{blockcolor}{RGB}{0,70,130}
+\definecolor{hintcolor}{RGB}{140,90,0}
+\definecolor{exbg}{RGB}{245,245,235}
+\definecolor{anscolor}{RGB}{200,200,200}
+
+% ---- Book example environment ----
+\newmdenv[
+  backgroundcolor=exbg,
+  linecolor=blockcolor!40,
+  linewidth=1pt,
+  roundcorner=4pt,
+  innertopmargin=10pt,
+  innerbottommargin=10pt,
+  innerleftmargin=12pt,
+  innerrightmargin=12pt,
+  skipabove=8pt,
+  skipbelow=8pt
+]{bookexample}
+
+% ---- Answer box environment ----
+\newmdenv[
+  linecolor=anscolor,
+  linewidth=0.8pt,
+  roundcorner=3pt,
+  innertopmargin=8pt,
+  innerbottommargin=8pt,
+  innerleftmargin=10pt,
+  innerrightmargin=10pt,
+  skipabove=6pt,
+  skipbelow=6pt,
+  backgroundcolor=white
+]{answerbox}
+
+% ---- Section formatting ----
+\titleformat{\section}{\large\bfseries\color{blockcolor}}{}{0em}{}[\vspace{-0.3em}\rule{\textwidth}{0.4pt}]
+
+% ---- Header ----
+\title{\textbf{Tutorial 6 --- Variance of the OLS Estimator\\ and Hypothesis Testing}\\\medskip \Large Questions}
+\author{Introductory Econometrics --- TA Session}
+\date{Duration: 50 minutes \\ \medskip \small Based on Wooldridge, Theorem 2.2, Sections 2.5 and 4.1--4.2}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+%=============================================================================
+\section{Block 1: Motivation --- Why Isn't Unbiasedness Enough? \textnormal{(3 min)}}
+%=============================================================================
+
+\begin{bookexample}
+\textbf{\color{blockcolor}The Simple Linear Regression Assumptions}
+
+\medskip
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{lll}
+\toprule
+\textbf{Label} & \textbf{Name} & \textbf{Statement} \\
+\midrule
+\textbf{SLR.1} & Linear in Parameters & $y = \beta_0 + \beta_1 x + u$ \\
+\textbf{SLR.2} & Random Sampling & $\{(x_i, y_i)\}_{i=1}^n$ are i.i.d.\ draws \\
+\textbf{SLR.3} & Sample Variation in $x$ & $\text{SST}_x = \sum (x_i - \bar{x})^2 > 0$ \\
+\textbf{SLR.4} & Zero Conditional Mean & $E[u \mid x] = 0$ \\
+\textbf{SLR.5} & Homoskedasticity & $\text{Var}(u \mid x) = \sigma^2$ (constant) \\
+\textbf{SLR.6} & Normality & $u \mid x \sim N(0, \sigma^2)$ \\
+\bottomrule
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+
+\medskip
+Under \textbf{SLR.1--SLR.4}: $E[\hat{\beta}_1] = \beta_1$ (unbiasedness). Adding \textbf{SLR.5}: we get $\text{Var}(\hat{\beta}_1)$. Adding \textbf{SLR.6}: exact $t$-distribution for hypothesis tests.
+\end{bookexample}
+
+\begin{bookexample}
+\textbf{\color{blockcolor}Theorem 2.2 (Wooldridge)} --- Under SLR.1--SLR.5:
+\[
+  \boxed{\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \frac{\sigma^2}{\text{SST}_x}}
+  \qquad\text{where}\quad
+  \text{SST}_x = \sum_{i=1}^{n}(x_i - \bar{x})^2
+\]
+The proof relies on a key representation of $\hat{\beta}_1$. Starting from the OLS formula and substituting $y_i = \beta_0 + \beta_1 x_i + u_i$ (\textbf{SLR.1}):
+\begin{align*}
+  \hat{\beta}_1
+  &= \frac{\sum(x_i - \bar{x})(y_i - \bar{y})}{\text{SST}_x}
+  = \frac{\beta_1\,\text{SST}_x + \sum(x_i - \bar{x})\,u_i}{\text{SST}_x}
+\end{align*}
+where we used $y_i - \bar{y} = \beta_1(x_i - \bar{x}) + (u_i - \bar{u})$ and the fact that $\sum(x_i - \bar{x}) = 0$ eliminates $\bar{u}$. This gives:
+\[
+  \boxed{\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i,
+  \qquad w_i = \frac{x_i - \bar{x}}{\text{SST}_x}}
+\]
+$\hat{\beta}_1$ equals the true parameter plus a weighted sum of the errors. The weights $w_i$ depend only on the $x$-values and are constants conditional on $\mathbf{x}$.
+\end{bookexample}
+
+%=============================================================================
+\section{Block 2: Deriving and Computing $\text{Var}(\hat{\beta}_1)$ \textnormal{(12 min)}}
+%=============================================================================
+
+\textbf{Question 1} (Derivation and numerical computation)
+
+\begin{enumerate}[label=(\alph*)]
+\item Starting from the representation $\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i$, derive $\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2/\text{SST}_x$.
+
+\textcolor{hintcolor}{\emph{Hint: Follow these steps --- (i)~Why can you drop $\beta_1$ from the variance? (ii)~Expand $\text{Var}(\sum w_i u_i \mid \mathbf{x})$. Which assumption eliminates the covariance terms? (iii)~Which assumption makes $\text{Var}(u_i \mid \mathbf{x})$ the same for all $i$? (iv)~Simplify $\sum w_i^2$.}}
+
+\begin{answerbox}
+\vspace{8cm}
+\end{answerbox}
+
+\newpage
+\item Suppose $n = 5$ observations with $x$-values $\{1, 3, 5, 7, 9\}$ and $\sigma^2 = 10$. Compute $\bar{x}$, $\text{SST}_x$, $\text{Var}(\hat{\beta}_1)$, and $\text{sd}(\hat{\beta}_1)$.
+
+\begin{answerbox}
+\vspace{5cm}
+\end{answerbox}
+
+\item Based on the formula $\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x$, explain what happens to the precision of $\hat{\beta}_1$ when:
+\begin{enumerate}[label=(\roman*)]
+  \item the error variance $\sigma^2$ increases;
+  \item we add more observations that are spread out (not concentrated at $\bar{x}$);
+  \item we add observations that are all equal to $\bar{x}$.
+\end{enumerate}
+
+\begin{answerbox}
+\vspace{5cm}
+\end{answerbox}
+
+\end{enumerate}
+
+%=============================================================================
+\section{Block 3: From $\sigma^2$ to Standard Errors \textnormal{(10 min)}}
+%=============================================================================
+
+\begin{bookexample}
+\textbf{\color{blockcolor}Estimating $\sigma^2$ and the $t$-Distribution}
+
+\smallskip
+The formula $\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x$ involves $\sigma^2 = \text{Var}(u \mid \mathbf{x})$, which is \textbf{unknown}. We estimate it from the residuals:
+\[
+  \hat{\sigma}^2 = \frac{1}{n-2}\sum_{i=1}^{n} \hat{u}_i^2
+  = \frac{\text{SSR}}{n-2}
+\]
+where $\hat{u}_i = y_i - \hat{y}_i$ are the OLS residuals and $\text{SSR} = \sum \hat{u}_i^2$ is the residual sum of squares. The divisor is $n - 2$ (not $n$) because we estimated two parameters ($\hat{\beta}_0$ and $\hat{\beta}_1$).
+
+\smallskip
+The \textbf{standard error} of $\hat{\beta}_1$ is the estimated standard deviation:
+\[
+  \text{SE}(\hat{\beta}_1) = \frac{\hat{\sigma}}{\sqrt{\text{SST}_x}}
+\]
+where $\hat{\sigma} = \sqrt{\hat{\sigma}^2}$ is the \textbf{residual standard error} reported in R.
+
+\smallskip
+Adding \textbf{SLR.6} (normality of errors), the $t$-statistic
+\[
+  t = \frac{\hat{\beta}_1 - \beta_1}{\text{SE}(\hat{\beta}_1)} \sim t_{n-2}
+\]
+follows a $t$-distribution with $n - 2$ degrees of freedom. The $t$ (not normal) arises because $\hat{\sigma}$ in the denominator is itself random, adding extra uncertainty.
+\end{bookexample}
+
+\bigskip
+
+The following R output will be used for Questions~2 and~3. An econometrician regressed \verb!y! on \verb!x! using 22 observations.
+\small
+\begin{verbatim}
+> model <- lm(y ~ x, data = mydata)
+> summary(model)
+...
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)   5.2000     1.3000   4.000 0.000742 ***
+x             2.4000     0.8000       A        B
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 4 on 20 degrees of freedom
+
+> confint(model)
+                2.5 %   97.5 %
+(Intercept)  2.488248 7.911752
+x                   C        D
+\end{verbatim}
+\normalsize
+
+\bigskip
+\textbf{Question 2} (Reading R output --- variance and standard errors)
+
+\begin{enumerate}[label=(\alph*)]
+\item From the R output, identify $\hat{\sigma}$ (the residual standard error) and the number of observations $n$. Then compute $\hat{\sigma}^2$ and $\text{SST}_x$.
+
+\textcolor{hintcolor}{\emph{Hint: Use $\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}$ and solve for $\text{SST}_x$.}}
+
+\begin{answerbox}
+\vspace{5cm}
+\end{answerbox}
+
+\newpage
+\item Explain in one or two sentences why replacing $\sigma$ with $\hat{\sigma}$ changes the distribution of the test statistic from standard normal to $t$.
+
+\begin{answerbox}
+\vspace{3.5cm}
+\end{answerbox}
+
+\item Find $A$ (the $t$-value) and $B$ (the $p$-value) in the output. What null hypothesis does this $t$-statistic test?
+
+\begin{answerbox}
+\vspace{4.5cm}
+\end{answerbox}
+
+\end{enumerate}
+
+%=============================================================================
+\section{Block 4: Hypothesis Testing \textnormal{(13 min)}}
+%=============================================================================
+
+\begin{bookexample}
+\textbf{\color{blockcolor}Hypothesis Testing and Confidence Intervals}
+
+\smallskip
+\textbf{Two-sided test} of $H_0\colon \beta_1 = \beta_{1,0}$ vs.\ $H_1\colon \beta_1 \ne \beta_{1,0}$:
+\begin{itemize}[leftmargin=1.5em,itemsep=2pt]
+  \item Compute $t = (\hat{\beta}_1 - \beta_{1,0})/\text{SE}(\hat{\beta}_1)$.
+  \item Reject $H_0$ at significance level $\alpha$ if $|t| > t_{\alpha/2,\, n-2}$.
+  \item \textbf{Equivalently}: reject $H_0$ if and only if $\beta_{1,0}$ falls \textbf{outside} the $(1-\alpha)$ confidence interval.
+\end{itemize}
+
+\smallskip
+\textbf{One-sided test} of $H_0\colon \beta_1 \le \beta_{1,0}$ vs.\ $H_1\colon \beta_1 > \beta_{1,0}$:
+\begin{itemize}[leftmargin=1.5em,itemsep=2pt]
+  \item Same $t$-statistic.
+  \item Reject $H_0$ at significance level $\alpha$ if $t > t_{\alpha,\, n-2}$.
+  \item The critical value $t_{\alpha,\, n-2}$ is smaller than $t_{\alpha/2,\, n-2}$, so it is \textbf{easier to reject} in the direction of $H_1$.
+\end{itemize}
+
+\smallskip
+\textbf{$(1-\alpha)$ Confidence interval:}
+$\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)$.
+\end{bookexample}
+
+\medskip
+\textit{Use the R output from Block~3. You may use the following critical values for the $t_{20}$ distribution: $t_{0.025,\, 20} = 2.086$ and $t_{0.05,\, 20} = 1.725$.}
+
+\bigskip
+\textbf{Question 3} (Hypothesis testing and confidence intervals)
+
+\begin{enumerate}[label=(\alph*)]
+\item Using $A$ and $B$ from Question~2, test $H_0\colon \beta_1 = 0$ against $H_1\colon \beta_1 \ne 0$ at the 5\% significance level. State your conclusion.
+
+\begin{answerbox}
+\vspace{4cm}
+\end{answerbox}
+
+\item Find $C$ and $D$ (the 95\% confidence interval for $\beta_1$). Show your work.
+
+\begin{answerbox}
+\vspace{4cm}
+\end{answerbox}
+
+\newpage
+\item Using the confidence interval from~(b), test $H_0\colon \beta_1 = 1$ against $H_1\colon \beta_1 \ne 1$ at the 5\% significance level.
+
+\begin{answerbox}
+\vspace{4cm}
+\end{answerbox}
+
+\item Now test $H_0\colon \beta_1 \le 1$ against $H_1\colon \beta_1 > 1$ at the 5\% significance level.
+
+\begin{answerbox}
+\vspace{5cm}
+\end{answerbox}
+
+\item Parts~(c) and~(d) test closely related hypotheses about $\beta_1 = 1$, yet give opposite conclusions. Explain why.
+
+\begin{answerbox}
+\vspace{5cm}
+\end{answerbox}
+
+\end{enumerate}
+
+%=============================================================================
+\section{Block 5: Type I/II Errors, Size, and Power \textnormal{(12 min)}}
+%=============================================================================
+
+\begin{bookexample}
+\textbf{\color{blockcolor}Type I and Type II Errors}
+
+\smallskip
+When we perform a hypothesis test, we make a decision (reject or fail to reject $H_0$) based on sample data. Since the data are random, we can make \textbf{mistakes}:
+
+\medskip
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l|cc}
+ & \textbf{$H_0$ is actually true} & \textbf{$H_0$ is actually false} \\
+\hline
+\textbf{Reject $H_0$}      & \textcolor{red}{Type I Error}  & Correct (Power) \\
+\textbf{Fail to reject $H_0$} & Correct              & \textcolor{red}{Type II Error} \\
+\end{tabular}
+\renewcommand{\arraystretch}{1.0}
+\end{center}
+
+\smallskip
+\begin{itemize}[leftmargin=1.5em, itemsep=4pt]
+  \item \textbf{Type I Error (false positive):} Rejecting $H_0$ when $H_0$ is \emph{true}. We conclude there is an effect, but in reality there is none.
+
+  \item \textbf{Type II Error (false negative):} Failing to reject $H_0$ when $H_0$ is \emph{false}. We miss a real effect.
+\end{itemize}
+
+\medskip
+\textbf{Example --- Courtroom trial:} $H_0$: defendant is innocent. Type~I = convict an innocent person. Type~II = acquit a guilty person.
+
+\medskip
+\textbf{Example --- Drug trial:} $H_0$: drug has no effect. Type~I = conclude the drug works when it doesn't. Type~II = miss a drug that actually works.
+
+\medskip
+\textbf{Size} $= P(\text{Type I Error}) = \alpha$. \quad \textbf{Power} $= 1 - P(\text{Type II Error})$.
+\end{bookexample}
+
+\medskip
+\textit{Assume $\sigma_{\hat{\beta}}$ is \textbf{known}, so $Z = (\hat{\beta} - \beta_0)/\sigma_{\hat{\beta}} \sim N(0,1)$ under $H_0$.}
+
+\medskip
+Consider testing $H_0\colon \beta = 0$ vs.\ $H_1\colon \beta \ne 0$ at $\alpha = 0.05$, with $\sigma_{\hat{\beta}} = 2$.
+
+\bigskip
+\textbf{Question 4} (Type I/II errors and power)
+
+\begin{enumerate}[label=(\alph*)]
+\item Define Type~I and Type~II error in the context of this test. Give a concrete interpretation if $\beta$ measures the effect of a job training program on wages.
+
+\begin{answerbox}
+\vspace{4cm}
+\end{answerbox}
+
+\item The test rejects $H_0$ when $|Z| > 1.96$. Show that the size of this test is exactly $0.05$.
+
+\begin{answerbox}
+\vspace{4.5cm}
+\end{answerbox}
+
+\newpage
+\item Compute the power of this test when the true value is $\beta^* = 6$.
+
+\textcolor{hintcolor}{\emph{Hint: Under $\beta^* = 6$, $Z = \hat{\beta}/2 \sim N(3, 1)$. Compute $P(|Z| > 1.96)$ using $W = Z - 3 \sim N(0,1)$. You may use: $\Phi(1.04) = 0.851$.}}
+
+\begin{answerbox}
+\vspace{6cm}
+\end{answerbox}
+
+\item Compute the power when $\beta^* = 2$. Compare with part~(c) and explain.
+
+\textcolor{hintcolor}{\emph{Hint: $\delta = 1$, so $Z \sim N(1,1)$. You may use: $\Phi(0.96) = 0.831$.}}
+
+\begin{answerbox}
+\vspace{6cm}
+\end{answerbox}
+
+\end{enumerate}
+
+\end{document}

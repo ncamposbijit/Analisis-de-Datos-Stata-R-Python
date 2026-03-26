@@ -52,7 +52,9 @@
 <li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
 <li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
 <li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
-<li><a class="" href="tutorial-6-varianza-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Varianza of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
+<li><a class="" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
 </ul>
 
         <div class="book-extra">
@@ -489,17 +491,8 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 </h3>
 <div class="sourceCode" id="cb334"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># If you do not have the package installed, uncomment the next line:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"wooldridge"</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## The following package(s) will be installed:
-## - wooldridge [1.4-4]
-## These packages will be installed into "~/Library/CloudStorage/Dropbox/Nicolas/Cursos/01 Libro - análisis de datos/renv/library/R-4.2/aarch64-apple-darwin20".
-## 
-## 
-## # Installing packages --------------------------------------------------------
-## - Installing wooldridge ...                     OK [linked from cache]
-## Successfully installed 1 package in 8.4 milliseconds.</code></pre>
-<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
+<span><span class="co"># install.packages("wooldridge")</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://justinmshea.github.io/wooldridge/">wooldridge</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Load the dataset used in this exercise.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="st">"k401k"</span><span class="op">)</span></span>
@@ -508,15 +501,16 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <span><span class="co"># Quick check: dimensions and variable names</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/dim.html">dim</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
 <pre><code>## [1] 1534    8</code></pre>
-<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb336"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span></code></pre></div>
-<pre><code>## [1] "prate"   "mrate"   "totpart" "totelg"  "age"     "totemp"  "sole"    "ltotemp"</code></pre>
+<pre><code>## [1] "prate"   "mrate"   "totpart" "totelg"  "age"     "totemp"  "sole"   
+## [8] "ltotemp"</code></pre>
 </div>
 <div id="i-compute-the-sample-averages-of-participation-and-match-rates" class="section level3" number="3.2.3">
 <h3>
 <span class="header-section-number">3.2.3</span> (i) Compute the sample averages of participation and match rates<a class="anchor" aria-label="anchor" href="#i-compute-the-sample-averages-of-participation-and-match-rates"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb338"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># In this dataset:</span></span>
 <span><span class="co"># - prate is the plan participation rate (in percentage points)</span></span>
 <span><span class="co"># - mrate is the match rate</span></span>
@@ -526,7 +520,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <span></span>
 <span><span class="va">mean_prate</span></span></code></pre></div>
 <pre><code>## [1] 87.36291</code></pre>
-<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb340"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">mean_mrate</span></span></code></pre></div>
 <pre><code>## [1] 0.7315124</code></pre>
 <p><strong>Interpretation.</strong>
@@ -537,7 +531,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <h3>
 <span class="header-section-number">3.2.4</span> (ii) Estimate the simple regression: prate on mrate<a class="anchor" aria-label="anchor" href="#ii-estimate-the-simple-regression-prate-on-mrate"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb342"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Estimate the simple OLS regression model</span></span>
 <span><span class="va">m1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">prate</span> <span class="op">~</span> <span class="va">mrate</span>, data <span class="op">=</span> <span class="va">df</span><span class="op">)</span></span>
 <span></span>
@@ -562,7 +556,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 ## Residual standard error: 16.09 on 1532 degrees of freedom
 ## Multiple R-squared:  0.0747, Adjusted R-squared:  0.0741 
 ## F-statistic: 123.7 on 1 and 1532 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb344"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Report the sample size used by the regression (after dropping any missing values)</span></span>
 <span><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/nobs.html">nobs</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span></span>
 <span></span>
@@ -571,7 +565,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <span></span>
 <span><span class="va">n</span></span></code></pre></div>
 <pre><code>## [1] 1534</code></pre>
-<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb346"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r2</span></span></code></pre></div>
 <pre><code>## [1] 0.0747031</code></pre>
 </div>
@@ -579,7 +573,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <h3>
 <span class="header-section-number">3.2.5</span> (iii) Interpret the intercept and the slope<a class="anchor" aria-label="anchor" href="#iii-interpret-the-intercept-and-the-slope"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb348"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Extract coefficients</span></span>
 <span><span class="va">b0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>  <span class="co"># intercept</span></span>
 <span><span class="va">b1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/coef.html">coef</a></span><span class="op">(</span><span class="va">m1</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>  <span class="co"># slope on mrate</span></span>
@@ -587,7 +581,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 <span><span class="va">b0</span></span></code></pre></div>
 <pre><code>## (Intercept) 
 ##    83.07546</code></pre>
-<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb350"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">b1</span></span></code></pre></div>
 <pre><code>##    mrate 
 ## 5.861079</code></pre>
@@ -610,7 +604,7 @@ a 0.10 increase in <code>mrate</code> changes predicted participation by <span c
 </ul>
 </li>
 </ul>
-<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb352"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example: predicted change in prate for a 0.10 increase in mrate</span></span>
 <span><span class="va">delta_mrate</span> <span class="op">&lt;-</span> <span class="fl">0.10</span></span>
 <span><span class="va">pred_change_prate</span> <span class="op">&lt;-</span> <span class="va">delta_mrate</span> <span class="op">*</span> <span class="va">b1</span></span>
@@ -622,7 +616,7 @@ a 0.10 increase in <code>mrate</code> changes predicted participation by <span c
 <h3>
 <span class="header-section-number">3.2.6</span> (iv) Predicted participation when mrate = 3.5. Is it reasonable?<a class="anchor" aria-label="anchor" href="#iv-predicted-participation-when-mrate-3.5.-is-it-reasonable"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb354"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Prediction at mrate = 3.5</span></span>
 <span><span class="va">pred_35</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/predict.html">predict</a></span><span class="op">(</span><span class="va">m1</span>, newdata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>mrate <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pred_35</span></span></code></pre></div>
@@ -630,12 +624,12 @@ a 0.10 increase in <code>mrate</code> changes predicted participation by <span c
 ## 103.5892</code></pre>
 <p>To assess whether this prediction is reasonable, check whether <code>mrate = 3.5</code> lies within the <strong>observed range</strong> of the data.<br>
 Predictions far outside the support of <code>mrate</code> are <strong>extrapolations</strong>, which can be unreliable.</p>
-<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb356"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Range of mrate in the sample</span></span>
 <span><span class="va">range_mrate</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/range.html">range</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">range_mrate</span></span></code></pre></div>
 <pre><code>## [1] 0.01 4.91</code></pre>
-<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb358"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Also helpful: a few quantiles to understand typical values</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/stats/quantile.html">quantile</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, probs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.05</span>, <span class="fl">.25</span>, <span class="fl">.5</span>, <span class="fl">.75</span>, <span class="fl">.95</span>, <span class="fl">1</span><span class="op">)</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <pre><code>##     0%     5%    25%    50%    75%    95%   100% 
@@ -651,7 +645,7 @@ produce fitted values outside this range, especially under extrapolation.</p>
 <span class="header-section-number">3.2.7</span> (v) How much of the variation in prate is explained by mrate?<a class="anchor" aria-label="anchor" href="#v-how-much-of-the-variation-in-prate-is-explained-by-mrate"><i class="fas fa-link"></i></a>
 </h3>
 <p>The share of variation in <code>prate</code> explained by <code>mrate</code> in this simple model is the <strong>R-squared</strong>:</p>
-<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb360"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">r2</span></span></code></pre></div>
 <pre><code>## [1] 0.0747031</code></pre>
 <p><strong>Interpretation.</strong>
@@ -662,7 +656,7 @@ produce fitted values outside this range, especially under extrapolation.</p>
 <h3>
 <span class="header-section-number">3.2.8</span> Optional: quick plot<a class="anchor" aria-label="anchor" href="#optional-quick-plot"><i class="fas fa-link"></i></a>
 </h3>
-<div class="sourceCode" id="cb364"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb362"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># A simple scatter plot with the fitted regression line.</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">mrate</span>, <span class="va">df</span><span class="op">$</span><span class="va">prate</span>,</span>
 <span>     xlab <span class="op">=</span> <span class="st">"Match rate (mrate)"</span>,</span>
@@ -720,7 +714,7 @@ produce fitted values outside this range, especially under extrapolation.</p>
 <footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
-    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-09.</p>
+    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-26.</p>
   </div>
 
   <div class="col-12 col-md-6 mt-3">

@@ -369,7 +369,7 @@ prate = \beta_0 + \beta_1 \, mrate + u.
 
 ```{r}
 # If you do not have the package installed, uncomment the next line:
-install.packages("wooldridge")
+# install.packages("wooldridge")
 library(wooldridge)
 
 # Load the dataset used in this exercise.

@@ -1,0 +1,62 @@
+% ---- Extra packages (rmarkdown already loads: geometry, fontenc, inputenc, hyperref) ----
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[breakable]{tcolorbox}
+\usepackage{titlesec}
+\usepackage{mdframed}
+\usepackage{float}
+
+% ---- Colours (same as Tutorial 6) ----
+\definecolor{solcolor}{RGB}{0,100,60}
+\definecolor{blockcolor}{RGB}{0,70,130}
+\definecolor{hintcolor}{RGB}{140,90,0}
+\definecolor{exbg}{RGB}{245,245,235}
+\definecolor{warncolor}{RGB}{180,0,0}
+\definecolor{simcolor}{RGB}{34,85,170}
+\definecolor{simbg}{RGB}{238,244,255}
+
+% ---- Solution environment (same as Tutorial 6) ----
+\newtcolorbox{solution}{
+  colback=solcolor!5,
+  colframe=solcolor!70,
+  fonttitle=\bfseries,
+  title=Solution,
+  breakable
+}
+
+% ---- Simulation box (new for Tutorial 7) ----
+\newtcolorbox{simbox}[1]{
+  colback=simbg,
+  colframe=simcolor!60,
+  coltitle=simcolor!90!black,
+  fonttitle=\bfseries,
+  title={#1},
+  leftrule=3pt,
+  breakable
+}
+
+% ---- Book example environment (same as Tutorial 6) ----
+\newmdenv[
+  backgroundcolor=exbg,
+  linecolor=blockcolor!40,
+  linewidth=1pt,
+  roundcorner=4pt,
+  innertopmargin=10pt,
+  innerbottommargin=10pt,
+  innerleftmargin=12pt,
+  innerrightmargin=12pt,
+  skipabove=8pt,
+  skipbelow=8pt
+]{bookexample}
+
+% ---- Section heading style (same as Tutorial 6) ----
+\titleformat{\section}{\large\bfseries\color{blockcolor}}{}{0em}{}[\vspace{-0.3em}\rule{\textwidth}{0.4pt}]
+
+% ---- Inline helpers ----
+\newcommand{\hint}[1]{\par\smallskip\textit{\textcolor{hintcolor}{\textbf{Hint:} #1}}\par\smallskip}
+\newcommand{\warn}[1]{\textbf{\textcolor{warncolor}{#1}}}
+
+% ---- Float placement ----
+\floatplacement{figure}{H}

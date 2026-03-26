@@ -1,0 +1,575 @@
+
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\setlength{\topmargin}{-1.0in}
+\setlength{\textheight}{9.25in}
+\setlength{\oddsidemargin}{0.0in}
+\setlength{\evensidemargin}{0.0in}
+\setlength{\textwidth}{6.5in}
+\def\labelenumi{\arabic{enumi}.}
+\def\theenumi{\arabic{enumi}}
+\def\labelenumii{(\alph{enumii})}
+\def\theenumii{\alph{enumii}}
+\def\p@enumii{\theenumi.}
+\def\labelenumiii{\arabic{enumiii}.}
+\def\theenumiii{\arabic{enumiii}}
+\def\p@enumiii{(\theenumi)(\theenumii)}
+\def\labelenumiv{\arabic{enumiv}.}
+\def\theenumiv{\arabic{enumiv}}
+\def\p@enumiv{\p@enumiii.\theenumiii}
+\pagestyle{plain}
+\setcounter{secnumdepth}{0}
+\parindent=0pt
+
+\begin{document}
+
+\begin{center}
+\textbf{Econ 326}
+
+\textbf{Assignment 6 --- Solutions}
+\end{center}
+
+\begin{enumerate}
+
+%% ============================================================
+%% PROBLEM 1
+%% ============================================================
+
+\item \textbf{Regression of \texttt{liver} on \texttt{alcohol}.}
+
+From the output we have: $\hat{\beta}_1 = 3.5864$, $\text{SE}(\hat{\beta}_1) = 0.7541$, and $\text{df} = n - 2 = 19$.
+
+\begin{enumerate}
+
+%% --- Part (a) ---
+\item \textbf{Find A--D.}
+
+\textbf{A (t value):} The $t$-statistic is the ratio of the estimate to its standard error:
+$$
+t = \frac{\hat{\beta}_1}{\text{SE}(\hat{\beta}_1)} = \frac{3.5864}{0.7541} = 4.756.
+$$
+Therefore $\mathbf{A = 4.756}$.
+
+\bigskip
+
+\textbf{B (p-value):} The p-value for a two-sided test of $H_0\colon \beta_1 = 0$ is
+$$
+p = 2 \cdot P(t_{19} > |t|) = 2 \cdot P(t_{19} > 4.756).
+$$
+In R: \verb!2 * pt(-4.756, df = 19)! $\approx 0.0001$.
+
+Therefore $\mathbf{B \approx 0.0001}$.
+
+\bigskip
+
+\textbf{C and D (95\% confidence interval):} The 95\% confidence interval for $\beta_1$ is
+$$
+\hat{\beta}_1 \pm t_{0.025, 19} \cdot \text{SE}(\hat{\beta}_1),
+$$
+where $t_{0.025, 19} = 2.093$ (in R: \verb!qt(0.975, df = 19)!). Substituting:
+\begin{align*}
+\text{Lower bound (C)} &= 3.5864 - 2.093 \times 0.7541 \\
+&= 3.5864 - 1.5783 \\
+&= 2.008.
+\end{align*}
+\begin{align*}
+\text{Upper bound (D)} &= 3.5864 + 2.093 \times 0.7541 \\
+&= 3.5864 + 1.5783 \\
+&= 5.165.
+\end{align*}
+Therefore $\mathbf{C = 2.008}$ and $\mathbf{D = 5.165}$.
+
+\bigskip
+
+%% --- Part (b) ---
+\item \textbf{Test $H_0\colon \beta_1 = 5$ vs.\ $H_1\colon \beta_1 \ne 5$ at 5\%.}
+
+\textit{Approach 1: $t$-test.}
+
+The test statistic is
+$$
+t = \frac{\hat{\beta}_1 - \beta_{1,0}}{\text{SE}(\hat{\beta}_1)} = \frac{3.5864 - 5}{0.7541} = \frac{-1.4136}{0.7541} = -1.875.
+$$
+The decision rule at 5\% significance (two-sided) is: reject $H_0$ if $|t| > t_{0.025, 19} = 2.093$ (in R: \verb!qt(0.975, df = 19)!).
+
+Since $|t| = 1.875 < 2.093$, we \textbf{fail to reject} $H_0$ at the 5\% significance level.
+
+\bigskip
+
+\textit{Approach 2: Confidence interval.}
+
+From part (a), the 95\% confidence interval for $\beta_1$ is $[2.008,\; 5.165]$. Since the hypothesized value $\beta_1 = 5$ falls inside this interval, we \textbf{fail to reject} $H_0$ at the 5\% significance level.
+
+\bigskip
+
+%% --- Part (c) ---
+\item \textbf{Test the same hypothesis at 10\%.}
+
+\textit{Approach 1: $t$-test.}
+
+The test statistic is the same as in part (b): $t = -1.875$. The decision rule at 10\% significance (two-sided) is: reject $H_0$ if $|t| > t_{0.05, 19} = 1.729$ (in R: \verb!qt(0.95, df = 19)!).
+
+Since $|t| = 1.875 > 1.729$, we \textbf{reject} $H_0$ at the 10\% significance level.
+
+\bigskip
+
+\textit{Approach 2: Confidence interval.}
+
+The 90\% confidence interval for $\beta_1$ is
+$$
+\hat{\beta}_1 \pm t_{0.05, 19} \cdot \text{SE}(\hat{\beta}_1) = 3.5864 \pm 1.729 \times 0.7541 = 3.5864 \pm 1.3034 = [2.283,\; 4.890],
+$$
+where $t_{0.05, 19} = 1.729$ is obtained in R via \verb!qt(0.95, df = 19)!. Since the hypothesized value $\beta_1 = 5$ falls outside this interval ($5 > 4.890$), we \textbf{reject} $H_0$ at the 10\% significance level.
+
+\end{enumerate}
+
+\bigskip
+
+%% ============================================================
+%% PROBLEM 2
+%% ============================================================
+
+\item \textbf{Regression of \texttt{ln\_heart} on \texttt{ln\_alcohol}.}
+
+From the output we have: $n = 21$, $\text{df} = n - 2 = 19$, and the 95\% confidence interval for the coefficient on \verb!ln_alcohol! is $[-0.6114,\; -0.0952]$.
+
+\begin{enumerate}
+
+%% --- Part (a) ---
+\item \textbf{Find A--D.}
+
+\textbf{A (Estimate):} The point estimate is the midpoint of the 95\% confidence interval:
+$$
+\hat{\beta}_1 = \frac{-0.6114 + (-0.0952)}{2} = \frac{-0.7066}{2} = -0.3533.
+$$
+Therefore $\mathbf{A = -0.3533}$.
+
+\bigskip
+
+\textbf{B (Standard Error):} The 95\% confidence interval has the form
+$$
+\hat{\beta}_1 \pm t_{0.025, 19} \cdot \text{SE}(\hat{\beta}_1),
+$$
+so the half-width of the interval equals $t_{0.025, 19} \cdot \text{SE}(\hat{\beta}_1)$. The half-width is
+$$
+\frac{-0.0952 - (-0.6114)}{2} = \frac{0.5162}{2} = 0.2581.
+$$
+Since $t_{0.025, 19} = 2.093$ (in R: \verb!qt(0.975, df = 19)!), we solve for the standard error:
+$$
+\text{SE}(\hat{\beta}_1) = \frac{0.2581}{2.093} = 0.1233.
+$$
+Therefore $\mathbf{B = 0.1233}$.
+
+\bigskip
+
+\textbf{C (t value):} The $t$-statistic is
+$$
+t = \frac{\hat{\beta}_1}{\text{SE}(\hat{\beta}_1)} = \frac{-0.3533}{0.1233} = -2.865.
+$$
+Therefore $\mathbf{C = -2.865}$.
+
+\bigskip
+
+\textbf{D (p-value):} The p-value for a two-sided test of $H_0\colon \beta_1 = 0$ is
+$$
+p = 2 \cdot P(t_{19} < -2.865).
+$$
+In R: \verb!2 * pt(-2.865, df = 19)! $\approx 0.010$.
+
+Therefore $\mathbf{D \approx 0.010}$.
+
+\bigskip
+
+%% --- Part (b) ---
+\item \textbf{Interpretation of the coefficient on \texttt{ln\_alcohol}.}
+
+This is a log-log regression model:
+$$
+\ln(\text{heart}) = \beta_0 + \beta_1 \ln(\text{alcohol}) + u.
+$$
+In a log-log model, the slope coefficient $\beta_1$ represents the \textbf{elasticity} of the dependent variable with respect to the independent variable. Specifically, $\beta_1$ measures the percentage change in heart disease deaths associated with a 1\% change in alcohol consumption.
+
+The estimated coefficient is $\hat{\beta}_1 = -0.3533$. This means that a 1\% increase in alcohol consumption is associated with approximately a 0.353\% \textbf{decrease} in heart disease deaths per 100,000 people.
+
+\bigskip
+
+%% --- Part (c) ---
+\item \textbf{Test $H_0\colon \beta_1 \ge 0$ vs.\ $H_1\colon \beta_1 < 0$ at 5\%.}
+
+This is a one-sided (left-tailed) test. The test statistic is
+$$
+t = \frac{\hat{\beta}_1}{\text{SE}(\hat{\beta}_1)} = \frac{-0.3533}{0.1233} = -2.865.
+$$
+The decision rule at 5\% significance (one-sided, left tail) is: reject $H_0$ if $t < -t_{0.05, 19}$, where $t_{0.05, 19} = 1.729$ (in R: \verb!qt(0.95, df = 19)!).
+
+Since $t = -2.865 < -1.729$, we \textbf{reject} $H_0$ at the 5\% significance level. There is statistically significant evidence that the coefficient on \verb!ln_alcohol! is negative.
+
+\end{enumerate}
+
+\bigskip
+
+%% ============================================================
+%% PROBLEM 3
+%% ============================================================
+
+\item \textbf{Regression of \texttt{y} on \texttt{x}.}
+
+From the output we have: $\hat{\beta}_1 = 0.3049$, $\text{SE}(\hat{\beta}_1) = 0.1774$, and $\text{df} = 23$.
+
+\begin{enumerate}
+
+%% --- Part (a) ---
+\item \textbf{Find A--D.}
+
+\textbf{A (t value):} The $t$-statistic is
+$$
+t = \frac{\hat{\beta}_1}{\text{SE}(\hat{\beta}_1)} = \frac{0.3049}{0.1774} = 1.719.
+$$
+Therefore $\mathbf{A = 1.719}$.
+
+\bigskip
+
+\textbf{B (p-value):} The p-value for a two-sided test of $H_0\colon \beta_1 = 0$ is
+$$
+p = 2 \cdot P(t_{23} > |t|) = 2 \cdot P(t_{23} > 1.719).
+$$
+In R: \verb!2 * pt(-1.719, df = 23)! $\approx 0.099$.
+
+Therefore $\mathbf{B \approx 0.099}$.
+
+\bigskip
+
+\textbf{C and D (95\% confidence interval):} The 95\% confidence interval for $\beta_1$ is
+$$
+\hat{\beta}_1 \pm t_{0.025, 23} \cdot \text{SE}(\hat{\beta}_1),
+$$
+where $t_{0.025, 23} = 2.069$ (in R: \verb!qt(0.975, df = 23)!). Substituting:
+\begin{align*}
+\text{Lower bound (C)} &= 0.3049 - 2.069 \times 0.1774 \\
+&= 0.3049 - 0.3670 \\
+&= -0.062.
+\end{align*}
+\begin{align*}
+\text{Upper bound (D)} &= 0.3049 + 2.069 \times 0.1774 \\
+&= 0.3049 + 0.3670 \\
+&= 0.672.
+\end{align*}
+Therefore $\mathbf{C = -0.062}$ and $\mathbf{D = 0.672}$.
+
+\bigskip
+
+%% --- Part (b) ---
+\item \textbf{Test $H_0\colon \beta_1 = 0$ vs.\ $H_1\colon \beta_1 \ne 0$ at 5\%.}
+
+The test statistic is
+$$
+t = \frac{\hat{\beta}_1}{\text{SE}(\hat{\beta}_1)} = \frac{0.3049}{0.1774} = 1.719.
+$$
+The decision rule at 5\% significance (two-sided) is: reject $H_0$ if $|t| > t_{0.025, 23} = 2.069$ (in R: \verb!qt(0.975, df = 23)!).
+
+Since $|t| = 1.719 < 2.069$, we \textbf{fail to reject} $H_0$ at the 5\% significance level.
+
+Alternatively, from the 95\% confidence interval $[-0.062,\; 0.672]$, we see that $0$ falls inside the interval, which confirms that we fail to reject $H_0$ at 5\%.
+
+\bigskip
+
+%% --- Part (c) ---
+\item \textbf{Test $H_0\colon \beta_1 \le 0$ vs.\ $H_1\colon \beta_1 > 0$ at 5\%.}
+
+This is a one-sided (right-tailed) test. The test statistic is
+$$
+t = \frac{\hat{\beta}_1}{\text{SE}(\hat{\beta}_1)} = \frac{0.3049}{0.1774} = 1.719.
+$$
+The decision rule at 5\% significance (one-sided, right tail) is: reject $H_0$ if $t > t_{0.05, 23}$, where $t_{0.05, 23} = 1.714$ (in R: \verb!qt(0.95, df = 23)!).
+
+Since $t = 1.719 > 1.714$, we \textbf{reject} $H_0$ at the 5\% significance level. There is statistically significant evidence that $\beta_1 > 0$.
+
+\bigskip
+
+%% --- Part (d) ---
+\item \textbf{Explanation of the difference between parts (b) and (c).}
+
+The two-sided test in part (b) fails to reject, while the one-sided test in part (c) rejects. This apparent contradiction arises because the two tests use different critical values:
+
+\begin{itemize}
+\item The \textbf{two-sided test} splits the 5\% significance level across both tails of the $t$-distribution, placing 2.5\% in each tail. This yields a critical value of $t_{0.025, 23} = 2.069$ (\verb!qt(0.975, df = 23)!). The test rejects when $|t| > 2.069$.
+
+\item The \textbf{one-sided test} places the entire 5\% in one tail (the right tail, since $H_1\colon \beta_1 > 0$). This yields a smaller critical value of $t_{0.05, 23} = 1.714$ (In R: \verb!qt(0.95, df = 23)!). The test rejects when $t > 1.714$.
+\end{itemize}
+
+Since the observed $t$-statistic is $1.719$, it satisfies $1.714 < 1.719 < 2.069$, falling in the region where the one-sided test rejects but the two-sided test does not.
+
+The one-sided test has more \textbf{power} against the specific alternative $\beta_1 > 0$ because it concentrates the entire rejection region in the direction of interest. It does not need to guard against the possibility that $\beta_1 < 0$. However, this comes at the cost of being unable to detect effects in the opposite direction.
+
+\end{enumerate}
+
+\bigskip
+
+%% ============================================================
+%% PROBLEM 4
+%% ============================================================
+
+\item \textbf{Power of one-sided and two-sided tests.}
+
+We test $H_0\colon \beta = 1$ at $\alpha = 0.05$ with known variance $\text{Var}(\hat{\beta}) = 4$, so $\sigma_{\hat{\beta}} = 2$. Since the variance is known, the test statistic
+$$
+Z = \frac{\hat{\beta} - 1}{\sigma_{\hat{\beta}}} = \frac{\hat{\beta} - 1}{2}
+$$
+follows a standard normal distribution under $H_0$.
+
+\begin{enumerate}
+
+%% --- Part (a) ---
+\item \textbf{Rejection regions.}
+
+\textbf{Two-sided test} ($H_1\colon \beta \ne 1$): Reject $H_0$ if $|Z| > z_{0.025} = 1.96$. In terms of $\hat{\beta}$:
+\begin{align*}
+\left|\frac{\hat{\beta} - 1}{2}\right| > 1.96
+\quad&\Longleftrightarrow\quad
+|\hat{\beta} - 1| > 3.92 \\
+&\Longleftrightarrow\quad
+\hat{\beta} > 4.92 \;\text{ or }\; \hat{\beta} < -2.92.
+\end{align*}
+
+\textbf{One-sided test} ($H_1\colon \beta > 1$): Reject $H_0$ if $Z > z_{0.05} = 1.645$. In terms of $\hat{\beta}$:
+$$
+\frac{\hat{\beta} - 1}{2} > 1.645
+\quad\Longleftrightarrow\quad
+\hat{\beta} > 1 + 2 \times 1.645 = 4.29.
+$$
+
+\bigskip
+
+%% --- Part (b) ---
+\item \textbf{Power of the two-sided test.}
+
+Under the true value $\beta^*$, we have $\hat{\beta} \sim N(\beta^*,\, 4)$, so $Z = (\hat{\beta} - 1)/2 \sim N(\delta,\, 1)$ where $\delta = (\beta^* - 1)/2$. The power of the two-sided test is
+\begin{align*}
+\text{Power} &= P(\hat{\beta} > 4.92) + P(\hat{\beta} < -2.92) \\
+&= P\!\left(Z > 1.96 - \delta\right) + P\!\left(Z < -1.96 - \delta\right),
+\end{align*}
+where $Z \sim N(0, 1)$.
+
+Note that the power depends on $\beta^*$ only through $|\delta|$, since replacing $\delta$ with $-\delta$ simply swaps the two tail probabilities. Therefore the power is the same for values of $\beta^*$ that are equidistant from $\beta_0 = 1$. It suffices to compute two cases.
+
+\begin{itemize}
+\item $\beta^* = -3$: $\delta = (-3 - 1)/2 = -2$.
+\begin{align*}
+\text{Power} &= P(Z > 1.96 - (-2)) + P(Z < -1.96 - (-2)) \\
+&= P(Z > 3.96) + P(Z < 0.04) = 0.000 + 0.516 = 0.516.
+\end{align*}
+
+\item $\beta^* = 0$: $\delta = (0 - 1)/2 = -0.5$.
+\begin{align*}
+\text{Power} &= P(Z > 1.96 + 0.5) + P(Z < -1.96 + 0.5) \\
+&= P(Z > 2.46) + P(Z < -1.46) = 0.007 + 0.072 = 0.079.
+\end{align*}
+
+\item $\beta^* = 2$: By symmetry (same distance from $\beta_0 = 1$ as $\beta^* = 0$), Power $= 0.079$.
+
+\item $\beta^* = 5$: By symmetry (same distance from $\beta_0 = 1$ as $\beta^* = -3$), Power $= 0.516$.
+\end{itemize}
+
+\bigskip
+
+%% --- Part (c) ---
+\item \textbf{Power of the one-sided test.}
+
+The one-sided test rejects when $\hat{\beta} > 4.29$. The power is
+$$
+\text{Power} = P(\hat{\beta} > 4.29) = P\!\left(Z > 1.645 - \delta\right),
+$$
+where $Z \sim N(0, 1)$ and $\delta = (\beta^* - 1)/2$.
+
+\begin{itemize}
+\item $\beta^* = -3$: $\delta = -2$.
+$$
+\text{Power} = P(Z > 1.645 + 2) = P(Z > 3.645) \approx 0.0001.
+$$
+
+\item $\beta^* = 0$: $\delta = -0.5$.
+$$
+\text{Power} = P(Z > 1.645 + 0.5) = P(Z > 2.145) = 0.016.
+$$
+
+\item $\beta^* = 2$: $\delta = 0.5$.
+$$
+\text{Power} = P(Z > 1.645 - 0.5) = P(Z > 1.145) = 0.126.
+$$
+
+\item $\beta^* = 5$: $\delta = 2$.
+$$
+\text{Power} = P(Z > 1.645 - 2) = P(Z > -0.355) = 0.639.
+$$
+\end{itemize}
+
+\bigskip
+
+%% --- Part (d) ---
+\item \textbf{Comparison.}
+
+Summarizing the results:
+
+\medskip
+\begin{center}
+\begin{tabular}{cccc}
+\hline
+$\beta^*$ & $\delta$ & Two-sided power & One-sided power \\
+\hline
+$-3$ & $-2$   & 0.516 & 0.0001 \\
+$0$  & $-0.5$ & 0.079 & 0.016 \\
+$2$  & $0.5$  & 0.079 & 0.126 \\
+$5$  & $2$    & 0.516 & 0.639 \\
+\hline
+\end{tabular}
+\end{center}
+\medskip
+
+Key observations:
+
+\begin{enumerate}
+\item The two-sided test has \textbf{symmetric power} around $\beta_0 = 1$: the power at $\beta^* = -3$ (distance 4 below 1) equals the power at $\beta^* = 5$ (distance 4 above 1), and similarly the power at $\beta^* = 0$ equals the power at $\beta^* = 2$ (both distance 1 from 1).
+
+\item The one-sided test has \textbf{higher power} than the two-sided test when $\beta^* > 1$, i.e., when the true value lies in the direction of the alternative hypothesis $H_1\colon \beta > 1$. For example, at $\beta^* = 5$, the one-sided power is $0.639$ compared to $0.516$ for the two-sided test.
+
+\item The one-sided test has \textbf{near-zero power} when $\beta^* < 1$. For instance, at $\beta^* = -3$, the one-sided power is only $0.0001$, meaning the test almost never rejects even though $\beta^*$ is far from $\beta_0 = 1$.
+
+\item This illustrates the fundamental \textbf{trade-off}: the one-sided test concentrates its entire rejection region in the direction of $H_1$, which gives it more power to detect departures in that direction. However, it sacrifices almost all ability to detect departures in the opposite direction. The two-sided test distributes its rejection region across both tails, making it less powerful in any single direction but able to detect departures on either side.
+\end{enumerate}
+
+\end{enumerate}
+
+\bigskip
+
+%% ============================================================
+%% PROBLEM 5
+%% ============================================================
+
+\item \textbf{Minimum detectable effect.}
+
+We test $H_0\colon \beta = 0$ vs.\ $H_1\colon \beta \ne 0$ at $\alpha = 0.05$ with known variance. For $\beta^* > 0$, the power is approximately
+$$
+\text{Power} \approx 1 - \Phi\!\left(1.96 - \frac{\beta^*}{\sigma_{\hat{\beta}}}\right).
+$$
+We want the smallest $\beta^* > 0$ such that Power $\ge 0.80$.
+
+\begin{enumerate}
+
+%% --- Part (a) ---
+\item \textbf{MDE when $\sigma_{\hat{\beta}} = 3$.}
+
+Set Power $= 0.80$ and solve:
+\begin{align*}
+1 - \Phi\!\left(1.96 - \frac{\beta^*}{3}\right) &= 0.80 \\[4pt]
+\Phi\!\left(1.96 - \frac{\beta^*}{3}\right) &= 0.20 \\[4pt]
+1.96 - \frac{\beta^*}{3} &= \Phi^{-1}(0.20) = -0.84 \\[4pt]
+\frac{\beta^*}{3} &= 1.96 + 0.84 = 2.80 \\[4pt]
+\beta^* &= 8.40.
+\end{align*}
+By symmetry, the power is also 80\% when $\beta^* = -8.40$. Therefore $\mathbf{MDE = 8.40}$.
+
+\bigskip
+
+%% --- Part (b) ---
+\item \textbf{MDE when $\sigma_{\hat{\beta}} = 1.5$.}
+
+The same steps give:
+\begin{align*}
+1.96 - \frac{\beta^*}{1.5} &= -0.84 \\[4pt]
+\frac{\beta^*}{1.5} &= 2.80 \\[4pt]
+\beta^* &= 4.20.
+\end{align*}
+Therefore $\mathbf{MDE = 4.20}$.
+
+Note that halving $\sigma_{\hat{\beta}}$ (from 3 to 1.5) also halved the MDE (from 8.40 to 4.20).
+
+\bigskip
+
+%% --- Part (c) ---
+\item \textbf{General formula and the role of sample size.}
+
+In general, the equation $1.96 - \beta^*/\sigma_{\hat{\beta}} = -0.84$ gives
+$$
+\text{MDE} = (z_{0.975} + z_{0.80})\;\sigma_{\hat{\beta}} = (1.96 + 0.84)\;\sigma_{\hat{\beta}} = 2.80\;\sigma_{\hat{\beta}}.
+$$
+The MDE is \textbf{directly proportional} to~$\sigma_{\hat{\beta}}$. Since $\sigma_{\hat{\beta}}$ typically decreases with the sample size, a larger sample reduces the MDE, allowing the test to detect smaller effects. Conversely, a small sample implies a large MDE, meaning that only large effects are likely to be detected.
+
+\end{enumerate}
+
+\bigskip
+
+%% ============================================================
+%% PROBLEM 6
+%% ============================================================
+
+\item \textbf{Distribution of the p-value under $H_0$.}
+
+\begin{enumerate}
+
+%% --- Part (a) ---
+\item \textbf{Show that $F(X) \sim \text{Uniform}(0,1)$.}
+
+Let $U = F(X)$. We need to show $P(U \le u) = u$ for all $u \in (0,1)$.
+
+Since $F$ is strictly increasing, $F^{-1}$ exists and $F(x) \le u \iff x \le F^{-1}(u)$. Therefore:
+\begin{align*}
+P(U \le u) &= P(F(X) \le u) \\
+&= P(X \le F^{-1}(u)) \\
+&= F(F^{-1}(u)) \\
+&= u.
+\end{align*}
+The third equality uses the definition of the CDF ($P(X \le x) = F(x)$) and the fourth uses the fact that $F$ and $F^{-1}$ are inverses. Since $P(U \le u) = u$ for all $u \in (0,1)$, we conclude $U \sim \text{Uniform}(0,1)$.
+
+\bigskip
+
+%% --- Part (b) ---
+\item \textbf{Show that $V = 2(1 - \Phi(|Z|)) \sim \text{Uniform}(0,1)$.}
+
+We compute $P(V \le v)$ directly for $v \in (0,1)$:
+\begin{align*}
+P(V \le v)
+&= P\bigl(2(1 - \Phi(|Z|)) \le v\bigr) \\
+&= P\bigl(\Phi(|Z|) \ge 1 - v/2\bigr) \\
+&= P\bigl(|Z| \ge \Phi^{-1}(1 - v/2)\bigr) \\
+&= P\bigl(|Z| \ge z_{1-v/2}\bigr),
+\end{align*}
+where the third line uses the fact that $\Phi$ is strictly increasing, so $\Phi(|Z|) \ge 1 - v/2 \iff |Z| \ge \Phi^{-1}(1 - v/2)$. The quantity $z_{1-v/2}$ is exactly the critical value of a two-sided test at significance level~$v$.
+
+Since the standard normal distribution is symmetric around zero, $P(Z \ge c) = P(Z \le -c)$ for any $c$, so
+$$
+P(|Z| \ge z_{1-v/2}) = P(Z \ge z_{1-v/2}) + P(Z \le -z_{1-v/2}) = 2\,P(Z \ge z_{1-v/2}).
+$$
+By definition, $P(Z \le z_{1-v/2}) = 1 - v/2$, hence $P(Z \ge z_{1-v/2}) = v/2$ and
+$$
+P(|Z| \ge z_{1-v/2}) = 2 \cdot v/2 = v.
+$$
+Since $P(V \le v) = v$ for all $v \in (0,1)$, we conclude $V \sim \text{Uniform}(0,1)$.
+
+\bigskip
+
+%% --- Part (c) ---
+\item \textbf{The p-value is uniform under $H_0$.}
+
+Under $H_0$, the test statistic $Z = (\hat{\beta} - \beta_0)/\sigma_{\hat{\beta}}$ has a standard normal distribution. The p-value is $p = 2(1 - \Phi(|Z|))$, which is exactly the random variable $V$ from Part~(b) with $Z \sim N(0,1)$. By Part~(b), $p \sim \text{Uniform}(0,1)$ under $H_0$.
+
+\bigskip
+
+%% --- Part (d) ---
+\item \textbf{The size of the test equals $\alpha$.}
+
+The test rejects $H_0$ when $p < \alpha$. The size is
+$$
+P(\text{reject } H_0 \mid H_0) = P(p < \alpha \mid H_0).
+$$
+Under $H_0$, $p \sim \text{Uniform}(0,1)$ by Part~(c). Since the Uniform$(0,1)$ distribution is continuous,
+$$
+P(p < \alpha) = P(p \le \alpha) = \alpha,
+$$
+where the last equality uses the CDF of the Uniform$(0,1)$ distribution. Therefore the size of the test is $\alpha$.
+
+\end{enumerate}
+
+\end{enumerate}
+\end{document}

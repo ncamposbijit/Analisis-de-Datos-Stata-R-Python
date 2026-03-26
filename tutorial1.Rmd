@@ -140,7 +140,7 @@ There are two standard ways to install packages in RStudio:
 1. Using the *Packages* tab in the bottom-right panel.
 2. Using commands directly in R.
 
-```{r message = FALSE, warning = FALSE, results="hide"}
+```{r, eval=FALSE}
 install.packages("dplyr")
 ```
 
