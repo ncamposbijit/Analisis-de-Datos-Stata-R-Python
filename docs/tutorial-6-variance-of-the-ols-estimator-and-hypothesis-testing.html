@@ -1,59 +1,35 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-  <title>8 Tutorial 6: Variance of the OLS estimator and hypothesis testing | Introduction to Econometrics</title>
-
-    <meta name="author" content="Nicolás Campos Bijit" />
-  
-   <meta name="description" content="Exercises and concepts for introduction econometrics" />
-   <meta name="generator" content="placeholder" />
-  <meta property="og:title" content="8 Tutorial 6: Variance of the OLS estimator and hypothesis testing | Introduction to Econometrics" />
-  <meta property="og:type" content="book" />
-  
-  
-  <meta property="og:description" content="Exercises and concepts for introduction econometrics" />
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8 Tutorial 6: Variance of the OLS estimator and hypothesis testing | Introduction to Econometrics" />
-  
-  <meta name="twitter:description" content="Exercises and concepts for introduction econometrics" />
-  
-  <!-- JS -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script>
-    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet" />
-    <script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script>
-    <link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet" />
-    <link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet" />
-    <script src="libs/bs3compat-0.10.0/transition.js"></script>
-    <script src="libs/bs3compat-0.10.0/tabs.js"></script>
-    <script src="libs/bs3compat-0.10.0/bs3compat.js"></script>
-    <link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet" />
-    <script src="libs/bs4_book-1.0.0/bs4_book.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script>
-
-  <!-- CSS -->
-  <style type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>8 Tutorial 6: Variance of the OLS estimator and hypothesis testing | Introduction to Econometrics</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="8.1 Block 1: Motivation — Why Isn’t Unbiasedness Enough? (3 min)  The Simple Linear Regression Assumptions We work with the model \(y = \beta_0 + \beta_1 x + u\) under the following assumptions....">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="8 Tutorial 6: Variance of the OLS estimator and hypothesis testing | Introduction to Econometrics">
+<meta property="og:type" content="book">
+<meta property="og:description" content="8.1 Block 1: Motivation — Why Isn’t Unbiasedness Enough? (3 min)  The Simple Linear Regression Assumptions We work with the model \(y = \beta_0 + \beta_1 x + u\) under the following assumptions....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8 Tutorial 6: Variance of the OLS estimator and hypothesis testing | Introduction to Econometrics">
+<meta name="twitter:description" content="8.1 Block 1: Motivation — Why Isn’t Unbiasedness Enough? (3 min)  The Simple Linear Regression Assumptions We work with the model \(y = \beta_0 + \beta_1 x + u\) under the following assumptions....">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
     
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
   </style>
-      <link rel="stylesheet" href="style4.css" />
-  
+<link rel="stylesheet" href="style4.css">
 </head>
-
 <body data-spy="scroll" data-target="#toc">
 
 <div class="container-fluid">
 <div class="row">
-  <header class="col-sm-12 col-lg-3 sidebar sidebar-book">
-    <a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
     <div class="d-flex align-items-start justify-content-between">
       <h1>
@@ -65,42 +41,51 @@
     <div id="main-nav" class="collapse-lg">
       <form role="search">
         <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
-      </form>
+</form>
 
-      <nav aria-label="Table of contents">
-        <h2>Table of contents</h2>
-        <div id="book-toc"></div>
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+<li><a class="active" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
+<li><a class="" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
+</ul>
 
         <div class="book-extra">
-          <p><a id="book-repo" href="#">View book source <i class="fab fa-github"></i></a></li></p>
+          
         </div>
       </nav>
-    </div>
-  </header>
-
-  <main class="col-sm-12 col-md-9 col-lg-7" id="content">
-<div id="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing" class="section level1" number="8">
-<h1><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</h1>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing" class="section level1" number="8">
+<h1>
+<span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing<a class="anchor" aria-label="anchor" href="#tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing"><i class="fas fa-link"></i></a>
+</h1>
 <div id="block-1-motivation-why-isnt-unbiasedness-enough-3-min" class="section level2" number="8.1">
-<h2><span class="header-section-number">8.1</span> Block 1: Motivation — Why Isn’t Unbiasedness Enough? (3 min)</h2>
+<h2>
+<span class="header-section-number">8.1</span> Block 1: Motivation — Why Isn’t Unbiasedness Enough? (3 min)<a class="anchor" aria-label="anchor" href="#block-1-motivation-why-isnt-unbiasedness-enough-3-min"><i class="fas fa-link"></i></a>
+</h2>
 <div class="book-example">
 <div class="header">
 The Simple Linear Regression Assumptions
 </div>
 <p>We work with the model <span class="math inline">\(y = \beta_0 + \beta_1 x + u\)</span> under the following assumptions. You need to know these by name — each one will be explicitly cited in the derivations below.</p>
-<table>
+<div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="29%" />
-<col width="25%" />
-<col width="45%" />
+<col width="29%">
+<col width="25%">
+<col width="45%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th align="left">Label</th>
 <th align="left">Name</th>
 <th align="left">Statement</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left"><strong>SLR.1</strong></td>
@@ -110,11 +95,13 @@ The Simple Linear Regression Assumptions
 <tr class="even">
 <td align="left"><strong>SLR.2</strong></td>
 <td align="left">Random Sampling</td>
-<td align="left"><span class="math inline">\(\{(x_i, y_i)\}_{i=1}^n\)</span> are i.i.d. draws</td>
+<td align="left">
+<span class="math inline">\(\{(x_i, y_i)\}_{i=1}^n\)</span> are i.i.d. draws</td>
 </tr>
 <tr class="odd">
 <td align="left"><strong>SLR.3</strong></td>
-<td align="left">Sample Variation in <span class="math inline">\(x\)</span></td>
+<td align="left">Sample Variation in <span class="math inline">\(x\)</span>
+</td>
 <td align="left"><span class="math inline">\(\text{SST}_x = \sum (x_i - \bar{x})^2 &gt; 0\)</span></td>
 </tr>
 <tr class="even">
@@ -125,7 +112,8 @@ The Simple Linear Regression Assumptions
 <tr class="odd">
 <td align="left"><strong>SLR.5</strong></td>
 <td align="left">Homoskedasticity</td>
-<td align="left"><span class="math inline">\(\text{Var}(u \mid x) = \sigma^2\)</span> (constant)</td>
+<td align="left">
+<span class="math inline">\(\text{Var}(u \mid x) = \sigma^2\)</span> (constant)</td>
 </tr>
 <tr class="even">
 <td align="left"><strong>SLR.6</strong></td>
@@ -133,7 +121,7 @@ The Simple Linear Regression Assumptions
 <td align="left"><span class="math inline">\(u \mid x \sim N(0, \sigma^2)\)</span></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <p><strong>What we proved so far:</strong> Under <strong>SLR.1–SLR.4</strong>, the OLS estimator is <strong>unbiased</strong>: <span class="math inline">\(E[\hat{\beta}_1] = \beta_1\)</span>. But unbiasedness says only that <span class="math inline">\(\hat{\beta}_1\)</span> is centred at <span class="math inline">\(\beta_1\)</span> <em>on average</em> across all possible samples. It says nothing about how far any single estimate might be from the truth.</p>
 <p><strong>What we need now:</strong> To know how <em>precise</em> <span class="math inline">\(\hat{\beta}_1\)</span> is, we need its variance. Adding <strong>SLR.5</strong> allows us to derive <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span>. Adding <strong>SLR.6</strong> on top gives us the exact sampling distribution, which enables hypothesis tests and confidence intervals.</p>
 </div>
@@ -158,18 +146,18 @@ Theorem 2.2 (Wooldridge) — Sampling Variance of <span class="math inline">\(\h
 <p><span class="math display">\[\boxed{\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i, \qquad w_i = \frac{x_i - \bar{x}}{\text{SST}_x}}\]</span></p>
 <p><strong>Interpretation:</strong> <span class="math inline">\(\hat{\beta}_1\)</span> equals the true parameter <span class="math inline">\(\beta_1\)</span> plus a weighted sum of the unobserved errors <span class="math inline">\(u_1, \ldots, u_n\)</span>. The weights <span class="math inline">\(w_i\)</span> depend only on the <span class="math inline">\(x\)</span>-values, so conditional on <span class="math inline">\(\mathbf{x}\)</span> they are constants. The <em>only</em> source of randomness in <span class="math inline">\(\hat{\beta}_1\)</span> is the errors <span class="math inline">\(u_i\)</span>.</p>
 </div>
-<hr />
+<hr>
 </div>
 <div id="block-2-deriving-and-computing-textvarhatbeta_1-12-min" class="section level2" number="8.2">
-<h2><span class="header-section-number">8.2</span> Block 2: Deriving and Computing <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> (12 min)</h2>
+<h2>
+<span class="header-section-number">8.2</span> Block 2: Deriving and Computing <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> (12 min)<a class="anchor" aria-label="anchor" href="#block-2-deriving-and-computing-textvarhatbeta_1-12-min"><i class="fas fa-link"></i></a>
+</h2>
 <p><strong>Question 1</strong> (Derivation and numerical computation)</p>
 <p><strong>(a)</strong> Starting from the representation <span class="math inline">\(\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i\)</span>, derive <span class="math inline">\(\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2/\text{SST}_x\)</span>.</p>
 <p><span class="hint">Hint: Follow these steps — (i) Why can you drop <span class="math inline">\(\beta_1\)</span> from the variance? (ii) Expand <span class="math inline">\(\text{Var}(\sum w_i u_i \mid \mathbf{x})\)</span>. Which assumption eliminates the covariance terms? (iii) Which assumption makes <span class="math inline">\(\text{Var}(u_i \mid \mathbf{x})\)</span> the same for all <span class="math inline">\(i\)</span>? (iv) Simplify <span class="math inline">\(\sum w_i^2\)</span>.</span></p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p>We start from:
+</summary><p>We start from:
 <span class="math display">\[\hat{\beta}_1 = \beta_1 + \sum_{i=1}^{n} w_i u_i \qquad\text{where}\quad w_i = \frac{x_i - \bar{x}}{\text{SST}_x}\]</span></p>
 <p><strong>Step (i): Drop the constant <span class="math inline">\(\beta_1\)</span>.</strong></p>
 <p>By <strong>SLR.1</strong> (Linear in Parameters), the model is <span class="math inline">\(y = \beta_0 + \beta_1 x + u\)</span>, where <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> are <em>fixed, unknown population parameters</em> — they are constants, not random variables. Since adding a constant to a random variable does not change its variance (recall: <span class="math inline">\(\text{Var}(a + X) = \text{Var}(X)\)</span> for any constant <span class="math inline">\(a\)</span>):</p>
@@ -196,30 +184,29 @@ Solution
 <p><span class="math display">\[\boxed{\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \frac{\sigma^2}{\text{SST}_x}} \qquad\square\]</span></p>
 <p><strong>Summary of assumptions used:</strong></p>
 <ul>
-<li><strong>SLR.1</strong> (Linear in Parameters): <span class="math inline">\(\beta_1\)</span> is a constant, so it drops from the variance.</li>
-<li><strong>SLR.2</strong> (Random Sampling): errors are independent, so covariance terms are zero.</li>
-<li><strong>SLR.3</strong> (Sample Variation): <span class="math inline">\(\text{SST}_x &gt; 0\)</span>, so division is valid.</li>
-<li><strong>SLR.5</strong> (Homoskedasticity): all <span class="math inline">\(\text{Var}(u_i \mid \mathbf{x}) = \sigma^2\)</span>, so <span class="math inline">\(\sigma^2\)</span> factors out.</li>
+<li>
+<strong>SLR.1</strong> (Linear in Parameters): <span class="math inline">\(\beta_1\)</span> is a constant, so it drops from the variance.</li>
+<li>
+<strong>SLR.2</strong> (Random Sampling): errors are independent, so covariance terms are zero.</li>
+<li>
+<strong>SLR.3</strong> (Sample Variation): <span class="math inline">\(\text{SST}_x &gt; 0\)</span>, so division is valid.</li>
+<li>
+<strong>SLR.5</strong> (Homoskedasticity): all <span class="math inline">\(\text{Var}(u_i \mid \mathbf{x}) = \sigma^2\)</span>, so <span class="math inline">\(\sigma^2\)</span> factors out.</li>
 </ul>
 Note: SLR.4 (Zero Conditional Mean) is <em>not</em> needed for the variance formula — it was needed for unbiasedness but not here.
-</details>
-<hr />
+</details><hr>
 <p><strong>(b)</strong> Suppose <span class="math inline">\(n = 5\)</span> observations with <span class="math inline">\(x\)</span>-values <span class="math inline">\(\{1, 3, 5, 7, 9\}\)</span> and <span class="math inline">\(\sigma^2 = 10\)</span>. Compute <span class="math inline">\(\bar{x}\)</span>, <span class="math inline">\(\text{SST}_x\)</span>, <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span>, and <span class="math inline">\(\text{sd}(\hat{\beta}_1)\)</span>.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: Compute <span class="math inline">\(\bar{x}\)</span>.</strong>
+</summary><p><strong>Step 1: Compute <span class="math inline">\(\bar{x}\)</span>.</strong>
 <span class="math display">\[\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i = \frac{1 + 3 + 5 + 7 + 9}{5} = \frac{25}{5} = 5\]</span></p>
 <p><strong>Step 2: Compute each deviation <span class="math inline">\((x_i - \bar{x})\)</span> and its square.</strong></p>
-<table>
-<thead>
-<tr class="header">
+<table class="table table-sm">
+<thead><tr class="header">
 <th align="center"><span class="math inline">\(x_i\)</span></th>
 <th align="center"><span class="math inline">\(x_i - \bar{x}\)</span></th>
 <th align="center"><span class="math inline">\((x_i - \bar{x})^2\)</span></th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td align="center">1</td>
@@ -257,14 +244,11 @@ Solution
 <span class="math display">\[\text{Var}(\hat{\beta}_1) = \frac{\sigma^2}{\text{SST}_x} = \frac{10}{40} = \boxed{0.25}\]</span></p>
 <p><span class="math display">\[\text{sd}(\hat{\beta}_1) = \sqrt{\text{Var}(\hat{\beta}_1)} = \sqrt{0.25} = \boxed{0.5}\]</span></p>
 <strong>Interpretation:</strong> Across repeated samples with these same <span class="math inline">\(x\)</span>-values, the OLS slope estimate <span class="math inline">\(\hat{\beta}_1\)</span> would have a standard deviation of <span class="math inline">\(0.5\)</span> — on average, our estimates will be about <span class="math inline">\(0.5\)</span> units away from the true <span class="math inline">\(\beta_1\)</span>.
-</details>
-<hr />
+</details><hr>
 <p><strong>(c)</strong> Based on the formula <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span>, explain what happens to the precision of <span class="math inline">\(\hat{\beta}_1\)</span> when: (i) the error variance <span class="math inline">\(\sigma^2\)</span> increases; (ii) we add more observations that are spread out (not concentrated at <span class="math inline">\(\bar{x}\)</span>); (iii) we add observations that are all equal to <span class="math inline">\(\bar{x}\)</span>.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p>The formula <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span> has two ingredients: <span class="math inline">\(\sigma^2\)</span> in the numerator and <span class="math inline">\(\text{SST}_x\)</span> in the denominator.</p>
+</summary><p>The formula <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span> has two ingredients: <span class="math inline">\(\sigma^2\)</span> in the numerator and <span class="math inline">\(\text{SST}_x\)</span> in the denominator.</p>
 <p><strong>(i) <span class="math inline">\(\sigma^2\)</span> increases <span class="math inline">\(\Longrightarrow\)</span> Var increases (less precise).</strong></p>
 <p><span class="math inline">\(\sigma^2\)</span> measures the noise in the error term. More noise means the data points are more scattered around the regression line, making it harder to pin down the slope.</p>
 <p><em>Numerical example:</em> With our data (<span class="math inline">\(\text{SST}_x = 40\)</span>), doubling <span class="math inline">\(\sigma^2\)</span> from 10 to 20 doubles <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> from <span class="math inline">\(0.25\)</span> to <span class="math inline">\(0.50\)</span>.</p>
@@ -275,11 +259,12 @@ Solution
 <p>If <span class="math inline">\(x_i = \bar{x}\)</span>, then <span class="math inline">\((x_i - \bar{x})^2 = 0\)</span>, so these observations contribute <strong>nothing</strong> to <span class="math inline">\(\text{SST}_x\)</span>. <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> is unchanged.</p>
 <p><em>Numerical example:</em> Adding 100 observations all at <span class="math inline">\(x = 5\)</span> (the mean) keeps <span class="math inline">\(\text{SST}_x = 40\)</span>, so <span class="math inline">\(\text{Var}(\hat{\beta}_1)\)</span> stays at <span class="math inline">\(0.25\)</span>.</p>
 <strong>Intuition:</strong> To estimate a slope, you need to see how <span class="math inline">\(y\)</span> changes as <span class="math inline">\(x\)</span> changes. If all your new data have the same <span class="math inline">\(x\)</span>, you learn nothing new about the slope — you only learn more about the intercept.
-</details>
-<hr />
+</details><hr>
 </div>
 <div id="block-3-from-sigma2-to-standard-errors-10-min" class="section level2" number="8.3">
-<h2><span class="header-section-number">8.3</span> Block 3: From <span class="math inline">\(\sigma^2\)</span> to Standard Errors (10 min)</h2>
+<h2>
+<span class="header-section-number">8.3</span> Block 3: From <span class="math inline">\(\sigma^2\)</span> to Standard Errors (10 min)<a class="anchor" aria-label="anchor" href="#block-3-from-sigma2-to-standard-errors-10-min"><i class="fas fa-link"></i></a>
+</h2>
 <div class="book-example">
 <div class="header">
 Estimating <span class="math inline">\(\sigma^2\)</span> and the <span class="math inline">\(t\)</span>-Distribution
@@ -309,7 +294,7 @@ Coefficients:
 (Intercept)   5.2000     1.3000   4.000 0.000742 ***
 x             2.4000     0.8000       A        B
 ---
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
 Residual standard error: 4 on 20 degrees of freedom
 
@@ -320,13 +305,12 @@ x                   C        D</code></pre>
 <p><strong>Question 2</strong> (Reading R output — variance and standard errors)</p>
 <p><strong>(a)</strong> From the R output, identify <span class="math inline">\(\hat{\sigma}\)</span> (the residual standard error) and the number of observations <span class="math inline">\(n\)</span>. Then compute <span class="math inline">\(\hat{\sigma}^2\)</span> and <span class="math inline">\(\text{SST}_x\)</span>.</p>
 <p><span class="hint">Hint: Use <span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}\)</span> and solve for <span class="math inline">\(\text{SST}_x\)</span>.</span></p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Reading <span class="math inline">\(\hat{\sigma}\)</span> from the output:</strong> The line <code>Residual standard error: 4 on 20 degrees of freedom</code> tells us two things:</p>
+</summary><p><strong>Reading <span class="math inline">\(\hat{\sigma}\)</span> from the output:</strong> The line <code>Residual standard error: 4 on 20 degrees of freedom</code> tells us two things:</p>
 <ul>
-<li><span class="math inline">\(\hat{\sigma} = 4\)</span> (the estimated standard deviation of the errors)</li>
+<li>
+<span class="math inline">\(\hat{\sigma} = 4\)</span> (the estimated standard deviation of the errors)</li>
 <li>Degrees of freedom <span class="math inline">\(= n - 2 = 20\)</span>, which means <span class="math inline">\(n = 22\)</span> observations.</li>
 </ul>
 <p><strong>Computing <span class="math inline">\(\hat{\sigma}^2\)</span>:</strong>
@@ -334,24 +318,18 @@ Solution
 <p><strong>Computing <span class="math inline">\(\text{SST}_x\)</span>:</strong> From the output, the <code>Std. Error</code> column for <code>x</code> gives <span class="math inline">\(\text{SE}(\hat{\beta}_1) = 0.8\)</span>. Using the formula <span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x}\)</span>:</p>
 <p><span class="math display">\[0.8 = \frac{4}{\sqrt{\text{SST}_x}} \quad\Longrightarrow\quad \sqrt{\text{SST}_x} = \frac{4}{0.8} = 5 \quad\Longrightarrow\quad \text{SST}_x = 5^2 = \boxed{25}\]</span></p>
 <strong>Verification:</strong> <span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma}/\sqrt{\text{SST}_x} = 4/\sqrt{25} = 4/5 = 0.8\)</span> <span class="math inline">\(\checkmark\)</span>
-</details>
-<hr />
+</details><hr>
 <p><strong>(b)</strong> Explain in one or two sentences why replacing <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\hat{\sigma}\)</span> changes the distribution of the test statistic from standard normal to <span class="math inline">\(t\)</span>.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p>When <span class="math inline">\(\sigma\)</span> is <strong>known</strong>, <span class="math inline">\((\hat{\beta}_1 - \beta_1)/(\sigma/\sqrt{\text{SST}_x})\)</span> is a ratio of a normal random variable (the numerator) over a <em>constant</em> (the denominator), so the ratio is exactly <span class="math inline">\(N(0,1)\)</span>.</p>
+</summary><p>When <span class="math inline">\(\sigma\)</span> is <strong>known</strong>, <span class="math inline">\((\hat{\beta}_1 - \beta_1)/(\sigma/\sqrt{\text{SST}_x})\)</span> is a ratio of a normal random variable (the numerator) over a <em>constant</em> (the denominator), so the ratio is exactly <span class="math inline">\(N(0,1)\)</span>.</p>
 <p>When we <strong>replace</strong> <span class="math inline">\(\sigma\)</span> with <span class="math inline">\(\hat{\sigma}\)</span>, the denominator <span class="math inline">\(\hat{\sigma}/\sqrt{\text{SST}_x}\)</span> becomes a <em>random variable</em> — it fluctuates from sample to sample because <span class="math inline">\(\hat{\sigma}\)</span> is computed from the data. The ratio is now a normal random variable divided by a random estimate of its standard deviation. This ratio has <strong>heavier tails</strong> than the normal (sometimes <span class="math inline">\(\hat{\sigma}\)</span> underestimates <span class="math inline">\(\sigma\)</span>, inflating <span class="math inline">\(|t|\)</span>), producing the <span class="math inline">\(t_{n-2}\)</span> distribution.</p>
 <strong>Intuition:</strong> The <span class="math inline">\(t\)</span>-distribution is “wider” than the normal to account for the fact that we <em>don’t know</em> <span class="math inline">\(\sigma\)</span> exactly. As the sample size grows, <span class="math inline">\(\hat{\sigma}\)</span> becomes a better and better estimate of <span class="math inline">\(\sigma\)</span>, the extra uncertainty shrinks, and <span class="math inline">\(t_{n-2} \to N(0,1)\)</span>.
-</details>
-<hr />
+</details><hr>
 <p><strong>(c)</strong> Find <span class="math inline">\(A\)</span> (the <span class="math inline">\(t\)</span>-value) and <span class="math inline">\(B\)</span> (the <span class="math inline">\(p\)</span>-value) in the output. What null hypothesis does this <span class="math inline">\(t\)</span>-statistic test?</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>What R reports by default:</strong> The <span class="math inline">\(t\)</span>-value and <span class="math inline">\(p\)</span>-value in R’s <code>summary()</code> output always test the null hypothesis</p>
+</summary><p><strong>What R reports by default:</strong> The <span class="math inline">\(t\)</span>-value and <span class="math inline">\(p\)</span>-value in R’s <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> output always test the null hypothesis</p>
 <p><span class="math display">\[H_0\colon \beta_1 = 0 \quad\text{vs.}\quad H_1\colon \beta_1 \ne 0\]</span></p>
 <p>That is, R tests whether the coefficient is significantly different from <strong>zero</strong> (two-sided).</p>
 <p><strong>Finding <span class="math inline">\(A\)</span> (t-value):</strong> The <span class="math inline">\(t\)</span>-statistic for testing <span class="math inline">\(H_0\colon \beta_1 = 0\)</span> is:</p>
@@ -360,11 +338,12 @@ Solution
 <p><span class="math display">\[B = P(|t_{20}| &gt; 3) = 2 \cdot P(t_{20} &gt; 3)\]</span></p>
 <p>The factor of 2 appears because this is a <strong>two-sided</strong> test (we count both tails). In R: <code>2 * pt(-3, df = 20)</code> <span class="math inline">\(\approx \boxed{0.007}\)</span>.</p>
 <strong>Meaning:</strong> If <span class="math inline">\(\beta_1\)</span> were truly zero, there would be only a <span class="math inline">\(0.7\%\)</span> chance of observing a <span class="math inline">\(t\)</span>-statistic as large as <span class="math inline">\(3\)</span> in absolute value. This is strong evidence against <span class="math inline">\(H_0\)</span>.
-</details>
-<hr />
+</details><hr>
 </div>
 <div id="block-4-hypothesis-testing-13-min" class="section level2" number="8.4">
-<h2><span class="header-section-number">8.4</span> Block 4: Hypothesis Testing (13 min)</h2>
+<h2>
+<span class="header-section-number">8.4</span> Block 4: Hypothesis Testing (13 min)<a class="anchor" aria-label="anchor" href="#block-4-hypothesis-testing-13-min"><i class="fas fa-link"></i></a>
+</h2>
 <div class="book-example">
 <div class="header">
 Hypothesis Testing and Confidence Intervals — The Procedure
@@ -389,14 +368,14 @@ Hypothesis Testing and Confidence Intervals — The Procedure
 <p><em>Use the R output from Block 3. You may use the following critical values for the <span class="math inline">\(t_{20}\)</span> distribution: <span class="math inline">\(t_{0.025,\, 20} = 2.086\)</span> (in R: <code>qt(0.975, 20)</code>) and <span class="math inline">\(t_{0.05,\, 20} = 1.725\)</span> (in R: <code>qt(0.95, 20)</code>).</em></p>
 <p><strong>Question 3</strong> (Hypothesis testing and confidence intervals)</p>
 <p><strong>(a)</strong> Using <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> from Question 2, test <span class="math inline">\(H_0\colon \beta_1 = 0\)</span> against <span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> at the 5% significance level. State your conclusion.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: State hypotheses and significance level.</strong></p>
+</summary><p><strong>Step 1: State hypotheses and significance level.</strong></p>
 <ul>
-<li><span class="math inline">\(H_0\colon \beta_1 = 0\)</span> (the variable <span class="math inline">\(x\)</span> has no effect on <span class="math inline">\(y\)</span>)</li>
-<li><span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> (the variable <span class="math inline">\(x\)</span> has some effect on <span class="math inline">\(y\)</span>)</li>
+<li>
+<span class="math inline">\(H_0\colon \beta_1 = 0\)</span> (the variable <span class="math inline">\(x\)</span> has no effect on <span class="math inline">\(y\)</span>)</li>
+<li>
+<span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> (the variable <span class="math inline">\(x\)</span> has some effect on <span class="math inline">\(y\)</span>)</li>
 <li>This is a <strong>two-sided</strong> test at <span class="math inline">\(\alpha = 0.05\)</span>.</li>
 </ul>
 <p><strong>Step 2: Test statistic.</strong></p>
@@ -408,21 +387,21 @@ Solution
 <p><strong>Alternative (using the <span class="math inline">\(p\)</span>-value):</strong> Reject <span class="math inline">\(H_0\)</span> if <span class="math inline">\(p &lt; \alpha\)</span>. Since <span class="math inline">\(p = B = 0.007 &lt; 0.05 = \alpha\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>. <span class="math inline">\(\checkmark\)</span></p>
 <p><strong>Step 5: Conclusion.</strong></p>
 At the 5% significance level, we reject the null hypothesis that <span class="math inline">\(\beta_1 = 0\)</span>. There is statistically significant evidence that <span class="math inline">\(x\)</span> has an effect on <span class="math inline">\(y\)</span>.
-</details>
-<hr />
+</details><hr>
 <p><strong>(b)</strong> Find <span class="math inline">\(C\)</span> and <span class="math inline">\(D\)</span> (the 95% confidence interval for <span class="math inline">\(\beta_1\)</span>). Show your work.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: Formula.</strong></p>
+</summary><p><strong>Step 1: Formula.</strong></p>
 <p>The <span class="math inline">\((1-\alpha) = 95\%\)</span> confidence interval for <span class="math inline">\(\beta_1\)</span> is:
 <span class="math display">\[\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)\]</span></p>
 <p><strong>Step 2: Plug in values.</strong></p>
 <ul>
-<li><span class="math inline">\(\hat{\beta}_1 = 2.4\)</span> (from the “Estimate” column)</li>
-<li><span class="math inline">\(t_{0.025,\, 20} = 2.086\)</span> (critical value for 95% CI with 20 df)</li>
-<li><span class="math inline">\(\text{SE}(\hat{\beta}_1) = 0.8\)</span> (from the “Std. Error” column)</li>
+<li>
+<span class="math inline">\(\hat{\beta}_1 = 2.4\)</span> (from the “Estimate” column)</li>
+<li>
+<span class="math inline">\(t_{0.025,\, 20} = 2.086\)</span> (critical value for 95% CI with 20 df)</li>
+<li>
+<span class="math inline">\(\text{SE}(\hat{\beta}_1) = 0.8\)</span> (from the “Std. Error” column)</li>
 </ul>
 <p><strong>Step 3: Compute the margin of error.</strong>
 <span class="math display">\[\text{Margin of error} = t_{0.025,\, 20} \times \text{SE}(\hat{\beta}_1) = 2.086 \times 0.8 = 1.669\]</span></p>
@@ -432,14 +411,11 @@ Solution
 <p>The 95% CI for <span class="math inline">\(\beta_1\)</span> is <span class="math inline">\([0.731,\; 4.069]\)</span>.</p>
 <p><strong>Interpretation:</strong> We are 95% confident that the true <span class="math inline">\(\beta_1\)</span> lies between <span class="math inline">\(0.731\)</span> and <span class="math inline">\(4.069\)</span>. This means that if we repeated the sampling process many times and computed a 95% CI each time, approximately 95% of those intervals would contain the true <span class="math inline">\(\beta_1\)</span>.</p>
 <strong>Consistency check with part (a):</strong> The CI does not contain <span class="math inline">\(0\)</span>, which is consistent with our rejection of <span class="math inline">\(H_0\colon \beta_1 = 0\)</span> at 5%.
-</details>
-<hr />
+</details><hr>
 <p><strong>(c)</strong> Using the confidence interval from (b), test <span class="math inline">\(H_0\colon \beta_1 = 1\)</span> against <span class="math inline">\(H_1\colon \beta_1 \ne 1\)</span> at the 5% significance level.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: State hypotheses.</strong></p>
+</summary><p><strong>Step 1: State hypotheses.</strong></p>
 <ul>
 <li><span class="math inline">\(H_0\colon \beta_1 = 1\)</span></li>
 <li><span class="math inline">\(H_1\colon \beta_1 \ne 1\)</span></li>
@@ -455,14 +431,11 @@ Solution
 <span class="math display">\[t = \frac{\hat{\beta}_1 - 1}{\text{SE}(\hat{\beta}_1)} = \frac{2.4 - 1}{0.8} = \frac{1.4}{0.8} = 1.75\]</span></p>
 <p>Decision: <span class="math inline">\(|t| = 1.75 &lt; 2.086 = t_{0.025,20}\)</span>, so we fail to reject. <span class="math inline">\(\checkmark\)</span></p>
 Both methods (CI approach and <span class="math inline">\(t\)</span>-test) give the same answer — they are mathematically equivalent for two-sided tests.
-</details>
-<hr />
+</details><hr>
 <p><strong>(d)</strong> Now test <span class="math inline">\(H_0\colon \beta_1 \le 1\)</span> against <span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span> at the 5% significance level.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: State hypotheses and significance level.</strong></p>
+</summary><p><strong>Step 1: State hypotheses and significance level.</strong></p>
 <ul>
 <li><span class="math inline">\(H_0\colon \beta_1 \le 1\)</span></li>
 <li><span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span></li>
@@ -480,31 +453,27 @@ Solution
 <p>Since <span class="math inline">\(t = 1.75 &gt; 1.725\)</span>, we <strong>reject <span class="math inline">\(H_0\)</span></strong>.</p>
 <p><strong>Step 5: Conclusion.</strong></p>
 At the 5% significance level, we reject <span class="math inline">\(H_0\colon \beta_1 \le 1\)</span> in favor of <span class="math inline">\(H_1\colon \beta_1 &gt; 1\)</span>. There is statistically significant evidence that <span class="math inline">\(\beta_1 &gt; 1\)</span>.
-</details>
-<hr />
+</details><hr>
 <p><strong>(e)</strong> Parts (c) and (d) test closely related hypotheses about <span class="math inline">\(\beta_1 = 1\)</span>, yet give opposite conclusions. Explain why.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>The key: different critical values.</strong></p>
-<table>
+</summary><p><strong>The key: different critical values.</strong></p>
+<table class="table table-sm">
 <colgroup>
-<col width="10%" />
-<col width="18%" />
-<col width="29%" />
-<col width="23%" />
-<col width="18%" />
+<col width="10%">
+<col width="18%">
+<col width="29%">
+<col width="23%">
+<col width="18%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th align="left">Test</th>
-<th align="center"><span class="math inline">\(t\)</span>-stat</th>
+<th align="center">
+<span class="math inline">\(t\)</span>-stat</th>
 <th align="center">Critical value</th>
 <th align="center">Exceeds CV?</th>
 <th align="left">Decision</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left">Two-sided (c)</td>
@@ -535,29 +504,28 @@ Solution
 <li><p>The <strong>two-sided test</strong> can detect departures in <em>either</em> direction, but at the cost of lower power in any single direction.</p></li>
 </ul>
 <strong>When to use one-sided:</strong> Only when you have strong theoretical reasons to expect the effect in a specific direction <em>before seeing the data</em>. Otherwise, use a two-sided test.
-</details>
-<hr />
+</details><hr>
 </div>
 <div id="block-5-type-iii-errors-size-and-power-12-min" class="section level2" number="8.5">
-<h2><span class="header-section-number">8.5</span> Block 5: Type I/II Errors, Size, and Power (12 min)</h2>
+<h2>
+<span class="header-section-number">8.5</span> Block 5: Type I/II Errors, Size, and Power (12 min)<a class="anchor" aria-label="anchor" href="#block-5-type-iii-errors-size-and-power-12-min"><i class="fas fa-link"></i></a>
+</h2>
 <div class="book-example">
 <div class="header">
 Type I and Type II Errors
 </div>
 <p>When we perform a hypothesis test, we make a decision (reject or fail to reject <span class="math inline">\(H_0\)</span>) based on sample data. Since the data are random, we can make <strong>mistakes</strong>:</p>
-<table>
+<div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="28%" />
-<col width="35%" />
-<col width="35%" />
+<col width="28%">
+<col width="35%">
+<col width="35%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th align="left"></th>
 <th align="center"><strong><span class="math inline">\(H_0\)</span> is actually true</strong></th>
 <th align="center"><strong><span class="math inline">\(H_0\)</span> is actually false</strong></th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td align="left"><strong>Reject <span class="math inline">\(H_0\)</span></strong></td>
@@ -570,26 +538,35 @@ Type I and Type II Errors
 <td align="center"><span style="color:red">Type II Error</span></td>
 </tr>
 </tbody>
-</table>
+</table></div>
 <ul>
 <li><p><strong>Type I Error (false positive):</strong> Rejecting <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is <em>true</em>. We conclude there is an effect, but in reality there is none.</p></li>
 <li><p><strong>Type II Error (false negative):</strong> Failing to reject <span class="math inline">\(H_0\)</span> when <span class="math inline">\(H_0\)</span> is <em>false</em>. We miss a real effect.</p></li>
 </ul>
 <p><strong>Example 1 — Courtroom trial:</strong></p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: The defendant is innocent.</li>
-<li><span class="math inline">\(H_1\)</span>: The defendant is guilty.</li>
-<li><strong>Type I:</strong> Convicting an innocent person. The jury finds them guilty, but they didn’t commit the crime.</li>
-<li><strong>Type II:</strong> Acquitting a guilty person. The jury finds them not guilty, but they actually did it.</li>
+<li>
+<span class="math inline">\(H_0\)</span>: The defendant is innocent.</li>
+<li>
+<span class="math inline">\(H_1\)</span>: The defendant is guilty.</li>
+<li>
+<strong>Type I:</strong> Convicting an innocent person. The jury finds them guilty, but they didn’t commit the crime.</li>
+<li>
+<strong>Type II:</strong> Acquitting a guilty person. The jury finds them not guilty, but they actually did it.</li>
 <li>The “beyond reasonable doubt” standard sets a very low <span class="math inline">\(\alpha\)</span> — society considers convicting an innocent person (Type I) worse than letting a guilty person go free (Type II).</li>
 </ul>
 <p><strong>Example 2 — Drug trial:</strong></p>
 <ul>
-<li><span class="math inline">\(H_0\colon \beta_1 = 0\)</span> (the new drug has no effect on blood pressure).</li>
-<li><span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> (the drug has an effect).</li>
-<li><strong>Type I:</strong> The trial concludes the drug works (rejects <span class="math inline">\(H_0\)</span>), but in reality it has no effect. A useless drug is marketed.</li>
-<li><strong>Type II:</strong> The trial fails to find an effect (fails to reject <span class="math inline">\(H_0\)</span>), but the drug actually works. A beneficial drug is never brought to market.</li>
-<li><span class="math inline">\(\alpha = 0.05\)</span> means: <em>if the drug truly has no effect</em>, there is at most a 5% chance we mistakenly conclude it works.</li>
+<li>
+<span class="math inline">\(H_0\colon \beta_1 = 0\)</span> (the new drug has no effect on blood pressure).</li>
+<li>
+<span class="math inline">\(H_1\colon \beta_1 \ne 0\)</span> (the drug has an effect).</li>
+<li>
+<strong>Type I:</strong> The trial concludes the drug works (rejects <span class="math inline">\(H_0\)</span>), but in reality it has no effect. A useless drug is marketed.</li>
+<li>
+<strong>Type II:</strong> The trial fails to find an effect (fails to reject <span class="math inline">\(H_0\)</span>), but the drug actually works. A beneficial drug is never brought to market.</li>
+<li>
+<span class="math inline">\(\alpha = 0.05\)</span> means: <em>if the drug truly has no effect</em>, there is at most a 5% chance we mistakenly conclude it works.</li>
 </ul>
 </div>
 <div class="book-example">
@@ -606,35 +583,27 @@ Size and Power of a Test
 <p><em>To simplify the calculations, assume <span class="math inline">\(\sigma_{\hat{\beta}}\)</span> is <strong>known</strong>, so the test statistic is <span class="math inline">\(Z = (\hat{\beta} - \beta_0)/\sigma_{\hat{\beta}} \sim N(0,1)\)</span> under <span class="math inline">\(H_0\)</span> (standard normal, not <span class="math inline">\(t\)</span>).</em></p>
 <p>Consider testing <span class="math inline">\(H_0\colon \beta = 0\)</span> vs. <span class="math inline">\(H_1\colon \beta \ne 0\)</span> at <span class="math inline">\(\alpha = 0.05\)</span>, with <span class="math inline">\(\sigma_{\hat{\beta}} = 2\)</span>.</p>
 <p><strong>(a)</strong> Define Type I and Type II error in the context of this test. Give a concrete interpretation if <span class="math inline">\(\beta\)</span> measures the effect of a job training program on wages (in thousands of dollars).</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Type I Error</strong> <span class="math inline">\(= P(\text{reject } H_0 \mid H_0 \text{ is true})\)</span>:</p>
+</summary><p><strong>Type I Error</strong> <span class="math inline">\(= P(\text{reject } H_0 \mid H_0 \text{ is true})\)</span>:</p>
 <p>We reject <span class="math inline">\(H_0\colon \beta = 0\)</span> even though <span class="math inline">\(\beta\)</span> is actually zero. In context: we conclude that the job training program raises wages, but in reality the program has <strong>no effect</strong>. We waste resources implementing a useless program.</p>
 <p><strong>Type II Error</strong> <span class="math inline">\(= P(\text{fail to reject } H_0 \mid H_0 \text{ is false})\)</span>:</p>
 We fail to reject <span class="math inline">\(H_0\colon \beta = 0\)</span> even though <span class="math inline">\(\beta \ne 0\)</span> (the program actually works). In context: we conclude that the job training program has no effect, and we <strong>cancel a program that actually helps workers</strong>. The real benefit goes undetected.
-</details>
-<hr />
+</details><hr>
 <p><strong>(b)</strong> The two-sided test rejects <span class="math inline">\(H_0\)</span> when <span class="math inline">\(|Z| &gt; 1.96\)</span>. Show that the <strong>size</strong> of this test is exactly <span class="math inline">\(0.05\)</span>.</p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p>The size is the probability of rejecting <span class="math inline">\(H_0\)</span> <em>when <span class="math inline">\(H_0\)</span> is true</em>. Under <span class="math inline">\(H_0\colon \beta = 0\)</span>:</p>
+</summary><p>The size is the probability of rejecting <span class="math inline">\(H_0\)</span> <em>when <span class="math inline">\(H_0\)</span> is true</em>. Under <span class="math inline">\(H_0\colon \beta = 0\)</span>:</p>
 <p><span class="math display">\[Z = \frac{\hat{\beta} - 0}{\sigma_{\hat{\beta}}} = \frac{\hat{\beta}}{2} \sim N(0, 1)\]</span></p>
 <p>The test rejects when <span class="math inline">\(|Z| &gt; 1.96\)</span>. So:</p>
 <p><span class="math display">\[\begin{aligned} \text{Size} &amp;= P(|Z| &gt; 1.96 \mid H_0) \\ &amp;= P(Z &gt; 1.96) + P(Z &lt; -1.96) &amp; &amp;\text{(split into two tails)}\\ &amp;= (1 - \Phi(1.96)) + \Phi(-1.96) &amp; &amp;\text{(using the normal CDF)} \\ &amp;= 0.025 + 0.025 &amp; &amp;\text{(by symmetry of the normal)} \\ &amp;= \boxed{0.05} \end{aligned}\]</span></p>
 This confirms that the critical value <span class="math inline">\(z_{0.025} = 1.96\)</span> was <em>chosen</em> to make the Type I error probability exactly <span class="math inline">\(\alpha = 0.05\)</span>. That is the <em>definition</em> of a test at significance level <span class="math inline">\(\alpha\)</span>.
-</details>
-<hr />
+</details><hr>
 <p><strong>(c)</strong> Compute the <strong>power</strong> of this test when the true value is <span class="math inline">\(\beta^* = 6\)</span> (the program truly raises wages by $6,000).</p>
 <p><span class="hint">Hint: Under <span class="math inline">\(\beta^* = 6\)</span>, <span class="math inline">\(\hat{\beta} \sim N(6, 4)\)</span>, so <span class="math inline">\(Z = \hat{\beta}/2 \sim N(3, 1)\)</span>. Compute <span class="math inline">\(P(|Z| &gt; 1.96)\)</span> using the substitution <span class="math inline">\(W = Z - 3 \sim N(0,1)\)</span>. You may use: <span class="math inline">\(\Phi(1.04) = 0.851\)</span>.</span></p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: Distribution of <span class="math inline">\(Z\)</span> under the true <span class="math inline">\(\beta^*\)</span>.</strong></p>
+</summary><p><strong>Step 1: Distribution of <span class="math inline">\(Z\)</span> under the true <span class="math inline">\(\beta^*\)</span>.</strong></p>
 <p>If <span class="math inline">\(\beta^* = 6\)</span>, then <span class="math inline">\(\hat{\beta} \sim N(\beta^*, \sigma_{\hat{\beta}}^2) = N(6, 4)\)</span>. The test statistic (computed as if <span class="math inline">\(H_0\)</span> were true) is:</p>
 <p><span class="math display">\[Z = \frac{\hat{\beta} - 0}{2} = \frac{\hat{\beta}}{2} \sim N\!\left(\frac{6}{2},\, 1\right) = N(3, 1)\]</span></p>
 <p>So under <span class="math inline">\(\beta^* = 6\)</span>, <span class="math inline">\(Z\)</span> is not <span class="math inline">\(N(0,1)\)</span> but rather <span class="math inline">\(N(3, 1)\)</span> — it is shifted to the right by <span class="math inline">\(\delta = \beta^*/\sigma_{\hat{\beta}} = 6/2 = 3\)</span>.</p>
@@ -649,15 +618,12 @@ Solution
 <p><strong>Combining:</strong>
 <span class="math display">\[\text{Power} = 0.851 + 0.000 = \boxed{0.851}\]</span></p>
 <strong>Interpretation:</strong> If the job training program truly raises wages by $6,000 (with <span class="math inline">\(\sigma_{\hat{\beta}} = 2\)</span>), there is an 85.1% probability that our test will correctly detect the effect and reject <span class="math inline">\(H_0\)</span>. This is good power.
-</details>
-<hr />
+</details><hr>
 <p><strong>(d)</strong> Compute the <strong>power</strong> when <span class="math inline">\(\beta^* = 2\)</span> (the program raises wages by only $2,000). Compare with part (c) and explain.</p>
 <p><span class="hint">Hint: <span class="math inline">\(\delta = 2/2 = 1\)</span>, so <span class="math inline">\(Z \sim N(1,1)\)</span>. You may use: <span class="math inline">\(\Phi(0.96) = 0.831\)</span>.</span></p>
-<details class="solution">
-<summary>
+<details class="solution"><summary>
 Solution
-</summary>
-<p><strong>Step 1: Distribution of <span class="math inline">\(Z\)</span> under <span class="math inline">\(\beta^* = 2\)</span>.</strong>
+</summary><p><strong>Step 1: Distribution of <span class="math inline">\(Z\)</span> under <span class="math inline">\(\beta^* = 2\)</span>.</strong>
 <span class="math display">\[Z = \frac{\hat{\beta}}{2} \sim N\!\left(\frac{2}{2},\, 1\right) = N(1, 1)\]</span></p>
 <p>Now <span class="math inline">\(\delta = 1\)</span> (the shift from the null is smaller).</p>
 <p><strong>Step 2: Compute power.</strong></p>
@@ -669,21 +635,20 @@ Solution
 <p><strong>Combining:</strong>
 <span class="math display">\[\text{Power} = 0.169 + 0.002 = \boxed{0.171}\]</span></p>
 <p><strong>Comparison:</strong></p>
-<table>
+<table class="table table-sm">
 <colgroup>
-<col width="23%" />
-<col width="23%" />
-<col width="23%" />
-<col width="30%" />
+<col width="23%">
+<col width="23%">
+<col width="23%">
+<col width="30%">
 </colgroup>
-<thead>
-<tr class="header">
-<th align="center">True <span class="math inline">\(\beta^*\)</span></th>
+<thead><tr class="header">
+<th align="center">True <span class="math inline">\(\beta^*\)</span>
+</th>
 <th align="center"><span class="math inline">\(\delta = \beta^*/\sigma_{\hat{\beta}}\)</span></th>
 <th align="center">Power</th>
 <th align="left">Detect?</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
 <td align="center"><span class="math inline">\(6\)</span></td>
@@ -705,53 +670,59 @@ Solution
 <li><p>When <span class="math inline">\(\beta^* = 2\)</span>: the signal (<span class="math inline">\(\delta = 1\)</span>) is weak. The distribution of <span class="math inline">\(Z\)</span> overlaps heavily with the rejection region. The test misses the effect about 83% of the time (Type II error probability <span class="math inline">\(= 1 - 0.171 = 0.829\)</span>).</p></li>
 </ul>
 <strong>Implication:</strong> Small effects are hard to detect unless <span class="math inline">\(\sigma_{\hat{\beta}}\)</span> is small (which requires large <span class="math inline">\(n\)</span> or large <span class="math inline">\(\text{SST}_x\)</span>). This connects back to Block 2: increasing <span class="math inline">\(\text{SST}_x\)</span> reduces <span class="math inline">\(\text{Var}(\hat{\beta}_1) = \sigma^2/\text{SST}_x\)</span>, which reduces <span class="math inline">\(\sigma_{\hat{\beta}}\)</span>, which increases <span class="math inline">\(\delta\)</span>, which increases power.
-</details>
-<hr />
+</details><hr>
 </div>
 <div id="summary-of-key-formulas-2" class="section level2" number="8.6">
-<h2><span class="header-section-number">8.6</span> Summary of Key Formulas</h2>
-<table>
+<h2>
+<span class="header-section-number">8.6</span> Summary of Key Formulas<a class="anchor" aria-label="anchor" href="#summary-of-key-formulas-2"><i class="fas fa-link"></i></a>
+</h2>
+<div class="inline-table"><table class="table table-sm">
 <colgroup>
-<col width="50%" />
-<col width="50%" />
+<col width="50%">
+<col width="50%">
 </colgroup>
-<thead>
-<tr class="header">
+<thead><tr class="header">
 <th align="left">Concept</th>
 <th align="left">Formula</th>
-</tr>
-</thead>
+</tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">Total variation in <span class="math inline">\(x\)</span></td>
+<td align="left">Total variation in <span class="math inline">\(x\)</span>
+</td>
 <td align="left"><span class="math inline">\(\text{SST}_x = \sum_{i=1}^n (x_i - \bar{x})^2\)</span></td>
 </tr>
 <tr class="even">
 <td align="left">Variance of <span class="math inline">\(\hat{\beta}_1\)</span> (Thm. 2.2)</td>
-<td align="left"><span class="math inline">\(\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2 / \text{SST}_x\)</span> [uses SLR.1–5]</td>
+<td align="left">
+<span class="math inline">\(\text{Var}(\hat{\beta}_1 \mid \mathbf{x}) = \sigma^2 / \text{SST}_x\)</span> [uses SLR.1–5]</td>
 </tr>
 <tr class="odd">
 <td align="left">Estimated error variance</td>
 <td align="left"><span class="math inline">\(\hat{\sigma}^2 = \sum \hat{u}_i^2 / (n-2)\)</span></td>
 </tr>
 <tr class="even">
-<td align="left">Standard error of <span class="math inline">\(\hat{\beta}_1\)</span></td>
+<td align="left">Standard error of <span class="math inline">\(\hat{\beta}_1\)</span>
+</td>
 <td align="left"><span class="math inline">\(\text{SE}(\hat{\beta}_1) = \hat{\sigma} / \sqrt{\text{SST}_x}\)</span></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(t\)</span>-statistic</td>
-<td align="left"><span class="math inline">\(t = (\hat{\beta}_1 - \beta_{1,0}) / \text{SE}(\hat{\beta}_1) \sim t_{n-2}\)</span> [uses SLR.1–6]</td>
+<td align="left">
+<span class="math inline">\(t\)</span>-statistic</td>
+<td align="left">
+<span class="math inline">\(t = (\hat{\beta}_1 - \beta_{1,0}) / \text{SE}(\hat{\beta}_1) \sim t_{n-2}\)</span> [uses SLR.1–6]</td>
 </tr>
 <tr class="even">
 <td align="left">Two-sided rejection rule</td>
-<td align="left">Reject if <span class="math inline">\(\|t\| &gt; t_{\alpha/2,\, n-2}\)</span></td>
+<td align="left">Reject if <span class="math inline">\(\|t\| &gt; t_{\alpha/2,\, n-2}\)</span>
+</td>
 </tr>
 <tr class="odd">
 <td align="left">One-sided rejection rule</td>
 <td align="left">Reject if <span class="math inline">\(t &gt; t_{\alpha,\, n-2}\)</span> (for <span class="math inline">\(H_1\colon \beta_1 &gt; \beta_{1,0}\)</span>)</td>
 </tr>
 <tr class="even">
-<td align="left"><span class="math inline">\((1-\alpha)\)</span> Confidence interval</td>
+<td align="left">
+<span class="math inline">\((1-\alpha)\)</span> Confidence interval</td>
 <td align="left"><span class="math inline">\(\hat{\beta}_1 \pm t_{\alpha/2,\, n-2} \cdot \text{SE}(\hat{\beta}_1)\)</span></td>
 </tr>
 <tr class="odd">
@@ -771,31 +742,36 @@ Solution
 <td align="left"><span class="math inline">\(P(\text{reject } H_0 \mid H_0 \text{ false}) = 1 - P(\text{Type II})\)</span></td>
 </tr>
 </tbody>
-</table>
-
+</table></div>
 </div>
 </div>
-  </main>
-
-  <div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
-    <nav id="toc" data-toggle="toc" aria-label="On this page">
-      <h2>On this page</h2>
-      <div id="book-on-this-page"></div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></div>
+<div class="next"><a href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="nav-link" href="#block-1-motivation-why-isnt-unbiasedness-enough-3-min"><span class="header-section-number">8.1</span> Block 1: Motivation — Why Isn’t Unbiasedness Enough? (3 min)</a></li>
+<li><a class="nav-link" href="#block-2-deriving-and-computing-textvarhatbeta_1-12-min"><span class="header-section-number">8.2</span> Block 2: Deriving and Computing \(\text{Var}(\hat{\beta}_1)\) (12 min)</a></li>
+<li><a class="nav-link" href="#block-3-from-sigma2-to-standard-errors-10-min"><span class="header-section-number">8.3</span> Block 3: From \(\sigma^2\) to Standard Errors (10 min)</a></li>
+<li><a class="nav-link" href="#block-4-hypothesis-testing-13-min"><span class="header-section-number">8.4</span> Block 4: Hypothesis Testing (13 min)</a></li>
+<li><a class="nav-link" href="#block-5-type-iii-errors-size-and-power-12-min"><span class="header-section-number">8.5</span> Block 5: Type I/II Errors, Size, and Power (12 min)</a></li>
+<li><a class="nav-link" href="#summary-of-key-formulas-2"><span class="header-section-number">8.6</span> Summary of Key Formulas</a></li>
+</ul>
 
       <div class="book-extra">
         <ul class="list-unstyled">
-          <li><a id="book-source" href="#">View source <i class="fab fa-github"></i></a></li>
-          <li><a id="book-edit" href="#">Edit this page <i class="fab fa-github"></i></a></li>
+          
         </ul>
-      </div>
+</div>
     </nav>
-  </div>
+</div>
 
 </div>
 </div> <!-- .container -->
 
-<footer class="bg-primary text-light mt-5">
-  <div class="container"><div class="row">
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
 
   <div class="col-12 col-md-6 mt-3">
     <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-03-26.</p>
@@ -806,11 +782,7 @@ Solution
   </div>
 
 </div></div>
-</footer>
-
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -822,8 +794,7 @@ Solution
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
-</script>
-<script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
 for (let popover of popovers) {
   const div = document.createElement('div');
   div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
@@ -841,5 +812,4 @@ for (let popover of popovers) {
 }
 </script>
 </body>
-
 </html>
