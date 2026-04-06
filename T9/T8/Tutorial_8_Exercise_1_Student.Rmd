@@ -1,0 +1,94 @@
+---
+title: "Tutorial 8 --- Exercise 1: Deriving the $F$-Test"
+author: "Introductory Econometrics --- TA Session"
+date: "Duration: 50 minutes | Based on Lecture 14 (Marmer)"
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: false
+    number_sections: false
+geometry: margin=2.3cm
+header-includes:
+  - \input{preamble_t8.tex}
+  - \usepackage{tikz}
+  - \newcommand{\answerbox}[1]{\par\vspace{3pt}\begin{tikzpicture}\draw[blockcolor!40, rounded corners=3pt] (0,0) rectangle (\textwidth-0.5cm,#1);\end{tikzpicture}\par\vspace{3pt}}
+  - \setlength{\parskip}{4pt}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+Consider the log-wage equation from Lecture 14:
+\[
+\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_3 PrevExp_i + \beta_4 PrevExp_i^2 + \beta_5 Educ_i + U_i
+\]
+where $Exp$ is current job experience, $PrevExp$ is previous experience, and $Educ$ is years of education ($k = 5$ regressors plus intercept). We want to test whether previous experience has *any* effect on wages. This requires testing $\beta_3$ and $\beta_4$ jointly. You will derive the test statistic that does this correctly.
+
+---
+
+**Step 1. Hypotheses.** The null imposes $q = 2$ restrictions simultaneously:
+\[
+H_0\colon\; \beta_3 = 0 \;\text{ and }\; \beta_4 = 0
+\qquad\text{against}\qquad
+H_1\colon\; \beta_3 \neq 0 \;\text{ or }\; \beta_4 \neq 0.
+\]
+
+**(a)** Suppose $H_0$ is true. You run two separate size-$\alpha$ $t$-tests and reject whenever *at least one* rejects. Using $P(A \cup B) = P(A) + P(B) - P(A \cap B)$, show that the false rejection probability exceeds $\alpha$.
+
+\answerbox{4.5cm}
+
+---
+
+**Step 2. Unrestricted and restricted models.** We compare the fit of two models:
+
+- **Unrestricted:** all regressors included $\to$ compute $SSR_{ur} = \sum \hat{U}_i^2$. Has $k+1 = 6$ parameters; residual df $= n - k - 1$.
+- **Restricted** (impose $H_0$: drop $PrevExp$, $PrevExp^2$): $\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_5 Educ_i + U_i$ $\to$ compute $SSR_r$. Has 4 parameters.
+
+**(b)** Verify that the parameter difference equals $q$. Explain why $SSR_r \geq SSR_{ur}$ always.
+
+\answerbox{3cm}
+
+---
+
+**Step 3. The $F$-statistic.** If $H_0$ is true, $SSR_r - SSR_{ur}$ should be small (restrictions barely hurt fit). If false, it should be large. The $F$-statistic formalises this:
+\[
+\boxed{\; F = \frac{(SSR_r - SSR_{ur})\,/\,q}{SSR_{ur}\,/\,(n - k - 1)} \;}
+\]
+
+**(c)** Interpret the numerator and denominator. Why divide by $q$? What does $SSR_{ur}/(n-k-1)$ estimate?
+
+\answerbox{4cm}
+
+**(d)** Compute $F$ using Lecture 14 data: $SSR_{ur} = 96.998$, $SSR_r = 99.463$, $n = 526$, $k = 5$, $q = 2$.
+
+\answerbox{2.5cm}
+
+---
+
+**Step 4. Distribution and degrees of freedom.** Under $H_0$ and normality ($U_i | X \sim \mathcal{N}(0,\sigma^2)$):
+$F \sim F_{q,\, n-k-1}.$
+This follows because $(SSR_r - SSR_{ur})/\sigma^2 \sim \chi^2_q$ and $SSR_{ur}/\sigma^2 \sim \chi^2_{n-k-1}$, independently, and the $F$-distribution is defined as the ratio of two independent $\chi^2$'s divided by their df (with $\sigma^2$ cancelling).
+
+**(e)** State the numerator and denominator df for the wage example. Explain why $F \geq 0$ always.
+
+\answerbox{2.5cm}
+
+---
+
+**Step 5. Decision rule.** At significance level $\alpha$: reject $H_0$ when $F > F_{q,n-k-1,1-\alpha}$.
+
+\warn{The $F$-test is always one-sided} (reject for large $F$ only) and the denominator df comes from the \textbf{unrestricted} model.
+
+**(f)** The critical value is $F_{2,520,0.95} \approx 3.01$ and the $p$-value $\approx 0.0015$. Do you reject? Interpret.
+
+\answerbox{4cm}
+
+---
+
+**Step 6. $R^2$ version.** When both models share the same dependent variable ($SST_r = SST_{ur} = SST$):
+
+**(g)** Using $SSR = SST(1 - R^2)$, show that $F = \dfrac{(R^2_{ur} - R^2_r)/q}{(1 - R^2_{ur})/(n-k-1)}$. Verify with $R^2_{ur} = 0.3461$, $R^2_r = 0.3294$.
+
+\answerbox{5cm}
+

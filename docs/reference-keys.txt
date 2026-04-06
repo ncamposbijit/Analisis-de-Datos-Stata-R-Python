@@ -312,3 +312,11 @@ step-4.-compute-the-f-statistic-by-hand
 step-5.-compute-the-p-value-and-make-a-decision
 step-6.-verify-against-linearhypothesis
 step-7-take-home.-what-happens-when-h_0-is-false
+tutorial-9-deriving-the-difference-in-differences-estimator
+part-1-setup
+part-2-did-in-potential-outcomes
+part-3-connecting-did-to-the-att-key-derivation
+part-4-the-two-assumptions
+part-5-from-did-to-the-regression
+part-6-what-goes-wrong-when-parallel-trends-fails
+part-7-numerical-verification

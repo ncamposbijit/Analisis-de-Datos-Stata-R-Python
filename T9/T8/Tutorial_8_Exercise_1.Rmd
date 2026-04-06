@@ -1,0 +1,359 @@
+---
+title: "Tutorial 8 --- Exercise 1: Deriving the $F$-Test (Solutions)"
+author: "Introductory Econometrics --- TA Session"
+date: "Duration: 50 minutes | Based on Lecture 14 (Marmer)"
+output:
+  pdf_document:
+    latex_engine: pdflatex
+    keep_tex: false
+    number_sections: false
+geometry: margin=2.3cm
+header-includes:
+  - \input{preamble_t8.tex}
+  - \setlength{\parskip}{4pt}
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+Consider the log-wage equation from Lecture 14:
+\[
+\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_3 PrevExp_i + \beta_4 PrevExp_i^2 + \beta_5 Educ_i + U_i
+\]
+where $Exp$ is current job experience, $PrevExp$ is previous experience, and $Educ$ is years of education ($k = 5$ regressors plus intercept). We want to test whether previous experience has *any* effect on wages. This requires testing $\beta_3$ and $\beta_4$ jointly. You will derive the test statistic that does this correctly.
+
+---
+
+**Step 1. Hypotheses.** The null imposes $q = 2$ restrictions simultaneously:
+\[
+H_0\colon\; \beta_3 = 0 \;\text{ and }\; \beta_4 = 0
+\qquad\text{against}\qquad
+H_1\colon\; \beta_3 \neq 0 \;\text{ or }\; \beta_4 \neq 0.
+\]
+
+**(a)** Suppose $H_0$ is true. You run two separate size-$\alpha$ $t$-tests and reject whenever *at least one* rejects. Using $P(A \cup B) = P(A) + P(B) - P(A \cap B)$, show that the false rejection probability exceeds $\alpha$.
+
+\begin{solution}
+We want to show that using two separate $t$-tests inflates the Type I error rate --- that is, the probability of falsely rejecting $H_0$ when it is true becomes larger than the nominal level $\alpha$.
+
+\medskip
+\textbf{Step 1: Define the events.} Let:
+\begin{itemize}
+  \item $A = \{|T_3| > t_{n-k-1, 1-\alpha/2}\}$: the event that the first $t$-test rejects $\beta_3 = 0$.
+  \item $B = \{|T_4| > t_{n-k-1, 1-\alpha/2}\}$: the event that the second $t$-test rejects $\beta_4 = 0$.
+\end{itemize}
+
+\textbf{Step 2: Determine the individual rejection probabilities.} Under $H_0$, both $\beta_3 = 0$ and $\beta_4 = 0$ are true. Each $t$-test is designed so that, when its individual null is true, it rejects with probability exactly $\alpha$. Therefore:
+\[
+P(A) = \alpha, \qquad P(B) = \alpha.
+\]
+
+\textbf{Step 3: Write the probability of the combined procedure.} Our combined procedure rejects $H_0$ whenever \emph{at least one} of the two $t$-tests rejects. That is, we reject when event $A \cup B$ (``$A$ or $B$'') occurs. By the inclusion--exclusion formula from probability theory:
+\[
+P(A \cup B) = P(A) + P(B) - P(A \cap B).
+\]
+Substituting $P(A) = P(B) = \alpha$:
+\[
+P(A \cup B) = \alpha + \alpha - P(A \cap B) = 2\alpha - P(A \cap B).
+\]
+
+\textbf{Step 4: Bound $P(A \cap B)$.} The term $P(A \cap B)$ is the probability that \emph{both} tests reject simultaneously. We do not know this probability exactly (it depends on the correlation between $T_3$ and $T_4$), but we can bound it. Since $A \cap B \subseteq A$ (if both reject, then certainly the first one rejects):
+\[
+P(A \cap B) \leq P(A) = \alpha.
+\]
+
+\textbf{Step 5: Combine.} Substituting this upper bound into our expression:
+\[
+P(A \cup B) = 2\alpha - P(A \cap B) \geq 2\alpha - \alpha = \alpha.
+\]
+This proves that the false rejection probability is \emph{at least} $\alpha$. The combined procedure over-rejects.
+
+\medskip
+\textbf{How bad can it get?} In the extreme case where $T_3$ and $T_4$ are independent (which happens when $PrevExp$ and $PrevExp^2$ are uncorrelated after partialling out the other regressors), $P(A \cap B) = P(A) \cdot P(B) = \alpha^2$. Then:
+\[
+P(A \cup B) = 2\alpha - \alpha^2 = 2(0.05) - (0.05)^2 = 0.10 - 0.0025 = 0.0975 \approx 10\%.
+\]
+So a ``5\% test'' actually rejects under $H_0$ almost 10\% of the time --- roughly double the intended rate.
+
+\medskip
+\textbf{The lesson:} stacking individual $t$-tests inflates the Type I error. With $q$ separate tests, the false rejection rate can reach $q\alpha$. We need a \emph{single} test statistic that handles all $q$ restrictions simultaneously and keeps the Type I error at exactly $\alpha$. That statistic is the $F$-statistic.
+\end{solution}
+
+---
+
+**Step 2. Unrestricted and restricted models.** We compare the fit of two models:
+
+- **Unrestricted:** all regressors included $\to$ compute $SSR_{ur} = \sum \hat{U}_i^2$. Has $k+1 = 6$ parameters; residual df $= n - k - 1$.
+- **Restricted** (impose $H_0$: drop $PrevExp$, $PrevExp^2$): $\ln(Wage_i) = \beta_0 + \beta_1 Exp_i + \beta_2 Exp_i^2 + \beta_5 Educ_i + U_i$ $\to$ compute $SSR_r$. Has 4 parameters.
+
+**(b)** Verify that the parameter difference equals $q$. Explain why $SSR_r \geq SSR_{ur}$ always.
+
+\begin{solution}
+\textbf{Parameter count:}
+\begin{itemize}
+  \item \textbf{Unrestricted model:} 6 free parameters: $\beta_0$ (intercept), $\beta_1$ ($Exp$), $\beta_2$ ($Exp^2$), $\beta_3$ ($PrevExp$), $\beta_4$ ($PrevExp^2$), $\beta_5$ ($Educ$).
+  \item \textbf{Restricted model:} 4 free parameters: $\beta_0$ (intercept), $\beta_1$ ($Exp$), $\beta_2$ ($Exp^2$), $\beta_5$ ($Educ$). We lost $\beta_3$ and $\beta_4$ because $H_0$ forces them to be zero.
+  \item \textbf{Difference:} $6 - 4 = 2 = q$. Each restriction removes exactly one free parameter from the model.
+\end{itemize}
+
+\textbf{Why $SSR_r \geq SSR_{ur}$ always:}
+
+OLS chooses coefficients to minimise the sum of squared residuals. Think of it as an optimisation problem:
+\begin{itemize}
+  \item The \textbf{unrestricted} model minimises SSR over \emph{all possible values} of $(\beta_0, \beta_1, \beta_2, \beta_3, \beta_4, \beta_5)$. It is free to pick any combination.
+  \item The \textbf{restricted} model minimises SSR over a \emph{smaller set}: only values where $\beta_3 = 0$ and $\beta_4 = 0$. It has fewer levers to pull.
+\end{itemize}
+
+The restricted model's feasible set is a \emph{subset} of the unrestricted model's feasible set. (Everything the restricted model can do, the unrestricted model can also do --- and more.) Therefore, the minimum SSR over the smaller set cannot be lower than the minimum over the larger set:
+\[
+SSR_r \geq SSR_{ur} \quad\text{always.}
+\]
+
+\textbf{Intuition:} giving OLS more freedom (more parameters to optimise) can only help the fit or leave it unchanged. It can never make it worse. If the true $\beta_3$ and $\beta_4$ really are zero, then the unrestricted model will estimate them close to zero anyway, and $SSR_r \approx SSR_{ur}$. If they are not zero, forcing them to be zero will hurt the fit, and $SSR_r > SSR_{ur}$.
+\end{solution}
+
+---
+
+**Step 3. The $F$-statistic.** If $H_0$ is true, $SSR_r - SSR_{ur}$ should be small (restrictions barely hurt fit). If false, it should be large. The $F$-statistic formalises this:
+\[
+\boxed{\; F = \frac{(SSR_r - SSR_{ur})\,/\,q}{SSR_{ur}\,/\,(n - k - 1)} \;}
+\]
+
+**(c)** Interpret the numerator and denominator. Why divide by $q$? What does $SSR_{ur}/(n-k-1)$ estimate?
+
+\begin{solution}
+The $F$-statistic is a ratio with a clear economic interpretation. Let us break it down piece by piece.
+
+\medskip
+\textbf{Numerator: $(SSR_r - SSR_{ur})/q$}
+
+\begin{itemize}
+  \item $SSR_r - SSR_{ur}$ is the \textbf{total increase in the residual sum of squares} when we impose $H_0$. It measures the total amount of explanatory power lost by dropping $PrevExp$ and $PrevExp^2$ from the model.
+  \item We divide by $q$ (the number of restrictions) to get the \textbf{average increase per restriction}. This normalisation is essential: a test with $q = 10$ restrictions will naturally produce a larger total gap $SSR_r - SSR_{ur}$ than a test with $q = 2$, even if each individual restriction is equally innocuous. Dividing by $q$ puts all $F$-tests on the same scale, regardless of how many restrictions are being tested.
+  \item In our example: $q = 2$, so the numerator is the average fit loss per excluded variable (per restriction on previous experience).
+\end{itemize}
+
+\medskip
+\textbf{Denominator: $SSR_{ur}/(n - k - 1)$}
+
+\begin{itemize}
+  \item This is the \textbf{mean squared error} (MSE) from the unrestricted model. Recall from earlier in the course that:
+  \[
+  \hat{\sigma}^2 = \frac{SSR_{ur}}{n - k - 1}
+  \]
+  is an unbiased and consistent estimator of $\sigma^2$, the variance of the error term $U_i$.
+  \item Think of it as the \textbf{background noise level}: how much residual variation is ``normal'' for this model. Even if all your regressors are correct, there will always be some residual variation due to unobserved factors captured by $U_i$. The denominator measures the typical size of this variation.
+  \item We use the \emph{unrestricted} model's MSE (not the restricted one's) because the unrestricted model provides the best available estimate of $\sigma^2$ --- it does not impose potentially false restrictions.
+\end{itemize}
+
+\medskip
+\textbf{Putting it together: $F$ as a signal-to-noise ratio.}
+
+The $F$-statistic asks a precise question: ``Is the fit loss from imposing $H_0$ (per restriction) large relative to the background noise?''
+\begin{itemize}
+  \item If $F$ is \textbf{close to zero}: the restrictions barely hurt the fit. The gap $SSR_r - SSR_{ur}$ is small compared to the noise level. This is consistent with $H_0$ being true --- the excluded variables were not doing much.
+  \item If $F$ is \textbf{large}: the restrictions cause a substantial deterioration in fit that is hard to explain by sampling variation alone. This is evidence against $H_0$ --- the excluded variables were genuinely important.
+\end{itemize}
+\end{solution}
+
+**(d)** Compute $F$ using Lecture 14 data: $SSR_{ur} = 96.998$, $SSR_r = 99.463$, $n = 526$, $k = 5$, $q = 2$.
+
+\begin{solution}
+We substitute each value into the formula, computing every intermediate step.
+
+\medskip
+\textbf{Step 1: Compute the numerator.}
+
+First, the total fit cost of imposing $H_0$:
+\[
+SSR_r - SSR_{ur} = 99.463 - 96.998 = 2.465.
+\]
+This tells us that dropping $PrevExp$ and $PrevExp^2$ increased the sum of squared residuals by 2.465. Now divide by the number of restrictions to get the average cost per restriction:
+\[
+\frac{SSR_r - SSR_{ur}}{q} = \frac{2.465}{2} = 1.2325.
+\]
+On average, each restriction increases the SSR by 1.2325.
+
+\medskip
+\textbf{Step 2: Compute the denominator.}
+
+First, the residual degrees of freedom in the unrestricted model:
+\[
+n - k - 1 = 526 - 5 - 1 = 520.
+\]
+Now the mean squared error:
+\[
+\frac{SSR_{ur}}{n - k - 1} = \frac{96.998}{520} = 0.18654.
+\]
+This is $\hat{\sigma}^2 = 0.187$, the estimated variance of the error term in the unrestricted model.
+
+\medskip
+\textbf{Step 3: Compute $F$.}
+\[
+F = \frac{1.2325}{0.18654} \approx 6.61.
+\]
+
+\textbf{Interpretation:} the fit loss per restriction (1.23) is about 6.6 times larger than the background noise level (0.19). This is a substantial ratio --- it suggests that dropping $PrevExp$ and $PrevExp^2$ hurts the model fit by more than we would expect from sampling variation alone. Whether 6.61 is ``large enough'' to reject $H_0$ depends on the critical value, which we determine in Step 5.
+\end{solution}
+
+---
+
+**Step 4. Distribution and degrees of freedom.** Under $H_0$ and normality ($U_i | X \sim \mathcal{N}(0,\sigma^2)$):
+$F \sim F_{q,\, n-k-1}.$
+This follows because $(SSR_r - SSR_{ur})/\sigma^2 \sim \chi^2_q$ and $SSR_{ur}/\sigma^2 \sim \chi^2_{n-k-1}$, independently, and the $F$-distribution is defined as the ratio of two independent $\chi^2$'s divided by their df (with $\sigma^2$ cancelling).
+
+**(e)** State the numerator and denominator df for the wage example. Explain why $F \geq 0$ always.
+
+\begin{solution}
+\textbf{Degrees of freedom:}
+
+The $F_{q, n-k-1}$ distribution has two parameters:
+
+\begin{enumerate}
+  \item \textbf{Numerator df} $= q = 2$. This is the number of restrictions being tested. It comes from the $\chi^2_q$ distribution in the numerator of $F$. In our wage example, we are testing two restrictions ($\beta_3 = 0$ and $\beta_4 = 0$), so $q = 2$.
+
+  \item \textbf{Denominator df} $= n - k - 1 = 526 - 5 - 1 = 520$. This is the residual degrees of freedom from the \textbf{unrestricted} model. It comes from the $\chi^2_{n-k-1}$ distribution in the denominator. Here, $k = 5$ is the number of regressors in the \emph{unrestricted} model.
+\end{enumerate}
+
+So in this example: $F \sim F_{2, 520}$ under $H_0$.
+
+\medskip
+\warn{Common mistake:} students sometimes use the residual df from the \emph{restricted} model ($n - 3 - 1 = 522$) instead of the unrestricted model (520). The denominator df \emph{always} comes from the unrestricted model, because the denominator of the $F$-statistic uses $SSR_{ur}$ and its degrees of freedom $n - k - 1$.
+
+\medskip
+\textbf{Why $F \geq 0$ always:}
+
+The $F$-statistic is a ratio. Consider each part separately:
+\begin{itemize}
+  \item \textbf{Numerator:} $SSR_r - SSR_{ur} \geq 0$ because imposing restrictions can never improve the OLS fit (as we showed in part (b)). Dividing by $q > 0$ preserves the sign.
+  \item \textbf{Denominator:} $SSR_{ur} > 0$ because a perfect fit (every residual exactly zero) is essentially impossible with real data, and $n - k - 1 > 0$ as long as we have more observations than parameters.
+\end{itemize}
+
+A non-negative number divided by a strictly positive number is non-negative: $F \geq 0$.
+
+\medskip
+\textbf{What does the value of $F$ tell us?}
+\begin{itemize}
+  \item $F = 0$: the restrictions did not hurt the fit at all --- $SSR_r = SSR_{ur}$. This is the strongest possible evidence \emph{in favour} of $H_0$.
+  \item $F$ close to zero: the restrictions barely hurt the fit. Consistent with $H_0$.
+  \item $F$ large: the restrictions cause a substantial deterioration. Evidence against $H_0$.
+\end{itemize}
+\end{solution}
+
+---
+
+**Step 5. Decision rule.** At significance level $\alpha$: reject $H_0$ when $F > F_{q,n-k-1,1-\alpha}$.
+
+\warn{The $F$-test is always one-sided} (reject for large $F$ only) and the denominator df comes from the \textbf{unrestricted} model.
+
+**(f)** The critical value is $F_{2,520,0.95} \approx 3.01$ and the $p$-value $\approx 0.0015$. Do you reject? Interpret.
+
+\begin{solution}
+\textbf{Decision using the critical value:}
+
+We compare the observed $F$-statistic to the critical value of the $F_{2,520}$ distribution at $\alpha = 0.05$:
+\[
+F_{\text{obs}} = 6.61 \quad\text{vs.}\quad F_{2,520,0.95} = 3.01.
+\]
+Since $6.61 > 3.01$, the observed $F$-statistic falls in the rejection region. We \textbf{reject $H_0$} at the 5\% significance level.
+
+\medskip
+\textbf{Decision using the $p$-value:}
+
+The $p$-value is $P(F_{2,520} > 6.61) \approx 0.0015$. This is the probability of observing an $F$-statistic as large as 6.61 or larger, \emph{if $H_0$ were true}. Since $0.0015 < 0.05 = \alpha$, we reject $H_0$. In fact, we would reject at any significance level above 0.15\% --- the evidence is very strong.
+
+\medskip
+\textbf{Interpretation in words:}
+
+``At the 5\% significance level, we reject the null hypothesis that previous experience has no effect on log-wages. The coefficients on $PrevExp$ and $PrevExp^2$ are \emph{jointly} statistically significant, after controlling for current experience and education. The $p$-value of 0.0015 means that, if previous experience truly had no effect ($\beta_3 = \beta_4 = 0$), there would be only a 0.15\% chance of observing an $F$-statistic as large as 6.61 purely due to sampling variation.''
+
+\medskip
+\textbf{Why ``jointly'' matters --- a crucial nuance:}
+
+It is entirely possible that the individual $t$-tests for $\beta_3 = 0$ and $\beta_4 = 0$ fail to reject \emph{either} coefficient separately. This can happen when $PrevExp$ and $PrevExp^2$ are highly correlated with each other (multicollinearity), which inflates their individual standard errors and makes each $t$-statistic small.
+
+But the $F$-test looks at their \emph{combined} contribution. Even if neither coefficient is individually significant, together they may explain a significant amount of variation in wages. The $F$-test captures this joint effect that individual $t$-tests miss. This is precisely the scenario that motivates the $F$-test in the first place.
+\end{solution}
+
+---
+
+**Step 6. $R^2$ version.** When both models share the same dependent variable ($SST_r = SST_{ur} = SST$):
+
+**(g)** Using $SSR = SST(1 - R^2)$, show that $F = \dfrac{(R^2_{ur} - R^2_r)/q}{(1 - R^2_{ur})/(n-k-1)}$. Verify with $R^2_{ur} = 0.3461$, $R^2_r = 0.3294$.
+
+\begin{solution}
+\textbf{Derivation, step by step.}
+
+\textbf{Step 1: Express $SSR$ in terms of $R^2$.} Recall the definition of $R^2$:
+\[
+R^2 = 1 - \frac{SSR}{SST} \qquad\Longrightarrow\qquad SSR = SST(1 - R^2).
+\]
+This gives us expressions for both models:
+\[
+SSR_r = SST(1 - R^2_r), \qquad SSR_{ur} = SST(1 - R^2_{ur}).
+\]
+Crucially, both models have the same dependent variable ($\ln(Wage)$), so they share the same total sum of squares $SST$. This is what makes the substitution work.
+
+\textbf{Step 2: Substitute into the $F$-formula.}
+\begin{align*}
+F &= \frac{(SSR_r - SSR_{ur})/q}{SSR_{ur}/(n-k-1)} \\[8pt]
+  &= \frac{\bigl[SST(1 - R^2_r) - SST(1 - R^2_{ur})\bigr]/q}{SST(1 - R^2_{ur})/(n-k-1)}.
+\end{align*}
+
+\textbf{Step 3: Factor out $SST$.} Since $SST$ appears in every term, factor it out:
+\[
+F = \frac{SST\bigl[(1 - R^2_r) - (1 - R^2_{ur})\bigr]/q}{SST(1 - R^2_{ur})/(n-k-1)}.
+\]
+The $SST$ in the numerator and the $SST$ in the denominator cancel:
+\[
+F = \frac{[(1 - R^2_r) - (1 - R^2_{ur})]/q}{(1 - R^2_{ur})/(n-k-1)}.
+\]
+
+\textbf{Step 4: Simplify the numerator.}
+\[
+(1 - R^2_r) - (1 - R^2_{ur}) = 1 - R^2_r - 1 + R^2_{ur} = R^2_{ur} - R^2_r.
+\]
+Therefore:
+\[
+\boxed{\;F = \frac{(R^2_{ur} - R^2_r)/q}{(1 - R^2_{ur})/(n-k-1)}\;}
+\]
+
+\medskip
+\textbf{Verification with Lecture 14 data.}
+
+\textbf{Numerator:}
+\[
+R^2_{ur} - R^2_r = 0.3461 - 0.3294 = 0.0167.
+\]
+This tells us that adding $PrevExp$ and $PrevExp^2$ increased the $R^2$ by 0.0167 (about 1.7 percentage points). Dividing by $q = 2$:
+\[
+\frac{R^2_{ur} - R^2_r}{q} = \frac{0.0167}{2} = 0.00835.
+\]
+
+\textbf{Denominator:}
+\[
+1 - R^2_{ur} = 1 - 0.3461 = 0.6539.
+\]
+This is the fraction of variation in $\ln(Wage)$ that the unrestricted model does \emph{not} explain. Dividing by $n - k - 1 = 520$:
+\[
+\frac{1 - R^2_{ur}}{n-k-1} = \frac{0.6539}{520} = 0.001258.
+\]
+
+\textbf{$F$-statistic:}
+\[
+F = \frac{0.00835}{0.001258} \approx 6.64.
+\]
+(The small difference from 6.61 computed in part (d) is due to rounding $R^2$ to four decimal places. With exact values, both formulas give identical results.)
+
+\medskip
+\textbf{Why this version is useful:}
+
+The $R^2$ formula makes the $F$-statistic particularly intuitive:
+\begin{itemize}
+  \item \textbf{Numerator:} How much does $R^2$ \emph{drop per restriction} when you impose $H_0$? If $R^2_{ur} \approx R^2_r$ (the excluded variables barely increase $R^2$), the numerator is close to zero and $F$ is small.
+  \item \textbf{Denominator:} How much unexplained variation is there per degree of freedom in the unrestricted model? This is the ``noise floor.''
+  \item \textbf{Ratio:} Is the $R^2$ improvement from including $PrevExp$ and $PrevExp^2$ large relative to the noise? If so, these variables genuinely help explain wages and we should reject $H_0$.
+\end{itemize}
+\end{solution}
+

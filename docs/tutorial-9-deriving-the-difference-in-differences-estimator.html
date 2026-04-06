@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>11 Tutorial 9: Deriving the Difference-in-Differences Estimator | Introduction to Econometrics</title>
+<meta name="author" content="Nicolás Campos Bijit">
+<meta name="description" content="Lecture 16 introduced the DID regression: \[Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it},\] and stated that under parallel trends and no anticipation, \(\beta =...">
+<meta name="generator" content="bookdown 0.46 with bs4_book()">
+<meta property="og:title" content="11 Tutorial 9: Deriving the Difference-in-Differences Estimator | Introduction to Econometrics">
+<meta property="og:type" content="book">
+<meta property="og:description" content="Lecture 16 introduced the DID regression: \[Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it},\] and stated that under parallel trends and no anticipation, \(\beta =...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11 Tutorial 9: Deriving the Difference-in-Differences Estimator | Introduction to Econometrics">
+<meta name="twitter:description" content="Lecture 16 introduced the DID regression: \[Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it},\] and stated that under parallel trends and no anticipation, \(\beta =...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><link href="libs/Source_Sans_3-0.4.10/font.css" rel="stylesheet">
+<link href="libs/IBM_Plex_Mono-0.4.10/font.css" rel="stylesheet">
+<script src="libs/bs3compat-0.10.0/transition.js"></script><script src="libs/bs3compat-0.10.0/tabs.js"></script><script src="libs/bs3compat-0.10.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style4.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Introduction to Econometrics</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> Introduction</a></li>
+<li><a class="" href="tutorial-1-data-analysis-with-r.html"><span class="header-section-number">2</span> Tutorial 1: Data Analysis with R</a></li>
+<li><a class="" href="tutorial-2-simple-linear-regression.html"><span class="header-section-number">3</span> Tutorial 2: Simple linear Regression</a></li>
+<li><a class="" href="tutorial-3-simple-ols-residuals-assumptions-unbiasedness-variance-and-interpretation.html"><span class="header-section-number">4</span> Tutorial 3: Simple OLS — Residuals, Assumptions, Unbiasedness, Variance, and Interpretation</a></li>
+<li><a class="" href="tutorial-3b-statistical-inference-in-simple-regression.html"><span class="header-section-number">5</span> Tutorial 3b: Statistical Inference in Simple Regression</a></li>
+<li><a class="" href="tutorial-4-midterm.html"><span class="header-section-number">6</span> Tutorial 4: Midterm</a></li>
+<li><a class="" href="tutorial-5-potential-outcomes-causality-and-counterfactual-reasoning.html"><span class="header-section-number">7</span> Tutorial 5: Potential Outcomes, Causality, and Counterfactual Reasoning</a></li>
+<li><a class="" href="tutorial-6-variance-of-the-ols-estimator-and-hypothesis-testing.html"><span class="header-section-number">8</span> Tutorial 6: Variance of the OLS estimator and hypothesis testing</a></li>
+<li><a class="" href="tutorial-7-type-i-ii-errors-size-and-power.html"><span class="header-section-number">9</span> Tutorial 7: Type I &amp; II Errors, Size, and Power</a></li>
+<li><a class="" href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></li>
+<li><a class="active" href="tutorial-9-deriving-the-difference-in-differences-estimator.html"><span class="header-section-number">11</span> Tutorial 9: Deriving the Difference-in-Differences Estimator</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="tutorial-9-deriving-the-difference-in-differences-estimator" class="section level1" number="11">
+<h1>
+<span class="header-section-number">11</span> Tutorial 9: Deriving the Difference-in-Differences Estimator<a class="anchor" aria-label="anchor" href="#tutorial-9-deriving-the-difference-in-differences-estimator"><i class="fas fa-link"></i></a>
+</h1>
+<p>Lecture 16 introduced the DID regression:</p>
+<p><span class="math display">\[Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it},\]</span></p>
+<p>and stated that under parallel trends and no anticipation, <span class="math inline">\(\beta = \text{ATT}\)</span>. In this exercise you will derive <em>why</em> this is true, step by step, using potential outcomes.</p>
+<hr>
+<div id="part-1-setup" class="section level2" number="11.1">
+<h2>
+<span class="header-section-number">11.1</span> Part 1: Setup<a class="anchor" aria-label="anchor" href="#part-1-setup"><i class="fas fa-link"></i></a>
+</h2>
+<p>Following Lecture 16, define <strong>potential outcomes</strong> for each individual <span class="math inline">\(i\)</span> at each time <span class="math inline">\(t\)</span>:</p>
+<ul>
+<li>
+<span class="math inline">\(Y_{it}(0)\)</span>: the outcome individual <span class="math inline">\(i\)</span> would have in period <span class="math inline">\(t\)</span> if assigned to the <strong>control group</strong>.</li>
+<li>
+<span class="math inline">\(Y_{it}(1)\)</span>: the outcome individual <span class="math inline">\(i\)</span> would have in period <span class="math inline">\(t\)</span> if assigned to the <strong>treatment group</strong>.</li>
+</ul>
+<p>Every individual has both potential outcomes at every point in time. We only observe one. The <strong>observed outcome</strong> depends on group assignment <span class="math inline">\(D_i\)</span>:</p>
+<p><span class="math display">\[Y_{it} = D_i \cdot Y_{it}(1) + (1 - D_i) \cdot Y_{it}(0).\]</span></p>
+<p><strong>(a)</strong> Verify that this switching equation gives the following table of what we observe:</p>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center">Control (<span class="math inline">\(D_i = 0\)</span>)</th>
+<th align="center">Treatment (<span class="math inline">\(D_i = 1\)</span>)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(t = 0\)</span></td>
+<td align="center"><span class="math inline">\(Y_{i0}(0)\)</span></td>
+<td align="center"><span class="math inline">\(Y_{i0}(1)\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(t = 1\)</span></td>
+<td align="center"><span class="math inline">\(Y_{i1}(0)\)</span></td>
+<td align="center"><span class="math inline">\(Y_{i1}(1)\)</span></td>
+</tr>
+</tbody>
+</table></div>
+<p>The <strong>ATT</strong> is <span class="math inline">\(\text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]\)</span>. We observe <span class="math inline">\(Y_{i1}(1)\)</span> for the treated, but we <strong>never observe</strong> <span class="math inline">\(Y_{i1}(0)\)</span> for them — the missing counterfactual.</p>
+<details class="solution"><summary>
+Solution
+</summary><p>Plug in each <span class="math inline">\((D_i, t)\)</span> combination into <span class="math inline">\(Y_{it} = D_i \cdot Y_{it}(1) + (1-D_i) \cdot Y_{it}(0)\)</span>:</p>
+<ul>
+<li>
+<span class="math inline">\(D_i = 0\)</span>: <span class="math inline">\(Y_{it} = 0 \cdot Y_{it}(1) + 1 \cdot Y_{it}(0) = Y_{it}(0)\)</span> for both <span class="math inline">\(t = 0\)</span> and <span class="math inline">\(t = 1\)</span>. <span class="math inline">\(\checkmark\)</span>
+</li>
+<li>
+<span class="math inline">\(D_i = 1\)</span>: <span class="math inline">\(Y_{it} = 1 \cdot Y_{it}(1) + 0 \cdot Y_{it}(0) = Y_{it}(1)\)</span> for both <span class="math inline">\(t = 0\)</span> and <span class="math inline">\(t = 1\)</span>. <span class="math inline">\(\checkmark\)</span>
+</li>
+</ul>
+<strong>Key observation:</strong> for treated individuals, we observe <span class="math inline">\(Y_{i0}(1)\)</span> in the pre-period — this is their outcome <em>as members of the treatment group</em> before treatment starts. Whether <span class="math inline">\(Y_{i0}(1)\)</span> differs from <span class="math inline">\(Y_{i0}(0)\)</span> is the anticipation question (part e).
+</details><hr>
+</div>
+<div id="part-2-did-in-potential-outcomes" class="section level2" number="11.2">
+<h2>
+<span class="header-section-number">11.2</span> Part 2: DID in potential outcomes<a class="anchor" aria-label="anchor" href="#part-2-did-in-potential-outcomes"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>(b)</strong> Write the DID estimand <span class="math inline">\(\beta = \text{E}[Y_{i1} - Y_{i0} \mid D_i = 1] - \text{E}[Y_{i1} - Y_{i0} \mid D_i = 0]\)</span> in terms of potential outcomes, using part (a).</p>
+<details class="solution"><summary>
+Solution
+</summary><p>Substitute observed outcomes from the table in part (a):</p>
+<p><strong>Treated group</strong> (<span class="math inline">\(D_i = 1\)</span>): we observe <span class="math inline">\(Y_{i1} = Y_{i1}(1)\)</span> and <span class="math inline">\(Y_{i0} = Y_{i0}(1)\)</span>, so:</p>
+<p><span class="math display">\[\text{E}[Y_{i1} - Y_{i0} \mid D_i = 1] = \text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1].\]</span></p>
+<p><strong>Control group</strong> (<span class="math inline">\(D_i = 0\)</span>): we observe <span class="math inline">\(Y_{i1} = Y_{i1}(0)\)</span> and <span class="math inline">\(Y_{i0} = Y_{i0}(0)\)</span>, so:</p>
+<p><span class="math display">\[\text{E}[Y_{i1} - Y_{i0} \mid D_i = 0] = \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].\]</span></p>
+<p><strong>Subtract:</strong></p>
+<span class="math display">\[\beta = \text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].\]</span>
+</details><hr>
+</div>
+<div id="part-3-connecting-did-to-the-att-key-derivation" class="section level2" number="11.3">
+<h2>
+<span class="header-section-number">11.3</span> Part 3: Connecting DID to the ATT (key derivation)<a class="anchor" aria-label="anchor" href="#part-3-connecting-did-to-the-att-key-derivation"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>(c)</strong> Start from part (b). Inside the first expectation, <strong>add and subtract</strong> <span class="math inline">\(Y_{i1}(0)\)</span> and <span class="math inline">\(Y_{i0}(0)\)</span>. Rearrange to show:</p>
+<p><span class="math display">\[\beta = \underbrace{\text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]}_{\text{ATT}} + \underbrace{\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]}_{\text{difference in trends}} + \underbrace{\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]}_{\text{anticipation effect}}.\]</span></p>
+<p><span class="hint">Hint: This is the decomposition from Lecture 16, slide 3. Add zero in a clever way, then regroup into three pairs.</span></p>
+<details class="solution"><summary>
+Solution
+</summary><p>Start from part (b):</p>
+<p><span class="math display">\[\beta = \text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].\]</span></p>
+<p><strong>Step 1: Add and subtract inside the first term.</strong> Focus on <span class="math inline">\(\text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1]\)</span>. We insert <span class="math inline">\((-Y_{i1}(0) + Y_{i1}(0))\)</span> and <span class="math inline">\((-Y_{i0}(0) + Y_{i0}(0))\)</span> — each pair sums to zero:</p>
+<p><span class="math display">\[Y_{i1}(1) - Y_{i0}(1) = Y_{i1}(1) \underbrace{- Y_{i1}(0) + Y_{i1}(0)}_{=\,0} \underbrace{- Y_{i0}(0) + Y_{i0}(0)}_{=\,0} - Y_{i0}(1).\]</span></p>
+<p><strong>Step 2: Regroup into three pairs.</strong> Rearrange these six terms:</p>
+<p><span class="math display">\[= \underbrace{(Y_{i1}(1) - Y_{i1}(0))}_{\text{treatment effect at } t=1} + \underbrace{(Y_{i1}(0) - Y_{i0}(0))}_{\text{untreated trend}} + \underbrace{(Y_{i0}(0) - Y_{i0}(1))}_{\text{anticipation}}.\]</span></p>
+<p><strong>Algebra check:</strong> <span class="math inline">\((Y_{i1}(1) - Y_{i1}(0)) + (Y_{i1}(0) - Y_{i0}(0)) + (Y_{i0}(0) - Y_{i0}(1))\)</span>. Cancel adjacent terms: <span class="math inline">\(Y_{i1}(0)\)</span> cancels, <span class="math inline">\(Y_{i0}(0)\)</span> cancels, leaving <span class="math inline">\(Y_{i1}(1) - Y_{i0}(1)\)</span>. <span class="math inline">\(\checkmark\)</span></p>
+<p><strong>Step 3: Take expectations and subtract the control change.</strong> By linearity:</p>
+<p><span class="math display">\[\begin{align*}
+\text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1]
+&amp;= \text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1] \\
+&amp;\quad + \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] \\
+&amp;\quad + \text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1].
+\end{align*}\]</span></p>
+<p>Substitute back into the DID expression and use the definition <span class="math inline">\(\text{ATT} = \text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\beta &amp;= \underbrace{\text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]}_{\text{ATT}} \\
+&amp;\quad + \underbrace{\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]}_{\text{difference in trends}} \\
+&amp;\quad + \underbrace{\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]}_{\text{anticipation effect}}.
+\end{align*}\]</span></p>
+<span class="math inline">\(\beta\)</span> equals the ATT <em>plus</em> two bias terms. For <span class="math inline">\(\beta = \text{ATT}\)</span>, both must be zero. Let us build intuition for each bias term before stating the assumptions that eliminate them.
+</details><div class="book-example">
+<div class="header">
+Intuition: what do the two bias terms mean?
+</div>
+<p><strong>1. Difference in trends</strong> <span class="math inline">\(= \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]\)</span>.</p>
+<p>DID uses the control group’s change over time as a stand-in for how the treated group <em>would have changed without treatment</em>. This only works if both groups were on the same trajectory. If not, the control group’s change is a bad counterfactual.</p>
+<p><em>Example.</em> A government offers a job training programme to unemployed workers in City A (<span class="math inline">\(D_i = 1\)</span>). City B (<span class="math inline">\(D_i = 0\)</span>) serves as the control. You compare earnings before and after the programme. But suppose City A’s economy was already recovering faster than City B’s — a new factory was opening, unrelated to the programme. Then City A workers’ earnings would have grown faster <em>even without training</em>. DID would attribute this faster growth to the programme, overstating its effect.</p>
+<p>The “difference in trends” term captures exactly this: how much the treated group’s <em>untreated</em> trajectory differs from the control group’s trajectory. If they differ, DID is biased.</p>
+<p><strong>2. Anticipation effect</strong> <span class="math inline">\(= \text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]\)</span>.</p>
+<p>DID compares the treated group’s outcome <em>before</em> and <em>after</em> treatment. This requires that the “before” measurement is clean — not already affected by the upcoming treatment. If treated individuals change their behaviour <em>before</em> treatment starts (because they know it is coming), the pre-period outcome is contaminated.</p>
+<p><em>Example.</em> A city announces in January that a sugary drink tax will take effect in July. You measure soda sales in June (before) and August (after). But consumers already started buying less soda in June because they knew the tax was coming. The June sales are <em>already depressed</em> by the anticipated tax. So the before-vs-after change for the treated group looks <em>smaller</em> than the true effect — DID underestimates.</p>
+<p>The “anticipation” term captures this: how much the pre-period outcome for the treated group is shifted by their knowledge of future treatment.</p>
+</div>
+<hr>
+</div>
+<div id="part-4-the-two-assumptions" class="section level2" number="11.4">
+<h2>
+<span class="header-section-number">11.4</span> Part 4: The two assumptions<a class="anchor" aria-label="anchor" href="#part-4-the-two-assumptions"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>(d)</strong> <strong>Parallel trends.</strong> State the assumption that kills the “difference in trends” term. Show it does <em>not</em> require equal levels across groups.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Assumption (Parallel Trends):</strong></p>
+<p><span class="math display">\[\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] = \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].\]</span></p>
+<p>Absent treatment, both groups would have experienced the same average change over time. In the job training example: City A and City B would have had the same earnings growth if the programme had not existed.</p>
+<p><strong>Does not require equal levels.</strong> Suppose <span class="math inline">\(Y_{it}(0) = \alpha_i + \delta \cdot t\)</span>. Then for any group <span class="math inline">\(d\)</span>:</p>
+<p><span class="math display">\[\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = d] = \text{E}[\alpha_i + \delta - \alpha_i \mid D_i = d] = \delta.\]</span></p>
+The individual effect <span class="math inline">\(\alpha_i\)</span> cancels. Even if <span class="math inline">\(\text{E}[\alpha_i \mid D_i = 1] \neq \text{E}[\alpha_i \mid D_i = 0]\)</span> (different levels), the <em>change</em> is <span class="math inline">\(\delta\)</span> for both groups. This is the Lecture 16 diagram: different starting heights (<span class="math inline">\(\alpha\)</span> vs. <span class="math inline">\(\alpha + \gamma\)</span>), same slope (<span class="math inline">\(\delta\)</span>).
+</details><hr>
+<p><strong>(e)</strong> <strong>No anticipation.</strong> State the assumption that kills the “anticipation effect” term. Give an example of when it might fail.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Assumption (No Anticipation):</strong></p>
+<p><span class="math display">\[\text{E}[Y_{i0}(1) \mid D_i = 1] = \text{E}[Y_{i0}(0) \mid D_i = 1].\]</span></p>
+<p>Being assigned to the treatment group does not affect pre-treatment outcomes in expectation. In the soda tax example: consumers do not change their purchasing behaviour before the tax takes effect.</p>
+<p>When this holds, <span class="math inline">\(\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1] = 0\)</span>.</p>
+<strong>Failure example:</strong> a minimum wage increase is announced six months before it takes effect. Employers start cutting hours <em>immediately</em> in anticipation. Then <span class="math inline">\(Y_{i0}(1) \neq Y_{i0}(0)\)</span> — the pre-period outcome is already contaminated, and DID underestimates the total effect because part of it happened “before.”
+</details><hr>
+<p><strong>(f)</strong> Combine parts (c)–(e). Show <span class="math inline">\(\beta = \text{ATT}\)</span>. State which assumption eliminates which term.</p>
+<details class="solution"><summary>
+Solution
+</summary><p>From part (c):</p>
+<p><span class="math display">\[\beta = \text{ATT} + \underbrace{\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]}_{= 0 \text{ by **parallel trends** (part d)}} + \underbrace{\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]}_{= 0 \text{ by **no anticipation** (part e)}}.\]</span></p>
+<p>Both bias terms vanish:</p>
+<span class="math display">\[\boxed{\beta = \text{ATT}.}\]</span>
+</details><hr>
+</div>
+<div id="part-5-from-did-to-the-regression" class="section level2" number="11.5">
+<h2>
+<span class="header-section-number">11.5</span> Part 5: From DID to the regression<a class="anchor" aria-label="anchor" href="#part-5-from-did-to-the-regression"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>(g)</strong> Recall the DID regression from Lecture 16:</p>
+<p><span class="math display">\[Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it}, \qquad \text{E}[U_{it} \mid D_i] = 0.\]</span></p>
+<p>Evaluate <span class="math inline">\(\text{E}[Y_{it} \mid D_i]\)</span> at each of the four cells. Then compute the double difference and show it equals <span class="math inline">\(\beta\)</span>.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Step 1: Four cell means.</strong></p>
+<p><span class="math display">\[\begin{align*}
+t = 0, \; D_i = 0: \quad &amp; \text{E}[Y_{i0} \mid D_i = 0] = \alpha \\
+t = 0, \; D_i = 1: \quad &amp; \text{E}[Y_{i0} \mid D_i = 1] = \alpha + \gamma \\
+t = 1, \; D_i = 0: \quad &amp; \text{E}[Y_{i1} \mid D_i = 0] = \alpha + \delta \\
+t = 1, \; D_i = 1: \quad &amp; \text{E}[Y_{i1} \mid D_i = 1] = \alpha + \delta + \gamma + \beta
+\end{align*}\]</span></p>
+<p>This is the <span class="math inline">\(2 \times 2\)</span> table from Lecture 16:</p>
+<table class="table table-sm">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="center">
+<span class="math inline">\(D_i = 0\)</span> (Control)</th>
+<th align="center">
+<span class="math inline">\(D_i = 1\)</span> (Treatment)</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left"><span class="math inline">\(t = 0\)</span></td>
+<td align="center"><span class="math inline">\(\alpha\)</span></td>
+<td align="center"><span class="math inline">\(\alpha + \gamma\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><span class="math inline">\(t = 1\)</span></td>
+<td align="center"><span class="math inline">\(\alpha + \delta\)</span></td>
+<td align="center"><span class="math inline">\(\alpha + \delta + \gamma + \beta\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 2: Double difference.</strong></p>
+<p>Treatment change: <span class="math inline">\((\alpha + \delta + \gamma + \beta) - (\alpha + \gamma) = \delta + \beta\)</span>.</p>
+<p>Control change: <span class="math inline">\((\alpha + \delta) - \alpha = \delta\)</span>.</p>
+<p>DID: <span class="math inline">\((\delta + \beta) - \delta = \beta\)</span>. The common trend <span class="math inline">\(\delta\)</span> cancels. <span class="math inline">\(\checkmark\)</span></p>
+<p><strong>Why OLS gives this exactly:</strong> the model has four parameters (<span class="math inline">\(\alpha, \delta, \gamma, \beta\)</span>) and four cells — a <strong>saturated model</strong>. OLS fits cell means exactly, so:</p>
+<span class="math display">\[\hat{\beta} = (\bar{Y}_{1,1} - \bar{Y}_{1,0}) - (\bar{Y}_{0,1} - \bar{Y}_{0,0}).\]</span>
+</details><hr>
+</div>
+<div id="part-6-what-goes-wrong-when-parallel-trends-fails" class="section level2" number="11.6">
+<h2>
+<span class="header-section-number">11.6</span> Part 6: What goes wrong when parallel trends fails<a class="anchor" aria-label="anchor" href="#part-6-what-goes-wrong-when-parallel-trends-fails"><i class="fas fa-link"></i></a>
+</h2>
+<p><strong>(h)</strong> Suppose no anticipation holds but parallel trends does not. Show that <span class="math inline">\(\beta = \text{ATT} + B\)</span>, where:</p>
+<p><span class="math display">\[B = \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].\]</span></p>
+<p>Give an example where <span class="math inline">\(B &gt; 0\)</span> and one where <span class="math inline">\(B &lt; 0\)</span>.</p>
+<details class="solution"><summary>
+Solution
+</summary><p>Under no anticipation only, the decomposition from part (c) becomes:</p>
+<p><span class="math display">\[\beta = \text{ATT} + B.\]</span></p>
+<p><span class="math inline">\(B &gt; 0\)</span> <strong>(DID overestimates):</strong> the treated group was on a steeper upward trajectory even without treatment. DID attributes part of this steeper trend to the treatment effect.</p>
+<p><span class="math inline">\(B &lt; 0\)</span> <strong>(DID underestimates):</strong> this is the Lecture 16 incinerator example. Near houses are systematically older; older houses appreciate more slowly. The treated group’s counterfactual trend is <em>flatter</em>, so <span class="math inline">\(B &lt; 0\)</span>. The basic DID (<span class="math inline">\(\hat{\beta} = -\$11{,}864\)</span>) underestimated the negative effect. After controlling for age, <span class="math inline">\(\hat{\beta}\)</span> nearly doubled to <span class="math inline">\(-\$21{,}920\)</span>.</p>
+Estimated bias: <span class="math inline">\(-\$11{,}864 - (-\$21{,}920) \approx +\$10{,}056\)</span>.
+</details><hr>
+</div>
+<div id="part-7-numerical-verification" class="section level2" number="11.7">
+<h2>
+<span class="header-section-number">11.7</span> Part 7: Numerical verification<a class="anchor" aria-label="anchor" href="#part-7-numerical-verification"><i class="fas fa-link"></i></a>
+</h2>
+<p>Consider <span class="math inline">\(n = 4\)</span> individuals. The column <span class="math inline">\(Y_{i1}(0)\)</span> is <strong>unobserved</strong> for treated units; shown only for verification. Assume no anticipation holds, so <span class="math inline">\(Y_{i0}(1) = Y_{i0}(0)\)</span> for treated units.</p>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+<col width="16%">
+</colgroup>
+<thead><tr class="header">
+<th align="center"><span class="math inline">\(i\)</span></th>
+<th align="center"><span class="math inline">\(D_i\)</span></th>
+<th align="center"><span class="math inline">\(Y_{i0}\)</span></th>
+<th align="center"><span class="math inline">\(Y_{i1}\)</span></th>
+<th align="center"><span class="math inline">\(Y_{i1}(0)\)</span></th>
+<th align="center"><span class="math inline">\(Y_{i1}(0) - Y_{i0}\)</span></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">5</td>
+<td align="center">12</td>
+<td align="center">8</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">7</td>
+<td align="center">15</td>
+<td align="center">10</td>
+<td align="center">3</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0</td>
+<td align="center">4</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">0</td>
+<td align="center">6</td>
+<td align="center">9</td>
+<td align="center">9</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>(i)</strong> Verify parallel trends. Compute the true ATT. Compute DID from observed data only and confirm <span class="math inline">\(\hat{\beta} = \text{ATT}\)</span>.</p>
+<details class="solution"><summary>
+Solution
+</summary><p><strong>Parallel trends:</strong> Counterfactual change for treated: <span class="math inline">\(\frac{(8-5)+(10-7)}{2} = 3\)</span>. Change for controls: <span class="math inline">\(\frac{(7-4)+(9-6)}{2} = 3\)</span>. Equal. <span class="math inline">\(\checkmark\)</span></p>
+<p><strong>True ATT:</strong> <span class="math inline">\(\frac{(12-8)+(15-10)}{2} = \frac{4+5}{2} = 4.5\)</span>.</p>
+<p><strong>DID (observed data only):</strong></p>
+<p><span class="math display">\[\hat{\beta} = \underbrace{\frac{(12-5)+(15-7)}{2}}_{7.5} - \underbrace{\frac{(7-4)+(9-6)}{2}}_{3} = 4.5 = \text{ATT}. \quad \checkmark\]</span></p>
+The control group’s observed change (3) stands in for the treated group’s unobserved counterfactual change (also 3).
+</details><hr>
+<p><strong>(j)</strong> Read off the OLS coefficients <span class="math inline">\(\hat{\alpha}, \hat{\delta}, \hat{\gamma}, \hat{\beta}\)</span> from the cell means and verify against the <span class="math inline">\(2 \times 2\)</span> table.</p>
+<details class="solution"><summary>
+Solution
+</summary><p>Cell means: <span class="math inline">\(\bar{Y}_{0,0} = 5\)</span>, <span class="math inline">\(\bar{Y}_{1,0} = 6\)</span>, <span class="math inline">\(\bar{Y}_{0,1} = 8\)</span>, <span class="math inline">\(\bar{Y}_{1,1} = 13.5\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+\hat{\alpha} &amp;= \bar{Y}_{0,0} = 5 &amp; &amp;\text{(control baseline)} \\
+\hat{\gamma} &amp;= \bar{Y}_{1,0} - \bar{Y}_{0,0} = 1 &amp; &amp;\text{(pre-existing group gap)} \\
+\hat{\delta} &amp;= \bar{Y}_{0,1} - \bar{Y}_{0,0} = 3 &amp; &amp;\text{(common time trend)} \\
+\hat{\beta} &amp;= (\bar{Y}_{1,1} - \bar{Y}_{1,0}) - (\bar{Y}_{0,1} - \bar{Y}_{0,0}) = 4.5 &amp; &amp;\text{(treatment effect)}
+\end{align*}\]</span></p>
+Verify: <span class="math inline">\(\hat{\alpha} + \hat{\delta} + \hat{\gamma} + \hat{\beta} = 5 + 3 + 1 + 4.5 = 13.5 = \bar{Y}_{1,1}\)</span>. <span class="math inline">\(\checkmark\)</span>
+</details>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="tutorial-8-the-f-test-deriving-and-computing-joint-hypothesis-tests.html"><span class="header-section-number">10</span> Tutorial 8: The \(F\)-Test — Deriving and Computing Joint Hypothesis Tests</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#tutorial-9-deriving-the-difference-in-differences-estimator"><span class="header-section-number">11</span> Tutorial 9: Deriving the Difference-in-Differences Estimator</a></li>
+<li><a class="nav-link" href="#part-1-setup"><span class="header-section-number">11.1</span> Part 1: Setup</a></li>
+<li><a class="nav-link" href="#part-2-did-in-potential-outcomes"><span class="header-section-number">11.2</span> Part 2: DID in potential outcomes</a></li>
+<li><a class="nav-link" href="#part-3-connecting-did-to-the-att-key-derivation"><span class="header-section-number">11.3</span> Part 3: Connecting DID to the ATT (key derivation)</a></li>
+<li><a class="nav-link" href="#part-4-the-two-assumptions"><span class="header-section-number">11.4</span> Part 4: The two assumptions</a></li>
+<li><a class="nav-link" href="#part-5-from-did-to-the-regression"><span class="header-section-number">11.5</span> Part 5: From DID to the regression</a></li>
+<li><a class="nav-link" href="#part-6-what-goes-wrong-when-parallel-trends-fails"><span class="header-section-number">11.6</span> Part 6: What goes wrong when parallel trends fails</a></li>
+<li><a class="nav-link" href="#part-7-numerical-verification"><span class="header-section-number">11.7</span> Part 7: Numerical verification</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Introduction to Econometrics</strong>" was written by Nicolás Campos Bijit. It was last built on 2026-04-06.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

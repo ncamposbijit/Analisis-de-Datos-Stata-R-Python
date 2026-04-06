@@ -1,0 +1,301 @@
+# Tutorial 9: Deriving the Difference-in-Differences Estimator
+
+Lecture 16 introduced the DID regression:
+
+$$Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it},$$
+
+and stated that under parallel trends and no anticipation, $\beta = \text{ATT}$. In this exercise you will derive *why* this is true, step by step, using potential outcomes.
+
+---
+
+## Part 1: Setup
+
+Following Lecture 16, define **potential outcomes** for each individual $i$ at each time $t$:
+
+- $Y_{it}(0)$: the outcome individual $i$ would have in period $t$ if assigned to the **control group**.
+- $Y_{it}(1)$: the outcome individual $i$ would have in period $t$ if assigned to the **treatment group**.
+
+Every individual has both potential outcomes at every point in time. We only observe one. The **observed outcome** depends on group assignment $D_i$:
+
+$$Y_{it} = D_i \cdot Y_{it}(1) + (1 - D_i) \cdot Y_{it}(0).$$
+
+**(a)** Verify that this switching equation gives the following table of what we observe:
+
+|  | Control ($D_i = 0$) | Treatment ($D_i = 1$) |
+|:--|:--:|:--:|
+| $t = 0$ | $Y_{i0}(0)$ | $Y_{i0}(1)$ |
+| $t = 1$ | $Y_{i1}(0)$ | $Y_{i1}(1)$ |
+
+The **ATT** is $\text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]$. We observe $Y_{i1}(1)$ for the treated, but we **never observe** $Y_{i1}(0)$ for them --- the missing counterfactual.
+
+<details class="solution">
+<summary>Solution</summary>
+
+Plug in each $(D_i, t)$ combination into $Y_{it} = D_i \cdot Y_{it}(1) + (1-D_i) \cdot Y_{it}(0)$:
+
+- $D_i = 0$: $Y_{it} = 0 \cdot Y_{it}(1) + 1 \cdot Y_{it}(0) = Y_{it}(0)$ for both $t = 0$ and $t = 1$. $\checkmark$
+- $D_i = 1$: $Y_{it} = 1 \cdot Y_{it}(1) + 0 \cdot Y_{it}(0) = Y_{it}(1)$ for both $t = 0$ and $t = 1$. $\checkmark$
+
+**Key observation:** for treated individuals, we observe $Y_{i0}(1)$ in the pre-period --- this is their outcome *as members of the treatment group* before treatment starts. Whether $Y_{i0}(1)$ differs from $Y_{i0}(0)$ is the anticipation question (part e).
+</details>
+
+---
+
+## Part 2: DID in potential outcomes
+
+**(b)** Write the DID estimand $\beta = \text{E}[Y_{i1} - Y_{i0} \mid D_i = 1] - \text{E}[Y_{i1} - Y_{i0} \mid D_i = 0]$ in terms of potential outcomes, using part (a).
+
+<details class="solution">
+<summary>Solution</summary>
+
+Substitute observed outcomes from the table in part (a):
+
+**Treated group** ($D_i = 1$): we observe $Y_{i1} = Y_{i1}(1)$ and $Y_{i0} = Y_{i0}(1)$, so:
+
+$$\text{E}[Y_{i1} - Y_{i0} \mid D_i = 1] = \text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1].$$
+
+**Control group** ($D_i = 0$): we observe $Y_{i1} = Y_{i1}(0)$ and $Y_{i0} = Y_{i0}(0)$, so:
+
+$$\text{E}[Y_{i1} - Y_{i0} \mid D_i = 0] = \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].$$
+
+**Subtract:**
+
+$$\beta = \text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].$$
+</details>
+
+---
+
+## Part 3: Connecting DID to the ATT (key derivation)
+
+**(c)** Start from part (b). Inside the first expectation, **add and subtract** $Y_{i1}(0)$ and $Y_{i0}(0)$. Rearrange to show:
+
+$$\beta = \underbrace{\text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]}_{\text{ATT}} + \underbrace{\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]}_{\text{difference in trends}} + \underbrace{\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]}_{\text{anticipation effect}}.$$
+
+<span class="hint">Hint: This is the decomposition from Lecture 16, slide 3. Add zero in a clever way, then regroup into three pairs.</span>
+
+<details class="solution">
+<summary>Solution</summary>
+
+Start from part (b):
+
+$$\beta = \text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].$$
+
+**Step 1: Add and subtract inside the first term.** Focus on $\text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1]$. We insert $(-Y_{i1}(0) + Y_{i1}(0))$ and $(-Y_{i0}(0) + Y_{i0}(0))$ --- each pair sums to zero:
+
+$$Y_{i1}(1) - Y_{i0}(1) = Y_{i1}(1) \underbrace{- Y_{i1}(0) + Y_{i1}(0)}_{=\,0} \underbrace{- Y_{i0}(0) + Y_{i0}(0)}_{=\,0} - Y_{i0}(1).$$
+
+**Step 2: Regroup into three pairs.** Rearrange these six terms:
+
+$$= \underbrace{(Y_{i1}(1) - Y_{i1}(0))}_{\text{treatment effect at } t=1} + \underbrace{(Y_{i1}(0) - Y_{i0}(0))}_{\text{untreated trend}} + \underbrace{(Y_{i0}(0) - Y_{i0}(1))}_{\text{anticipation}}.$$
+
+**Algebra check:** $(Y_{i1}(1) - Y_{i1}(0)) + (Y_{i1}(0) - Y_{i0}(0)) + (Y_{i0}(0) - Y_{i0}(1))$. Cancel adjacent terms: $Y_{i1}(0)$ cancels, $Y_{i0}(0)$ cancels, leaving $Y_{i1}(1) - Y_{i0}(1)$. $\checkmark$
+
+**Step 3: Take expectations and subtract the control change.** By linearity:
+
+\begin{align*}
+\text{E}[Y_{i1}(1) - Y_{i0}(1) \mid D_i = 1]
+&= \text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1] \\
+&\quad + \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] \\
+&\quad + \text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1].
+\end{align*}
+
+Substitute back into the DID expression and use the definition $\text{ATT} = \text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]$:
+
+\begin{align*}
+\beta &= \underbrace{\text{E}[Y_{i1}(1) - Y_{i1}(0) \mid D_i = 1]}_{\text{ATT}} \\
+&\quad + \underbrace{\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]}_{\text{difference in trends}} \\
+&\quad + \underbrace{\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]}_{\text{anticipation effect}}.
+\end{align*}
+
+$\beta$ equals the ATT *plus* two bias terms. For $\beta = \text{ATT}$, both must be zero. Let us build intuition for each bias term before stating the assumptions that eliminate them.
+</details>
+
+::: {.book-example}
+<div class="header">Intuition: what do the two bias terms mean?</div>
+
+**1. Difference in trends** $= \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]$.
+
+DID uses the control group's change over time as a stand-in for how the treated group *would have changed without treatment*. This only works if both groups were on the same trajectory. If not, the control group's change is a bad counterfactual.
+
+*Example.* A government offers a job training programme to unemployed workers in City A ($D_i = 1$). City B ($D_i = 0$) serves as the control. You compare earnings before and after the programme. But suppose City A's economy was already recovering faster than City B's --- a new factory was opening, unrelated to the programme. Then City A workers' earnings would have grown faster *even without training*. DID would attribute this faster growth to the programme, overstating its effect.
+
+The "difference in trends" term captures exactly this: how much the treated group's *untreated* trajectory differs from the control group's trajectory. If they differ, DID is biased.
+
+**2. Anticipation effect** $= \text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]$.
+
+DID compares the treated group's outcome *before* and *after* treatment. This requires that the "before" measurement is clean --- not already affected by the upcoming treatment. If treated individuals change their behaviour *before* treatment starts (because they know it is coming), the pre-period outcome is contaminated.
+
+*Example.* A city announces in January that a sugary drink tax will take effect in July. You measure soda sales in June (before) and August (after). But consumers already started buying less soda in June because they knew the tax was coming. The June sales are *already depressed* by the anticipated tax. So the before-vs-after change for the treated group looks *smaller* than the true effect --- DID underestimates.
+
+The "anticipation" term captures this: how much the pre-period outcome for the treated group is shifted by their knowledge of future treatment.
+:::
+
+---
+
+## Part 4: The two assumptions
+
+**(d)** **Parallel trends.** State the assumption that kills the "difference in trends" term. Show it does *not* require equal levels across groups.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Assumption (Parallel Trends):**
+
+$$\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] = \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].$$
+
+Absent treatment, both groups would have experienced the same average change over time. In the job training example: City A and City B would have had the same earnings growth if the programme had not existed.
+
+**Does not require equal levels.** Suppose $Y_{it}(0) = \alpha_i + \delta \cdot t$. Then for any group $d$:
+
+$$\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = d] = \text{E}[\alpha_i + \delta - \alpha_i \mid D_i = d] = \delta.$$
+
+The individual effect $\alpha_i$ cancels. Even if $\text{E}[\alpha_i \mid D_i = 1] \neq \text{E}[\alpha_i \mid D_i = 0]$ (different levels), the *change* is $\delta$ for both groups. This is the Lecture 16 diagram: different starting heights ($\alpha$ vs. $\alpha + \gamma$), same slope ($\delta$).
+</details>
+
+---
+
+**(e)** **No anticipation.** State the assumption that kills the "anticipation effect" term. Give an example of when it might fail.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Assumption (No Anticipation):**
+
+$$\text{E}[Y_{i0}(1) \mid D_i = 1] = \text{E}[Y_{i0}(0) \mid D_i = 1].$$
+
+Being assigned to the treatment group does not affect pre-treatment outcomes in expectation. In the soda tax example: consumers do not change their purchasing behaviour before the tax takes effect.
+
+When this holds, $\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1] = 0$.
+
+**Failure example:** a minimum wage increase is announced six months before it takes effect. Employers start cutting hours *immediately* in anticipation. Then $Y_{i0}(1) \neq Y_{i0}(0)$ --- the pre-period outcome is already contaminated, and DID underestimates the total effect because part of it happened "before."
+</details>
+
+---
+
+**(f)** Combine parts (c)--(e). Show $\beta = \text{ATT}$. State which assumption eliminates which term.
+
+<details class="solution">
+<summary>Solution</summary>
+
+From part (c):
+
+$$\beta = \text{ATT} + \underbrace{\text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0]}_{= 0 \text{ by **parallel trends** (part d)}} + \underbrace{\text{E}[Y_{i0}(0) - Y_{i0}(1) \mid D_i = 1]}_{= 0 \text{ by **no anticipation** (part e)}}.$$
+
+Both bias terms vanish:
+
+$$\boxed{\beta = \text{ATT}.}$$
+</details>
+
+---
+
+## Part 5: From DID to the regression
+
+**(g)** Recall the DID regression from Lecture 16:
+
+$$Y_{it} = \alpha + \delta \cdot t + \gamma D_i + \beta(t \cdot D_i) + U_{it}, \qquad \text{E}[U_{it} \mid D_i] = 0.$$
+
+Evaluate $\text{E}[Y_{it} \mid D_i]$ at each of the four cells. Then compute the double difference and show it equals $\beta$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Step 1: Four cell means.**
+
+\begin{align*}
+t = 0, \; D_i = 0: \quad & \text{E}[Y_{i0} \mid D_i = 0] = \alpha \\
+t = 0, \; D_i = 1: \quad & \text{E}[Y_{i0} \mid D_i = 1] = \alpha + \gamma \\
+t = 1, \; D_i = 0: \quad & \text{E}[Y_{i1} \mid D_i = 0] = \alpha + \delta \\
+t = 1, \; D_i = 1: \quad & \text{E}[Y_{i1} \mid D_i = 1] = \alpha + \delta + \gamma + \beta
+\end{align*}
+
+This is the $2 \times 2$ table from Lecture 16:
+
+|  | $D_i = 0$ (Control) | $D_i = 1$ (Treatment) |
+|:--|:--:|:--:|
+| $t = 0$ | $\alpha$ | $\alpha + \gamma$ |
+| $t = 1$ | $\alpha + \delta$ | $\alpha + \delta + \gamma + \beta$ |
+
+**Step 2: Double difference.**
+
+Treatment change: $(\alpha + \delta + \gamma + \beta) - (\alpha + \gamma) = \delta + \beta$.
+
+Control change: $(\alpha + \delta) - \alpha = \delta$.
+
+DID: $(\delta + \beta) - \delta = \beta$. The common trend $\delta$ cancels. $\checkmark$
+
+**Why OLS gives this exactly:** the model has four parameters ($\alpha, \delta, \gamma, \beta$) and four cells --- a **saturated model**. OLS fits cell means exactly, so:
+
+$$\hat{\beta} = (\bar{Y}_{1,1} - \bar{Y}_{1,0}) - (\bar{Y}_{0,1} - \bar{Y}_{0,0}).$$
+</details>
+
+---
+
+## Part 6: What goes wrong when parallel trends fails
+
+**(h)** Suppose no anticipation holds but parallel trends does not. Show that $\beta = \text{ATT} + B$, where:
+
+$$B = \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 1] - \text{E}[Y_{i1}(0) - Y_{i0}(0) \mid D_i = 0].$$
+
+Give an example where $B > 0$ and one where $B < 0$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+Under no anticipation only, the decomposition from part (c) becomes:
+
+$$\beta = \text{ATT} + B.$$
+
+$B > 0$ **(DID overestimates):** the treated group was on a steeper upward trajectory even without treatment. DID attributes part of this steeper trend to the treatment effect.
+
+$B < 0$ **(DID underestimates):** this is the Lecture 16 incinerator example. Near houses are systematically older; older houses appreciate more slowly. The treated group's counterfactual trend is *flatter*, so $B < 0$. The basic DID ($\hat{\beta} = -\$11{,}864$) underestimated the negative effect. After controlling for age, $\hat{\beta}$ nearly doubled to $-\$21{,}920$.
+
+Estimated bias: $-\$11{,}864 - (-\$21{,}920) \approx +\$10{,}056$.
+</details>
+
+---
+
+## Part 7: Numerical verification
+
+Consider $n = 4$ individuals. The column $Y_{i1}(0)$ is **unobserved** for treated units; shown only for verification. Assume no anticipation holds, so $Y_{i0}(1) = Y_{i0}(0)$ for treated units.
+
+| $i$ | $D_i$ | $Y_{i0}$ | $Y_{i1}$ | $Y_{i1}(0)$ | $Y_{i1}(0) - Y_{i0}$ |
+|:--:|:--:|:--:|:--:|:--:|:--:|
+| 1 | 1 | 5 | 12 | 8 | 3 |
+| 2 | 1 | 7 | 15 | 10 | 3 |
+| 3 | 0 | 4 | 7 | 7 | 3 |
+| 4 | 0 | 6 | 9 | 9 | 3 |
+
+**(i)** Verify parallel trends. Compute the true ATT. Compute DID from observed data only and confirm $\hat{\beta} = \text{ATT}$.
+
+<details class="solution">
+<summary>Solution</summary>
+
+**Parallel trends:** Counterfactual change for treated: $\frac{(8-5)+(10-7)}{2} = 3$. Change for controls: $\frac{(7-4)+(9-6)}{2} = 3$. Equal. $\checkmark$
+
+**True ATT:** $\frac{(12-8)+(15-10)}{2} = \frac{4+5}{2} = 4.5$.
+
+**DID (observed data only):**
+
+$$\hat{\beta} = \underbrace{\frac{(12-5)+(15-7)}{2}}_{7.5} - \underbrace{\frac{(7-4)+(9-6)}{2}}_{3} = 4.5 = \text{ATT}. \quad \checkmark$$
+
+The control group's observed change (3) stands in for the treated group's unobserved counterfactual change (also 3).
+</details>
+
+---
+
+**(j)** Read off the OLS coefficients $\hat{\alpha}, \hat{\delta}, \hat{\gamma}, \hat{\beta}$ from the cell means and verify against the $2 \times 2$ table.
+
+<details class="solution">
+<summary>Solution</summary>
+
+Cell means: $\bar{Y}_{0,0} = 5$, $\bar{Y}_{1,0} = 6$, $\bar{Y}_{0,1} = 8$, $\bar{Y}_{1,1} = 13.5$.
+
+\begin{align*}
+\hat{\alpha} &= \bar{Y}_{0,0} = 5 & &\text{(control baseline)} \\
+\hat{\gamma} &= \bar{Y}_{1,0} - \bar{Y}_{0,0} = 1 & &\text{(pre-existing group gap)} \\
+\hat{\delta} &= \bar{Y}_{0,1} - \bar{Y}_{0,0} = 3 & &\text{(common time trend)} \\
+\hat{\beta} &= (\bar{Y}_{1,1} - \bar{Y}_{1,0}) - (\bar{Y}_{0,1} - \bar{Y}_{0,0}) = 4.5 & &\text{(treatment effect)}
+\end{align*}
+
+Verify: $\hat{\alpha} + \hat{\delta} + \hat{\gamma} + \hat{\beta} = 5 + 3 + 1 + 4.5 = 13.5 = \bar{Y}_{1,1}$. $\checkmark$
+</details>
